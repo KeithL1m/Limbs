@@ -31,6 +31,9 @@ public class Player : MonoBehaviour
     PlayerMovement _playerMovement;
     PlayerJump _playerJump;
     PlayerHealth _health;
+    [SerializeField]
+    private int playerWins;
+
 
     public float _throwLimbInput;
     bool _canThrow;

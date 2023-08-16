@@ -1,27 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ArrowIndicator : MonoBehaviour
 {
-    public Transform _target;
-    //public Player _playerTarget;
-    public float _hideDistance;
 
+    public List<PlayerInput> _players = new List<PlayerInput>();
+    //public Transform _target;
+    public float _hideDistance;
+    void Start()
+    {
+
+    }
     void Update()
     {
-        var dir = _target.transform.position - transform.position;
-        if(dir.magnitude < _hideDistance)
+        for (int i = 0; i < _players.Count; i++)
         {
-            SetChildActive(false);
-        }
-        else
-        {
-            SetChildActive(true);
+            var dir = _players[i].transform.position - transform.position;
+            if (dir.magnitude < _hideDistance)
+            {
+                SetChildActive(false);
+            }
+            else
+            {
+                SetChildActive(true);
 
-            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            }
         }
+
     }
 
     void SetChildActive(bool value)
@@ -32,3 +41,5 @@ public class ArrowIndicator : MonoBehaviour
         }
     }
 }
+
+
