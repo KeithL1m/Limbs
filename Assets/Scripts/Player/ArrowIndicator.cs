@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ArrowIndicator : MonoBehaviour
 {
-    public Transform _target;
-    //public Player _playerTarget;
+    /*public Transform _target;
+    public Player _playerTarget;
     public float _hideDistance;
 
     void Update()
     {
-        var dir = _target.transform.position - transform.position;
+        //var dir = _target.transform.position - transform.position;
         if(dir.magnitude < _hideDistance)
         {
             SetChildActive(false);
@@ -30,5 +30,5 @@ public class ArrowIndicator : MonoBehaviour
         {
             child.gameObject.SetActive(value);
         }
-    }
+    }*/
 }

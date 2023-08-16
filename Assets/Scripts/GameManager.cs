@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     void OnPlayerJoined(PlayerInput playerInput)
     {
+        Debug.Log("JOINED");
         playerList.Add(playerInput);
 
         if (PlayerJoinedGame != null)
@@ -56,7 +57,31 @@ public class GameManager : MonoBehaviour
 
     void LeaveAction(InputAction.CallbackContext context)
     {
+        if (playerList.Count > 1)
+        {
+            foreach (var player in playerList)
+            {
+                foreach(var device in player.devices)
+                {
+                    if (device != null && context.control.device == device)
+                    {
+                        UnregisterPlayer(player);
+                        break;
+                    }
+                }
+            }
+        }
+    }
 
+    void UnregisterPlayer(PlayerInput playerInput)
+    {
+        playerList.Remove(playerInput);
 
+        if (PlayerLeftGame != null)
+        {
+            PlayerLeftGame(playerInput);
+        }
+
+        Destroy(playerInput.transform.parent.gameObject);
     }
 }
