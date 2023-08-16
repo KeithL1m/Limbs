@@ -15,4 +15,5 @@ public class LimbData : ScriptableObject
     public float _knockbackLength;
     public float _damage;
     public float _specialDamage;
+
 }
