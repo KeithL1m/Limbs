@@ -7,7 +7,8 @@ public class ArrowIndicator : MonoBehaviour
 {
 
     public List<PlayerInput> _players = new List<PlayerInput>();
-    //public Transform _target;
+    public Transform _target;
+
     public float _hideDistance;
     void Start()
     {
@@ -15,20 +16,20 @@ public class ArrowIndicator : MonoBehaviour
     }
     void Update()
     {
-        for (int i = 0; i < _players.Count; i++)
-        {
-            var dir = _players[i].transform.position - transform.position;
-            if (dir.magnitude < _hideDistance)
-            {
-                SetChildActive(false);
-            }
-            else
-            {
-                SetChildActive(true);
 
-                var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            }
+
+        var dir = _target.transform.position - transform.position;
+        if(dir.magnitude < _hideDistance)
+        {
+            SetChildActive(false);
+        }
+        else
+        {
+              SetChildActive(true);
+
+               var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+               transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+           
         }
 
     }
