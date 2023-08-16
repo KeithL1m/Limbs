@@ -77,7 +77,6 @@ public class Limb : MonoBehaviour
             PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
             _healthPlayer.AddDamage(_damage + _specialDamage);
             ReturnLimb();
-
         }
     }
 

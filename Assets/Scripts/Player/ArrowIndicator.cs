@@ -5,7 +5,7 @@ using UnityEngine;
 public class ArrowIndicator : MonoBehaviour
 {
     public Transform _target;
-    public Player _playerTarget;
+    //public Player _playerTarget;
     public float _hideDistance;
 
     void Update()

@@ -24,7 +24,7 @@ public class LimbManager : MonoBehaviour
             {
                 _limbs[i].transform.position = _limbs[i]._anchorPoint.position;
             }
-            else if (_limbs[i]._limbState == Limb.LimbState.Throwing)
+            else if (_limbs[i]._limbState == Limb.LimbState.Throwing || _limbs[i]._limbState == Limb.LimbState.Returning)
             {
                 _limbs[i]._attachedPlayer.RemoveLimb(_limbs[i]);
                 if (_limbs[i].GetComponent<Rigidbody2D>().velocity.magnitude < 4.0f)
