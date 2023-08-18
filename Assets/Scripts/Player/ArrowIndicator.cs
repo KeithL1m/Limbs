@@ -7,6 +7,7 @@ public class ArrowIndicator : MonoBehaviour
 {
 
     public List<PlayerInput> _players = new List<PlayerInput>();
+    PlayerInput _basePlayer;
     public Transform _target;
 
     public float _hideDistance;
@@ -17,6 +18,8 @@ public class ArrowIndicator : MonoBehaviour
     void Update()
     {
 
+        var player = Instantiate(_basePlayer);
+        _players.Add(player);
 
         var dir = _target.transform.position - transform.position;
         if(dir.magnitude < _hideDistance)
