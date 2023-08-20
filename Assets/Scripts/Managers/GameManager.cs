@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Manager
 {
     public List<PlayerInput> playerList = new List<PlayerInput>();
 
