@@ -5,7 +5,10 @@ using UnityEngine.InputSystem;
 
 public class GameManager : Manager
 {
+    private PlayerInputManager playerManager;
     public List<PlayerInput> playerList = new List<PlayerInput>();
+    public List<GameObject> spawnPoints = new List<GameObject>();
+    private int playerCount;
 
     [SerializeField] InputAction joinAction;
     [SerializeField] InputAction leaveAction;
@@ -15,29 +18,69 @@ public class GameManager : Manager
     public event System.Action<PlayerInput> PlayerJoinedGame;
     public event System.Action<PlayerInput> PlayerLeftGame;
 
+    bool startScreen = true;
+
     void Awake()
     {
+        DontDestroyOnLoad(this);
         if (instance == null)
         {
             instance = this;
         }
 
+        playerManager = PlayerInputManager.instance;
+
+        playerManager.onPlayerJoined += OnPlayerJoined;
+        playerManager.onPlayerLeft += OnPlayerLeft;
+
         joinAction.Enable();
         joinAction.performed += context => JoinAction(context);
 
         leaveAction.Enable();
-        joinAction.performed += context => LeaveAction(context);
+        leaveAction.performed += context => LeaveAction(context);
     }
 
-    // Update is called once per frame
-    void Start()
+    private void Start()
     {
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spawn");
+        for (int i = 0; i < gameObjects.Length; i++)
+        {
+            spawnPoints.Add(gameObjects[i]);
+        }
     }
 
-    void OnPlayerJoined(PlayerInput playerInput)
+    override public void OnStart()
+    {
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spawn");
+        for (int i = 0; i < gameObjects.Length; i++)
+        {
+            spawnPoints.Add(gameObjects[i]);
+        }
+
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            SpawnPlayer(i);
+        }
+    }
+
+    private void Update()
+    {
+        if (startScreen)
+        {
+            if (Input.GetKeyDown(KeyCode.Return) && playerList.Count > 1)
+            {
+                startScreen = false;
+                MapManager.instance.LoadMap();
+            }
+        }
+    }
+
+    public void OnPlayerJoined(PlayerInput playerInput)
     {
         Debug.Log("JOINED");
         playerList.Add(playerInput);
+        DontDestroyOnLoad(playerList[playerCount]);
+        playerCount++;
 
         if (PlayerJoinedGame != null)
         {
@@ -45,18 +88,19 @@ public class GameManager : Manager
         }
     }
 
-    void OnPlayerLeft(PlayerInput playerInput)
+    public void OnPlayerLeft(PlayerInput playerInput)
     {
 
     }
 
     void JoinAction(InputAction.CallbackContext context)
     {
-        PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(context);
+        playerManager.JoinPlayerFromActionIfNotAlreadyJoined(context);
     }
 
     void LeaveAction(InputAction.CallbackContext context)
     {
+        Debug.Log("We leaving");
         if (playerList.Count > 1)
         {
             foreach (var player in playerList)
@@ -66,7 +110,7 @@ public class GameManager : Manager
                     if (device != null && context.control.device == device)
                     {
                         UnregisterPlayer(player);
-                        break;
+                        return;
                     }
                 }
             }
@@ -82,6 +126,11 @@ public class GameManager : Manager
             PlayerLeftGame(playerInput);
         }
 
-        Destroy(playerInput.transform.parent.gameObject);
+        Destroy(playerInput.transform.gameObject);
+    }
+
+    void SpawnPlayer(int playerNum)
+    {
+        playerList[playerNum].transform.position = spawnPoints[playerNum].transform.position;
     }
 }
