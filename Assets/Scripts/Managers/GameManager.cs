@@ -5,10 +5,10 @@ using UnityEngine.InputSystem;
 
 public class GameManager : Manager
 {
-    private PlayerInputManager playerManager;
     public List<PlayerInput> playerList = new List<PlayerInput>();
     public List<GameObject> spawnPoints = new List<GameObject>();
     private int playerCount;
+    private int deadPlayers;
 
     [SerializeField] InputAction joinAction;
     [SerializeField] InputAction leaveAction;
@@ -28,10 +28,8 @@ public class GameManager : Manager
             instance = this;
         }
 
-        playerManager = PlayerInputManager.instance;
-
-        playerManager.onPlayerJoined += OnPlayerJoined;
-        playerManager.onPlayerLeft += OnPlayerLeft;
+        PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
+        PlayerInputManager.instance.onPlayerLeft += OnPlayerLeft;
 
         joinAction.Enable();
         joinAction.performed += context => JoinAction(context);
@@ -42,11 +40,7 @@ public class GameManager : Manager
 
     private void Start()
     {
-        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spawn");
-        for (int i = 0; i < gameObjects.Length; i++)
-        {
-            spawnPoints.Add(gameObjects[i]);
-        }
+
     }
 
     override public void OnStart()
@@ -73,7 +67,41 @@ public class GameManager : Manager
                 MapManager.instance.LoadMap();
             }
         }
+        else
+        {
+            CheckGameOver();
+        }
     }
+
+
+    void CheckGameOver()
+    {
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            if (playerList[i].GetComponent<PlayerHealth>().IsDead())
+            {
+                deadPlayers++;
+            }
+        }
+
+        if (deadPlayers + 1 == playerList.Count)
+        {
+            deadPlayers = 0;
+            spawnPoints.Clear();
+            MapManager.instance.LoadMap();
+        }
+    }
+
+    void SpawnPlayer(int playerNum)
+    {
+        playerList[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        playerList[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        playerList[playerNum].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+        playerList[playerNum].transform.position = spawnPoints[playerNum].transform.position;
+        playerList[playerNum].GetComponent<PlayerHealth>()._isDead = false;
+    }
+
+    //player joining/leaving functions
 
     public void OnPlayerJoined(PlayerInput playerInput)
     {
@@ -95,7 +123,7 @@ public class GameManager : Manager
 
     void JoinAction(InputAction.CallbackContext context)
     {
-        playerManager.JoinPlayerFromActionIfNotAlreadyJoined(context);
+        PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(context);
     }
 
     void LeaveAction(InputAction.CallbackContext context)
@@ -129,8 +157,4 @@ public class GameManager : Manager
         Destroy(playerInput.transform.gameObject);
     }
 
-    void SpawnPlayer(int playerNum)
-    {
-        playerList[playerNum].transform.position = spawnPoints[playerNum].transform.position;
-    }
 }
