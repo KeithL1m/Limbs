@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     private float _maxHealth;
 
     public float _health;
+    public bool _isDead = false;
     private Transform _spawnPoint;
 
     private void Start()
@@ -29,11 +30,13 @@ public class PlayerHealth : MonoBehaviour
         _health -= damage;
     }
 
-    public bool IsDead() { return _health < 0; }
+    public bool IsDead() { return _isDead; }
 
     public void KillPlayer()
     {
         _health = _maxHealth;
-        transform.position = new Vector3(_spawnPoint.position.x, _spawnPoint.position.y, 0f);
+        _isDead = true;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        transform.position = new Vector3(0, 10, 0);
     }
 }

@@ -36,8 +36,6 @@ public class LimbSpawning : MonoBehaviour
     private float _spawnPosX;
     private float _spawnPosY;
 
-    private float _angularVelocity;
-
     private static System.Random rnd = new System.Random();
 
     private void Start()

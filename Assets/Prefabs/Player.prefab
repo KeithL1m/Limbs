@@ -219,7 +219,7 @@ MonoBehaviour:
     m_ActionId: d3fc1bfd-3dfd-4a53-a022-8d70cb5eaeb2
     m_ActionName: Gameplay/Strafe[/Keyboard/leftShift,/DualSenseGamepadHID/leftShoulder]
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: Controller
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -256,6 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b6f88f90005fe4bbaa2d53382aba45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerWins: 0
   _throwLimbInput: 0
   _strafeInput: 0
   _limbs: []
