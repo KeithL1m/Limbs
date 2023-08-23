@@ -8,7 +8,7 @@ public class GameManager : Manager
     public List<PlayerInput> playerList = new List<PlayerInput>();
     public List<GameObject> spawnPoints = new List<GameObject>();
     private int playerCount;
-    private int deadPlayers;
+    public int deadPlayers;
 
     [SerializeField] InputAction joinAction;
     [SerializeField] InputAction leaveAction;
@@ -84,11 +84,15 @@ public class GameManager : Manager
             }
         }
 
-        if (deadPlayers + 1 == playerList.Count)
+        if (deadPlayers == 3)
         {
             deadPlayers = 0;
             spawnPoints.Clear();
             MapManager.instance.LoadMap();
+        }
+        else
+        {
+            deadPlayers = 0;
         }
     }
 
