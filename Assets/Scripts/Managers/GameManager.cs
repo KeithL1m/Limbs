@@ -94,6 +94,7 @@ public class GameManager : Manager
 
     void SpawnPlayer(int playerNum)
     {
+        playerList[playerNum].GetComponent<Player>().ClearLimbs();
         playerList[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         playerList[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         playerList[playerNum].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);

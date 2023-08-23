@@ -78,13 +78,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        //for testing
-        if (_limbs[(int)_selectedLimb] != null)
-        {
-            _limbs[(int)_selectedLimb].GetComponent<SpriteRenderer>().color = Color.red;
-        }
-
-
         if (_playerMovement.facingRight)
         {
             direction = 1;
@@ -164,13 +157,11 @@ public class Player : MonoBehaviour
             _limbs[i]._limbType = Limb.LimbType.Leg;
             if (i == 1)
             {
-                _limbs[(int)_selectedLimb].GetComponent<SpriteRenderer>().color = Color.green;
                 _selectedLimb++;
             }
         }
         else
         {
-            _limbs[(int)_selectedLimb].GetComponent<SpriteRenderer>().color = Color.green;
             _selectedLimb++;
             _limbs[i]._limbType = Limb.LimbType.Arm;
         }
@@ -210,5 +201,15 @@ public class Player : MonoBehaviour
             return;
         }
         _limbState = LimbState.NoLimb;
+    }
+
+    public void ClearLimbs()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            _limbs[i] = null;
+        }
+
+        _selectedLimb = SelectedLimb.LeftLeg;
     }
 }
