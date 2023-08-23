@@ -84,7 +84,7 @@ public class GameManager : Manager
             }
         }
 
-        if (deadPlayers == 3)
+        if (deadPlayers == playerCount-1)
         {
             deadPlayers = 0;
             spawnPoints.Clear();
