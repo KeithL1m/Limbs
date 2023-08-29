@@ -53,6 +53,7 @@ public class GameManager : Manager
 
         for (int i = 0; i < playerList.Count; i++)
         {
+            playerList[i].GetComponent<PlayerHealth>().ResetHealth();
             SpawnPlayer(i);
         }
     }

@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Limb : MonoBehaviour
@@ -27,10 +26,15 @@ public class Limb : MonoBehaviour
 
     public LimbType _limbType; //this will help most with animations
     public LimbState _limbState;
-    private Vector2 _throwVelocity;
+
+    //limb properties
+    private Vector2 _throwVelocity; //used when not aiming
+    private float _throwSpeed; //used when aiming
     private float _angularVelocity;
     private float _damage;
     private float _specialDamage;
+
+    private Vector3 _returnVelocity;
 
     private void Start()
     {
@@ -41,6 +45,7 @@ public class Limb : MonoBehaviour
         float angle = _limbData._throwAngle * Mathf.Deg2Rad;
 
         _throwVelocity.x = _limbData._throwSpeed * Mathf.Cos(angle);
+        _throwSpeed = _limbData._throwSpeed;
         _throwVelocity.y = _limbData._throwSpeed * Mathf.Sin(angle);
         _angularVelocity = _limbData._angularVelocity;
         _damage = _limbData._damage;
@@ -51,9 +56,19 @@ public class Limb : MonoBehaviour
     {
         _rb.simulated = true;
         _limbState = LimbState.Throwing;
-        _throwVelocity.x = Mathf.Abs(_throwVelocity.x);
-        _throwVelocity.x *= direction;
-        _rb.velocity = _throwVelocity;
+
+        if (_attachedPlayer._aim.x == 0.0f && _attachedPlayer._aim.y == 0.0f)
+        {
+            _throwVelocity.x = Mathf.Abs(_throwVelocity.x);
+            _throwVelocity.x *= direction;
+            _rb.velocity = _throwVelocity;
+        }
+        else
+        {
+            Vector2 tVelocity = _attachedPlayer._aim;
+            tVelocity *= _throwSpeed;
+            _rb.velocity = tVelocity;
+        }
         _rb.angularVelocity = _angularVelocity;
     }
 
@@ -61,7 +76,7 @@ public class Limb : MonoBehaviour
     {
         _limbState = LimbState.Returning;
         _throwVelocity.x *= -1;
-        _rb.velocity = _throwVelocity;
+        _rb.velocity = _returnVelocity;
     }
 
     public void LimbAttack()
@@ -129,6 +144,11 @@ public class Limb : MonoBehaviour
             {
                 _rb.SetRotation(0);
             }
+        }
+
+        if (_limbState == LimbState.Throwing)
+        {
+            _returnVelocity = -_rb.velocity;
         }
     }
 }

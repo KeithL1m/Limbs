@@ -9,12 +9,10 @@ public class PlayerHealth : MonoBehaviour
 
     public float _health;
     public bool _isDead = false;
-    private Transform _spawnPoint;
 
     private void Start()
     {
         _health = _maxHealth;
-        _spawnPoint = GameObject.FindGameObjectWithTag("Respawn").GetComponent<Transform>();
     }
 
     private void Update()
@@ -34,9 +32,13 @@ public class PlayerHealth : MonoBehaviour
 
     public void KillPlayer()
     {
-        _health = _maxHealth;
         _isDead = true;
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         transform.position = new Vector3(0, 10, 0);
+    }
+
+    public void ResetHealth()
+    {
+        _health = _maxHealth;
     }
 }

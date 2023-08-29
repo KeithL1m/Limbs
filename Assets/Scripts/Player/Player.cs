@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int playerWins;
 
-
+    public Vector2 _aim;
     public float _throwLimbInput;
     bool _canThrow;
 
@@ -60,6 +60,9 @@ public class Player : MonoBehaviour
 
     //facing left = -1, right = 1
     public int direction;
+
+    [SerializeField]
+    Transform _aimTransform;
 
 
     private void Awake()
@@ -118,6 +121,23 @@ public class Player : MonoBehaviour
         if (_throwLimbInput == 0.0f)
         {
             _canThrow = true;
+        }
+
+        //updating arrow
+        if (_aim.x == 0.0f && _aim.y == 0.0f)
+        {
+            if (direction == 1)
+            {
+                _aimTransform.eulerAngles = new Vector3(0, 0, -180);
+            }
+            else
+            {
+                _aimTransform.eulerAngles = new Vector3(0, 0, 0);
+            }
+        }
+        else
+        {
+            _aimTransform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-_aim.y, -_aim.x) * Mathf.Rad2Deg);
         }
     }
 
@@ -186,6 +206,8 @@ public class Player : MonoBehaviour
     public void ThrowLimbInput(InputAction.CallbackContext ctx) => _throwLimbInput = ctx.ReadValue<float>();
 
     public void StrafeInput(InputAction.CallbackContext ctx) => _strafeInput = ctx.ReadValue<float>();
+
+    public void AimInput(InputAction.CallbackContext ctx) => _aim = ctx.action.ReadValue<Vector2>();
 
     public void CheckLimbState()
     {
