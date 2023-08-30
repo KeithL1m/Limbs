@@ -8,6 +8,8 @@ public class PlayerManager : Manager
     public GameObject arrowIndicatorPrefab;
     List<Player> _playerList = new List<Player>();
     public Player this[int playerNumber] { get { return _playerList[playerNumber]; } }
+
+    public static PlayerManager instance;
     
     public void AddPlayer(Player player)
     {
@@ -21,11 +23,12 @@ public class PlayerManager : Manager
         arrowIndicator.transform.SetParent(_basePlayer.transform);
     }
 
-    void Update()
+     public PlayerManager Get()
     {
-        if(true) // player input condition
+        if (instance == null)
         {
-            AddPlayer(_basePlayer);
+            instance = this;
         }
+        return instance;
     }
 }
