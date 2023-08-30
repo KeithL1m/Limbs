@@ -14,6 +14,7 @@ public class GameManager : Manager
     [SerializeField] InputAction leaveAction;
 
     public static GameManager instance = null;
+    public static PlayerManager playerInstance = null;
 
     public event System.Action<PlayerInput> PlayerJoinedGame;
     public event System.Action<PlayerInput> PlayerLeftGame;
@@ -98,14 +99,15 @@ public class GameManager : Manager
 
     void SpawnPlayer(int playerNum)
     {
-        PlayerManager.instance.AddPlayer(playerList[playerNum].GetComponent<Player>());
-
-        playerList[playerNum].GetComponent<Player>().ClearLimbs();
-        playerList[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-        playerList[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-        playerList[playerNum].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+        PlayerManager.instance.AddPlayer(playerList[playerNum].GetComponent<PlayerInput>());
         playerList[playerNum].transform.position = spawnPoints[playerNum].transform.position;
-        playerList[playerNum].GetComponent<PlayerHealth>()._isDead = false;
+
+        //playerList[playerNum].GetComponent<Player>().ClearLimbs();
+        //playerList[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        //playerList[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        //playerList[playerNum].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+        //playerList[playerNum].transform.position = spawnPoints[playerNum].transform.position;
+        //playerList[playerNum].GetComponent<PlayerHealth>()._isDead = false;
 
     }
 
