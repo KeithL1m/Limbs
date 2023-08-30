@@ -113,15 +113,6 @@ public class Limb : MonoBehaviour
         if (collision.gameObject.GetComponent<Player>().CanPickUpLimb(this))
         {
             _attachedPlayer = collision.gameObject.GetComponent<Player>();
-            if (_limbType == LimbType.Arm)
-            {
-
-                _rb.SetRotation(90);
-            }
-            if (_limbType == LimbType.Leg)
-            {
-                _rb.SetRotation(0);
-            }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

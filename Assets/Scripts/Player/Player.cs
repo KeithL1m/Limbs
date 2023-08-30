@@ -180,11 +180,13 @@ public class Player : MonoBehaviour
             {
                 MoveBodyUp(i);
             }
+             _limbs[i].transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else
         {
             _selectedLimb++;
             _limbs[i]._limbType = Limb.LimbType.Arm;
+            _limbs[i].transform.rotation = Quaternion.Euler(0, 0, 90);
         }
 
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), true);
