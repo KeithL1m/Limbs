@@ -104,7 +104,8 @@ public class GameManager : Manager
         playerList[playerNum].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
         playerList[playerNum].transform.position = spawnPoints[playerNum].transform.position;
         playerList[playerNum].GetComponent<PlayerHealth>()._isDead = false;
-        PlayerManager.Get().AddPlayer(playerNum);
+
+        PlayerManager.instance.AddPlayer(playerList[playerNum].GetComponent<Player>());
     }
 
     //player joining/leaving functions

@@ -23,12 +23,4 @@ public class PlayerManager : Manager
         arrowIndicator.transform.SetParent(_basePlayer.transform);
     }
 
-     public PlayerManager Get()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        return instance;
-    }
 }
