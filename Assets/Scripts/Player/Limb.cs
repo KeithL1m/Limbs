@@ -28,6 +28,7 @@ public class Limb : MonoBehaviour
     public LimbState _limbState;
 
     //limb properties
+    public float _size;
     private Vector2 _throwVelocity; //used when not aiming
     private float _throwSpeed; //used when aiming
     private float _angularVelocity;
@@ -40,10 +41,11 @@ public class Limb : MonoBehaviour
     {
         _limbState = LimbState.PickUp;
         _rb = GetComponent<Rigidbody2D>();
-                            _rb.SetRotation(0);
+        _rb.SetRotation(0);
 
         float angle = _limbData._throwAngle * Mathf.Deg2Rad;
 
+        _size = _limbData._limbSize;
         _throwVelocity.x = _limbData._throwSpeed * Mathf.Cos(angle);
         _throwSpeed = _limbData._throwSpeed;
         _throwVelocity.y = _limbData._throwSpeed * Mathf.Sin(angle);
@@ -54,6 +56,7 @@ public class Limb : MonoBehaviour
 
     public void ThrowLimb(int direction)
     {
+        _attachedPlayer.MoveBodyDown();
         _rb.simulated = true;
         _limbState = LimbState.Throwing;
 
@@ -95,7 +98,7 @@ public class Limb : MonoBehaviour
         }
     }
 
-    // Limb knockback and pickup
+    // Limb pickup
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag != "Player")

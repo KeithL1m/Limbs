@@ -219,22 +219,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8385072269478469061}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: StrafeInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: d3fc1bfd-3dfd-4a53-a022-8d70cb5eaeb2
-    m_ActionName: Gameplay/Strafe[/Keyboard/leftShift,/DualSenseGamepadHID/leftShoulder]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8385072269478469061}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: AimInput
         m_Mode: 0
         m_Arguments:
@@ -286,8 +270,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.000000029802322, y: 0.38058}
-  m_Size: {x: 0.8722939, y: 2.140141}
+  m_Offset: {x: -0.0006723702, y: 0.38058}
+  m_Size: {x: 0.8709492, y: 2.140141}
   m_Direction: 0
 --- !u!114 &8385072269478469061
 MonoBehaviour:
@@ -308,16 +292,14 @@ MonoBehaviour:
   - {fileID: 8385072270821689308}
   _leftLaunchPoint: {fileID: 1648901180734710805}
   _rightLaunchPoint: {fileID: 3724963935484038554}
+  _aimTransform: {fileID: 6675063187238703603}
+  _collider: {fileID: 5770366546305474077}
+  _groundCheck: {fileID: 8385072270942222214}
   _aim: {x: 0, y: 0}
-  _throwLimbInput: 0
-  _strafeInput: 0
   _limbs: []
-  _limbCollider: {fileID: 0}
-  _playerCollider: {fileID: 0}
   _limbState: 0
   _movementState: 0
   direction: 0
-  _aimTransform: {fileID: 6675063187238703603}
 --- !u!114 &8385072269478469062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,10 +337,8 @@ MonoBehaviour:
   _jumpTime: 0.5
   _fallFasterGravityFactor: 2
   _earlyExitGravityFactor: 3
-  _maxJumpBufferTime: 0.4
+  _maxJumpBufferTime: 0.3
   _maxCoyoteTime: 0.33
-  _canDoubleJump: 0
-  _isDoubleJumping: 0
 --- !u!114 &1550446190603291940
 MonoBehaviour:
   m_ObjectHideFlags: 0

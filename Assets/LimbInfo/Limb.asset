@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc105bb179138bc4e9e731551038337b, type: 3}
   m_Name: Limb
   m_EditorClassIdentifier: 
+  _limbSize: 1
   _throwSpeed: 30.72
   _angularVelocity: 0
   _throwAngle: 0.5

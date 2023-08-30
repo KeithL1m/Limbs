@@ -7,6 +7,7 @@ using UnityEngine;
 public class LimbData : ScriptableObject
 {
     [Header("Stats")]
+    public float _limbSize;
     public float _throwSpeed;
     public float _angularVelocity;
     public float _throwAngle;

@@ -158,3 +158,4 @@ MonoBehaviour:
   _anchorPoint: {fileID: 0}
   _limbType: 0
   _limbState: 0
+  _size: 0

@@ -34,12 +34,16 @@ public class Player : MonoBehaviour
     [SerializeField] Transform _leftLaunchPoint;
     [SerializeField] Transform _rightLaunchPoint;
     [SerializeField] Transform _aimTransform;
+    [SerializeField] CapsuleCollider2D _collider;
+    [SerializeField] Transform _groundCheck;
 
     //input 
     [HideInInspector]
     public Vector2 _aim;
     float _throwLimbInput;
     bool _canThrow;
+    Vector2 _originalSize;
+    Vector2 _originalOffset;
 
     //the location of the limb in the list dictates what limb it is
     //left leg
@@ -66,7 +70,8 @@ public class Player : MonoBehaviour
         {
             _limbs.Add(null);
         }
-
+        _originalSize = _collider.size; 
+        _originalOffset = _collider.offset;
     }
 
 
@@ -164,6 +169,16 @@ public class Player : MonoBehaviour
             if (i == 1)
             {
                 _selectedLimb++;
+
+                if (_limbs[1]._size > _limbs[0]._size)
+                {
+                    MoveBodyUp(i);
+                    _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + _limbs[0]._size);
+                }
+            }
+            else
+            {
+                MoveBodyUp(i);
             }
         }
         else
@@ -176,6 +191,32 @@ public class Player : MonoBehaviour
         _limbs[i]._anchorPoint = _limbAnchors[i].transform;
         _limbs[i]._limbState = Limb.LimbState.Attached;
         _limbs[i].GetComponent<Rigidbody2D>().simulated = false;
+    }
+
+    private void MoveBodyUp(int i)
+    {
+        _collider.size = new Vector2(_originalSize.x, _originalSize.y + _limbs[i]._size);
+        _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y - _limbs[i]._size * 0.5f);
+        _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y - _limbs[i]._size);
+    }
+
+    public void MoveBodyDown()
+    {
+        if (_selectedLimb == SelectedLimb.LeftArm || _selectedLimb == SelectedLimb.RightArm)
+            return;
+        if (_selectedLimb == SelectedLimb.RightLeg)
+        {
+            _collider.size = new Vector2(_originalSize.x, _originalSize.y + _limbs[0]._size);
+            _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y - _limbs[0]._size * 0.5f);
+            _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + _limbs[1]._size);
+            _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y - _limbs[0]._size);
+        }
+        else
+        {
+            _collider.size = new Vector2(_originalSize.x, _originalSize.y);
+            _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y);
+            _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + _limbs[0]._size);
+        }
     }
 
     public void RemoveLimb(Limb limb)
