@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2352175580849281687}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.012, y: 1.7889999, z: 0}
+  m_LocalPosition: {x: 0, y: 1.7889999, z: 0}
   m_LocalScale: {x: 0.73984843, y: 0.8864707, z: 0.73984843}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -127,11 +127,11 @@ GameObject:
   - component: {fileID: 5440911822492980829}
   - component: {fileID: 4770100084738489493}
   - component: {fileID: 8385072269478469067}
+  - component: {fileID: 5770366546305474077}
   - component: {fileID: 8385072269478469061}
   - component: {fileID: 8385072269478469062}
   - component: {fileID: 8385072269478469063}
   - component: {fileID: 1550446190603291940}
-  - component: {fileID: 5770366546305474077}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -293,6 +293,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!70 &5770366546305474077
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3732604927039312203}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0012722611, y: 1.221109}
+  m_Size: {x: 0.99762535, y: 2.0243332}
+  m_Direction: 0
 --- !u!114 &8385072269478469061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _2LegMoveSpeed: 10
   _1LegMoveSpeed: 8
-  _noLegSpeed: 4
+  _noLegSpeed: 6
   _hopForce: 5
   _maxHopTime: 0.3
   _startMovePoint: 0.5
@@ -377,22 +393,6 @@ MonoBehaviour:
   _maxHealth: 100
   _health: 0
   _isDead: 0
---- !u!70 &5770366546305474077
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3732604927039312203}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.00905633, y: 1.224974}
-  m_Size: {x: 1.0131935, y: 2.032063}
-  m_Direction: 0
 --- !u!1 &4756452088885083463
 GameObject:
   m_ObjectHideFlags: 0
