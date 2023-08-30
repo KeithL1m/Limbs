@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class GameManager : Manager
 {
     public List<PlayerInput> playerList = new List<PlayerInput>();
+
     public List<GameObject> spawnPoints = new List<GameObject>();
     private int playerCount;
     public int deadPlayers;
@@ -15,6 +16,7 @@ public class GameManager : Manager
 
     public static GameManager instance = null;
     public static PlayerManager playerInstance = null;
+    
 
     public event System.Action<PlayerInput> PlayerJoinedGame;
     public event System.Action<PlayerInput> PlayerLeftGame;
@@ -101,6 +103,8 @@ public class GameManager : Manager
     {
         PlayerManager.instance.AddPlayer(playerList[playerNum].GetComponent<PlayerInput>());
         playerList[playerNum].transform.position = spawnPoints[playerNum].transform.position;
+
+        
 
         //playerList[playerNum].GetComponent<Player>().ClearLimbs();
         //playerList[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
