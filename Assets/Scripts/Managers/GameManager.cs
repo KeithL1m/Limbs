@@ -15,8 +15,10 @@ public class GameManager : Manager
 
     public static GameManager instance = null;
 
+
     public event System.Action<PlayerInput> PlayerJoinedGame;
     public event System.Action<PlayerInput> PlayerLeftGame;
+
 
     bool startScreen = true;
 
@@ -30,6 +32,7 @@ public class GameManager : Manager
 
         PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
         PlayerInputManager.instance.onPlayerLeft += OnPlayerLeft;
+
 
         joinAction.Enable();
         joinAction.performed += context => JoinAction(context);
@@ -105,6 +108,8 @@ public class GameManager : Manager
         playerList[playerNum].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
         playerList[playerNum].transform.position = spawnPoints[playerNum].transform.position;
         playerList[playerNum].GetComponent<PlayerHealth>()._isDead = false;
+
+        PlayerManager.instance.AddPlayer(playerList[playerNum].GetComponent<Player>());
     }
 
     //player joining/leaving functions
