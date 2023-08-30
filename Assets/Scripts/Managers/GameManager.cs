@@ -41,11 +41,6 @@ public class GameManager : Manager
         leaveAction.performed += context => LeaveAction(context);
     }
 
-    private void Start()
-    {
-
-    }
-
     override public void OnStart()
     {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spawn");

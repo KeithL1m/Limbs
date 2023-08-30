@@ -30,16 +30,16 @@ public class Player : MonoBehaviour
     //Player components
     PlayerMovement _playerMovement;
     PlayerJump _playerJump;
-    PlayerHealth _health;
-    [SerializeField]
-    private int playerWins;
+    [SerializeField] List<Transform> _limbAnchors;
+    [SerializeField] Transform _leftLaunchPoint;
+    [SerializeField] Transform _rightLaunchPoint;
+    [SerializeField] Transform _aimTransform;
 
+    //input 
+    [HideInInspector]
     public Vector2 _aim;
-    public float _throwLimbInput;
+    float _throwLimbInput;
     bool _canThrow;
-
-    public float _strafeInput;
-
 
     //the location of the limb in the list dictates what limb it is
     //left leg
@@ -47,12 +47,6 @@ public class Player : MonoBehaviour
     //left arm
     //right arm
     public List<Limb> _limbs;
-    [SerializeField] List<Transform> _limbAnchors;
-
-    //Colliders
-    public BoxCollider2D _limbCollider;
-    public BoxCollider2D _playerCollider;
-
 
     public LimbState _limbState;
     public MovementState _movementState;
@@ -60,9 +54,6 @@ public class Player : MonoBehaviour
 
     //facing left = -1, right = 1
     public int direction;
-
-    [SerializeField]
-    Transform _aimTransform;
 
 
     private void Awake()
@@ -93,10 +84,6 @@ public class Player : MonoBehaviour
         /*throwing limbs*/
         if (_throwLimbInput > 0.5f && _limbs[(int)_selectedLimb] != null && _limbs[(int)_selectedLimb]._limbState == Limb.LimbState.Attached && _canThrow) 
         {
-            if (_strafeInput > 0.5f)
-            {
-                direction *= -1;
-            }
             _limbs[(int)_selectedLimb].ThrowLimb(direction);
             if (_selectedLimb != SelectedLimb.LeftLeg)
             {
@@ -104,7 +91,6 @@ public class Player : MonoBehaviour
             }
             _canThrow = false;
         }
-
 
         //limb attack?
 
@@ -204,8 +190,6 @@ public class Player : MonoBehaviour
     }
 
     public void ThrowLimbInput(InputAction.CallbackContext ctx) => _throwLimbInput = ctx.ReadValue<float>();
-
-    public void StrafeInput(InputAction.CallbackContext ctx) => _strafeInput = ctx.ReadValue<float>();
 
     public void AimInput(InputAction.CallbackContext ctx) => _aim = ctx.action.ReadValue<Vector2>();
 
