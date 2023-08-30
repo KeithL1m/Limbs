@@ -98,6 +98,8 @@ public class GameManager : Manager
 
     void SpawnPlayer(int playerNum)
     {
+        PlayerManager.instance.AddPlayer(playerList[playerNum].GetComponent<Player>());
+
         playerList[playerNum].GetComponent<Player>().ClearLimbs();
         playerList[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         playerList[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -105,7 +107,6 @@ public class GameManager : Manager
         playerList[playerNum].transform.position = spawnPoints[playerNum].transform.position;
         playerList[playerNum].GetComponent<PlayerHealth>()._isDead = false;
 
-        PlayerManager.instance.AddPlayer(playerList[playerNum].GetComponent<Player>());
     }
 
     //player joining/leaving functions

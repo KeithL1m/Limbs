@@ -14,6 +14,7 @@ public class PlayerManager : Manager
     public void AddPlayer(Player player)
     {
         _playerList.Add(player);
+
     }
 
     void Start()

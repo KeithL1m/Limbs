@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LimbManager : MonoBehaviour
+public class LimbManager : Manager
 {
     public List<Limb> _limbs;
 
