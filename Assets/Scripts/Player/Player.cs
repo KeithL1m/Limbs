@@ -181,12 +181,17 @@ public class Player : MonoBehaviour
                 MoveBodyUp(i);
             }
              _limbs[i].transform.rotation = Quaternion.Euler(0, 0, 0);
+            _limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x, _limbAnchors[i].position.y - _limbs[i]._size * 0.5f);
         }
         else
         {
             _selectedLimb++;
             _limbs[i]._limbType = Limb.LimbType.Arm;
             _limbs[i].transform.rotation = Quaternion.Euler(0, 0, 90);
+            if (i == 2)
+                _limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x - _limbs[i]._size * 0.5f, _limbAnchors[i].position.y);
+            else if (i == 3)
+                _limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x + _limbs[i]._size * 0.5f, _limbAnchors[i].position.y);
         }
 
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), true);
@@ -204,20 +209,32 @@ public class Player : MonoBehaviour
 
     public void MoveBodyDown()
     {
-        if (_selectedLimb == SelectedLimb.LeftArm || _selectedLimb == SelectedLimb.RightArm)
-            return;
-        if (_selectedLimb == SelectedLimb.RightLeg)
+        switch(_selectedLimb)
         {
-            _collider.size = new Vector2(_originalSize.x, _originalSize.y + _limbs[0]._size);
-            _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y - _limbs[0]._size * 0.5f);
-            _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + _limbs[1]._size);
-            _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y - _limbs[0]._size);
-        }
-        else
-        {
-            _collider.size = new Vector2(_originalSize.x, _originalSize.y);
-            _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y);
-            _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + _limbs[0]._size);
+            case SelectedLimb.RightArm:
+                _limbAnchors[3].position = new Vector3(_limbAnchors[3].position.x - _limbs[3]._size * 0.5f, _limbAnchors[3].position.y);
+                return;
+            case SelectedLimb.LeftArm:
+                _limbAnchors[2].position = new Vector3(_limbAnchors[2].position.x + _limbs[2]._size * 0.5f, _limbAnchors[2].position.y);
+                return;
+            case SelectedLimb.RightLeg:
+                {
+                    _collider.size = new Vector2(_originalSize.x, _originalSize.y + _limbs[0]._size);
+                    _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y - _limbs[0]._size * 0.5f);
+                    _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + _limbs[1]._size);
+                    _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y - _limbs[0]._size);
+                    _limbAnchors[1].position = new Vector3(_limbAnchors[1].position.x, _limbAnchors[1].position.y + _limbs[1]._size * 0.5f);
+                    break;
+                }
+            case SelectedLimb.LeftLeg:
+                {
+                    _collider.size = new Vector2(_originalSize.x, _originalSize.y);
+                    _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y);
+                    _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + _limbs[0]._size);
+                    _limbAnchors[0].position = new Vector3(_limbAnchors[0].position.x, _limbAnchors[0].position.y + _limbs[0]._size * 0.5f);
+                    break;
+                }
+            default: break;
         }
     }
 
