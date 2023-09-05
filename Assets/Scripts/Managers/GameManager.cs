@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class GameManager : Manager
 {
     public List<PlayerInput> playerList = new List<PlayerInput>();
     public List<GameObject> spawnPoints = new List<GameObject>();
+
+    [SerializeField] private Button button;
+    [SerializeField] private EventSystem system;
+
     private int playerCount;
     public int deadPlayers;
 
@@ -60,10 +66,10 @@ public class GameManager : Manager
     {
         if (startScreen)
         {
-            if (Input.GetKeyDown(KeyCode.Return) && playerList.Count > 1)
+            if (playerList.Count > 1)
             {
-                startScreen = false;
-                MapManager.instance.LoadMap();
+                button.gameObject.SetActive(true);
+                system.SetSelectedGameObject(button.gameObject);
             }
         }
         else
@@ -87,6 +93,10 @@ public class GameManager : Manager
         {
             deadPlayers = 0;
             spawnPoints.Clear();
+            for (int j = 0; j < playerList.Count; j++)
+            {
+                playerList[j].GetComponent<Player>().ClearLimbs();
+            }
             MapManager.instance.LoadMap();
         }
         else
@@ -97,7 +107,6 @@ public class GameManager : Manager
 
     void SpawnPlayer(int playerNum)
     {
-        playerList[playerNum].GetComponent<Player>().ClearLimbs();
         playerList[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         playerList[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         playerList[playerNum].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
@@ -163,4 +172,9 @@ public class GameManager : Manager
         Destroy(playerInput.transform.gameObject);
     }
 
+    public void StartGame()
+    {
+        startScreen = false;
+        MapManager.instance.LoadMap();
+    }
 }

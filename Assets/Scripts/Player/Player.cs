@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
 
     public LimbState _limbState;
     public MovementState _movementState;
-    SelectedLimb _selectedLimb = SelectedLimb.LeftLeg;
+    public SelectedLimb _selectedLimb = SelectedLimb.LeftLeg;
 
     //facing left = -1, right = 1
     public int direction;
@@ -205,6 +205,7 @@ public class Player : MonoBehaviour
         _collider.size = new Vector2(_originalSize.x, _originalSize.y + _limbs[i]._size);
         _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y - _limbs[i]._size * 0.5f);
         _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y - _limbs[i]._size);
+        transform.position = new Vector3(transform.position.x, transform.position.y + _limbs[i]._size);
     }
 
     public void MoveBodyDown()
@@ -271,8 +272,14 @@ public class Player : MonoBehaviour
 
     public void ClearLimbs()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 3; i >= 0; i--)
         {
+            if (_limbs[i] != null && _limbs[i]._limbState == Limb.LimbState.Attached)
+            {
+                Debug.Log("threw limb");
+                _selectedLimb = (SelectedLimb)i;
+                _limbs[i].ThrowLimb(0);
+            }
             _limbs[i] = null;
         }
 
