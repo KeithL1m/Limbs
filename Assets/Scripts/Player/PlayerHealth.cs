@@ -6,6 +6,9 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField]
     private float _maxHealth;
+    [SerializeField]
+    private Chain chain;
+    private GameObject[] deathPositions;
 
     public float _health;
     public bool _isDead = false;
@@ -32,13 +35,15 @@ public class PlayerHealth : MonoBehaviour
 
     public void KillPlayer()
     {
+        deathPositions = GameObject.FindGameObjectsWithTag("DeathLocation");
         _isDead = true;
-        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         transform.position = new Vector3(0, 10, 0);
+        chain.EnableChain(deathPositions[0].transform);
     }
 
     public void ResetHealth()
     {
         _health = _maxHealth;
+        chain.DisableChain();
     }
 }

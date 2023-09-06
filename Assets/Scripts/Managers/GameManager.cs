@@ -120,7 +120,6 @@ public class GameManager : Manager
 
     public void OnPlayerJoined(PlayerInput playerInput)
     {
-        Debug.Log("JOINED");
         playerList.Add(playerInput);
         DontDestroyOnLoad(playerList[playerCount]);
         playerCount++;
@@ -177,4 +176,6 @@ public class GameManager : Manager
         startScreen = false;
         MapManager.instance.LoadMap();
     }
+
+
 }
