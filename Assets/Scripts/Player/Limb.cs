@@ -4,8 +4,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Limb : MonoBehaviour
 {
-    [SerializeField]
-    private LimbData _limbData ;
     public enum LimbType
     {
         Arm, 
@@ -20,12 +18,19 @@ public class Limb : MonoBehaviour
         PickUp
     }
 
+    [HideInInspector]
     public Player _attachedPlayer;
+    [HideInInspector]
     public Transform _anchorPoint = null;
     Rigidbody2D _rb;
 
+    [HideInInspector]
     public LimbType _limbType; //this will help most with animations
+    [HideInInspector]
     public LimbState _limbState;
+
+    [SerializeField]
+    private LimbData _limbData;
 
     //limb properties
     public float _size;
@@ -90,39 +95,52 @@ public class Limb : MonoBehaviour
     // Limb damage
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player" && _limbState == LimbState.Throwing)
-        {
-            PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
-            _healthPlayer.AddDamage(_damage + _specialDamage);
-            ReturnLimb();
-        }
+        if (collision.gameObject.tag != "Player")
+            return;
+        else if (_limbState != LimbState.Throwing)
+            return;
+
+        PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
+        _healthPlayer.AddDamage(_damage + _specialDamage);
+        ReturnLimb();
     }
 
     // Limb pickup
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag != "Player")
-        {
             return;
-        }
+        else if (_limbState == LimbState.Throwing || _limbState == LimbState.Attached)
+            return;
         else if (_limbState == LimbState.Returning && collision.gameObject.GetComponent<Player>() != _attachedPlayer)
-        {
             return;
-        }
 
         if (collision.gameObject.GetComponent<Player>().CanPickUpLimb(this))
         {
             _attachedPlayer = collision.gameObject.GetComponent<Player>();
+            if (_limbType == LimbType.Arm)
+            {
+
+                _rb.SetRotation(90);
+            }
+            if (_limbType == LimbType.Leg)
+            {
+                _rb.SetRotation(0);
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag != "Player")
-        {
             return;
-        }
+        else if (_limbState == LimbState.Attached)
+            return;
         else if (_limbState == LimbState.Returning && collision.gameObject.GetComponent<Player>() != _attachedPlayer)
+            return;
+
+        if (_limbState == LimbState.Throwing)
         {
+            _returnVelocity = -_rb.velocity;
             return;
         }
 
@@ -138,11 +156,6 @@ public class Limb : MonoBehaviour
             {
                 _rb.SetRotation(0);
             }
-        }
-
-        if (_limbState == LimbState.Throwing)
-        {
-            _returnVelocity = -_rb.velocity;
         }
     }
 }

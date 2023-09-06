@@ -6,6 +6,7 @@ public class GroundCheck : MonoBehaviour
     private Transform groundCheck;
     [SerializeField]
     private LayerMask groundLayer;
+    [HideInInspector]
     public bool isGrounded;
 
     private float checkDistance = 0.3f;

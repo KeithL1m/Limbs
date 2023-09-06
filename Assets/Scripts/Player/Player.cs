@@ -109,6 +109,7 @@ public class Player : MonoBehaviour
         /*vertical movement*/
         _playerJump.Jump();
 
+        //reset limb throw
         if (_throwLimbInput == 0.0f)
         {
             _canThrow = true;
@@ -132,20 +133,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    //check if limb can be picked up
     public bool CanPickUpLimb(Limb limb)
     {
         if (limb._limbState != Limb.LimbState.PickUp && limb._limbState != Limb.LimbState.Returning)
         {
             return false;
-        }
-
-        //check if limb is alread picked up
-        for (int i = 0; i < 4; i++)
-        {
-            if (_limbs[i] == limb)
-            {
-                return false;
-            }
         }
 
         //check if there is an empty spot 
@@ -161,6 +154,7 @@ public class Player : MonoBehaviour
         return false;
     }
 
+    //used to attach a limb
     private void AttachLimb(int i)
     {
         if (i == 0 || i == 1)
@@ -200,6 +194,7 @@ public class Player : MonoBehaviour
         _limbs[i].GetComponent<Rigidbody2D>().simulated = false;
     }
 
+    //called when losing a leg limb
     private void MoveBodyUp(int i)
     {
         _collider.size = new Vector2(_originalSize.x, _originalSize.y + _limbs[i]._size);
@@ -208,6 +203,7 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y + _limbs[i]._size);
     }
 
+    //called when picking up a limb
     public void MoveBodyDown()
     {
         switch(_selectedLimb)
@@ -239,6 +235,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    //callled when thrown limb is not picked up
     public void RemoveLimb(Limb limb)
     {
         for (int i = 0; i < _limbs.Count; i++)
@@ -250,10 +247,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ThrowLimbInput(InputAction.CallbackContext ctx) => _throwLimbInput = ctx.ReadValue<float>();
-
-    public void AimInput(InputAction.CallbackContext ctx) => _aim = ctx.action.ReadValue<Vector2>();
-
+    //affects player movement
     public void CheckLimbState()
     {
         if (_limbs[0] != null || _limbs[1] != null)
@@ -270,13 +264,13 @@ public class Player : MonoBehaviour
         _limbState = LimbState.NoLimb;
     }
 
+    //called when round ends
     public void ClearLimbs()
     {
         for (int i = 3; i >= 0; i--)
         {
             if (_limbs[i] != null && _limbs[i]._limbState == Limb.LimbState.Attached)
             {
-                Debug.Log("threw limb");
                 _selectedLimb = (SelectedLimb)i;
                 _limbs[i].ThrowLimb(0);
             }
@@ -285,4 +279,9 @@ public class Player : MonoBehaviour
 
         _selectedLimb = SelectedLimb.LeftLeg;
     }
+
+    public void ThrowLimbInput(InputAction.CallbackContext ctx) => _throwLimbInput = ctx.ReadValue<float>();
+
+    public void AimInput(InputAction.CallbackContext ctx) => _aim = ctx.action.ReadValue<Vector2>();
+
 }

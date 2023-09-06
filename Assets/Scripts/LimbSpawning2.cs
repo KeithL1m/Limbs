@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class LimbSpawning2 : MonoBehaviour
 {
+    /*
+     * SPAWN LIMBS USING SPAWN POINTS 
+     */
     [SerializeField]
     LimbManager _limbManager;
 

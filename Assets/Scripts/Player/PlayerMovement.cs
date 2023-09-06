@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float _1LegMoveSpeed;
     [SerializeField] float _noLegSpeed;
     [SerializeField] float _hopForce;
-    private float _hopTimer;
+    private float _hopTimer = 0.0f;
     [SerializeField] float _maxHopTime;
 
     [SerializeField] float _startMovePoint = 0.5f;

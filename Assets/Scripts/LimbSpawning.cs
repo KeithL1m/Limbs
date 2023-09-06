@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class LimbSpawning : MonoBehaviour
 {
+    /*
+     * SPAWN LIMBS IN A RANGE
+     */
+
     [SerializeField]
     private Transform _leftLimit;
     private float _left;
