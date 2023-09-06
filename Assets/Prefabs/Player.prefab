@@ -259,10 +259,10 @@ SpringJoint2D:
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
-  m_AutoConfigureDistance: 1
+  m_AutoConfigureDistance: 0
   m_Distance: 0.5
   m_DampingRatio: 0
-  m_Frequency: 1
+  m_Frequency: 0.5
 --- !u!114 &8385072269478469061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 100
-  chain: {fileID: 0}
+  chain: {fileID: 6432030308765007816}
   _health: 0
   _isDead: 0
 --- !u!114 &6432030308765007816

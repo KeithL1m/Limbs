@@ -34,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(Player.LimbState state)
     {
+        if (GetComponent<PlayerHealth>().IsDead())
+            return;
         float moveSpeed = 0f;
         if (_moveInput <= -_startMovePoint)
         {

@@ -20,7 +20,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
-        if (_health <= 0)
+        if (_health <= 0 && !_isDead)
         {
             KillPlayer();
         }
@@ -37,7 +37,7 @@ public class PlayerHealth : MonoBehaviour
     {
         deathPositions = GameObject.FindGameObjectsWithTag("DeathLocation");
         _isDead = true;
-        transform.position = new Vector3(0, 10, 0);
+        transform.position = deathPositions[0].transform.position;
         chain.EnableChain(deathPositions[0].transform);
     }
 

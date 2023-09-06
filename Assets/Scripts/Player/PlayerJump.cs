@@ -45,6 +45,8 @@ public class PlayerJump : MonoBehaviour
 
     public void Jump()
     {
+        if (GetComponent<PlayerHealth>().IsDead())
+            return;
         if (IsGrounded() && _player._movementState == Player.MovementState.Move)
         {
             _coyoteTime = _maxCoyoteTime;
