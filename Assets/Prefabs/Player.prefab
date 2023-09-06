@@ -231,22 +231,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d3fc1bfd-3dfd-4a53-a022-8d70cb5eaeb2
     m_ActionName: Gameplay/Strafe[/Keyboard/leftShift,/DualSenseGamepadHID/leftShoulder]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8385072269478469061}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: AimInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: cca41aa3-2dcf-4999-b13d-cfe881ab453c
-    m_ActionName: Gameplay/Aim[/DualSenseGamepadHID/rightStick]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -301,23 +285,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b6f88f90005fe4bbaa2d53382aba45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerWins: 0
+  _throwLimbInput: 0
+  _strafeInput: 0
+  _limbs: []
   _limbAnchors:
   - {fileID: 8385072269345563141}
   - {fileID: 8385072269473608607}
   - {fileID: 8385072269343438437}
   - {fileID: 8385072270821689308}
-  _leftLaunchPoint: {fileID: 1648901180734710805}
-  _rightLaunchPoint: {fileID: 3724963935484038554}
-  _aim: {x: 0, y: 0}
-  _throwLimbInput: 0
-  _strafeInput: 0
-  _limbs: []
   _limbCollider: {fileID: 0}
   _playerCollider: {fileID: 0}
   _limbState: 0
   _movementState: 0
   direction: 0
-  _aimTransform: {fileID: 6675063187238703603}
 --- !u!114 &8385072269478469062
 MonoBehaviour:
   m_ObjectHideFlags: 0

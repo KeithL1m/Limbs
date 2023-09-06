@@ -16,7 +16,7 @@ public class GameManager : Manager
 
     public static GameManager instance = null;
     public static PlayerManager playerInstance = null;
-    
+    public static PlayerSpawnManager playerSpawn = null;
 
     public event System.Action<PlayerInput> PlayerJoinedGame;
     public event System.Action<PlayerInput> PlayerLeftGame;
@@ -31,8 +31,7 @@ public class GameManager : Manager
             instance = this;
         }
 
-        PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
-        PlayerInputManager.instance.onPlayerLeft += OnPlayerLeft;
+        
 
         joinAction.Enable();
         joinAction.performed += context => JoinAction(context);
@@ -119,7 +118,6 @@ public class GameManager : Manager
 
     public void OnPlayerJoined(PlayerInput playerInput)
     {
-        Debug.Log("JOINED");
         playerList.Add(playerInput);
         DontDestroyOnLoad(playerList[playerCount]);
         playerCount++;

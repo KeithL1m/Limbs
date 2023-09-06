@@ -7,9 +7,9 @@ public class PlayerManager : Manager
 {
     [SerializeField] Player _basePlayer;
     public GameObject arrowIndicatorPrefab;
-    List<Player> _playerList = new List<Player>();
+    
+
     public List<PlayerInput> _playerInputList = new List<PlayerInput>();
-    public Player this[int playerNumber] { get { return _playerList[playerNumber]; } }
 
     public static PlayerManager instance;
     
@@ -24,6 +24,7 @@ public class PlayerManager : Manager
             _playerInputList[i].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
             _playerInputList[i].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
             _playerInputList[i].GetComponent<PlayerHealth>()._isDead = false;
+            
         }
 
 
@@ -36,8 +37,9 @@ public class PlayerManager : Manager
             instance = this;
         }
         // Instantiate arrow indicator and attach it to the player.
-        GameObject arrowIndicator = Instantiate(arrowIndicatorPrefab, _basePlayer.transform.position, Quaternion.identity);
-        arrowIndicator.transform.SetParent(_basePlayer.transform);
+        //GameObject arrowIndicator = Instantiate(arrowIndicatorPrefab, _basePlayer.transform.position, Quaternion.identity);
+        //arrowIndicator.transform.SetParent(_basePlayer.transform);
+        
     }
 
 }
