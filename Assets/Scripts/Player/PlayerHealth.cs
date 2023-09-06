@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
     private float _maxHealth;
     [SerializeField]
     private Chain chain;
-    private GameObject[] deathPositions;
+    private DeathPosition[] deathPositions;
 
     public float _health;
     public bool _isDead = false;
@@ -35,10 +35,16 @@ public class PlayerHealth : MonoBehaviour
 
     public void KillPlayer()
     {
-        deathPositions = GameObject.FindGameObjectsWithTag("DeathLocation");
+        deathPositions = FindObjectsOfType<DeathPosition>();
         _isDead = true;
+        if (deathPositions[0]._occupied)
+        {
+            transform.position = deathPositions[1].transform.position;
+            chain.EnableChain(deathPositions[1].transform);
+        }
         transform.position = deathPositions[0].transform.position;
         chain.EnableChain(deathPositions[0].transform);
+        deathPositions[0]._occupied = true;
     }
 
     public void ResetHealth()
