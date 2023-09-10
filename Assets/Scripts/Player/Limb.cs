@@ -31,12 +31,12 @@ public class Limb : MonoBehaviour
 
     [SerializeField]
     private LimbData _limbData;
+    public GameObject _trail;
 
     //limb properties
     public float _size;
     private Vector2 _throwVelocity; //used when not aiming
     private float _throwSpeed; //used when aiming
-    private float _angularVelocity;
     private float _damage;
     private float _specialDamage;
 
@@ -48,13 +48,14 @@ public class Limb : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _rb.SetRotation(0);
 
+        _trail.SetActive(false);
+
         float angle = _limbData._throwAngle * Mathf.Deg2Rad;
 
         _size = _limbData._limbSize;
         _throwVelocity.x = _limbData._throwSpeed * Mathf.Cos(angle);
         _throwSpeed = _limbData._throwSpeed;
         _throwVelocity.y = _limbData._throwSpeed * Mathf.Sin(angle);
-        _angularVelocity = _limbData._angularVelocity;
         _damage = _limbData._damage;
         _specialDamage = _limbData._specialDamage;
     }
@@ -64,6 +65,8 @@ public class Limb : MonoBehaviour
         _attachedPlayer.MoveBodyDown();
         _rb.simulated = true;
         _limbState = LimbState.Throwing;
+
+        _trail.SetActive(true);
 
         if (_attachedPlayer._aim.x == 0.0f && _attachedPlayer._aim.y == 0.0f)
         {
@@ -77,11 +80,11 @@ public class Limb : MonoBehaviour
             tVelocity *= _throwSpeed;
             _rb.velocity = tVelocity;
         }
-        _rb.angularVelocity = _angularVelocity;
     }
 
     private void ReturnLimb()
     {
+        _trail.SetActive(true);
         _limbState = LimbState.Returning;
         _throwVelocity.x *= -1;
         _rb.velocity = _returnVelocity;
