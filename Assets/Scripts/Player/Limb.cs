@@ -32,6 +32,7 @@ public class Limb : MonoBehaviour
     [SerializeField]
     private LimbData _limbData;
     public GameObject _trail;
+    public GameObject _pickUpIndicator;
 
     //limb properties
     public float _size;
@@ -120,6 +121,7 @@ public class Limb : MonoBehaviour
 
         if (collision.gameObject.GetComponent<Player>().CanPickUpLimb(this))
         {
+            _pickUpIndicator.SetActive(false);
             _attachedPlayer = collision.gameObject.GetComponent<Player>();
             if (_limbType == LimbType.Arm)
             {
@@ -149,6 +151,7 @@ public class Limb : MonoBehaviour
 
         if (collision.gameObject.GetComponent<Player>().CanPickUpLimb(this))
         {
+            _pickUpIndicator.SetActive(false);
             _attachedPlayer = collision.gameObject.GetComponent<Player>();
             if (_limbType == LimbType.Arm)
             {
