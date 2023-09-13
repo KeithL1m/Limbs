@@ -6,20 +6,21 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField]
     private float _maxHealth;
+    [SerializeField]
+    private Chain chain;
+    private DeathPosition[] deathPositions;
 
     public float _health;
     public bool _isDead = false;
-    private Transform _spawnPoint;
 
     private void Start()
     {
         _health = _maxHealth;
-        _spawnPoint = GameObject.FindGameObjectWithTag("Respawn").GetComponent<Transform>();
     }
 
     private void Update()
     {
-        if (_health <= 0)
+        if (_health <= 0 && !_isDead)
         {
             KillPlayer();
         }
@@ -34,9 +35,21 @@ public class PlayerHealth : MonoBehaviour
 
     public void KillPlayer()
     {
-        _health = _maxHealth;
+        deathPositions = FindObjectsOfType<DeathPosition>();
         _isDead = true;
-        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-        transform.position = new Vector3(0, 10, 0);
+        if (deathPositions[0]._occupied)
+        {
+            transform.position = deathPositions[1].transform.position;
+            chain.EnableChain(deathPositions[1].transform);
+        }
+        transform.position = deathPositions[0].transform.position;
+        chain.EnableChain(deathPositions[0].transform);
+        deathPositions[0]._occupied = true;
+    }
+
+    public void ResetHealth()
+    {
+        _health = _maxHealth;
+        chain.DisableChain();
     }
 }

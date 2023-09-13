@@ -30,6 +30,8 @@ public class LimbManager : MonoBehaviour
                 if (_limbs[i].GetComponent<Rigidbody2D>().velocity.magnitude < 4.0f)
                 {
                     Physics2D.IgnoreCollision(_limbs[i]._attachedPlayer.GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), false);
+                    _limbs[i]._trail.SetActive(false);
+                    _limbs[i]._pickUpIndicator.SetActive(true);
                     _limbs[i]._limbState = Limb.LimbState.PickUp;
                     _limbs[i]._attachedPlayer = null;
                 }

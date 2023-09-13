@@ -28,9 +28,9 @@ public class PlayerJump : MonoBehaviour
     private float _jumpBufferTime;
     private float _coyoteTime;
     
-    bool _canJump;
-    public bool _canDoubleJump;
-    public bool _isDoubleJumping;
+    private bool _canJump;
+    private bool _canDoubleJump;
+    private bool _isDoubleJumping;
 
     private void Awake()
     {
@@ -45,6 +45,8 @@ public class PlayerJump : MonoBehaviour
 
     public void Jump()
     {
+        if (GetComponent<PlayerHealth>().IsDead())
+            return;
         if (IsGrounded() && _player._movementState == Player.MovementState.Move)
         {
             _coyoteTime = _maxCoyoteTime;

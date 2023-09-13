@@ -30,16 +30,20 @@ public class Player : MonoBehaviour
     //Player components
     PlayerMovement _playerMovement;
     PlayerJump _playerJump;
-    PlayerHealth _health;
-    [SerializeField]
-    private int playerWins;
+    [SerializeField] List<Transform> _limbAnchors;
+    [SerializeField] Transform _leftLaunchPoint;
+    [SerializeField] Transform _rightLaunchPoint;
+    [SerializeField] Transform _aimTransform;
+    [SerializeField] CapsuleCollider2D _collider;
+    [SerializeField] Transform _groundCheck;
 
-
-    public float _throwLimbInput;
+    //input 
+    [HideInInspector]
+    public Vector2 _aim;
+    float _throwLimbInput;
     bool _canThrow;
-
-    public float _strafeInput;
-
+    Vector2 _originalSize;
+    Vector2 _originalOffset;
 
     //the location of the limb in the list dictates what limb it is
     //left leg
@@ -47,16 +51,10 @@ public class Player : MonoBehaviour
     //left arm
     //right arm
     public List<Limb> _limbs;
-    [SerializeField] List<Transform> _limbAnchors;
-
-    //Colliders
-    public BoxCollider2D _limbCollider;
-    public BoxCollider2D _playerCollider;
-
 
     public LimbState _limbState;
     public MovementState _movementState;
-    SelectedLimb _selectedLimb = SelectedLimb.LeftLeg;
+    public SelectedLimb _selectedLimb = SelectedLimb.LeftLeg;
 
     //facing left = -1, right = 1
     public int direction;
@@ -72,7 +70,8 @@ public class Player : MonoBehaviour
         {
             _limbs.Add(null);
         }
-
+        _originalSize = _collider.size; 
+        _originalOffset = _collider.offset;
     }
 
 
@@ -90,10 +89,6 @@ public class Player : MonoBehaviour
         /*throwing limbs*/
         if (_throwLimbInput > 0.5f && _limbs[(int)_selectedLimb] != null && _limbs[(int)_selectedLimb]._limbState == Limb.LimbState.Attached && _canThrow) 
         {
-            if (_strafeInput > 0.5f)
-            {
-                direction *= -1;
-            }
             _limbs[(int)_selectedLimb].ThrowLimb(direction);
             if (_selectedLimb != SelectedLimb.LeftLeg)
             {
@@ -101,7 +96,6 @@ public class Player : MonoBehaviour
             }
             _canThrow = false;
         }
-
 
         //limb attack?
 
@@ -115,26 +109,36 @@ public class Player : MonoBehaviour
         /*vertical movement*/
         _playerJump.Jump();
 
+        //reset limb throw
         if (_throwLimbInput == 0.0f)
         {
             _canThrow = true;
         }
+
+        //updating arrow
+        if (_aim.x == 0.0f && _aim.y == 0.0f)
+        {
+            if (direction == 1)
+            {
+                _aimTransform.eulerAngles = new Vector3(0, 0, -180);
+            }
+            else
+            {
+                _aimTransform.eulerAngles = new Vector3(0, 0, 0);
+            }
+        }
+        else
+        {
+            _aimTransform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-_aim.y, -_aim.x) * Mathf.Rad2Deg);
+        }
     }
 
+    //check if limb can be picked up
     public bool CanPickUpLimb(Limb limb)
     {
         if (limb._limbState != Limb.LimbState.PickUp && limb._limbState != Limb.LimbState.Returning)
         {
             return false;
-        }
-
-        //check if limb is alread picked up
-        for (int i = 0; i < 4; i++)
-        {
-            if (_limbs[i] == limb)
-            {
-                return false;
-            }
         }
 
         //check if there is an empty spot 
@@ -150,6 +154,7 @@ public class Player : MonoBehaviour
         return false;
     }
 
+    //used to attach a limb
     private void AttachLimb(int i)
     {
         if (i == 0 || i == 1)
@@ -158,12 +163,29 @@ public class Player : MonoBehaviour
             if (i == 1)
             {
                 _selectedLimb++;
+
+                if (_limbs[1]._size > _limbs[0]._size)
+                {
+                    MoveBodyUp(i);
+                    _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + _limbs[0]._size);
+                }
             }
+            else
+            {
+                MoveBodyUp(i);
+            }
+             _limbs[i].transform.rotation = Quaternion.Euler(0, 0, 0);
+            _limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x, _limbAnchors[i].position.y - _limbs[i]._size * 0.5f);
         }
         else
         {
             _selectedLimb++;
             _limbs[i]._limbType = Limb.LimbType.Arm;
+            _limbs[i].transform.rotation = Quaternion.Euler(0, 0, 90);
+            if (i == 2)
+                _limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x - _limbs[i]._size * 0.5f, _limbAnchors[i].position.y);
+            else if (i == 3)
+                _limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x + _limbs[i]._size * 0.5f, _limbAnchors[i].position.y);
         }
 
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), true);
@@ -172,6 +194,48 @@ public class Player : MonoBehaviour
         _limbs[i].GetComponent<Rigidbody2D>().simulated = false;
     }
 
+    //called when losing a leg limb
+    private void MoveBodyUp(int i)
+    {
+        _collider.size = new Vector2(_originalSize.x, _originalSize.y + _limbs[i]._size);
+        _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y - _limbs[i]._size * 0.5f);
+        _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y - _limbs[i]._size);
+        transform.position = new Vector3(transform.position.x, transform.position.y + _limbs[i]._size);
+    }
+
+    //called when picking up a limb
+    public void MoveBodyDown()
+    {
+        switch(_selectedLimb)
+        {
+            case SelectedLimb.RightArm:
+                _limbAnchors[3].position = new Vector3(_limbAnchors[3].position.x - _limbs[3]._size * 0.5f, _limbAnchors[3].position.y);
+                return;
+            case SelectedLimb.LeftArm:
+                _limbAnchors[2].position = new Vector3(_limbAnchors[2].position.x + _limbs[2]._size * 0.5f, _limbAnchors[2].position.y);
+                return;
+            case SelectedLimb.RightLeg:
+                {
+                    _collider.size = new Vector2(_originalSize.x, _originalSize.y + _limbs[0]._size);
+                    _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y - _limbs[0]._size * 0.5f);
+                    _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + _limbs[1]._size);
+                    _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y - _limbs[0]._size);
+                    _limbAnchors[1].position = new Vector3(_limbAnchors[1].position.x, _limbAnchors[1].position.y + _limbs[1]._size * 0.5f);
+                    break;
+                }
+            case SelectedLimb.LeftLeg:
+                {
+                    _collider.size = new Vector2(_originalSize.x, _originalSize.y);
+                    _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y);
+                    _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + _limbs[0]._size);
+                    _limbAnchors[0].position = new Vector3(_limbAnchors[0].position.x, _limbAnchors[0].position.y + _limbs[0]._size * 0.5f);
+                    break;
+                }
+            default: break;
+        }
+    }
+
+    //callled when thrown limb is not picked up
     public void RemoveLimb(Limb limb)
     {
         for (int i = 0; i < _limbs.Count; i++)
@@ -183,10 +247,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ThrowLimbInput(InputAction.CallbackContext ctx) => _throwLimbInput = ctx.ReadValue<float>();
-
-    public void StrafeInput(InputAction.CallbackContext ctx) => _strafeInput = ctx.ReadValue<float>();
-
+    //affects player movement
     public void CheckLimbState()
     {
         if (_limbs[0] != null || _limbs[1] != null)
@@ -203,13 +264,24 @@ public class Player : MonoBehaviour
         _limbState = LimbState.NoLimb;
     }
 
+    //called when round ends
     public void ClearLimbs()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 3; i >= 0; i--)
         {
+            if (_limbs[i] != null && _limbs[i]._limbState == Limb.LimbState.Attached)
+            {
+                _selectedLimb = (SelectedLimb)i;
+                _limbs[i].ThrowLimb(0);
+            }
             _limbs[i] = null;
         }
 
         _selectedLimb = SelectedLimb.LeftLeg;
     }
+
+    public void ThrowLimbInput(InputAction.CallbackContext ctx) => _throwLimbInput = ctx.ReadValue<float>();
+
+    public void AimInput(InputAction.CallbackContext ctx) => _aim = ctx.action.ReadValue<Vector2>();
+
 }

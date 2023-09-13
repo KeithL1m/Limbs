@@ -9,7 +9,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 479936713415687806, guid: d2b3d4b3983896c40957940843227c42, type: 3}
       propertyPath: m_Name
-      value: Limbs
+      value: LongLimb
+      objectReference: {fileID: 0}
+    - target: {fileID: 613239286358201552, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 613239286358201552, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.36
       objectReference: {fileID: 0}
     - target: {fileID: 7031586765184258110, guid: d2b3d4b3983896c40957940843227c42, type: 3}
       propertyPath: _limbData
