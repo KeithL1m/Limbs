@@ -346,8 +346,8 @@ MonoBehaviour:
   chain: {fileID: 6432030308765007816}
   _health: 0
   _isDead: 0
---- !u!114 &6432030308765007816
-MonoBehaviour:
+--- !u!70 &5770366546305474077
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
