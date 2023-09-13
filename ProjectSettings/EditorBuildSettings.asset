@@ -35,10 +35,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MOLTEN_LAVA_MAPA.unity
     guid: d2acd89d83897ca4cb32fc72eab46c40
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/nasa.unity
     guid: 7133aa0d9eed5904c87b140e3fe76601
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BUTCHER_SHOP_MAPA.unity
     guid: 29c3c8ad692189b47b2691930aa12a2a
+  - enabled: 1
+    path: Assets/Scenes/KY Scene 2.unity
+    guid: 81ba6cb8c9703a74eb704103ec195f3e
+  - enabled: 1
+    path: Assets/Scenes/KY Scene 5.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/KY Scene 6.unity
+    guid: 4d1a3be73476a354a9b75756dc9782d6
   m_configObjects: {}
