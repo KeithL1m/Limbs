@@ -23,10 +23,11 @@ public class LimbManager : MonoBehaviour
             if (_limbs[i]._limbState == Limb.LimbState.Attached && _limbs[i]._anchorPoint != null)
             {
                 _limbs[i].transform.position = _limbs[i]._anchorPoint.position;
+                _limbs[i]._trail.SetActive(false);
             }
             else if (_limbs[i]._limbState == Limb.LimbState.Throwing || _limbs[i]._limbState == Limb.LimbState.Returning)
             {
-                _limbs[i]._attachedPlayer.RemoveLimb(_limbs[i]);
+                _limbs[i]._attachedPlayerLimbs.RemoveLimb(_limbs[i]);
                 if (_limbs[i].GetComponent<Rigidbody2D>().velocity.magnitude < 4.0f)
                 {
                     Physics2D.IgnoreCollision(_limbs[i]._attachedPlayer.GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), false);
@@ -34,6 +35,7 @@ public class LimbManager : MonoBehaviour
                     _limbs[i]._pickUpIndicator.SetActive(true);
                     _limbs[i]._limbState = Limb.LimbState.PickUp;
                     _limbs[i]._attachedPlayer = null;
+                    _limbs[i]._attachedPlayerLimbs = null;
                 }
             }
         }

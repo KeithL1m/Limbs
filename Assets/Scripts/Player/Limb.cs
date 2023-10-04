@@ -21,6 +21,8 @@ public class Limb : MonoBehaviour
     [HideInInspector]
     public Player _attachedPlayer;
     [HideInInspector]
+    public PlayerLimbs _attachedPlayerLimbs;
+    [HideInInspector]
     public Transform _anchorPoint = null;
     Rigidbody2D _rb;
 
@@ -63,7 +65,7 @@ public class Limb : MonoBehaviour
 
     public void ThrowLimb(int direction)
     {
-        _attachedPlayer.MoveBodyDown();
+        _attachedPlayerLimbs.MoveBodyDown();
         _rb.simulated = true;
         _limbState = LimbState.Throwing;
 
@@ -119,10 +121,11 @@ public class Limb : MonoBehaviour
         else if (_limbState == LimbState.Returning && collision.gameObject.GetComponent<Player>() != _attachedPlayer)
             return;
 
-        if (collision.gameObject.GetComponent<Player>().CanPickUpLimb(this))
+        if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
         {
             _pickUpIndicator.SetActive(false);
             _attachedPlayer = collision.gameObject.GetComponent<Player>();
+            _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
             if (_limbType == LimbType.Arm)
             {
 
@@ -149,10 +152,11 @@ public class Limb : MonoBehaviour
             return;
         }
 
-        if (collision.gameObject.GetComponent<Player>().CanPickUpLimb(this))
+        if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
         {
             _pickUpIndicator.SetActive(false);
             _attachedPlayer = collision.gameObject.GetComponent<Player>();
+            _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
             if (_limbType == LimbType.Arm)
             {
 

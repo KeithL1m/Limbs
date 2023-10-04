@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 8385072269478469063}
   - component: {fileID: 1550446190603291940}
   - component: {fileID: 6432030308765007816}
+  - component: {fileID: 5939033532829745049}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -215,6 +216,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5939033532829745049}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: dd8ef21d-3cf5-4acf-a746-6763821e23e6
     m_ActionName: Gameplay/ThrowLimb[/XInputControllerWindows/rightTrigger,/Keyboard/t]
   - m_PersistentCalls:
@@ -307,21 +320,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b6f88f90005fe4bbaa2d53382aba45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _limbAnchors:
-  - {fileID: 8385072269345563141}
-  - {fileID: 8385072269473608607}
-  - {fileID: 8385072269343438437}
-  - {fileID: 8385072270821689308}
-  _leftLaunchPoint: {fileID: 0}
-  _rightLaunchPoint: {fileID: 0}
   _aimTransform: {fileID: 6675063187238703603}
-  _collider: {fileID: 5770366546305474077}
   _groundCheck: {fileID: 8385072270942222214}
   _aim: {x: 0, y: 0}
-  _limbs: []
-  _limbState: 0
   _movementState: 0
-  _selectedLimb: 0
   direction: 0
 --- !u!114 &8385072269478469062
 MonoBehaviour:
@@ -393,6 +395,29 @@ MonoBehaviour:
   spring: {fileID: 535260745535175737}
   line: {fileID: 8717493555389752803}
   linePosition: {fileID: 7356548969640628248}
+--- !u!114 &5939033532829745049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3732604927039312203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a259638dddaf60442badd8281464e6d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbs: []
+  _selectedLimb: 0
+  _limbState: 0
+  _groundCheck: {fileID: 8385072270942222214}
+  _limbAnchors:
+  - {fileID: 8385072269345563141}
+  - {fileID: 8385072269473608607}
+  - {fileID: 8385072269343438437}
+  - {fileID: 8385072270821689308}
+  _collider: {fileID: 5770366546305474077}
+  _canThrow: 0
 --- !u!1 &4236192736923414842
 GameObject:
   m_ObjectHideFlags: 0

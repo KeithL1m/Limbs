@@ -95,7 +95,7 @@ public class GameManager : Manager
             spawnPoints.Clear();
             for (int j = 0; j < playerList.Count; j++)
             {
-                playerList[j].GetComponent<Player>().ClearLimbs();
+                playerList[j].GetComponent<PlayerLimbs>().ClearLimbs();
             }
             MapManager.instance.LoadMap();
         }
