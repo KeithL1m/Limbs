@@ -112,31 +112,31 @@ public class Limb : MonoBehaviour
     }
 
     // Limb pickup
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag != "Player")
-            return;
-        else if (_limbState == LimbState.Throwing || _limbState == LimbState.Attached)
-            return;
-        else if (_limbState == LimbState.Returning && collision.gameObject.GetComponent<Player>() != _attachedPlayer)
-            return;
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag != "Player")
+    //        return;
+    //    else if (_limbState == LimbState.Throwing || _limbState == LimbState.Attached)
+    //        return;
+    //    else if (_limbState == LimbState.Returning && collision.gameObject.GetComponent<Player>() != _attachedPlayer)
+    //        return;
 
-        if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
-        {
-            _pickUpIndicator.SetActive(false);
-            _attachedPlayer = collision.gameObject.GetComponent<Player>();
-            _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
-            if (_limbType == LimbType.Arm)
-            {
+    //    if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
+    //    {
+    //        _pickUpIndicator.SetActive(false);
+    //        _attachedPlayer = collision.gameObject.GetComponent<Player>();
+    //        _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
+    //        if (_limbType == LimbType.Arm)
+    //        {
 
-                _rb.SetRotation(90);
-            }
-            if (_limbType == LimbType.Leg)
-            {
-                _rb.SetRotation(0);
-            }
-        }
-    }
+    //            _rb.SetRotation(90);
+    //        }
+    //        if (_limbType == LimbType.Leg)
+    //        {
+    //            _rb.SetRotation(0);
+    //        }
+    //    }
+    //}
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag != "Player")

@@ -27,7 +27,6 @@ public class LimbManager : MonoBehaviour
             }
             else if (_limbs[i]._limbState == Limb.LimbState.Throwing || _limbs[i]._limbState == Limb.LimbState.Returning)
             {
-                _limbs[i]._attachedPlayerLimbs.RemoveLimb(_limbs[i]);
                 if (_limbs[i].GetComponent<Rigidbody2D>().velocity.magnitude < 4.0f)
                 {
                     Physics2D.IgnoreCollision(_limbs[i]._attachedPlayer.GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), false);

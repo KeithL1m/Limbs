@@ -147,18 +147,6 @@ public class PlayerLimbs : MonoBehaviour
         }
     }
 
-    //callled when thrown limb is not picked up
-    public void RemoveLimb(Limb limb)
-    {
-        for (int i = 0; i < _limbs.Count; i++)
-        {
-            if (limb == _limbs[i])
-            {
-                _limbs[i] = null;
-            }
-        }
-    }
-
     //affects player movement
     public void CheckLimbState()
     {
@@ -208,6 +196,7 @@ public class PlayerLimbs : MonoBehaviour
     public void ThrowLimb(int direction)
     {
         _limbs[(int)_selectedLimb].ThrowLimb(direction);
+        _limbs[(int)_selectedLimb] = null;
         if (_selectedLimb != SelectedLimb.LeftLeg)
         {
             _selectedLimb--;
