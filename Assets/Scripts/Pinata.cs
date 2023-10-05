@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Pinata : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private float _maxHealth;
+    [SerializeField]
+
+    public float _health;
 
     // Update is called once per frame
     void Update()
