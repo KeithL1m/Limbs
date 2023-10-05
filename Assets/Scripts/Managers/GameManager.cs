@@ -9,6 +9,7 @@ public class GameManager : Manager
 {
     public List<PlayerInput> playerList = new List<PlayerInput>();
     public List<GameObject> spawnPoints = new List<GameObject>();
+    public List<GameObject> healthUI = new List<GameObject>();
 
     [SerializeField] private Button button;
     [SerializeField] private EventSystem system;
@@ -118,6 +119,8 @@ public class GameManager : Manager
         playerList.Add(playerInput);
         DontDestroyOnLoad(playerList[playerCount]);
         playerCount++;
+
+
 
         if (PlayerJoinedGame != null)
         {
