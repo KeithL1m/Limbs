@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ArrowIndicator : MonoBehaviour
+public class ArrowIndicator : Manager
 {
-    public GameObject arrowIndicatorPrefab; // Reference to the arrow indicator prefab.
-    private GameObject arrowIndicator; // Reference to the instantiated arrow indicator.
     private Vector2 inputDirection;
 
-    void Start()
-    {
-        arrowIndicator = Instantiate(arrowIndicatorPrefab, transform.position, Quaternion.identity);
-    }
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        // Get the current input direction using the Input System.
+        inputDirection = GetComponentInParent<PlayerInput>().actions["Move"].ReadValue<Vector2>();
+
+        // Calculate the rotation angle based on the input direction.
+        float angle = Mathf.Atan2(inputDirection.y, inputDirection.x) * Mathf.Rad2Deg;
+
+        // Apply the rotation to the arrow indicator.
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 }
