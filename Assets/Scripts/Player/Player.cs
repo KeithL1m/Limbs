@@ -54,6 +54,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (PauseManager.paused) return;
+
         if (_playerMovement.facingRight)
         {
             direction = 1;

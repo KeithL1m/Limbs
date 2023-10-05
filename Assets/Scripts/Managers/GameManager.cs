@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -12,6 +13,7 @@ public class GameManager : Manager
 
     [SerializeField] private Button button;
     [SerializeField] private EventSystem system;
+    [SerializeField] private PauseManager pauseManager;
 
     private int playerCount;
     public int deadPlayers;
@@ -20,7 +22,6 @@ public class GameManager : Manager
     [SerializeField] InputAction leaveAction;
 
     public static GameManager instance = null;
-
 
     public event System.Action<PlayerInput> PlayerJoinedGame;
     public event System.Action<PlayerInput> PlayerLeftGame;
@@ -49,6 +50,8 @@ public class GameManager : Manager
 
     override public void OnStart()
     {
+        pauseManager.SetCamera(FindObjectOfType<Camera>());
+
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spawn");
         for (int i = 0; i < gameObjects.Length; i++)
         {
