@@ -92,12 +92,16 @@ public class GameManager : Manager
             }
         }
 
-        if (deadPlayers == playerCount-1)
+        if (deadPlayers == playerCount - 1)
         {
             deadPlayers = 0;
             spawnPoints.Clear();
             for (int j = 0; j < playerList.Count; j++)
             {
+                if (!playerList[j].GetComponent<PlayerHealth>()._isDead)
+                {
+                    playerList[j].GetComponent<Player>().AddScore();
+                }
                 playerList[j].GetComponent<PlayerLimbs>().ClearLimbs();
             }
             MapManager.instance.LoadMap();
@@ -180,5 +184,22 @@ public class GameManager : Manager
         MapManager.instance.LoadMap();
     }
 
+    public int GetPlayerCount()
+    {
+        return playerList.Count;
+    }
 
+    public List<PlayerData> GetPlayerDatas()
+    {
+        List<PlayerData> playerDatas = new List<PlayerData>();
+
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            playerDatas.Add(playerList[i].GetComponent<PlayerData>());
+        }
+
+        playerDatas.Sort((x, y) => x.score.CompareTo(y.score));
+
+        return playerDatas;
+    }
 }

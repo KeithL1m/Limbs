@@ -6,6 +6,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(PlayerJump))]
 [RequireComponent(typeof(PlayerHealth))]
 [RequireComponent(typeof(PlayerLimbs))]
+[RequireComponent(typeof(PlayerData))]
 public class Player : MonoBehaviour
 {
     public enum MovementState
@@ -14,10 +15,13 @@ public class Player : MonoBehaviour
         Jump
     };
 
+    public MovementState _movementState;
+
     //Player components
     PlayerMovement _playerMovement;
     PlayerJump _playerJump;
     PlayerLimbs _playerLimbs;
+    PlayerData _playerData;
 
     //
     // make all limbs get thrown from same place?
@@ -32,13 +36,6 @@ public class Player : MonoBehaviour
     public Vector2 _aim;
     float _throwLimbInput;
 
-    //the location of the limb in the list dictates what limb it is
-    //left leg
-    //right leg
-    //left arm
-    //right arm
-
-    public MovementState _movementState;
 
     //facing left = -1, right = 1
     public int direction;
@@ -49,8 +46,11 @@ public class Player : MonoBehaviour
         _playerMovement = GetComponent<PlayerMovement>();
         _playerJump = GetComponent<PlayerJump>();
         _playerLimbs = GetComponent<PlayerLimbs>();
-    }
+        _playerData = GetComponent<PlayerData>();
 
+        _playerData.score = 0;
+        _playerData.playerName = "Diego";
+    }
 
     void Update()
     {
@@ -110,5 +110,20 @@ public class Player : MonoBehaviour
     public void ThrowLimbInput(InputAction.CallbackContext ctx) => _throwLimbInput = ctx.ReadValue<float>();
 
     public void AimInput(InputAction.CallbackContext ctx) => _aim = ctx.action.ReadValue<Vector2>();
+
+    public void AddScore()
+    {
+        _playerData.score++;
+    }
+
+    public int GetScore()
+    {
+        return _playerData.score;
+    }
+
+    public string GetName()
+    {
+        return _playerData.playerName;
+    }
 
 }
