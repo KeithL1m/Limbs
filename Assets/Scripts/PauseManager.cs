@@ -29,9 +29,13 @@ public class PauseManager : MonoBehaviour
     [SerializeField]
     Canvas canvas;
 
+    private UIManager _uiManager;
+
     private void Awake()
     {
         action = new PauseAction();
+
+        _uiManager = FindObjectOfType<UIManager>();
     }
 
     void Start()
@@ -71,6 +75,8 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 0.0f;
         paused = true;
         pauseMenu.SetActive(true);
+        _uiManager.SetUpLeaderBoard();
+        _uiManager.UpdateLeaderBoard();
         eventSystem.SetSelectedGameObject(pauseFirstButton);
     }
 

@@ -13,7 +13,7 @@ public class GameManager : Manager
 
     [SerializeField] private Button button;
     [SerializeField] private EventSystem system;
-    [SerializeField] private PauseManager pauseManager;
+    private PauseManager pauseManager;
 
     private int playerCount;
     public int deadPlayers;
@@ -40,6 +40,7 @@ public class GameManager : Manager
         PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
         PlayerInputManager.instance.onPlayerLeft += OnPlayerLeft;
 
+        pauseManager = FindObjectOfType<PauseManager>();
 
         joinAction.Enable();
         joinAction.performed += context => JoinAction(context);

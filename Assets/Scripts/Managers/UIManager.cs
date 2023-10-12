@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField]
     GameObject scoreBox;
+    [SerializeField]
+    GameObject leaderboard;
 
     List<GameObject> scoreBoxes;
     List<Vector2> positions;
@@ -15,21 +17,28 @@ public class UIManager : MonoBehaviour
     float margin;
     float totalMargin;
 
-    int playerCount;
+    public int playerCount;
 
     private void Start()
     {
-        playerCount = GameManager.instance.GetPlayerCount();
+        scoreBoxes = new List<GameObject>();
+        positions = new List<Vector2>();
     }
 
     public void SetUpLeaderBoard()
     {
+        playerCount = GameManager.instance.GetPlayerCount();
+
         scoreBoxes.Add(scoreBox);
 
         for (int i = 1; i < playerCount; i++)
         {
             totalMargin += margin;
-            scoreBoxes.Add(Instantiate(scoreBox, new Vector3(scoreBox.transform.position.x, scoreBox.transform.position.y - totalMargin, 0), Quaternion.identity));
+            
+            var box = Instantiate(scoreBox, Vector3.zero, Quaternion.identity);
+            box.transform.SetParent(leaderboard.transform, false);
+            box.transform.localPosition = new Vector3(scoreBox.transform.localPosition.x, scoreBox.transform.localPosition.y - totalMargin, scoreBox.transform.localPosition.z);
+            scoreBoxes.Add(box);
         }
 
         for (int i = 0; i < playerCount; i++)
@@ -45,7 +54,7 @@ public class UIManager : MonoBehaviour
 
         for (int i = 0; i < playerCount; i++)
         {
-            TextMeshProUGUI textMesh = scoreBoxes[i].GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI textMesh = scoreBoxes[i].GetComponentInChildren<TextMeshProUGUI>();
 
             textMesh.text = players[i].playerName + ": " + players[i].score.ToString("000");
         }
