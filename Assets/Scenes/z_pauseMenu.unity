@@ -426,7 +426,7 @@ RectTransform:
   m_Children:
   - {fileID: 1917297896}
   m_Father: {fileID: 247388001}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -589,7 +589,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 222498114}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 556147437}
+        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_MethodName: LoadMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &222498114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -790,13 +802,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 754831700}
   - {fileID: 1187367255}
   - {fileID: 656619060}
   - {fileID: 557626479}
   - {fileID: 1243981692}
   - {fileID: 147188129}
   - {fileID: 1214447086}
+  - {fileID: 754831700}
   m_Father: {fileID: 556147438}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1398,12 +1410,12 @@ MonoBehaviour:
   pauseMenu: {fileID: 247388000}
   arsenalMenu: {fileID: 1689317086}
   optionsMenu: {fileID: 273698029}
-  popupMenu: {fileID: 0}
+  popupMenu: {fileID: 754831699}
   eventSystem: {fileID: 1711674093}
   pauseFirstButton: {fileID: 656619056}
   arsenalFirstButton: {fileID: 1514994067}
   optionsFirstButton: {fileID: 1368632891}
-  popupFirstButton: {fileID: 0}
+  popupFirstButton: {fileID: 222498112}
   canvas: {fileID: 556147441}
 --- !u!224 &556147438
 RectTransform:
@@ -1539,7 +1551,7 @@ RectTransform:
   m_Children:
   - {fileID: 101959142}
   m_Father: {fileID: 247388001}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1767,7 +1779,7 @@ RectTransform:
   m_Children:
   - {fileID: 855844678}
   m_Father: {fileID: 247388001}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1791,7 +1803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &754831700
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1808,7 +1820,7 @@ RectTransform:
   - {fileID: 222498116}
   - {fileID: 2060860290}
   m_Father: {fileID: 247388001}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2796,7 +2808,7 @@ RectTransform:
   m_Children:
   - {fileID: 777284673}
   m_Father: {fileID: 247388001}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2873,7 +2885,7 @@ RectTransform:
   m_Children:
   - {fileID: 2054425885}
   m_Father: {fileID: 247388001}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3180,7 +3192,7 @@ RectTransform:
   m_Children:
   - {fileID: 1237069994}
   m_Father: {fileID: 247388001}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5253,7 +5265,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2060860292}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 556147437}
+        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_MethodName: UnloadPopupMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2060860292
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -91,6 +91,7 @@ public class PauseManager : MonoBehaviour
         pauseMenu.SetActive(false);
         arsenalMenu.SetActive(false);
         optionsMenu.SetActive(false);
+        popupMenu.SetActive(false);
     }
 
     public void LoadArsenalMenu()
@@ -125,14 +126,14 @@ public class PauseManager : MonoBehaviour
     public void UnloadPopupMenu()
     {
         popupMenu.SetActive(false);
-        eventSystem.SetSelectedGameObject(pauseMenu);
+        eventSystem.SetSelectedGameObject(pauseFirstButton);
         //make sure an animation plays when this is clicked
     }
 
     public void LoadMainMenu()
     {
-        SceneManager.LoadScene(1);
         ResumeGame();
+        SceneManager.LoadScene(1);
     }
 
     public void SetCamera(Camera camera)
