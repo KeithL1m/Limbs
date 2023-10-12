@@ -7,6 +7,10 @@ TagManager:
   - Limb
   - Spawn
   - DeathLocation
+  - P1Health
+  - P2Health
+  - P3Health
+  - P4Health
   layers:
   - Default
   - TransparentFX

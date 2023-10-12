@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField]
-    private float _maxHealth;
+    public float _maxHealth;
     [SerializeField]
     private Chain chain;
     private DeathPosition[] deathPositions;
@@ -13,10 +14,13 @@ public class PlayerHealth : MonoBehaviour
     public float _health;
     public bool _isDead = false;
 
+    [SerializeField]
+    private Slider healthSlider;
+
     private void Start()
     {
         _health = _maxHealth;
-    }
+}
 
     private void Update()
     {
@@ -29,6 +33,9 @@ public class PlayerHealth : MonoBehaviour
     public void AddDamage(float damage)
     {
         _health -= damage;
+
+        // Update the health slider value here
+        UpdateHealthSlider();
     }
 
     public bool IsDead() { return _isDead; }
@@ -50,6 +57,25 @@ public class PlayerHealth : MonoBehaviour
     public void ResetHealth()
     {
         _health = _maxHealth;
+
+        // Update the health slider value when resetting health
+        UpdateHealthSlider();
+
         chain.DisableChain();
+    }
+
+    private void UpdateHealthSlider()
+    {
+        if (healthSlider != null)
+        {
+            // Assuming your health value ranges from 0 to _maxHealth
+            healthSlider.value = _health / _maxHealth;
+        }
+    }
+
+    // Add this method to set the health slider
+    public void SetHealthSlider(Slider slider)
+    {
+        healthSlider = slider;
     }
 }

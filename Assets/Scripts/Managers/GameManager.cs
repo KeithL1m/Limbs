@@ -126,6 +126,24 @@ public class GameManager : Manager
         {
             PlayerJoinedGame(playerInput);
         }
+
+        if (playerCount <= healthUI.Count)
+        {
+            GameObject newHealthUI = Instantiate(healthUI[playerCount - 1]);
+            newHealthUI.transform.SetParent(HealthUIManager.instance.transform);
+            newHealthUI.SetActive(true); // Enable the health UI for the newly joined player
+
+            // Retrieve the Slider component from the instantiated health UI
+            Slider healthSlider = newHealthUI.GetComponentInChildren<Slider>();
+
+            // Here, you would set the health value on the player.
+            playerInput.GetComponent<PlayerHealth>().SetHealthSlider(healthSlider); 
+
+            // Update the health value on the slider
+            PlayerHealth playerHealth = playerInput.GetComponent<PlayerHealth>();
+            float initialHealth = playerHealth._maxHealth;
+            healthSlider.value = initialHealth;
+        }
     }
 
     public void OnPlayerLeft(PlayerInput playerInput)
