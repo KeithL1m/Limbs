@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : Manager
 {
@@ -14,14 +15,19 @@ public class GameManager : Manager
     [SerializeField] private Button button;
     [SerializeField] private EventSystem system;
 
+    [SerializeField] private GameObject gameOverBG;
+    [SerializeField] private TMP_Text gameOverText;
+    [SerializeField] private string[] gameOverMessages;
+
     private int playerCount;
     public int deadPlayers;
+    private bool isGameOver = false;
+    private float originalTimeScale = 1.0f;
 
     [SerializeField] InputAction joinAction;
     [SerializeField] InputAction leaveAction;
 
     public static GameManager instance = null;
-
 
     public event System.Action<PlayerInput> PlayerJoinedGame;
     public event System.Action<PlayerInput> PlayerLeftGame;
@@ -40,6 +46,8 @@ public class GameManager : Manager
         PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
         PlayerInputManager.instance.onPlayerLeft += OnPlayerLeft;
 
+        // Store the original time scale
+        originalTimeScale = Time.timeScale;
 
         joinAction.Enable();
         joinAction.performed += context => JoinAction(context);
@@ -92,13 +100,11 @@ public class GameManager : Manager
 
         if (deadPlayers == playerCount-1)
         {
-            deadPlayers = 0;
-            spawnPoints.Clear();
-            for (int j = 0; j < playerList.Count; j++)
+            if (!isGameOver) // Check if game over is not already triggered
             {
-                playerList[j].GetComponent<Player>().ClearLimbs();
+                isGameOver = true;
+                StartCoroutine(ShowGameOverScreen());
             }
-            MapManager.instance.LoadMap();
         }
         else
         {
@@ -192,6 +198,44 @@ public class GameManager : Manager
         startScreen = false;
         MapManager.instance.LoadMap();
     }
+    private IEnumerator ShowGameOverScreen()
+    {
+        // Slow down the game to 0.5x
+        Time.timeScale = 0.5f;
 
+        // Show the UI panel
+        gameOverBG.SetActive(true);
+
+        // Display a random game over message from the array
+        int randomMessageIndex = Random.Range(0, gameOverMessages.Length);
+        gameOverText.text = gameOverMessages[randomMessageIndex];
+
+        // Wait for 5 seconds
+        float endTime = Time.realtimeSinceStartup + 5.0f;
+
+        while (Time.realtimeSinceStartup < endTime)
+        {
+            yield return null;
+        }
+
+        deadPlayers = 0;
+        spawnPoints.Clear();
+
+        for (int j = 0; j < playerList.Count; j++)
+        {
+            playerList[j].GetComponent<Player>().ClearLimbs();
+        }
+
+        Time.timeScale = originalTimeScale;
+
+        // Switch the map (you can call your map switching function here)
+        MapManager.instance.LoadMap();
+
+        // Set the UI panel back to inactive
+        gameOverBG.SetActive(false);
+
+        // Reset the game over flag
+        isGameOver = false;
+    }
 
 }
