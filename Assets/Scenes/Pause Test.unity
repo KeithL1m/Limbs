@@ -1117,7 +1117,7 @@ GameObject:
   - component: {fileID: 556147439}
   - component: {fileID: 556147437}
   m_Layer: 5
-  m_Name: Pause Manager
+  m_Name: UI Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1142,7 +1142,7 @@ MonoBehaviour:
   pauseFirstButton: {fileID: 656619056}
   arsenalFirstButton: {fileID: 1514994067}
   optionsFirstButton: {fileID: 1368632891}
-  canvas: {fileID: 0}
+  canvas: {fileID: 556147441}
 --- !u!224 &556147438
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3732,6 +3732,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a75bbd1a2995e4693a9033b2f16179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _basePlayer: {fileID: 0}
+  arrowIndicatorPrefab: {fileID: 0}
+  _playerInputList: []
 --- !u!1 &1850385048
 GameObject:
   m_ObjectHideFlags: 0
