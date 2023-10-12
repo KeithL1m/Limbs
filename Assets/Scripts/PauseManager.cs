@@ -133,7 +133,7 @@ public class PauseManager : MonoBehaviour
     public void LoadMainMenu()
     {
         ResumeGame();
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
     public void SetCamera(Camera camera)
