@@ -29,7 +29,7 @@ public class GameManager : Manager
     public event System.Action<PlayerInput> PlayerLeftGame;
 
 
-    bool startScreen = true;
+    public bool startScreen = true;
 
     void Awake()
     {
@@ -71,15 +71,7 @@ public class GameManager : Manager
 
     private void Update()
     {
-        if (startScreen)
-        {
-            if (playerList.Count > 1)
-            {
-                button.gameObject.SetActive(true);
-                system.SetSelectedGameObject(button.gameObject);
-            }
-        }
-        else
+        if (!startScreen)
         {
             CheckGameOver();
         }
@@ -176,14 +168,6 @@ public class GameManager : Manager
         }
 
         Destroy(playerInput.transform.gameObject);
-    }
-
-    public void StartGame()
-    {
-        startScreen = false;
-
-        uiManager.SetUpLeaderBoard();
-        MapManager.instance.LoadMap();
     }
 
     public int GetPlayerCount()

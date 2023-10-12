@@ -8,12 +8,13 @@ public class Pinata : MonoBehaviour
     private float _maxHealth;
     private float _health;
 
-    
+    private UIManager _manager;
 
 
     void Start()
     {
         _health = _maxHealth;    
+        _manager = FindObjectOfType<UIManager>();
     }
     // Update is called once per frame
 
@@ -43,6 +44,10 @@ public class Pinata : MonoBehaviour
 
     void PinataDestroyed()
     {
-            MapManager.instance.LoadMap();
+        _manager.SetUpLeaderBoard();
+        _manager.UpdateLeaderBoard();
+
+        GameManager.instance.startScreen = false;
+        MapManager.instance.LoadMap();
     }
 }
