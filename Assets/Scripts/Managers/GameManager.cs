@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -13,6 +14,9 @@ public class GameManager : Manager
     [SerializeField] private Button button;
     [SerializeField] private EventSystem system;
 
+    private PauseManager pauseManager;
+    private UIManager uiManager;
+
     private int playerCount;
     public int deadPlayers;
 
@@ -21,12 +25,11 @@ public class GameManager : Manager
 
     public static GameManager instance = null;
 
-
     public event System.Action<PlayerInput> PlayerJoinedGame;
     public event System.Action<PlayerInput> PlayerLeftGame;
 
 
-    bool startScreen = true;
+    public bool startScreen = true;
 
     void Awake()
     {
@@ -39,6 +42,8 @@ public class GameManager : Manager
         PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
         PlayerInputManager.instance.onPlayerLeft += OnPlayerLeft;
 
+        pauseManager = FindObjectOfType<PauseManager>();
+        uiManager = FindObjectOfType<UIManager>();
 
         joinAction.Enable();
         joinAction.performed += context => JoinAction(context);
@@ -49,6 +54,8 @@ public class GameManager : Manager
 
     override public void OnStart()
     {
+        pauseManager.SetCamera(FindObjectOfType<Camera>());
+
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spawn");
         for (int i = 0; i < gameObjects.Length; i++)
         {
@@ -64,15 +71,7 @@ public class GameManager : Manager
 
     private void Update()
     {
-        if (startScreen)
-        {
-            if (playerList.Count > 1)
-            {
-                button.gameObject.SetActive(true);
-                system.SetSelectedGameObject(button.gameObject);
-            }
-        }
-        else
+        if (!startScreen)
         {
             CheckGameOver();
         }
@@ -89,14 +88,19 @@ public class GameManager : Manager
             }
         }
 
-        if (deadPlayers == playerCount-1)
+        if (deadPlayers == playerCount - 1)
         {
             deadPlayers = 0;
             spawnPoints.Clear();
             for (int j = 0; j < playerList.Count; j++)
             {
-                playerList[j].GetComponent<Player>().ClearLimbs();
+                if (!playerList[j].GetComponent<PlayerHealth>()._isDead)
+                {
+                    playerList[j].GetComponent<Player>().AddScore();
+                }
+                playerList[j].GetComponent<PlayerLimbs>().ClearLimbs();
             }
+            uiManager.UpdateLeaderBoard();
             MapManager.instance.LoadMap();
         }
         else
@@ -166,11 +170,22 @@ public class GameManager : Manager
         Destroy(playerInput.transform.gameObject);
     }
 
-    public void StartGame()
+    public int GetPlayerCount()
     {
-        startScreen = false;
-        MapManager.instance.LoadMap();
+        return playerList.Count;
     }
 
+    public List<PlayerData> GetPlayerDatas()
+    {
+        List<PlayerData> playerDatas = new List<PlayerData>();
 
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            playerDatas.Add(playerList[i].GetComponent<PlayerData>());
+        }
+
+        playerDatas.Sort((x, y) => x.score.CompareTo(y.score));
+
+        return playerDatas;
+    }
 }

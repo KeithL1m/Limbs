@@ -19,7 +19,7 @@ public class PlayerManager : Manager
 
         for(int i = 0; i < _playerInputList.Count; i++)
         {
-            _playerInputList[i].GetComponent<Player>().ClearLimbs();
+            _playerInputList[i].GetComponent<PlayerLimbs>().ClearLimbs();
             _playerInputList[i].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
             _playerInputList[i].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
             _playerInputList[i].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);

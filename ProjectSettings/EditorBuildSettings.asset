@@ -41,7 +41,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/BUTCHER_SHOP_MAPA.unity
     guid: 29c3c8ad692189b47b2691930aa12a2a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/KY Scene 2.unity
     guid: 81ba6cb8c9703a74eb704103ec195f3e
   - enabled: 1
