@@ -79,8 +79,7 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 0.0f;
         paused = true;
         pauseMenu.SetActive(true);
-        _uiManager.SetUpLeaderBoard();
-        _uiManager.UpdateLeaderBoard();
+
         eventSystem.SetSelectedGameObject(pauseFirstButton);
     }
 

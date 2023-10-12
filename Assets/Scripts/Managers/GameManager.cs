@@ -13,7 +13,9 @@ public class GameManager : Manager
 
     [SerializeField] private Button button;
     [SerializeField] private EventSystem system;
+
     private PauseManager pauseManager;
+    private UIManager uiManager;
 
     private int playerCount;
     public int deadPlayers;
@@ -41,6 +43,7 @@ public class GameManager : Manager
         PlayerInputManager.instance.onPlayerLeft += OnPlayerLeft;
 
         pauseManager = FindObjectOfType<PauseManager>();
+        uiManager = FindObjectOfType<UIManager>();
 
         joinAction.Enable();
         joinAction.performed += context => JoinAction(context);
@@ -105,6 +108,7 @@ public class GameManager : Manager
                 }
                 playerList[j].GetComponent<PlayerLimbs>().ClearLimbs();
             }
+            uiManager.UpdateLeaderBoard();
             MapManager.instance.LoadMap();
         }
         else
@@ -177,6 +181,8 @@ public class GameManager : Manager
     public void StartGame()
     {
         startScreen = false;
+
+        uiManager.SetUpLeaderBoard();
         MapManager.instance.LoadMap();
     }
 
