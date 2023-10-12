@@ -14,6 +14,8 @@ public class PauseManager : MonoBehaviour
     GameObject arsenalMenu;
     [SerializeField]
     GameObject optionsMenu;
+    [SerializeField]
+    GameObject popupMenu;
 
     [SerializeField]
     EventSystem eventSystem;
@@ -24,6 +26,8 @@ public class PauseManager : MonoBehaviour
     GameObject arsenalFirstButton;
     [SerializeField]
     GameObject optionsFirstButton;
+    [SerializeField]
+    GameObject popupFirstButton;
 
 
     [SerializeField]
@@ -109,6 +113,20 @@ public class PauseManager : MonoBehaviour
         optionsMenu.SetActive(false);
         pauseMenu.SetActive(true);
         eventSystem.SetSelectedGameObject(pauseFirstButton);
+    }
+
+    public void LoadPopUpMenu()
+    {
+        popupMenu.SetActive(true);
+        eventSystem.SetSelectedGameObject(popupFirstButton);
+        //make sure an animation plays when this is clicked
+    }
+
+    public void UnloadPopupMenu()
+    {
+        popupMenu.SetActive(false);
+        eventSystem.SetSelectedGameObject(pauseMenu);
+        //make sure an animation plays when this is clicked
     }
 
     public void LoadMainMenu()
