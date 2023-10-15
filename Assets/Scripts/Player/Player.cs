@@ -47,9 +47,6 @@ public class Player : MonoBehaviour
         _playerJump = GetComponent<PlayerJump>();
         _playerLimbs = GetComponent<PlayerLimbs>();
         _playerData = GetComponent<PlayerData>();
-
-        _playerData.score = 0;
-        _playerData.playerName = "Diego";
     }
 
     void Update()

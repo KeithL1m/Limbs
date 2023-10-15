@@ -43,9 +43,6 @@ public class GameManager : Manager
         PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
         PlayerInputManager.instance.onPlayerLeft += OnPlayerLeft;
 
-        pauseManager = FindObjectOfType<PauseManager>();
-        uiManager = FindObjectOfType<UIManager>();
-
         joinAction.Enable();
         joinAction.performed += context => JoinAction(context);
 
@@ -121,6 +118,7 @@ public class GameManager : Manager
     public void OnPlayerJoined(PlayerInput playerInput)
     {
         playerList.Add(playerInput);
+        playerList[playerCount].transform.position = new Vector3(0.0f, 12.0f);
         DontDestroyOnLoad(playerList[playerCount]);
         playerCount++;
 
@@ -208,5 +206,17 @@ public class GameManager : Manager
         playerDatas.Sort((x, y) => x.score.CompareTo(y.score));
 
         return playerDatas;
+    }
+
+    public void StartGame()
+    {
+        uiManager = FindObjectOfType<UIManager>();
+        pauseManager = FindObjectOfType<PauseManager>();
+
+        uiManager.SetUpLeaderBoard();
+        uiManager.UpdateLeaderBoard();
+
+        startScreen = false;
+        MapManager.instance.LoadMap();
     }
 }
