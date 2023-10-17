@@ -33,7 +33,7 @@ EditorBuildSettings:
     path: Assets/Scenes/KY Scene 4.unity
     guid: 5ded8a065338f69429946fbea35ae646
   - enabled: 1
-    path: Assets/Scenes/MOLTEN_LAVA_MAPA.unity
+    path: Assets/Scenes/Molten Lava.unity
     guid: d2acd89d83897ca4cb32fc72eab46c40
   - enabled: 0
     path: Assets/Scenes/nasa.unity
