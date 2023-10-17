@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : Manager
 {
@@ -12,11 +13,18 @@ public class GameManager : Manager
     public List<GameObject> spawnPoints = new List<GameObject>();
     public List<GameObject> healthUI = new List<GameObject>();
 
+    [SerializeField] private GameObject gameOverBG;
+    [SerializeField] private TMP_Text gameOverText;
+    [SerializeField] private string[] gameOverMessages;
+
     [SerializeField] private Button button;
     [SerializeField] private EventSystem system;
 
     private PauseManager pauseManager;
     private UIManager uiManager;
+
+    private bool isGameOver = false;
+    private float originalTimeScale = 1.0f;
 
     private int playerCount;
     public int deadPlayers;
@@ -42,6 +50,8 @@ public class GameManager : Manager
 
         PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
         PlayerInputManager.instance.onPlayerLeft += OnPlayerLeft;
+
+        originalTimeScale = Time.timeScale;
 
         pauseManager = FindObjectOfType<PauseManager>();
         uiManager = FindObjectOfType<UIManager>();
@@ -103,6 +113,7 @@ public class GameManager : Manager
             }
             uiManager.UpdateLeaderBoard();
             MapManager.instance.LoadMap();
+
         }
         else
         {
@@ -196,7 +207,31 @@ public class GameManager : Manager
         return playerList.Count;
     }
 
-    public List<PlayerData> GetPlayerDatas()
+    private IEnumerator ShowGameOverScreen()
+    {
+        // Slow down the game to 0.5x
+        Time.timeScale = 0.5f;
+
+        // Show the UI panel
+        gameOverBG.SetActive(true);
+
+        // Display a random game over message from the array
+        int randomMessageIndex = Random.Range(0, gameOverMessages.Length);
+        gameOverText.text = gameOverMessages[randomMessageIndex];
+
+        // Wait for 5 seconds
+        float endTime = Time.realtimeSinceStartup + 5.0f;
+
+        while (Time.realtimeSinceStartup < endTime)
+        {
+            yield return null;
+        }
+
+        deadPlayers = 0;
+        spawnPoints.Clear();
+    }
+
+        public List<PlayerData> GetPlayerDatas()
     {
         List<PlayerData> playerDatas = new List<PlayerData>();
 
