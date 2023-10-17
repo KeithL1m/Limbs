@@ -12,6 +12,7 @@ public class GameManager : Manager
     public List<PlayerInput> playerList = new List<PlayerInput>();
     public List<GameObject> spawnPoints = new List<GameObject>();
     public List<GameObject> healthUI = new List<GameObject>();
+    public List<TMP_Text> winsCounter = new List<TMP_Text>();
 
     [SerializeField] private GameObject gameOverBG;
     [SerializeField] private TMP_Text gameOverText;
@@ -22,9 +23,6 @@ public class GameManager : Manager
 
     private PauseManager pauseManager;
     private UIManager uiManager;
-
-    private bool isGameOver = false;
-    private float originalTimeScale = 1.0f;
 
     private int playerCount;
     public int deadPlayers;
@@ -50,8 +48,6 @@ public class GameManager : Manager
 
         PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
         PlayerInputManager.instance.onPlayerLeft += OnPlayerLeft;
-
-        originalTimeScale = Time.timeScale;
 
         pauseManager = FindObjectOfType<PauseManager>();
         uiManager = FindObjectOfType<UIManager>();
@@ -145,16 +141,14 @@ public class GameManager : Manager
         if (playerCount <= healthUI.Count)
         {
             GameObject newHealthUI = Instantiate(healthUI[playerCount - 1]);
+
             newHealthUI.transform.SetParent(HealthUIManager.instance.transform);
-            newHealthUI.SetActive(true); // Enable the health UI for the newly joined player
+            newHealthUI.SetActive(true);
 
-            // Retrieve the Slider component from the instantiated health UI
             Slider healthSlider = newHealthUI.GetComponentInChildren<Slider>();
-
-            // Here, you would set the health value on the player.
+      
             playerInput.GetComponent<PlayerHealth>().SetHealthSlider(healthSlider); 
 
-            // Update the health value on the slider
             PlayerHealth playerHealth = playerInput.GetComponent<PlayerHealth>();
             float initialHealth = playerHealth._maxHealth;
             healthSlider.value = initialHealth;
@@ -205,30 +199,6 @@ public class GameManager : Manager
     public int GetPlayerCount()
     {
         return playerList.Count;
-    }
-
-    private IEnumerator ShowGameOverScreen()
-    {
-        // Slow down the game to 0.5x
-        Time.timeScale = 0.5f;
-
-        // Show the UI panel
-        gameOverBG.SetActive(true);
-
-        // Display a random game over message from the array
-        int randomMessageIndex = Random.Range(0, gameOverMessages.Length);
-        gameOverText.text = gameOverMessages[randomMessageIndex];
-
-        // Wait for 5 seconds
-        float endTime = Time.realtimeSinceStartup + 5.0f;
-
-        while (Time.realtimeSinceStartup < endTime)
-        {
-            yield return null;
-        }
-
-        deadPlayers = 0;
-        spawnPoints.Clear();
     }
 
         public List<PlayerData> GetPlayerDatas()
