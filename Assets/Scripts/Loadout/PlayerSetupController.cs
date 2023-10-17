@@ -25,13 +25,25 @@ public class PlayerSetupController : MonoBehaviour
     public void SetPlayerIndex(int pi)
     {
         _playerIndex = pi;
-        _titleText.SetText("Player " + (pi + 1).ToString());
+        string name = "Player " + (_playerIndex + 1).ToString();
+        _titleText.SetText(name);
+        _configManager.SetPlayerName(_playerIndex, name);
     }
 
     public void SetHead(Sprite head)
     {
         _configManager.SetPlayerHead(_playerIndex, head);
-    }    
+    }
+
+    public void SetBody(Sprite body)
+    {
+        _configManager.SetPlayerBody(_playerIndex, body);
+    }
+
+    public void ChangePlayerName()
+    {
+        // don't know how to do this yet
+    }
 
     public void ReadyPlayer()
     {

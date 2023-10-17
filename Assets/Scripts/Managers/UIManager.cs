@@ -56,7 +56,7 @@ public class UIManager : MonoBehaviour
         {
             TextMeshProUGUI textMesh = scoreBoxes[i].GetComponentInChildren<TextMeshProUGUI>();
 
-            textMesh.text = players[i].playerName + ": " + players[i].score.ToString("000");
+            textMesh.text = players[i].PlayerName + ": " + players[i].Score.ToString("000");
         }
     }
 }
