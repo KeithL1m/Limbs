@@ -52,7 +52,7 @@ public class GameManager : Manager
 
     override public void OnStart()
     {
-        pauseManager.SetCamera(FindObjectOfType<Camera>());
+        //pauseManager.SetCamera(FindObjectOfType<Camera>());
 
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spawn");
         for (int i = 0; i < gameObjects.Length; i++)

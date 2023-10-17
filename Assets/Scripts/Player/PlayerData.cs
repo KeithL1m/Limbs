@@ -6,5 +6,6 @@ public class PlayerData : MonoBehaviour
 {
     public int score;
     public string playerName;
-    public Sprite playerSkin;
+    public Sprite playerHead;
+    public Sprite playerBody;
 }
