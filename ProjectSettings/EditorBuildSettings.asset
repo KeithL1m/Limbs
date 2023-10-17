@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/StartMenu.unity
     guid: ab8098102b9ecda45ad1e2aa8d0b2032
   - enabled: 1
-    path: Assets/Scenes/PlayerSelect.unity
-    guid: 67284fbf0f6e3634a89d9990b38fa9f5
+    path: Assets/Scenes/NEW PLAYER SELECT.unity
+    guid: c2b56dbdcbaeb284ca77092c14d4b4b1
   - enabled: 1
     path: Assets/Scenes/Vince MapScenes/VinceScene 1.unity
     guid: 646c086073f4b4d468b3fc1d6123c639
@@ -41,7 +41,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/BUTCHER_SHOP_MAPA.unity
     guid: 29c3c8ad692189b47b2691930aa12a2a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/KY Scene 2.unity
     guid: 81ba6cb8c9703a74eb704103ec195f3e
   - enabled: 1

@@ -7,6 +7,7 @@ TagManager:
   - Limb
   - Spawn
   - DeathLocation
+  - Pinata
   - P1Health
   - P2Health
   - P3Health

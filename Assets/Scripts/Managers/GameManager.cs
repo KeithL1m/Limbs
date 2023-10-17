@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using TMPro;
 
 public class GameManager : Manager
 {
@@ -15,14 +15,11 @@ public class GameManager : Manager
     [SerializeField] private Button button;
     [SerializeField] private EventSystem system;
 
-    [SerializeField] private GameObject gameOverBG;
-    [SerializeField] private TMP_Text gameOverText;
-    [SerializeField] private string[] gameOverMessages;
+    private PauseManager pauseManager;
+    private UIManager uiManager;
 
     private int playerCount;
     public int deadPlayers;
-    private bool isGameOver = false;
-    private float originalTimeScale = 1.0f;
 
     [SerializeField] InputAction joinAction;
     [SerializeField] InputAction leaveAction;
@@ -33,7 +30,7 @@ public class GameManager : Manager
     public event System.Action<PlayerInput> PlayerLeftGame;
 
 
-    bool startScreen = true;
+    public bool startScreen = true;
 
     void Awake()
     {
@@ -46,8 +43,8 @@ public class GameManager : Manager
         PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
         PlayerInputManager.instance.onPlayerLeft += OnPlayerLeft;
 
-        // Store the original time scale
-        originalTimeScale = Time.timeScale;
+        pauseManager = FindObjectOfType<PauseManager>();
+        uiManager = FindObjectOfType<UIManager>();
 
         joinAction.Enable();
         joinAction.performed += context => JoinAction(context);
@@ -58,6 +55,8 @@ public class GameManager : Manager
 
     override public void OnStart()
     {
+        pauseManager.SetCamera(FindObjectOfType<Camera>());
+
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spawn");
         for (int i = 0; i < gameObjects.Length; i++)
         {
@@ -73,15 +72,7 @@ public class GameManager : Manager
 
     private void Update()
     {
-        if (startScreen)
-        {
-            if (playerList.Count > 1)
-            {
-                button.gameObject.SetActive(true);
-                system.SetSelectedGameObject(button.gameObject);
-            }
-        }
-        else
+        if (!startScreen)
         {
             CheckGameOver();
         }
@@ -98,13 +89,20 @@ public class GameManager : Manager
             }
         }
 
-        if (deadPlayers == playerCount-1)
+        if (deadPlayers == playerCount - 1)
         {
-            if (!isGameOver) // Check if game over is not already triggered
+            deadPlayers = 0;
+            spawnPoints.Clear();
+            for (int j = 0; j < playerList.Count; j++)
             {
-                isGameOver = true;
-                StartCoroutine(ShowGameOverScreen());
+                if (!playerList[j].GetComponent<PlayerHealth>()._isDead)
+                {
+                    playerList[j].GetComponent<Player>().AddScore();
+                }
+                playerList[j].GetComponent<PlayerLimbs>().ClearLimbs();
             }
+            uiManager.UpdateLeaderBoard();
+            MapManager.instance.LoadMap();
         }
         else
         {
@@ -193,49 +191,22 @@ public class GameManager : Manager
         Destroy(playerInput.transform.gameObject);
     }
 
-    public void StartGame()
+    public int GetPlayerCount()
     {
-        startScreen = false;
-        MapManager.instance.LoadMap();
-    }
-    private IEnumerator ShowGameOverScreen()
-    {
-        // Slow down the game to 0.5x
-        Time.timeScale = 0.5f;
-
-        // Show the UI panel
-        gameOverBG.SetActive(true);
-
-        // Display a random game over message from the array
-        int randomMessageIndex = Random.Range(0, gameOverMessages.Length);
-        gameOverText.text = gameOverMessages[randomMessageIndex];
-
-        // Wait for 5 seconds
-        float endTime = Time.realtimeSinceStartup + 5.0f;
-
-        while (Time.realtimeSinceStartup < endTime)
-        {
-            yield return null;
-        }
-
-        deadPlayers = 0;
-        spawnPoints.Clear();
-
-        for (int j = 0; j < playerList.Count; j++)
-        {
-            playerList[j].GetComponent<Player>().ClearLimbs();
-        }
-
-        Time.timeScale = originalTimeScale;
-
-        // Switch the map (you can call your map switching function here)
-        MapManager.instance.LoadMap();
-
-        // Set the UI panel back to inactive
-        gameOverBG.SetActive(false);
-
-        // Reset the game over flag
-        isGameOver = false;
+        return playerList.Count;
     }
 
+    public List<PlayerData> GetPlayerDatas()
+    {
+        List<PlayerData> playerDatas = new List<PlayerData>();
+
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            playerDatas.Add(playerList[i].GetComponent<PlayerData>());
+        }
+
+        playerDatas.Sort((x, y) => x.score.CompareTo(y.score));
+
+        return playerDatas;
+    }
 }

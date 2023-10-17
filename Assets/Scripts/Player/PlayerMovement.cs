@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D _rb;
-    Player _player;
     PlayerJump _playerJump;
 
     float _moveInput;
@@ -28,11 +27,10 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _player = GetComponent<Player>();
         _playerJump = GetComponent<PlayerJump>();
     }
 
-    public void Move(Player.LimbState state)
+    public void Move(PlayerLimbs.LimbState state)
     {
         if (GetComponent<PlayerHealth>().IsDead())
             return;
@@ -50,13 +48,13 @@ public class PlayerMovement : MonoBehaviour
 
         switch (state)
         {
-            case Player.LimbState.TwoLeg:
+            case PlayerLimbs.LimbState.TwoLeg:
                 moveSpeed *= _2LegMoveSpeed;
                 break;
-            case Player.LimbState.OneLeg:
+            case PlayerLimbs.LimbState.OneLeg:
                 moveSpeed *= _1LegMoveSpeed;
                 break;
-            case Player.LimbState.NoLimb:
+            case PlayerLimbs.LimbState.NoLimb:
                 _hopTimer -= Time.deltaTime;
                 Hop(moveSpeed);
                 moveSpeed *= _noLegSpeed;
