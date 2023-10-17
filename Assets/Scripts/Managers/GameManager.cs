@@ -96,7 +96,7 @@ public class GameManager : Manager
                 {
                     playerList[j].GetComponent<Player>().AddScore();
                 }
-                playerList[j].GetComponent<PlayerLimbs>().ClearLimbs();
+                ClearLimbs();
             }
             uiManager.UpdateLeaderBoard();
             MapManager.instance.LoadMap();
@@ -216,7 +216,16 @@ public class GameManager : Manager
         uiManager.SetUpLeaderBoard();
         uiManager.UpdateLeaderBoard();
 
+		ClearLimbs();
         startScreen = false;
         MapManager.instance.LoadMap();
+	}
+	
+    public void ClearLimbs()
+    {
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            playerList[i].GetComponent<PlayerLimbs>().ClearLimbs();
+        }
     }
 }
