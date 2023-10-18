@@ -17,7 +17,7 @@ public class GameManager : Manager
     private ConfigurationManager _configManager;
 
     private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
-    private List<Player> _players = new List<Player>();
+    public List<Player> _players = new List<Player>();
 
     private PauseManager pauseManager;
     private UIManager uiManager;

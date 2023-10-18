@@ -7,6 +7,7 @@ public class PlayerInputHandler : MonoBehaviour
 {
     private PlayerActions _actions;
     private PlayerConfiguration _config;
+    public PlayerInput _input;
 
     public float Movement { get; private set; }
     public float Jump { get; private set; }
@@ -21,10 +22,11 @@ public class PlayerInputHandler : MonoBehaviour
     public void InitializePlayer(PlayerConfiguration pc)
     {
         _config = pc;
-        _config.Input.onActionTriggered += MoveInput;
-        _config.Input.onActionTriggered += JumpInput;
-        _config.Input.onActionTriggered += ThrowLimbInput;
-        _config.Input.onActionTriggered += AimInput;
+        _input = pc.Input;
+        _input.onActionTriggered += MoveInput;
+        _input.onActionTriggered += JumpInput;
+        _input.onActionTriggered += ThrowLimbInput;
+        _input.onActionTriggered += AimInput;
     }
 
     public void MoveInput(InputAction.CallbackContext ctx)
