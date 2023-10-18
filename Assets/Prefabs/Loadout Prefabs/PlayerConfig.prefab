@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8417559861326467952}
   - component: {fileID: 7150253469480800371}
-  - component: {fileID: 2055935165990042521}
   - component: {fileID: 8966832556035873932}
+  - component: {fileID: -6132915708946117506}
   m_Layer: 0
   m_Name: PlayerConfig
   m_TagString: Untagged
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: eb044a8dc5109984b9c550913304dfc7, type: 3}
-  m_NotificationBehavior: 3
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -58,28 +58,36 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 183f3ef6-e4da-4b51-b40d-98ab3226a862
+    m_ActionName: Gameplay/Move[/DualSenseGamepadHID/leftStick/x,/Keyboard/a,/Keyboard/d,/DualSenseGamepadHID/dpad/left,/DualSenseGamepadHID/dpad/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9f201351-7893-424f-9aed-f26fdd7c4c9a
+    m_ActionName: Gameplay/Jump[/DualSenseGamepadHID/buttonSouth,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dd8ef21d-3cf5-4acf-a746-6763821e23e6
+    m_ActionName: Gameplay/ThrowLimb[/DualSenseGamepadHID/rightTrigger,/Keyboard/t]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cca41aa3-2dcf-4999-b13d-cfe881ab453c
+    m_ActionName: Gameplay/Aim[/DualSenseGamepadHID/rightStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 14528509-49c9-4939-a388-e23a88064a39
+    m_ActionName: Menu Nav/Move[/DualSenseGamepadHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 81d0bb80-cb99-4591-8116-b231239ca0cc
+    m_ActionName: Menu Nav/Select[/DualSenseGamepadHID/buttonSouth,/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &2055935165990042521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1915219753739768710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f515fc42ef04d445bfe1df981ae81b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score: 0
-  playerName: 
-  playerHead: {fileID: 0}
-  playerBody: {fileID: 0}
 --- !u!114 &8966832556035873932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,4 +101,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerSetupMenuPrefab: {fileID: 3341446640998491032, guid: 0ba92247aca02c8438b431be8d54023c, type: 3}
+  _input: {fileID: 7150253469480800371}
+--- !u!114 &-6132915708946117506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915219753739768710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed0d7cb0c12fada4598da8887893f229, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerPrefab: {fileID: 3732604927039312203, guid: 649683c44e1b6be4e8384613133503a2, type: 3}
   _input: {fileID: 7150253469480800371}

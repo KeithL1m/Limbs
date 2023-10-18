@@ -71,7 +71,7 @@ public class Limb : MonoBehaviour
 
         _trail.SetActive(true);
 
-        if (_attachedPlayer._aim.x == 0.0f && _attachedPlayer._aim.y == 0.0f)
+        if (_attachedPlayer._inputHandler.Aim.x == 0.0f && _attachedPlayer._inputHandler.Aim.y == 0.0f)
         {
             _throwVelocity.x = Mathf.Abs(_throwVelocity.x);
             _throwVelocity.x *= direction;
@@ -79,7 +79,7 @@ public class Limb : MonoBehaviour
         }
         else
         {
-            Vector2 tVelocity = _attachedPlayer._aim;
+            Vector2 tVelocity = _attachedPlayer._inputHandler.Aim;
             tVelocity *= _throwSpeed;
             _rb.velocity = tVelocity;
         }

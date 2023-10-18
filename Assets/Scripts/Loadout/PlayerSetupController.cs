@@ -17,7 +17,7 @@ public class PlayerSetupController : MonoBehaviour
     [SerializeField]
     private Button _name;
 
-    private void Start()
+    private void Awake()
     {
         _configManager = FindObjectOfType<ConfigurationManager>();
     }
@@ -25,13 +25,20 @@ public class PlayerSetupController : MonoBehaviour
     public void SetPlayerIndex(int pi)
     {
         _playerIndex = pi;
-        _titleText.SetText("Player " + (pi + 1).ToString());
+        string name = "Player " + (pi + 1).ToString();
+        _titleText.SetText(name);
+        _configManager.SetPlayerName(_playerIndex, name);
     }
 
     public void SetHead(Sprite head)
     {
         _configManager.SetPlayerHead(_playerIndex, head);
-    }    
+    }
+
+    public void SetBody(Sprite body)
+    {
+        _configManager.SetPlayerBody(_playerIndex, body);
+    }
 
     public void ReadyPlayer()
     {

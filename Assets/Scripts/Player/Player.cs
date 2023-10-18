@@ -6,7 +6,6 @@ using System.Collections.Generic;
 [RequireComponent(typeof(PlayerJump))]
 [RequireComponent(typeof(PlayerHealth))]
 [RequireComponent(typeof(PlayerLimbs))]
-[RequireComponent(typeof(PlayerData))]
 public class Player : MonoBehaviour
 {
     public enum MovementState
@@ -18,24 +17,20 @@ public class Player : MonoBehaviour
     public MovementState _movementState;
 
     //Player components
-    PlayerMovement _playerMovement;
-    PlayerJump _playerJump;
-    PlayerLimbs _playerLimbs;
-    PlayerData _playerData;
+    private PlayerMovement _playerMovement;
+    private PlayerJump _playerJump;
+    private PlayerLimbs _playerLimbs;
+    [HideInInspector]
+    public  PlayerInputHandler _inputHandler;
+    private PlayerConfiguration _config;
 
     //
     // make all limbs get thrown from same place?
     //
     //[SerializeField] Transform _leftLaunchPoint;
     //[SerializeField] Transform _rightLaunchPoint;
-    [SerializeField] Transform _aimTransform;
-    [SerializeField] Transform _groundCheck;
-
-    //input 
-    [HideInInspector]
-    public Vector2 _aim;
-    float _throwLimbInput;
-
+    [SerializeField] private Transform _aimTransform;
+    [SerializeField] private Transform _groundCheck;
 
     //facing left = -1, right = 1
     public int direction;
@@ -43,10 +38,21 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(this);
         _playerMovement = GetComponent<PlayerMovement>();
         _playerJump = GetComponent<PlayerJump>();
         _playerLimbs = GetComponent<PlayerLimbs>();
-        _playerData = GetComponent<PlayerData>();
+        _inputHandler = GetComponent<PlayerInputHandler>();
+    }
+
+    public Player Initialize(PlayerConfiguration pc)
+    {
+        _config = pc;
+
+        _inputHandler.InitializePlayer(_config);
+
+        return this;
+        //set skins, score, name etc.
     }
 
     void Update()
@@ -63,7 +69,7 @@ public class Player : MonoBehaviour
         }
 
         /*throwing limbs*/
-        if (_throwLimbInput > 0.5f && _playerLimbs.CanThrowLimb()) 
+        if (_inputHandler.ThrowLimb > 0.5f && _playerLimbs.CanThrowLimb()) 
         {
             _playerLimbs.ThrowLimb(direction);
         }
@@ -81,13 +87,13 @@ public class Player : MonoBehaviour
         _playerJump.Jump();
 
         //reset limb throw
-        if (_throwLimbInput == 0.0f)
+        if (_inputHandler.ThrowLimb == 0.0f)
         {
             _playerLimbs._canThrow = true;
         }
 
         //updating arrow
-        if (_aim.x == 0.0f && _aim.y == 0.0f)
+        if (_inputHandler.Aim.x == 0.0f && _inputHandler.Aim.y == 0.0f)
         {
             if (direction == 1)
             {
@@ -100,27 +106,23 @@ public class Player : MonoBehaviour
         }
         else
         {
-            _aimTransform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-_aim.y, -_aim.x) * Mathf.Rad2Deg);
+            _aimTransform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-_inputHandler.Aim.y, -_inputHandler.Aim.x) * Mathf.Rad2Deg);
         }
     }
 
-    public void ThrowLimbInput(InputAction.CallbackContext ctx) => _throwLimbInput = ctx.ReadValue<float>();
-
-    public void AimInput(InputAction.CallbackContext ctx) => _aim = ctx.action.ReadValue<Vector2>();
-
     public void AddScore()
     {
-        _playerData.score++;
+        _config.Score++;
     }
 
     public int GetScore()
     {
-        return _playerData.score;
+        return _config.Score;
     }
 
     public string GetName()
     {
-        return _playerData.playerName;
+        return _config.Name;
     }
 
 }

@@ -14,6 +14,10 @@ public class GameManager : Manager
 
     [SerializeField] private Button button;
     [SerializeField] private EventSystem system;
+    private ConfigurationManager _configManager;
+
+    private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
+    private List<Player> _players = new List<Player>();
 
     private PauseManager pauseManager;
     private UIManager uiManager;
@@ -40,6 +44,10 @@ public class GameManager : Manager
             instance = this;
         }
 
+        _configManager = FindObjectOfType<ConfigurationManager>();
+        playerCount = _configManager.GetPlayerNum();
+        _playerConfigs = _configManager.GetPlayerConfigs();
+
         PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
         PlayerInputManager.instance.onPlayerLeft += OnPlayerLeft;
 
@@ -48,6 +56,14 @@ public class GameManager : Manager
 
         leaveAction.Enable();
         leaveAction.performed += context => LeaveAction(context);
+    }
+
+    private void Start()
+    {
+        for (int i = 0; i < playerCount; i++)
+        {
+            _players.Add(_playerConfigs[i].Input.GetComponent<SpawnPlayer>().SpawnPlayerFirst(_playerConfigs[i]));
+        }
     }
 
     override public void OnStart()

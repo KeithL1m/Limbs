@@ -42,6 +42,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void KillPlayer()
     {
+        //check for game over
+
         deathPositions = FindObjectsOfType<DeathPosition>();
         _isDead = true;
         if (deathPositions[0]._occupied)

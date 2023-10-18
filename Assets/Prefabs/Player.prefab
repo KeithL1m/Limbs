@@ -107,7 +107,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5440911822492980829}
-  - component: {fileID: 4770100084738489493}
   - component: {fileID: 8385072269478469067}
   - component: {fileID: 5770366546305474077}
   - component: {fileID: 535260745535175737}
@@ -117,7 +116,7 @@ GameObject:
   - component: {fileID: 1550446190603291940}
   - component: {fileID: 6432030308765007816}
   - component: {fileID: 5939033532829745049}
-  - component: {fileID: -4841464090493634372}
+  - component: {fileID: 653569731864945295}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -146,100 +145,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4770100084738489493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3732604927039312203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: eb044a8dc5109984b9c550913304dfc7, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8385072269478469062}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: MoveInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 183f3ef6-e4da-4b51-b40d-98ab3226a862
-    m_ActionName: Gameplay/Move[/XInputControllerWindows/leftStick/x,/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8385072269478469063}
-        m_TargetAssemblyTypeName: PlayerJump, Assembly-CSharp
-        m_MethodName: JumpInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 9f201351-7893-424f-9aed-f26fdd7c4c9a
-    m_ActionName: Gameplay/Jump[/XInputControllerWindows/buttonSouth,/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8385072269478469061}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: ThrowLimbInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: dd8ef21d-3cf5-4acf-a746-6763821e23e6
-    m_ActionName: Gameplay/ThrowLimb[/XInputControllerWindows/rightTrigger,/Keyboard/t]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8385072269478469061}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: AimInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: cca41aa3-2dcf-4999-b13d-cfe881ab453c
-    m_ActionName: Gameplay/Aim[/DualSenseGamepadHID/rightStick]
-  m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Gameplay
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!50 &8385072269478469067
 Rigidbody2D:
   serializedVersion: 4
@@ -369,6 +274,7 @@ MonoBehaviour:
   chain: {fileID: 6432030308765007816}
   _health: 0
   _isDead: 0
+  healthSlider: {fileID: 0}
 --- !u!114 &6432030308765007816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,7 +313,7 @@ MonoBehaviour:
   - {fileID: 8385072270821689308}
   _collider: {fileID: 5770366546305474077}
   _canThrow: 0
---- !u!114 &-4841464090493634372
+--- !u!114 &653569731864945295
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -416,12 +322,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3732604927039312203}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f515fc42ef04d445bfe1df981ae81b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e6d35df352a0ab429918b8bc7d86ea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
-  playerName: 
-  playerSkin: {fileID: 0}
 --- !u!1 &4236192736923414842
 GameObject:
   m_ObjectHideFlags: 0
