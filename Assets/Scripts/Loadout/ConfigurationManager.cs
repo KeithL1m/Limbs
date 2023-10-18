@@ -7,33 +7,25 @@ using UnityEngine.SceneManagement;
 
 public class ConfigurationManager : MonoBehaviour
 {
-    private void Start()
-    {
-        DontDestroyOnLoad(this);
-    }
-
     private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
+
+    //private int _maxPlayers = 4;
 
     public void SetPlayerHead(int index, Sprite head)
     {
-        _playerConfigs[index].PData.PlayerHead = head;
+
     }
 
     public void SetPlayerBody(int index, Sprite body)
     {
-        _playerConfigs[index].PData.PlayerBody = body;
-    }
 
-    public void SetPlayerName(int index, string name)
-    {
-        _playerConfigs[index].PData.PlayerName = name;
     }
 
     public void ReadyPlayer(int index)
     {
         _playerConfigs[index].IsReady = true;
 
-        if (_playerConfigs.All(p => p.IsReady == true) && _playerConfigs.Count > 1)
+        if (_playerConfigs.All(p => p.IsReady == true))
         {
             SceneManager.LoadScene(2);
         }
@@ -55,18 +47,8 @@ public class PlayerConfiguration
     {
         PlayerIndex = pi.playerIndex;
         Input = pi;
-        PData = new PlayerData();
     }
     public PlayerInput Input {get; set;}
     public int PlayerIndex { get; set; }
     public bool IsReady { get; set; }
-    public PlayerData PData { get; set; }
-}
-
-public class PlayerData
-{
-    public int Score;
-    public string PlayerName;
-    public Sprite PlayerHead;
-    public Sprite PlayerBody;
 }
