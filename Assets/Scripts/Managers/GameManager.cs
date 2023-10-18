@@ -30,7 +30,6 @@ public class GameManager : Manager
 
     public static GameManager instance = null;
 
-    public event System.Action<PlayerInput> PlayerJoinedGame;
     public event System.Action<PlayerInput> PlayerLeftGame;
 
 
@@ -48,14 +47,8 @@ public class GameManager : Manager
         playerCount = _configManager.GetPlayerNum();
         _playerConfigs = _configManager.GetPlayerConfigs();
 
-        PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
-        PlayerInputManager.instance.onPlayerLeft += OnPlayerLeft;
-
-        joinAction.Enable();
-        joinAction.performed += context => JoinAction(context);
-
-        leaveAction.Enable();
-        leaveAction.performed += context => LeaveAction(context);
+        uiManager = FindObjectOfType<UIManager>();
+        pauseManager = FindObjectOfType<PauseManager>();
     }
 
     private void Start()
@@ -63,6 +56,26 @@ public class GameManager : Manager
         for (int i = 0; i < playerCount; i++)
         {
             _players.Add(_playerConfigs[i].Input.GetComponent<SpawnPlayer>().SpawnPlayerFirst(_playerConfigs[i]));
+            playerList.Add(_playerConfigs[i].Input);
+
+
+            /*if (playerCount <= healthUI.Count)
+            {
+                GameObject newHealthUI = Instantiate(healthUI[i]);
+                newHealthUI.transform.SetParent(HealthUIManager.instance.transform);
+                newHealthUI.SetActive(true); // Enable the health UI for the newly joined player
+
+                // Retrieve the Slider component from the instantiated health UI
+                Slider healthSlider = newHealthUI.GetComponentInChildren<Slider>();
+
+                // Here, you would set the health value on the player.
+                _players[i].GetComponent<PlayerHealth>().SetHealthSlider(healthSlider);
+
+                // Update the health value on the slider
+                PlayerHealth playerHealth = _players[i].GetComponent<PlayerHealth>();
+                float initialHealth = playerHealth._maxHealth;
+                healthSlider.value = initialHealth;
+            }*/
         }
     }
 
@@ -131,47 +144,9 @@ public class GameManager : Manager
 
     //player joining/leaving functions
 
-    public void OnPlayerJoined(PlayerInput playerInput)
-    {
-        playerList.Add(playerInput);
-        playerList[playerCount].transform.position = new Vector3(0.0f, 12.0f);
-        DontDestroyOnLoad(playerList[playerCount]);
-        playerCount++;
-
-
-
-        if (PlayerJoinedGame != null)
-        {
-            PlayerJoinedGame(playerInput);
-        }
-
-        if (playerCount <= healthUI.Count)
-        {
-            GameObject newHealthUI = Instantiate(healthUI[playerCount - 1]);
-            newHealthUI.transform.SetParent(HealthUIManager.instance.transform);
-            newHealthUI.SetActive(true); // Enable the health UI for the newly joined player
-
-            // Retrieve the Slider component from the instantiated health UI
-            Slider healthSlider = newHealthUI.GetComponentInChildren<Slider>();
-
-            // Here, you would set the health value on the player.
-            playerInput.GetComponent<PlayerHealth>().SetHealthSlider(healthSlider); 
-
-            // Update the health value on the slider
-            PlayerHealth playerHealth = playerInput.GetComponent<PlayerHealth>();
-            float initialHealth = playerHealth._maxHealth;
-            healthSlider.value = initialHealth;
-        }
-    }
-
     public void OnPlayerLeft(PlayerInput playerInput)
     {
 
-    }
-
-    void JoinAction(InputAction.CallbackContext context)
-    {
-        PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(context);
     }
 
     void LeaveAction(InputAction.CallbackContext context)
