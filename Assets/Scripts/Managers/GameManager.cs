@@ -81,7 +81,7 @@ public class GameManager : Manager
 
     override public void OnStart()
     {
-        //pauseManager.SetCamera(FindObjectOfType<Camera>());
+        pauseManager.SetCamera(FindObjectOfType<Camera>());
 
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spawn");
         for (int i = 0; i < gameObjects.Length; i++)
@@ -107,9 +107,9 @@ public class GameManager : Manager
 
     void CheckGameOver()
     {
-        for (int i = 0; i < playerList.Count; i++)
+        for (int i = 0; i < _players.Count; i++)
         {
-            if (playerList[i].GetComponent<PlayerHealth>().IsDead())
+            if (_players[i].GetComponent<PlayerHealth>().IsDead())
             {
                 deadPlayers++;
             }
@@ -119,11 +119,11 @@ public class GameManager : Manager
         {
             deadPlayers = 0;
             spawnPoints.Clear();
-            for (int j = 0; j < playerList.Count; j++)
+            for (int j = 0; j < _players.Count; j++)
             {
-                if (!playerList[j].GetComponent<PlayerHealth>()._isDead)
+                if (!_players[j].GetComponent<PlayerHealth>()._isDead)
                 {
-                    playerList[j].GetComponent<Player>().AddScore();
+                    _players[j].AddScore();
                 }
                 ClearLimbs();
             }
@@ -185,18 +185,18 @@ public class GameManager : Manager
         return playerList.Count;
     }
 
-    public List<PlayerData> GetPlayerDatas()
+    public List<PlayerConfiguration> GetPlayerConfigs()
     {
-        List<PlayerData> playerDatas = new List<PlayerData>();
+        List<PlayerConfiguration> configs = new List<PlayerConfiguration>();
 
         for (int i = 0; i < playerList.Count; i++)
         {
-            playerDatas.Add(playerList[i].GetComponent<PlayerData>());
+            configs.Add(_playerConfigs[i]);
         }
 
-        playerDatas.Sort((x, y) => x.score.CompareTo(y.score));
+        configs.Sort((x, y) => x.Score.CompareTo(y.Score));
 
-        return playerDatas;
+        return configs;
     }
 
     public void StartGame()
@@ -216,7 +216,7 @@ public class GameManager : Manager
     {
         for (int i = 0; i < playerList.Count; i++)
         {
-            playerList[i].GetComponent<PlayerLimbs>().ClearLimbs();
+            _players[i].GetComponent<PlayerLimbs>().ClearLimbs();
         }
     }
 }
