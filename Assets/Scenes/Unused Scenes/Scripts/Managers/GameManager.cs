@@ -20,6 +20,10 @@ public class GameManager : Manager
 
     [SerializeField] private Button button;
     [SerializeField] private EventSystem system;
+    private ConfigurationManager _configManager;
+
+    private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
+    public List<Player> _players = new List<Player>();
 
     private PauseManager pauseManager;
     private UIManager uiManager;
@@ -32,7 +36,6 @@ public class GameManager : Manager
 
     public static GameManager instance = null;
 
-    public event System.Action<PlayerInput> PlayerJoinedGame;
     public event System.Action<PlayerInput> PlayerLeftGame;
 
 
@@ -46,17 +49,40 @@ public class GameManager : Manager
             instance = this;
         }
 
-        PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
-        PlayerInputManager.instance.onPlayerLeft += OnPlayerLeft;
+        _configManager = FindObjectOfType<ConfigurationManager>();
+        playerCount = _configManager.GetPlayerNum();
+        _playerConfigs = _configManager.GetPlayerConfigs();
 
-        pauseManager = FindObjectOfType<PauseManager>();
         uiManager = FindObjectOfType<UIManager>();
+        pauseManager = FindObjectOfType<PauseManager>();
+    }
 
-        joinAction.Enable();
-        joinAction.performed += context => JoinAction(context);
+    private void Start()
+    {
+        for (int i = 0; i < playerCount; i++)
+        {
+            _players.Add(_playerConfigs[i].Input.GetComponent<SpawnPlayer>().SpawnPlayerFirst(_playerConfigs[i]));
+            playerList.Add(_playerConfigs[i].Input);
 
-        leaveAction.Enable();
-        leaveAction.performed += context => LeaveAction(context);
+
+            /*if (playerCount <= healthUI.Count)
+            {
+                GameObject newHealthUI = Instantiate(healthUI[i]);
+                newHealthUI.transform.SetParent(HealthUIManager.instance.transform);
+                newHealthUI.SetActive(true); // Enable the health UI for the newly joined player
+
+                // Retrieve the Slider component from the instantiated health UI
+                Slider healthSlider = newHealthUI.GetComponentInChildren<Slider>();
+
+                // Here, you would set the health value on the player.
+                _players[i].GetComponent<PlayerHealth>().SetHealthSlider(healthSlider);
+
+                // Update the health value on the slider
+                PlayerHealth playerHealth = _players[i].GetComponent<PlayerHealth>();
+                float initialHealth = playerHealth._maxHealth;
+                healthSlider.value = initialHealth;
+            }*/
+        }
     }
 
     override public void OnStart()
@@ -87,9 +113,9 @@ public class GameManager : Manager
 
     void CheckGameOver()
     {
-        for (int i = 0; i < playerList.Count; i++)
+        for (int i = 0; i < _players.Count; i++)
         {
-            if (playerList[i].GetComponent<PlayerHealth>().IsDead())
+            if (_players[i].GetComponent<PlayerHealth>().IsDead())
             {
                 deadPlayers++;
             }
@@ -99,11 +125,11 @@ public class GameManager : Manager
         {
             deadPlayers = 0;
             spawnPoints.Clear();
-            for (int j = 0; j < playerList.Count; j++)
+            for (int j = 0; j < _players.Count; j++)
             {
-                if (!playerList[j].GetComponent<PlayerHealth>()._isDead)
+                if (!_players[j].GetComponent<PlayerHealth>()._isDead)
                 {
-                    playerList[j].GetComponent<Player>().AddScore();
+                    _players[j].AddScore();
                 }
                 ClearLimbs();
             }
@@ -125,6 +151,7 @@ public class GameManager : Manager
 
     //player joining/leaving functions
 
+<<<<<<< HEAD:Assets/Scenes/Unused Scenes/Scripts/Managers/GameManager.cs
     public void OnPlayerJoined(PlayerInput playerInput)
     {
         playerList.Add(playerInput);
@@ -155,14 +182,11 @@ public class GameManager : Manager
         }
     }
 
+=======
+>>>>>>> DiegoBranch:Assets/Scripts/Managers/GameManager.cs
     public void OnPlayerLeft(PlayerInput playerInput)
     {
 
-    }
-
-    void JoinAction(InputAction.CallbackContext context)
-    {
-        PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(context);
     }
 
     void LeaveAction(InputAction.CallbackContext context)
@@ -201,25 +225,42 @@ public class GameManager : Manager
         return playerList.Count;
     }
 
+<<<<<<< HEAD:Assets/Scenes/Unused Scenes/Scripts/Managers/GameManager.cs
         public List<PlayerData> GetPlayerDatas()
+=======
+    public List<PlayerConfiguration> GetPlayerConfigs()
+>>>>>>> DiegoBranch:Assets/Scripts/Managers/GameManager.cs
     {
-        List<PlayerData> playerDatas = new List<PlayerData>();
+        List<PlayerConfiguration> configs = new List<PlayerConfiguration>();
 
         for (int i = 0; i < playerList.Count; i++)
         {
-            playerDatas.Add(playerList[i].GetComponent<PlayerData>());
+            configs.Add(_playerConfigs[i]);
         }
 
-        playerDatas.Sort((x, y) => x.score.CompareTo(y.score));
+        configs.Sort((x, y) => x.Score.CompareTo(y.Score));
 
-        return playerDatas;
+        return configs;
     }
 
+    public void StartGame()
+    {
+        uiManager = FindObjectOfType<UIManager>();
+        pauseManager = FindObjectOfType<PauseManager>();
+
+        uiManager.SetUpLeaderBoard();
+        uiManager.UpdateLeaderBoard();
+
+		ClearLimbs();
+        startScreen = false;
+        MapManager.instance.LoadMap();
+	}
+	
     public void ClearLimbs()
     {
         for (int i = 0; i < playerList.Count; i++)
         {
-            playerList[i].GetComponent<PlayerLimbs>().ClearLimbs();
+            _players[i].GetComponent<PlayerLimbs>().ClearLimbs();
         }
     }
 }
