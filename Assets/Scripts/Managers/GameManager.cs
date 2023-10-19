@@ -9,8 +9,10 @@ using TMPro;
 
 public class GameManager : Manager
 {
-    public List<PlayerInput> playerList = new List<PlayerInput>();
-    public List<GameObject> spawnPoints = new List<GameObject>();
+    private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
+    private List<Player> _players = new List<Player>();
+    private List<GameObject> _spawnPoints = new List<GameObject>();
+
     public List<GameObject> healthUI = new List<GameObject>();
     public List<TMP_Text> winsCounter = new List<TMP_Text>();
 
@@ -18,12 +20,7 @@ public class GameManager : Manager
     [SerializeField] private TMP_Text gameOverText;
     [SerializeField] private string[] gameOverMessages;
 
-    [SerializeField] private Button button;
-    [SerializeField] private EventSystem system;
     private ConfigurationManager _configManager;
-
-    private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
-    public List<Player> _players = new List<Player>();
 
     private PauseManager pauseManager;
     private UIManager uiManager;
@@ -62,8 +59,7 @@ public class GameManager : Manager
         for (int i = 0; i < playerCount; i++)
         {
             _players.Add(_playerConfigs[i].Input.GetComponent<SpawnPlayer>().SpawnPlayerFirst(_playerConfigs[i]));
-            playerList.Add(_playerConfigs[i].Input);
-
+            
 
             if (playerCount <= healthUI.Count)
             {
@@ -92,12 +88,12 @@ public class GameManager : Manager
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spawn");
         for (int i = 0; i < gameObjects.Length; i++)
         {
-            spawnPoints.Add(gameObjects[i]);
+            _spawnPoints.Add(gameObjects[i]);
         }
 
-        for (int i = 0; i < playerList.Count; i++)
+        for (int i = 0; i < playerCount; i++)
         {
-            playerList[i].GetComponent<PlayerHealth>().ResetHealth();
+            _players[i].GetComponent<PlayerHealth>().ResetHealth();
             SpawnPlayer(i);
         }
     }
@@ -124,7 +120,7 @@ public class GameManager : Manager
         if (deadPlayers == playerCount - 1)
         {
             deadPlayers = 0;
-            spawnPoints.Clear();
+            _spawnPoints.Clear();
             for (int j = 0; j < _players.Count; j++)
             {
                 if (!_players[j].GetComponent<PlayerHealth>()._isDead)
@@ -145,57 +141,20 @@ public class GameManager : Manager
 
     void SpawnPlayer(int playerNum)
     {
-        PlayerManager.instance.AddPlayer(playerList[playerNum].GetComponent<PlayerInput>());
-        playerList[playerNum].transform.position = spawnPoints[playerNum].transform.position;
-    }
-
-    //player joining/leaving functions
-    public void OnPlayerLeft(PlayerInput playerInput)
-    {
-
-    }
-
-    void LeaveAction(InputAction.CallbackContext context)
-    {
-        Debug.Log("We leaving");
-        if (playerList.Count > 1)
-        {
-            foreach (var player in playerList)
-            {
-                foreach(var device in player.devices)
-                {
-                    if (device != null && context.control.device == device)
-                    {
-                        UnregisterPlayer(player);
-                        return;
-                    }
-                }
-            }
-        }
-    }
-
-    void UnregisterPlayer(PlayerInput playerInput)
-    {
-        playerList.Remove(playerInput);
-
-        if (PlayerLeftGame != null)
-        {
-            PlayerLeftGame(playerInput);
-        }
-
-        Destroy(playerInput.transform.gameObject);
+        //PlayerManager.instance.AddPlayer(_players[playerNum].GetComponent<PlayerInput>());
+        _players[playerNum].transform.position = _spawnPoints[playerNum].transform.position;
     }
 
     public int GetPlayerCount()
     {
-        return playerList.Count;
+        return playerCount;
     }
 
     public List<PlayerConfiguration> GetPlayerConfigs()
     {
         List<PlayerConfiguration> configs = new List<PlayerConfiguration>();
 
-        for (int i = 0; i < playerList.Count; i++)
+        for (int i = 0; i < playerCount; i++)
         {
             configs.Add(_playerConfigs[i]);
         }
@@ -220,7 +179,7 @@ public class GameManager : Manager
 	
     public void ClearLimbs()
     {
-        for (int i = 0; i < playerList.Count; i++)
+        for (int i = 0; i < playerCount; i++)
         {
             _players[i].GetComponent<PlayerLimbs>().ClearLimbs();
         }
