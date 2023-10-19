@@ -23,9 +23,9 @@ public class PlayerLimbs : MonoBehaviour
     public SelectedLimb _selectedLimb = SelectedLimb.LeftLeg;
     public LimbState _limbState;
 
-    [SerializeField] Transform _groundCheck;
-    [SerializeField] List<Transform> _limbAnchors;
-    [SerializeField] CapsuleCollider2D _collider;
+    [SerializeField] private List<Transform> _limbAnchors;
+    private Transform _groundCheck;
+    private CapsuleCollider2D _collider;
 
     Vector2 _originalSize;
     Vector2 _originalOffset;
@@ -35,6 +35,8 @@ public class PlayerLimbs : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        _collider = GetComponentInChildren<CapsuleCollider2D>();
+        _groundCheck = GetComponentInChildren<GroundCheck>().transform;
         _limbs = new List<Limb>();
         _limbs.Capacity = 4;
         for (int i = 0; i < 4; i++)

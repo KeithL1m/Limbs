@@ -215,9 +215,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementState: 0
+  _inputHandler: {fileID: 0}
   _aimTransform: {fileID: 6675063187238703603}
   _groundCheck: {fileID: 8385072270942222214}
-  _aim: {x: 0, y: 0}
   direction: 0
 --- !u!114 &8385072269478469062
 MonoBehaviour:
@@ -304,14 +304,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _limbs: []
   _selectedLimb: 0
-  _limbState: 0
-  _groundCheck: {fileID: 8385072270942222214}
+  _limbState: 2
   _limbAnchors:
   - {fileID: 8385072269345563141}
   - {fileID: 8385072269473608607}
   - {fileID: 8385072269343438437}
   - {fileID: 8385072270821689308}
-  _collider: {fileID: 5770366546305474077}
+  _groundCheck: {fileID: 8385072270942222214}
   _canThrow: 0
 --- !u!114 &653569731864945295
 MonoBehaviour:
@@ -325,6 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6d35df352a0ab429918b8bc7d86ea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _input: {fileID: 0}
 --- !u!1 &4236192736923414842
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,14 +20,6 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         _health = _maxHealth;
-}
-
-    private void Update()
-    {
-        if (_health <= 0 && !_isDead)
-        {
-            KillPlayer();
-        }
     }
 
     public void AddDamage(float damage)
@@ -36,13 +28,18 @@ public class PlayerHealth : MonoBehaviour
 
         // Update the health slider value here
         UpdateHealthSlider();
+
+        if (_health <= 0 && !_isDead)
+        {
+            KillPlayer();
+        }
     }
 
     public bool IsDead() { return _isDead; }
 
     public void KillPlayer()
     {
-        //check for game over
+        GameManager.instance.CheckGameOver();
 
         deathPositions = FindObjectsOfType<DeathPosition>();
         _isDead = true;
