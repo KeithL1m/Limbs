@@ -149,7 +149,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8460373217912008471}
   - component: {fileID: 3859034949818110142}
-  - component: {fileID: 6140988870506070998}
   - component: {fileID: 5815899267000728750}
   m_Layer: 0
   m_Name: Blade
@@ -225,22 +224,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &6140988870506070998
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7577170477252620456}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &5815899267000728750
 MonoBehaviour:
   m_ObjectHideFlags: 0
