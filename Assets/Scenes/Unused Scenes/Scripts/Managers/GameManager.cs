@@ -150,40 +150,6 @@ public class GameManager : Manager
     }
 
     //player joining/leaving functions
-
-<<<<<<< HEAD:Assets/Scenes/Unused Scenes/Scripts/Managers/GameManager.cs
-    public void OnPlayerJoined(PlayerInput playerInput)
-    {
-        playerList.Add(playerInput);
-        DontDestroyOnLoad(playerList[playerCount]);
-        playerCount++;
-
-
-
-        if (PlayerJoinedGame != null)
-        {
-            PlayerJoinedGame(playerInput);
-        }
-
-        if (playerCount <= healthUI.Count)
-        {
-            GameObject newHealthUI = Instantiate(healthUI[playerCount - 1]);
-
-            newHealthUI.transform.SetParent(HealthUIManager.instance.transform);
-            newHealthUI.SetActive(true);
-
-            Slider healthSlider = newHealthUI.GetComponentInChildren<Slider>();
-      
-            playerInput.GetComponent<PlayerHealth>().SetHealthSlider(healthSlider); 
-
-            PlayerHealth playerHealth = playerInput.GetComponent<PlayerHealth>();
-            float initialHealth = playerHealth._maxHealth;
-            healthSlider.value = initialHealth;
-        }
-    }
-
-=======
->>>>>>> DiegoBranch:Assets/Scripts/Managers/GameManager.cs
     public void OnPlayerLeft(PlayerInput playerInput)
     {
 
@@ -225,11 +191,7 @@ public class GameManager : Manager
         return playerList.Count;
     }
 
-<<<<<<< HEAD:Assets/Scenes/Unused Scenes/Scripts/Managers/GameManager.cs
-        public List<PlayerData> GetPlayerDatas()
-=======
     public List<PlayerConfiguration> GetPlayerConfigs()
->>>>>>> DiegoBranch:Assets/Scripts/Managers/GameManager.cs
     {
         List<PlayerConfiguration> configs = new List<PlayerConfiguration>();
 
