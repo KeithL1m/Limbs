@@ -21,22 +21,14 @@ public class GameManager : Manager
     [SerializeField] private string[] gameOverMessages;
 
     private ConfigurationManager _configManager;
+    private PauseManager _pauseManager;
+    private UIManager _uiManager;
 
-    private PauseManager pauseManager;
-    private UIManager uiManager;
-
-    private int playerCount;
-    public int deadPlayers;
-
-    [SerializeField] InputAction joinAction;
-    [SerializeField] InputAction leaveAction;
+    private int _playerCount;
+    public int DeadPlayers { get; set; }
+    public bool StartScreen { get; private set; }
 
     public static GameManager instance = null;
-
-    public event System.Action<PlayerInput> PlayerLeftGame;
-
-
-    public bool startScreen = true;
 
     void Awake()
     {
@@ -47,21 +39,21 @@ public class GameManager : Manager
         }
 
         _configManager = FindObjectOfType<ConfigurationManager>();
-        playerCount = _configManager.GetPlayerNum();
+        _playerCount = _configManager.GetPlayerNum();
         _playerConfigs = _configManager.GetPlayerConfigs();
 
-        uiManager = FindObjectOfType<UIManager>();
-        pauseManager = FindObjectOfType<PauseManager>();
+        _uiManager = FindObjectOfType<UIManager>();
+        _pauseManager = FindObjectOfType<PauseManager>();
     }
 
     private void Start()
     {
-        for (int i = 0; i < playerCount; i++)
+        for (int i = 0; i < _playerCount; i++)
         {
             _players.Add(_playerConfigs[i].Input.GetComponent<SpawnPlayer>().SpawnPlayerFirst(_playerConfigs[i]));
             
 
-            if (playerCount <= healthUI.Count)
+            if (_playerCount <= healthUI.Count)
             {
                 GameObject newHealthUI = Instantiate(healthUI[i]);
                 newHealthUI.transform.SetParent(HealthUIManager.instance.transform);
@@ -83,7 +75,7 @@ public class GameManager : Manager
 
     override public void OnStart()
     {
-        pauseManager.SetCamera(FindObjectOfType<Camera>());
+        _pauseManager.SetCamera(FindObjectOfType<Camera>());
 
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spawn");
         for (int i = 0; i < gameObjects.Length; i++)
@@ -91,7 +83,7 @@ public class GameManager : Manager
             _spawnPoints.Add(gameObjects[i]);
         }
 
-        for (int i = 0; i < playerCount; i++)
+        for (int i = 0; i < _playerCount; i++)
         {
             _players[i].GetComponent<PlayerHealth>().ResetHealth();
             SpawnPlayer(i);
@@ -100,7 +92,7 @@ public class GameManager : Manager
 
     private void Update()
     {
-        if (!startScreen)
+        if (!StartScreen)
         {
             CheckGameOver();
         }
@@ -113,13 +105,13 @@ public class GameManager : Manager
         {
             if (_players[i].GetComponent<PlayerHealth>().IsDead())
             {
-                deadPlayers++;
+                DeadPlayers++;
             }
         }
 
-        if (deadPlayers == playerCount - 1)
+        if (DeadPlayers == _playerCount - 1)
         {
-            deadPlayers = 0;
+            DeadPlayers = 0;
             _spawnPoints.Clear();
             for (int j = 0; j < _players.Count; j++)
             {
@@ -129,13 +121,13 @@ public class GameManager : Manager
                 }
                 ClearLimbs();
             }
-            uiManager.UpdateLeaderBoard();
+            _uiManager.UpdateLeaderBoard();
             MapManager.instance.LoadMap();
 
         }
         else
         {
-            deadPlayers = 0;
+            DeadPlayers = 0;
         }
     }
 
@@ -147,14 +139,14 @@ public class GameManager : Manager
 
     public int GetPlayerCount()
     {
-        return playerCount;
+        return _playerCount;
     }
 
     public List<PlayerConfiguration> GetPlayerConfigs()
     {
         List<PlayerConfiguration> configs = new List<PlayerConfiguration>();
 
-        for (int i = 0; i < playerCount; i++)
+        for (int i = 0; i < _playerCount; i++)
         {
             configs.Add(_playerConfigs[i]);
         }
@@ -166,20 +158,20 @@ public class GameManager : Manager
 
     public void StartGame()
     {
-        uiManager = FindObjectOfType<UIManager>();
-        pauseManager = FindObjectOfType<PauseManager>();
+        _uiManager = FindObjectOfType<UIManager>();
+        _pauseManager = FindObjectOfType<PauseManager>();
 
-        uiManager.SetUpLeaderBoard();
-        uiManager.UpdateLeaderBoard();
+        _uiManager.SetUpLeaderBoard();
+        _uiManager.UpdateLeaderBoard();
 
 		ClearLimbs();
-        startScreen = false;
+        StartScreen = false;
         MapManager.instance.LoadMap();
 	}
 	
     public void ClearLimbs()
     {
-        for (int i = 0; i < playerCount; i++)
+        for (int i = 0; i < _playerCount; i++)
         {
             _players[i].GetComponent<PlayerLimbs>().ClearLimbs();
         }
