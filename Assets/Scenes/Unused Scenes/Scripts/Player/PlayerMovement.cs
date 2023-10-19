@@ -3,10 +3,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    Rigidbody2D _rb;
-    PlayerJump _playerJump;
-
-    float _moveInput;
+    private Rigidbody2D _rb;
+    private PlayerJump _playerJump;
+    private PlayerInputHandler _inputHandler;
 
     [Header("Customizable")]
     [SerializeField] float _2LegMoveSpeed;
@@ -28,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _playerJump = GetComponent<PlayerJump>();
+        _inputHandler = GetComponent<PlayerInputHandler>();
     }
 
     public void Move(PlayerLimbs.LimbState state)
@@ -35,12 +35,12 @@ public class PlayerMovement : MonoBehaviour
         if (GetComponent<PlayerHealth>().IsDead())
             return;
         float moveSpeed = 0f;
-        if (_moveInput <= -_startMovePoint)
+        if (_inputHandler.Movement <= -_startMovePoint)
         {
             moveSpeed = -1f;
             facingRight = false;
         }
-        else if (_moveInput >= _startMovePoint)
+        else if (_inputHandler.Movement >= _startMovePoint)
         {
             moveSpeed = 1f;
             facingRight = true;
@@ -74,6 +74,4 @@ public class PlayerMovement : MonoBehaviour
             _rb.AddForce(_rb.mass * Vector2.up * _hopForce * Mathf.Abs(moveSpeed), ForceMode2D.Impulse);
         }
     }
-
-    public void MoveInput(InputAction.CallbackContext ctx) => _moveInput = ctx.ReadValue<float>();
 }

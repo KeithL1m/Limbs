@@ -50,13 +50,13 @@ public class UIManager : MonoBehaviour
     public void UpdateLeaderBoard()
     {
         //get player datas automatically sorts the list by the score
-        List<PlayerData> players = GameManager.instance.GetPlayerDatas();
+        List<PlayerConfiguration> players = GameManager.instance.GetPlayerConfigs();
 
         for (int i = 0; i < playerCount; i++)
         {
             TextMeshProUGUI textMesh = scoreBoxes[i].GetComponentInChildren<TextMeshProUGUI>();
 
-            textMesh.text = players[i].playerName + ": " + players[i].score.ToString("000");
+            textMesh.text = players[i].Name + ": " + players[i].Score.ToString("000");
         }
     }
 }

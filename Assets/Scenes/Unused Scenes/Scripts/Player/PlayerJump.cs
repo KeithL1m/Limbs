@@ -3,10 +3,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerJump : MonoBehaviour
 {
-    [SerializeField] GroundCheck _groundCheck;
-    float _jumpInput;
-    Rigidbody2D _rb;
-    Player _player;
+    [SerializeField] private GroundCheck _groundCheck;
+    
+    private Rigidbody2D _rb;
+    private Player _player;
+    private PlayerInputHandler _inputhandler;
 
     [Header("Customizable")]
     [SerializeField]
@@ -36,6 +37,7 @@ public class PlayerJump : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _player = GetComponent<Player>();
+        _inputhandler = GetComponent<PlayerInputHandler>();
 
         _jumpGravity = -2 * _jumpHeight / Mathf.Pow(_jumpTime, 2);
         _gravityScaleFactor = _jumpGravity / Physics2D.gravity.y;
@@ -65,7 +67,7 @@ public class PlayerJump : MonoBehaviour
             }
         }
 
-        if (_jumpInput > 0.5f && _canJump)
+        if (_inputhandler.Jump > 0.5f && _canJump)
         {
             _jumpBufferTime = _maxJumpBufferTime;
         }
@@ -74,7 +76,7 @@ public class PlayerJump : MonoBehaviour
             _jumpBufferTime -= Time.deltaTime;
         }
 
-        if (_jumpBufferTime > 0f && _coyoteTime > 0f || _canDoubleJump && _jumpInput > 0.5f && _canJump) 
+        if (_jumpBufferTime > 0f && _coyoteTime > 0f || _canDoubleJump && _inputhandler.Jump > 0.5f && _canJump) 
         {
             _jumpBufferTime = 0f;
             _coyoteTime = 0f;
@@ -85,7 +87,7 @@ public class PlayerJump : MonoBehaviour
             JumpUpdate();
         }
 
-        if (_jumpInput < 0.5f) 
+        if (_inputhandler.Jump < 0.5f) 
         {
             _canJump = true;
         }
@@ -112,7 +114,7 @@ public class PlayerJump : MonoBehaviour
 
     private void JumpUpdate()
     {
-        if (_jumpInput == 0f && _rb.velocity.y > 0f)
+        if (_inputhandler.Jump == 0f && _rb.velocity.y > 0f)
         {
             _rb.gravityScale = _gravityScaleFactor * _earlyExitGravityFactor;
         }
@@ -137,6 +139,4 @@ public class PlayerJump : MonoBehaviour
     {
         return _groundCheck.isGrounded;
     }
-
-    public void JumpInput(InputAction.CallbackContext ctx) => _jumpInput = ctx.action.ReadValue<float>();
 }

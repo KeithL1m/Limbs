@@ -44,11 +44,6 @@ public class Pinata : MonoBehaviour
 
     void PinataDestroyed()
     {
-        _manager.SetUpLeaderBoard();
-        _manager.UpdateLeaderBoard();
-
-        GameManager.instance.startScreen = false;
-        GameManager.instance.ClearLimbs();
-        MapManager.instance.LoadMap();
+        GameManager.instance.StartGame();
     }
 }
