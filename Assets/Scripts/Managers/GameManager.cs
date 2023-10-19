@@ -65,7 +65,7 @@ public class GameManager : Manager
             playerList.Add(_playerConfigs[i].Input);
 
 
-            /*if (playerCount <= healthUI.Count)
+            if (playerCount <= healthUI.Count)
             {
                 GameObject newHealthUI = Instantiate(healthUI[i]);
                 newHealthUI.transform.SetParent(HealthUIManager.instance.transform);
@@ -81,7 +81,7 @@ public class GameManager : Manager
                 PlayerHealth playerHealth = _players[i].GetComponent<PlayerHealth>();
                 float initialHealth = playerHealth._maxHealth;
                 healthSlider.value = initialHealth;
-            }*/
+            }
         }
     }
 
