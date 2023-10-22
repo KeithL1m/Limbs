@@ -171,10 +171,8 @@ public class PlayerLimbs : MonoBehaviour
         {
             if (_limbs[i] != null && _limbs[i]._limbState == Limb.LimbState.Attached)
             {
-                _selectedLimb = (SelectedLimb)i;
-                _limbs[i].ThrowLimb(0);
+                ThrowLimb(0);
             }
-            _limbs[i] = null;
         }
 
         _selectedLimb = SelectedLimb.LeftLeg;

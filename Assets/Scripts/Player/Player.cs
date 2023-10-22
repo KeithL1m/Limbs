@@ -24,6 +24,9 @@ public class Player : MonoBehaviour
     public  PlayerInputHandler _inputHandler;
     private PlayerConfiguration _config;
 
+    [SerializeField] private SpriteRenderer _playerHead;
+    [SerializeField] private SpriteRenderer _playerBody;
+
     //
     // make all limbs get thrown from same place?
     //
@@ -51,8 +54,10 @@ public class Player : MonoBehaviour
 
         _inputHandler.InitializePlayer(_config);
 
+        _playerHead.sprite = _config.Head;
+        _playerBody.sprite = _config.Body;
+
         return this;
-        //set skins, score, name etc.
     }
 
     void Update()

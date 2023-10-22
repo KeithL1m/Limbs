@@ -97,7 +97,7 @@ public class GameManager : Manager
 
         for (int i = 0; i < playerList.Count; i++)
         {
-            playerList[i].GetComponent<PlayerHealth>().ResetHealth();
+            _players[i].GetComponent<PlayerHealth>().ResetHealth();
             SpawnPlayer(i);
         }
     }
@@ -145,7 +145,7 @@ public class GameManager : Manager
 
     void SpawnPlayer(int playerNum)
     {
-        PlayerManager.instance.AddPlayer(playerList[playerNum].GetComponent<PlayerInput>());
+        PlayerManager.instance.AddPlayer(_players[playerNum]);
         playerList[playerNum].transform.position = spawnPoints[playerNum].transform.position;
     }
 

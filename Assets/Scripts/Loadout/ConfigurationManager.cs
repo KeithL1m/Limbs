@@ -34,10 +34,10 @@ public class ConfigurationManager : MonoBehaviour
     {
         _playerConfigs[index].IsReady = true;
 
-        //if (_playerConfigs.All(p => p.IsReady == true))
-        //{
-            SceneManager.LoadScene(2);
-        //}
+        if (_playerConfigs.All(p => p.IsReady == true) && _playerNum > 1)
+        {
+          SceneManager.LoadScene(2);
+        }
     }
 
     public void HandlePlayerJoin(PlayerInput pi)

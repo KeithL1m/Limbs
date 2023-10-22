@@ -16,6 +16,17 @@ public class PlayerSetupController : MonoBehaviour
     private GameObject _readyPanel;
     [SerializeField]
     private Button _name;
+    [SerializeField]
+    private List<Sprite> _playerHead;
+    [SerializeField]
+    private List<Sprite> _playerBody;
+    [SerializeField]
+    private Image _currentHead;
+    [SerializeField]
+    private Image _currentBody;
+
+    private int _headIndex;
+    private int _bodyIndex;
 
     private void Awake()
     {
@@ -30,18 +41,67 @@ public class PlayerSetupController : MonoBehaviour
         _configManager.SetPlayerName(_playerIndex, name);
     }
 
-    public void SetHead(Sprite head)
-    {
-        _configManager.SetPlayerHead(_playerIndex, head);
-    }
-
-    public void SetBody(Sprite body)
-    {
-        _configManager.SetPlayerBody(_playerIndex, body);
-    }
-
     public void ReadyPlayer()
     {
         _configManager.ReadyPlayer(_playerIndex);
+        _configManager.SetPlayerHead(_playerIndex, _playerHead[_headIndex]);
+        _configManager.SetPlayerBody(_playerIndex, _playerBody[_bodyIndex]);
     }
+
+    public void ChangeCurrentHeadLeft()
+    {
+        if (_headIndex == 0)
+        {
+            _headIndex = _playerHead.Count - 1;
+        }
+        else
+        {
+            _headIndex--;
+        }
+
+        _currentHead.sprite = _playerHead[_headIndex];
+    }
+
+    public void ChangeCurrentHeadRight()
+    {
+        if (_headIndex == _playerHead.Count - 1)
+        {
+            _headIndex = 0;
+        }
+        else
+        {
+            _headIndex++;
+        }
+
+        _currentHead.sprite = _playerHead[_headIndex];
+    }
+
+    public void ChangeCurrentBodyLeft()
+    {
+        if (_bodyIndex == 0)
+        {
+            _bodyIndex = _playerBody.Count - 1;
+        }
+        else
+        {
+            _bodyIndex--;
+        }
+
+        _currentBody.sprite = _playerBody[_bodyIndex];
+    }
+
+    public void ChangeCurrentBodyRight()
+    {
+        if (_bodyIndex == _playerBody.Count - 1)
+        {
+            _bodyIndex = 0;
+        }
+        else
+        {
+            _bodyIndex++;
+        }
+
+        _currentBody.sprite = _playerBody[_bodyIndex];
+    }
+
 }

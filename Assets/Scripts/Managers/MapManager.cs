@@ -20,7 +20,7 @@ public class MapManager : Manager
 
     public void LoadMap()
     {
-        int mapNum = rnd.Next(2, _mapCount + 1);
+        int mapNum = rnd.Next(3, _mapCount + 1);
         SceneManager.LoadScene(mapNum);
 
     }
