@@ -23,7 +23,7 @@ public class PlayerLimbs : MonoBehaviour
     public SelectedLimb _selectedLimb = SelectedLimb.LeftLeg;
     public LimbState _limbState;
 
-    [SerializeField] Transform _groundCheck;
+    private Transform _groundCheck;
     [SerializeField] List<Transform> _limbAnchors;
     [SerializeField] CapsuleCollider2D _collider;
 
@@ -43,6 +43,7 @@ public class PlayerLimbs : MonoBehaviour
         }
         _originalSize = _collider.size;
         _originalOffset = _collider.offset;
+        _groundCheck = GetComponentInChildren<GroundCheck>().transform;
     }
 
     //check if limb can be picked up
