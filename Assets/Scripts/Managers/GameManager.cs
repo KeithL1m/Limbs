@@ -18,8 +18,6 @@ public class GameManager : Manager
     [SerializeField] private TMP_Text gameOverText;
     [SerializeField] private string[] gameOverMessages;
 
-    [SerializeField] private Button button;
-    [SerializeField] private EventSystem system;
     private ConfigurationManager _configManager;
 
     private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
@@ -31,13 +29,7 @@ public class GameManager : Manager
     private int playerCount;
     public int deadPlayers;
 
-    [SerializeField] InputAction joinAction;
-    [SerializeField] InputAction leaveAction;
-
     public static GameManager instance = null;
-
-    public event System.Action<PlayerInput> PlayerLeftGame;
-
 
     public bool startScreen = true;
 
@@ -147,43 +139,6 @@ public class GameManager : Manager
     {
         PlayerManager.instance.AddPlayer(_players[playerNum]);
         playerList[playerNum].transform.position = spawnPoints[playerNum].transform.position;
-    }
-
-    //player joining/leaving functions
-    public void OnPlayerLeft(PlayerInput playerInput)
-    {
-
-    }
-
-    void LeaveAction(InputAction.CallbackContext context)
-    {
-        Debug.Log("We leaving");
-        if (playerList.Count > 1)
-        {
-            foreach (var player in playerList)
-            {
-                foreach(var device in player.devices)
-                {
-                    if (device != null && context.control.device == device)
-                    {
-                        UnregisterPlayer(player);
-                        return;
-                    }
-                }
-            }
-        }
-    }
-
-    void UnregisterPlayer(PlayerInput playerInput)
-    {
-        playerList.Remove(playerInput);
-
-        if (PlayerLeftGame != null)
-        {
-            PlayerLeftGame(playerInput);
-        }
-
-        Destroy(playerInput.transform.gameObject);
     }
 
     public int GetPlayerCount()

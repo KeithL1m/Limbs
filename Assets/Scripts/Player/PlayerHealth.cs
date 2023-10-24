@@ -46,14 +46,14 @@ public class PlayerHealth : MonoBehaviour
 
         deathPositions = FindObjectsOfType<DeathPosition>();
         _isDead = true;
-        if (deathPositions[0]._occupied)
+        if (deathPositions[0].Occupied)
         {
             transform.position = deathPositions[1].transform.position;
             chain.EnableChain(deathPositions[1].transform);
         }
         transform.position = deathPositions[0].transform.position;
         chain.EnableChain(deathPositions[0].transform);
-        deathPositions[0]._occupied = true;
+        deathPositions[0].Occupied = true;
     }
 
     public void ResetHealth()

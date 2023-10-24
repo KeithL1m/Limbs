@@ -8,32 +8,20 @@ public class Pinata : MonoBehaviour
     private float _maxHealth;
     private float _health;
 
-    private UIManager _manager;
-
 
     void Start()
     {
         _health = _maxHealth;    
-        _manager = FindObjectOfType<UIManager>();
     }
-    // Update is called once per frame
 
     //Dealing damage to Pinata
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-        //if(collision.gameObject.tag == "Limb" && collision.gameObject.GetComponent<Limb>()._limbState == Limb.LimbState.Throwing)
-        //{
-        //    _health -= 10.0f;
-        //}
         if (collision.gameObject.tag != "Limb")
-        {
             return;
-        }
-        else if(collision.gameObject.GetComponent<Limb>()._limbState != Limb.LimbState.Throwing)
-        {
+        if(collision.gameObject.GetComponent<Limb>()._limbState != Limb.LimbState.Throwing)
             return;
-        }
+        
         _health -= 10.0f;
 
         if (_health <= 0.0f)
@@ -42,7 +30,7 @@ public class Pinata : MonoBehaviour
         }
     }
 
-    void PinataDestroyed()
+    private void PinataDestroyed()
     {
         GameManager.instance.StartGame();
     }
