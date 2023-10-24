@@ -19,7 +19,7 @@ public class Pinata : MonoBehaviour
     {
         if (collision.gameObject.tag != "Limb")
             return;
-        if(collision.gameObject.GetComponent<Limb>()._limbState != Limb.LimbState.Throwing)
+        if(collision.gameObject.GetComponent<Limb>().State != Limb.LimbState.Throwing)
             return;
         
         _health -= 10.0f;

@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     //[SerializeField] Transform _leftLaunchPoint;
     //[SerializeField] Transform _rightLaunchPoint;
     [SerializeField] private Transform _aimTransform;
-    [SerializeField] private Transform _groundCheck;
+    [SerializeField] public Transform _groundCheck;
 
     //facing left = -1, right = 1
     public int direction;

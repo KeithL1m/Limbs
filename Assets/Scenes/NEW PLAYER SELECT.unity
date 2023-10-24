@@ -3667,7 +3667,7 @@ RectTransform:
   - {fileID: 92073396}
   - {fileID: 554770589}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4692,52 +4692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _basePlayer: {fileID: 0}
   arrowIndicatorPrefab: {fileID: 0}
-  _playerInputList: []
---- !u!1 &1486856786
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1486856788}
-  - component: {fileID: 1486856787}
-  m_Layer: 0
-  m_Name: LimbManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1486856787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486856786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09e8b47242a9ed84a9a573ba9ae2010b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _limbs: []
---- !u!4 &1486856788
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486856786}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.37238783, y: 2.6672492, z: -0.07656312}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  _playerList: []
 --- !u!1 &1528140300
 GameObject:
   m_ObjectHideFlags: 0
@@ -5406,7 +5361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _basePlayer: {fileID: 0}
   arrowIndicatorPrefab: {fileID: 0}
-  _playerInputList: []
+  _playerList: []
 --- !u!4 &1686961237
 Transform:
   m_ObjectHideFlags: 0
@@ -5833,7 +5788,7 @@ PrefabInstance:
     - target: {fileID: 6819372074900375388, guid: f006804b92770d248bca2198b577cd39, type: 3}
       propertyPath: _limbManager
       value: 
-      objectReference: {fileID: 1486856787}
+      objectReference: {fileID: 0}
     - target: {fileID: 9039460043306164927, guid: f006804b92770d248bca2198b577cd39, type: 3}
       propertyPath: m_Name
       value: LimbSpawner (Range)

@@ -7,8 +7,8 @@ public class LimbSpawning2 : MonoBehaviour
     /*
      * SPAWN LIMBS USING SPAWN POINTS 
      */
-    [SerializeField]
-    LimbManager _limbManager;
+
+    private LimbManager _limbManager;
 
     [Header("Customizable")]
     [SerializeField]
@@ -34,6 +34,8 @@ public class LimbSpawning2 : MonoBehaviour
 
     private void Start()
     {
+        _limbManager= GetComponent<LimbManager>();
+
         for (int i = 0; i < _startLimbCount; i++)
         {
             SpawnLimb();

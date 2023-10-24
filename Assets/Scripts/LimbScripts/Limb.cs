@@ -6,7 +6,7 @@ public class Limb : MonoBehaviour
 {
     public enum LimbType
     {
-        Arm, 
+        Arm,
         Leg
     }
 
@@ -19,43 +19,45 @@ public class Limb : MonoBehaviour
     }
 
     [HideInInspector]
-    public Player _attachedPlayer;
+    public Player AttachedPlayer { get; set; }
     [HideInInspector]
-    public PlayerLimbs _attachedPlayerLimbs;
+    public PlayerLimbs AttachedPlayerLimbs { get; set; }
     [HideInInspector]
-    public Transform _anchorPoint = null;
-    Rigidbody2D _rb;
+    public Transform AnchorPoint { get; set; } = null;
+    [HideInInspector]
+    public Rigidbody2D LimbRB { get; set; } 
 
     [HideInInspector]
-    public LimbType _limbType; //this will help most with animations
+    public LimbType Type { get; set; } //this will help most with animations
     [HideInInspector]
-    public LimbState _limbState;
+    public LimbState State { get; set; }
 
     [SerializeField]
     private LimbData _limbData;
-    public GameObject _trail;
-    public GameObject _pickUpIndicator;
+    [field: SerializeField]
+    public GameObject Trail { get; set; }
+    [field: SerializeField]
+    public GameObject PickUpIndicator { get; set; }
 
     //limb properties
-    public float _size;
+    public float Size { get; set; }
     private Vector2 _throwVelocity; //used when not aiming
     private float _throwSpeed; //used when aiming
     private float _damage;
     private float _specialDamage;
-
     private Vector3 _returnVelocity;
 
     private void Start()
     {
-        _limbState = LimbState.PickUp;
-        _rb = GetComponent<Rigidbody2D>();
-        _rb.SetRotation(0);
+        State = LimbState.PickUp;
+        LimbRB = GetComponent<Rigidbody2D>();
+        LimbRB.SetRotation(0);
 
-        _trail.SetActive(false);
+        Trail.SetActive(false);
 
         float angle = _limbData._throwAngle * Mathf.Deg2Rad;
 
-        _size = _limbData._limbSize;
+        Size = _limbData._limbSize;
         _throwVelocity.x = _limbData._throwSpeed * Mathf.Cos(angle);
         _throwSpeed = _limbData._throwSpeed;
         _throwVelocity.y = _limbData._throwSpeed * Mathf.Sin(angle);
@@ -65,32 +67,32 @@ public class Limb : MonoBehaviour
 
     public void ThrowLimb(int direction)
     {
-        _attachedPlayerLimbs.MoveBodyDown();
-        _rb.simulated = true;
-        _limbState = LimbState.Throwing;
+        AttachedPlayerLimbs.MoveBodyDown();
+        LimbRB.simulated = true;
+        State = LimbState.Throwing;
 
-        _trail.SetActive(true);
+        Trail.SetActive(true);
 
-        if (_attachedPlayer._inputHandler.Aim.x == 0.0f && _attachedPlayer._inputHandler.Aim.y == 0.0f)
+        if (AttachedPlayer._inputHandler.Aim.x == 0.0f && AttachedPlayer._inputHandler.Aim.y == 0.0f)
         {
             _throwVelocity.x = Mathf.Abs(_throwVelocity.x);
             _throwVelocity.x *= direction;
-            _rb.velocity = _throwVelocity;
+            LimbRB.velocity = _throwVelocity;
         }
         else
         {
-            Vector2 tVelocity = _attachedPlayer._inputHandler.Aim;
+            Vector2 tVelocity = AttachedPlayer._inputHandler.Aim;
             tVelocity *= _throwSpeed;
-            _rb.velocity = tVelocity;
+            LimbRB.velocity = tVelocity;
         }
     }
 
     private void ReturnLimb()
     {
-        _trail.SetActive(true);
-        _limbState = LimbState.Returning;
+        Trail.SetActive(true);
+        State = LimbState.Returning;
         _throwVelocity.x *= -1;
-        _rb.velocity = _returnVelocity;
+        LimbRB.velocity = _returnVelocity;
     }
 
 
@@ -104,7 +106,7 @@ public class Limb : MonoBehaviour
     {
         if (collision.gameObject.tag != "Player")
             return;
-        else if (_limbState != LimbState.Throwing)
+        else if (State != LimbState.Throwing)
             return;
 
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
@@ -117,22 +119,22 @@ public class Limb : MonoBehaviour
     //{
     //    if (collision.gameObject.tag != "Player")
     //        return;
-    //    else if (_limbState == LimbState.Throwing || _limbState == LimbState.Attached)
+    //    else if (State == LimbState.Throwing || State == LimbState.Attached)
     //        return;
-    //    else if (_limbState == LimbState.Returning && collision.gameObject.GetComponent<Player>() != _attachedPlayer)
+    //    else if (State == LimbState.Returning && collision.gameObject.GetComponent<Player>() != AttachedPlayer)
     //        return;
 
     //    if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
     //    {
-    //        _pickUpIndicator.SetActive(false);
-    //        _attachedPlayer = collision.gameObject.GetComponent<Player>();
-    //        _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
-    //        if (_limbType == LimbType.Arm)
+    //        PickUpIndicator.SetActive(false);
+    //        AttachedPlayer = collision.gameObject.GetComponent<Player>();
+    //        AttachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
+    //        if (Type == LimbType.Arm)
     //        {
 
     //            _rb.SetRotation(90);
     //        }
-    //        if (_limbType == LimbType.Leg)
+    //        if (Type == LimbType.Leg)
     //        {
     //            _rb.SetRotation(0);
     //        }
@@ -142,30 +144,30 @@ public class Limb : MonoBehaviour
     {
         if (collision.gameObject.tag != "Player")
             return;
-        else if (_limbState == LimbState.Attached)
+        else if (State == LimbState.Attached)
             return;
-        else if (_limbState == LimbState.Returning && collision.gameObject.GetComponent<Player>() != _attachedPlayer)
+        else if (State == LimbState.Returning && collision.gameObject.GetComponent<Player>() != AttachedPlayer)
             return;
 
-        if (_limbState == LimbState.Throwing)
+        if (State == LimbState.Throwing)
         {
-            _returnVelocity = -_rb.velocity;
+            _returnVelocity = -LimbRB.velocity;
             return;
         }
 
         if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
         {
-            _pickUpIndicator.SetActive(false);
-            _attachedPlayer = collision.gameObject.GetComponent<Player>();
-            _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
-            if (_limbType == LimbType.Arm)
+            PickUpIndicator.SetActive(false);
+            AttachedPlayer = collision.gameObject.GetComponent<Player>();
+            AttachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
+            if (Type == LimbType.Arm)
             {
 
-                _rb.SetRotation(90);
+                LimbRB.SetRotation(90);
             }
-            if (_limbType == LimbType.Leg)
+            if (Type == LimbType.Leg)
             {
-                _rb.SetRotation(0);
+                LimbRB.SetRotation(0);
             }
         }
     }

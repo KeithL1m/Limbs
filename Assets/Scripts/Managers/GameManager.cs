@@ -117,6 +117,7 @@ public class GameManager : Manager
             }
 
             ClearLimbs();
+            ResetGroundCheck();
             uiManager.UpdateLeaderBoard();
             MapManager.instance.LoadMap();
         }
@@ -149,7 +150,7 @@ public class GameManager : Manager
             configs.Add(_playerConfigs[i]);
         }
 
-        configs.Sort((x, y) => x.Score.CompareTo(y.Score));
+        configs.Sort((x, y) => y.Score.CompareTo(x.Score));
 
         return configs;
     }
@@ -172,6 +173,14 @@ public class GameManager : Manager
         for (int i = 0; i < playerList.Count; i++)
         {
             _players[i].GetComponent<PlayerLimbs>().ClearLimbs();
+        }
+    }
+
+    private void ResetGroundCheck()
+    {
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            _players[i]._groundCheck.localPosition = new Vector3(0, -0.715f, 0);
         }
     }
 }

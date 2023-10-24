@@ -19,8 +19,7 @@ public class LimbSpawning : MonoBehaviour
     private Transform _rightLimit;
     private float _right;
 
-    [SerializeField]
-    LimbManager _limbManager;
+    private LimbManager _limbManager;
 
     [Header("Customizable")]
     [SerializeField]
@@ -48,6 +47,8 @@ public class LimbSpawning : MonoBehaviour
 
     private void Start()
     {
+        _limbManager = GetComponent<LimbManager>();
+
         _left = _leftLimit.position.x;
         _right = _rightLimit.position.x;
 
