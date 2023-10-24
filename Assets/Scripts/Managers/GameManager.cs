@@ -23,8 +23,15 @@ public class GameManager : Manager
     private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
     public List<Player> _players = new List<Player>();
 
+    [SerializeField] private GameObject gameOverBG;
+    [SerializeField] private TMP_Text gameOverText;
+    [SerializeField] private string[] gameOverMessages;
+
+    private float originalTimeScale = 1.0f;
+
     private PauseManager pauseManager;
     private UIManager uiManager;
+    private bool isGameOver = false;
 
     private int playerCount;
     public int deadPlayers;
@@ -120,7 +127,13 @@ public class GameManager : Manager
             ResetGroundCheck();
             uiManager.UpdateLeaderBoard();
             MapManager.instance.LoadMap();
+            if (!isGameOver) // Check if game over is not already triggered
+            {
+                isGameOver = true;
+                StartCoroutine(ShowGameOverScreen());
+            }
         }
+
         else
         {
             deadPlayers = 0;
@@ -182,5 +195,41 @@ public class GameManager : Manager
         {
             _players[i]._groundCheck.localPosition = new Vector3(0, -0.715f, 0);
         }
+    }
+
+    private IEnumerator ShowGameOverScreen()
+    {
+        Time.timeScale = 0.5f;
+        gameOverBG.SetActive(true);
+
+        // Display a random game over message from the array
+        int randomMessageIndex = Random.Range(0, gameOverMessages.Length);
+        gameOverText.text = gameOverMessages[randomMessageIndex];
+
+        Color randomColor = new Color(Random.value, Random.value, Random.value);
+        gameOverText.color = randomColor;
+
+        // Wait for 5 seconds
+        float endTime = Time.realtimeSinceStartup + 5.0f;
+
+        while (Time.realtimeSinceStartup < endTime)
+        {
+            yield return null;
+        }
+
+        deadPlayers = 0;
+        spawnPoints.Clear();
+
+        for (int j = 0; j < playerList.Count; j++)
+        {
+            playerList[j].GetComponent<PlayerLimbs>().ClearLimbs();
+        }
+
+        Time.timeScale = originalTimeScale;
+
+
+        MapManager.instance.LoadMap();
+        gameOverBG.SetActive(false);
+        isGameOver = false;
     }
 }
