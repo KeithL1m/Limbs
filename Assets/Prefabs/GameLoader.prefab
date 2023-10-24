@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59ff82eea1a84845881f151a2706b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameManager: {fileID: 2200296758692526866, guid: 27fc355aefafe3142868f9c38c7f36c5, type: 3}
+  sceneIndexToLoad: 1
+  _moduleComponents: []
