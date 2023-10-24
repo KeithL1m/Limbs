@@ -123,8 +123,9 @@ public class GameManager : Manager
                 {
                     _players[j].AddScore();
                 }
-                ClearLimbs();
             }
+
+            ClearLimbs();
             uiManager.UpdateLeaderBoard();
             MapManager.instance.LoadMap();
 

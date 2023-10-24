@@ -22,10 +22,9 @@ public class MapManager : Manager
     {
         int mapNum = rnd.Next(3, _mapCount + 1);
         SceneManager.LoadScene(mapNum);
-
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         GameManager.instance.OnStart();
     }
