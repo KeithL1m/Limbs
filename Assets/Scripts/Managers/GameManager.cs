@@ -128,7 +128,6 @@ public class GameManager : Manager
             ClearLimbs();
             uiManager.UpdateLeaderBoard();
             MapManager.instance.LoadMap();
-
         }
         else
         {
@@ -138,8 +137,11 @@ public class GameManager : Manager
 
     void SpawnPlayer(int playerNum)
     {
-        PlayerManager.instance.AddPlayer(_players[playerNum]);
-        playerList[playerNum].transform.position = spawnPoints[playerNum].transform.position;
+        _players[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        _players[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        _players[playerNum].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+        _players[playerNum].GetComponent<PlayerHealth>()._isDead = false;
+        _players[playerNum].transform.position = spawnPoints[playerNum].transform.position;
     }
 
     public int GetPlayerCount()
