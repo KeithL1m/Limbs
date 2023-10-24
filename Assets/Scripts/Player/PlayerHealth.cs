@@ -42,8 +42,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void KillPlayer()
     {
-        //check for game over
-
         deathPositions = FindObjectsOfType<DeathPosition>();
         _isDead = true;
         if (deathPositions[0].Occupied)
@@ -54,6 +52,8 @@ public class PlayerHealth : MonoBehaviour
         transform.position = deathPositions[0].transform.position;
         chain.EnableChain(deathPositions[0].transform);
         deathPositions[0].Occupied = true;
+
+        GameManager.instance.CheckGameOver();
     }
 
     public void ResetHealth()

@@ -94,16 +94,7 @@ public class GameManager : Manager
         }
     }
 
-    private void Update()
-    {
-        if (!startScreen)
-        {
-            CheckGameOver();
-        }
-    }
-
-
-    void CheckGameOver()
+    public void CheckGameOver()
     {
         for (int i = 0; i < _players.Count; i++)
         {
