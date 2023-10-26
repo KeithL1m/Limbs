@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class CameraFocus : MonoBehaviour
 {
-    [SerializeField]
-    private float _halfXBounds = 20.0f;
-    private float _halfYBounds = 15.0f;
-    private float _halfZBounds = 15.0f;
+
+    public float _halfXBounds = 20.0f;
+    public float _halfYBounds = 15.0f;
+    public float _halfZBounds = 15.0f;
 
     public Bounds focusBounds;
 

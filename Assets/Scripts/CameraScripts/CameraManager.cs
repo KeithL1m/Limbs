@@ -38,7 +38,22 @@ public class CameraManager : MonoBehaviour
 
     private void MoveCamera()
     {
+        Vector3 position = gameObject.transform.position;
+        if( position != CameraPosition)
+        {
+            Vector3 targetPosition = Vector3.zero;
+            targetPosition.x = Mathf.MoveTowards(position.x, CameraPosition.x, positionUpdateSpeed * Time.deltaTime);
+            targetPosition.y = Mathf.MoveTowards(position.y, CameraPosition.y, positionUpdateSpeed * Time.deltaTime);
+            targetPosition.z = Mathf.MoveTowards(position.z, CameraPosition.z, depthUpdateSpeed * Time.deltaTime);
+            gameObject.transform.position = targetPosition;
+        }
 
+        Vector3 localEulerAngles = gameObject.transform.localEulerAngles;
+        if(localEulerAngles.x != _CameraEulerX)
+        {
+            Vector3 targetEulerAngles = new Vector3(_CameraEulerX, localEulerAngles.y, localEulerAngles.z);
+            gameObject.transform.localEulerAngles = Vector3.MoveTowards(localEulerAngles, targetEulerAngles, angleUpdateSpeed * Time.deltaTime);
+        }
     }
 
     private void CalculateCameraLocation()
@@ -56,6 +71,7 @@ public class CameraManager : MonoBehaviour
                 float playerX = Mathf.Clamp(playerPosition.x, _focusLevel.focusBounds.min.x, _focusLevel.focusBounds.max.x);
                 float playerY = Mathf.Clamp(playerPosition.y, _focusLevel.focusBounds.min.y, _focusLevel.focusBounds.max.y);
                 float playerZ = Mathf.Clamp(playerPosition.z, _focusLevel.focusBounds.min.z, _focusLevel.focusBounds.max.z);
+                playerPosition = new Vector3(playerX, playerY, playerZ);
             }
 
             totalPositions += playerPosition;
@@ -63,5 +79,14 @@ public class CameraManager : MonoBehaviour
         }
 
         averageCenter = (totalPositions / _playerList.Count);
+
+        float extents = (playerBounds.extents.x + playerBounds.extents.y);
+        float lerpPercent = Mathf.InverseLerp(0, (_focusLevel._halfXBounds + _focusLevel._halfYBounds) / 2, extents);
+
+        float depth = Mathf.Lerp(depthMax, depthMin, lerpPercent);
+        float angle = Mathf.Lerp(angleMax, angleMin, lerpPercent);
+
+        _CameraEulerX = angle;
+        CameraPosition = new Vector3(averageCenter.x, averageCenter.y, depth);
     }
 }
