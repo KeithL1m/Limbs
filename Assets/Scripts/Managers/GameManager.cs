@@ -23,10 +23,6 @@ public class GameManager : Manager
     private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
     public List<Player> _players = new List<Player>();
 
-    [SerializeField] private GameObject gameOverBG;
-    [SerializeField] private TMP_Text gameOverText;
-    [SerializeField] private string[] gameOverMessages;
-
     private float originalTimeScale = 1.0f;
 
     private PauseManager pauseManager;
@@ -113,20 +109,6 @@ public class GameManager : Manager
 
         if (deadPlayers == playerCount - 1)
         {
-            deadPlayers = 0;
-            spawnPoints.Clear();
-            for (int j = 0; j < _players.Count; j++)
-            {
-                if (!_players[j].GetComponent<PlayerHealth>()._isDead)
-                {
-                    _players[j].AddScore();
-                }
-            }
-
-            ClearLimbs();
-            ResetGroundCheck();
-            uiManager.UpdateLeaderBoard();
-            MapManager.instance.LoadMap();
             if (!isGameOver) // Check if game over is not already triggered
             {
                 isGameOver = true;
@@ -217,18 +199,24 @@ public class GameManager : Manager
             yield return null;
         }
 
-        deadPlayers = 0;
-        spawnPoints.Clear();
-
-        for (int j = 0; j < playerList.Count; j++)
-        {
-            playerList[j].GetComponent<PlayerLimbs>().ClearLimbs();
-        }
-
         Time.timeScale = originalTimeScale;
 
 
+        deadPlayers = 0;
+        spawnPoints.Clear();
+        for (int j = 0; j < _players.Count; j++)
+        {
+            if (!_players[j].GetComponent<PlayerHealth>()._isDead)
+            {
+                _players[j].AddScore();
+            }
+        }
+
+        ClearLimbs();
+        ResetGroundCheck();
+        uiManager.UpdateLeaderBoard();
         MapManager.instance.LoadMap();
+
         gameOverBG.SetActive(false);
         isGameOver = false;
     }
