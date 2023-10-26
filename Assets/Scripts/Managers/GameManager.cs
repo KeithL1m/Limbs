@@ -129,6 +129,8 @@ public class GameManager : Manager
         _players[playerNum].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
         _players[playerNum].GetComponent<PlayerHealth>()._isDead = false;
         _players[playerNum].transform.position = spawnPoints[playerNum].transform.position;
+        PlayerManager.instance.AddPlayer(playerList[playerNum].GetComponent<PlayerInput>());
+        playerList[playerNum].transform.position = spawnPoints[playerNum].transform.position;
     }
 
     public int GetPlayerCount()

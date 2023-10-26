@@ -17,6 +17,15 @@ public class Sawblade : MonoBehaviour
     private Transform pos2;
     bool turnback;
 
+    // Additional boost if the chainsaw stop moving
+    [SerializeField]
+    private Rigidbody2D _sawChain;
+
+    [SerializeField]
+    private float _sawDamage;
+
+    private PlayerHealth _playerHealth;
+
     void Start()
     {
         
@@ -30,6 +39,23 @@ public class Sawblade : MonoBehaviour
         }
 
         transform.Rotate(0.0f, 0.0f, _rotateSpeed * Time.deltaTime);
+
+        // Check if chainsaw slows down
+        if(_sawChain.GetComponent<Rigidbody2D>().velocity.magnitude < 10.0f)
+        {
+            _sawChain.AddForce(new Vector2(100.0f, 0.0f));
+        }
+
+        // Do damage to player
+        
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
+            _healthPlayer.AddDamage(_sawDamage);
+        }
     }
 
     void MovingSaw()
