@@ -90,7 +90,7 @@ public class GameManager : Manager
             spawnPoints.Add(gameObjects[i]);
         }
 
-        for (int i = 0; i < playerList.Count; i++)
+        for (int i = 0; i < playerCount; i++)
         {
             _players[i].GetComponent<PlayerHealth>().ResetHealth();
             SpawnPlayer(i);
@@ -99,7 +99,7 @@ public class GameManager : Manager
 
     public void CheckGameOver()
     {
-        for (int i = 0; i < _players.Count; i++)
+        for (int i = 0; i < playerCount; i++)
         {
             if (_players[i].GetComponent<PlayerHealth>().IsDead())
             {
@@ -129,20 +129,18 @@ public class GameManager : Manager
         _players[playerNum].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
         _players[playerNum].GetComponent<PlayerHealth>()._isDead = false;
         _players[playerNum].transform.position = spawnPoints[playerNum].transform.position;
-        PlayerManager.instance.AddPlayer(playerList[playerNum].GetComponent<PlayerInput>());
-        playerList[playerNum].transform.position = spawnPoints[playerNum].transform.position;
     }
 
     public int GetPlayerCount()
     {
-        return playerList.Count;
+        return playerCount;
     }
 
     public List<PlayerConfiguration> GetPlayerConfigs()
     {
         List<PlayerConfiguration> configs = new List<PlayerConfiguration>();
 
-        for (int i = 0; i < playerList.Count; i++)
+        for (int i = 0; i < playerCount; i++)
         {
             configs.Add(_playerConfigs[i]);
         }
@@ -167,7 +165,7 @@ public class GameManager : Manager
 	
     public void ClearLimbs()
     {
-        for (int i = 0; i < playerList.Count; i++)
+        for (int i = 0; i < playerCount; i++)
         {
             _players[i].GetComponent<PlayerLimbs>().ClearLimbs();
         }
@@ -175,7 +173,7 @@ public class GameManager : Manager
 
     private void ResetGroundCheck()
     {
-        for (int i = 0; i < playerList.Count; i++)
+        for (int i = 0; i < playerCount; i++)
         {
             _players[i]._groundCheck.localPosition = new Vector3(0, -0.715f, 0);
         }
