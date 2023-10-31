@@ -46,19 +46,24 @@ public class GameManager : Manager
 
     private void Start()
     {
+        Debug.Log(playerCount);
         for (int i = 0; i < playerCount; i++)
         {
             _players.Add(_playerConfigs[i].Input.GetComponent<SpawnPlayer>().SpawnPlayerFirst(_playerConfigs[i]));
             playerList.Add(_playerConfigs[i].Input);
         }
 
+        uiManager.SetPlayerCount(playerCount);
         uiManager.SetUpHealthUI(_players);
         uiManager.SetPlayerHealthFace(_playerConfigs);
+        uiManager.UpdatePlayerWins(_playerConfigs);
     }
 
     override public void OnStart()
     {
         pauseManager.SetCamera(FindObjectOfType<Camera>());
+
+        uiManager.UpdatePlayerWins(_playerConfigs);
 
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spawn");
         for (int i = 0; i < gameObjects.Length; i++)
@@ -68,6 +73,7 @@ public class GameManager : Manager
 
         for (int i = 0; i < playerCount; i++)
         {
+            Debug.Log("player is being spawned");
             _players[i].GetComponent<PlayerHealth>().ResetHealth();
             SpawnPlayer(i);
         }

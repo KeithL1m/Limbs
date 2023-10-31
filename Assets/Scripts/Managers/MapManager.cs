@@ -26,6 +26,9 @@ public class MapManager : Manager
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (GameManager.instance.startScreen)
+            return;
+        Debug.Log("new scene loaded");
         GameManager.instance.OnStart();
     }
 }

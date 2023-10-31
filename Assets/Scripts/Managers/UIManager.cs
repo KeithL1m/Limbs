@@ -36,10 +36,13 @@ public class UIManager : MonoBehaviour
         _positions = new List<Vector2>();
     }
 
+    public void SetPlayerCount(int count)
+    {
+        playerCount = count;
+    }
+
     public void SetUpLeaderBoard()
     {
-        playerCount = GameManager.instance.GetPlayerCount();
-
         _scoreBoxes.Add(_scoreBox);
 
         for (int i = 1; i < playerCount; i++)
@@ -73,6 +76,8 @@ public class UIManager : MonoBehaviour
 
     public void SetUpHealthUI(List<Player> players)
     {
+        Debug.Log(playerCount);
+
         for (int i = 0; i < playerCount; i++)
         {
             healthUI[i].SetActive(true);// Enable the health UI for the newly joined player
