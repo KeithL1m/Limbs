@@ -10,7 +10,7 @@ public class CameraManager : MonoBehaviour
     public CameraFocus _focusLevel;
 
     public List<GameObject> _players;
-    public List<PlayerInput> _playerList = new List<PlayerInput>();
+    //public List<PlayerInput> _playerList = new List<PlayerInput>();
 
     public float depthUpdateSpeed = 5.0f;
     public float angleUpdateSpeed = 7.0f;
@@ -62,9 +62,9 @@ public class CameraManager : MonoBehaviour
         Vector3 totalPositions = Vector3.zero;
         Bounds playerBounds = new Bounds();
 
-        for (int i = 0; i < _playerList.Count; i++)
+        for (int i = 0; i < _players.Count; i++)
         {
-            Vector3 playerPosition = _playerList[i].transform.position;
+            Vector3 playerPosition = _players[i].transform.position;
 
             if(!_focusLevel.focusBounds.Contains(playerPosition))
             {
@@ -78,7 +78,7 @@ public class CameraManager : MonoBehaviour
             playerBounds.Encapsulate(playerPosition);
         }
 
-        averageCenter = (totalPositions / _playerList.Count);
+        averageCenter = (totalPositions / _players.Count);
 
         float extents = (playerBounds.extents.x + playerBounds.extents.y);
         float lerpPercent = Mathf.InverseLerp(0, (_focusLevel._halfXBounds + _focusLevel._halfYBounds) / 2, extents);
