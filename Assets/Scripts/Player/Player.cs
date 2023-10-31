@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
         _inputHandler = GetComponent<PlayerInputHandler>();
     }
 
-    public Player Initialize(PlayerConfiguration pc)
+    public void Initialize(PlayerConfiguration pc)
     {
         _config = pc;
 
@@ -56,8 +56,6 @@ public class Player : MonoBehaviour
 
         _playerHead.sprite = _config.Head;
         _playerBody.sprite = _config.Body;
-
-        return this;
     }
 
     void Update()
@@ -128,6 +126,11 @@ public class Player : MonoBehaviour
     public string GetName()
     {
         return _config.Name;
+    }
+
+    public SpriteRenderer GetArrow()
+    {
+        return _aimTransform.GetComponentInChildren<SpriteRenderer>();
     }
 
 }
