@@ -9,29 +9,29 @@ public class PauseManager : MonoBehaviour
     public static bool paused = false;
 
     [SerializeField]
-    GameObject pauseMenu;
+    private GameObject _pauseMenu;
     [SerializeField]
-    GameObject arsenalMenu;
+    private GameObject _arsenalMenu;
     [SerializeField]
-    GameObject optionsMenu;
+    private GameObject _optionsMenu;
     [SerializeField]
-    GameObject popupMenu;
+    private GameObject _popupMenu;
 
     [SerializeField]
-    EventSystem eventSystem;
+    private EventSystem _eventSystem;
 
     [SerializeField]
-    GameObject pauseFirstButton;
+    private GameObject _pauseFirstButton;
     [SerializeField]
-    GameObject arsenalFirstButton;
+    private GameObject _arsenalFirstButton;
     [SerializeField]
-    GameObject optionsFirstButton;
+    private GameObject _optionsFirstButton;
     [SerializeField]
-    GameObject popupFirstButton;
+    private GameObject _popupFirstButton;
 
 
     [SerializeField]
-    Canvas canvas;
+    private Canvas _canvas;
 
     private UIManager _uiManager;
 
@@ -45,9 +45,9 @@ public class PauseManager : MonoBehaviour
     void Start()
     {   
         DontDestroyOnLoad(this);
-        pauseMenu.SetActive(false);
-        arsenalMenu.SetActive(false);
-        optionsMenu.SetActive(false);   
+        _pauseMenu.SetActive(false);
+        _arsenalMenu.SetActive(false);
+        _optionsMenu.SetActive(false);   
 
         action.Pause.PauseGame.performed += _ => DeterminePause();
     }
@@ -78,54 +78,54 @@ public class PauseManager : MonoBehaviour
     {
         Time.timeScale = 0.0f;
         paused = true;
-        pauseMenu.SetActive(true);
+        _pauseMenu.SetActive(true);
 
-        eventSystem.SetSelectedGameObject(pauseFirstButton);
+        _eventSystem.SetSelectedGameObject(_pauseFirstButton);
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1.0f;
         paused = false;
-        pauseMenu.SetActive(false);
-        arsenalMenu.SetActive(false);
-        optionsMenu.SetActive(false);
-        popupMenu.SetActive(false);
+        _pauseMenu.SetActive(false);
+        _arsenalMenu.SetActive(false);
+        _optionsMenu.SetActive(false);
+        _popupMenu.SetActive(false);
     }
 
     public void LoadArsenalMenu()
     {
-        pauseMenu.SetActive(false);
-        arsenalMenu.SetActive(true);
-        eventSystem.SetSelectedGameObject(arsenalFirstButton);
+        _pauseMenu.SetActive(false);
+        _arsenalMenu.SetActive(true);
+        _eventSystem.SetSelectedGameObject(_arsenalFirstButton);
     }
 
     public void LoadOptionsMenu()
     {
-        pauseMenu.SetActive(false);
-        optionsMenu.SetActive(true);
-        eventSystem.SetSelectedGameObject(optionsFirstButton);
+        _pauseMenu.SetActive(false);
+        _optionsMenu.SetActive(true);
+        _eventSystem.SetSelectedGameObject(_optionsFirstButton);
     }
 
     public void LoadPauseMenu()
     {
-        arsenalMenu.SetActive(false);
-        optionsMenu.SetActive(false);
-        pauseMenu.SetActive(true);
-        eventSystem.SetSelectedGameObject(pauseFirstButton);
+        _arsenalMenu.SetActive(false);
+        _optionsMenu.SetActive(false);
+        _pauseMenu.SetActive(true);
+        _eventSystem.SetSelectedGameObject(_pauseFirstButton);
     }
 
     public void LoadPopUpMenu()
     {
-        popupMenu.SetActive(true);
-        eventSystem.SetSelectedGameObject(popupFirstButton);
+        _popupMenu.SetActive(true);
+        _eventSystem.SetSelectedGameObject(_popupFirstButton);
         //make sure an animation plays when this is clicked
     }
 
     public void UnloadPopupMenu()
     {
-        popupMenu.SetActive(false);
-        eventSystem.SetSelectedGameObject(pauseFirstButton);
+        _popupMenu.SetActive(false);
+        _eventSystem.SetSelectedGameObject(_pauseFirstButton);
         //make sure an animation plays when this is clicked
     }
 
@@ -137,6 +137,6 @@ public class PauseManager : MonoBehaviour
 
     public void SetCamera(Camera camera)
     {
-        canvas.worldCamera = camera;
+        _canvas.worldCamera = camera;
     }
 }

@@ -11,19 +11,11 @@ public class GameManager : Manager
 {
     public List<PlayerInput> playerList = new List<PlayerInput>();
     public List<GameObject> spawnPoints = new List<GameObject>();
-    public List<GameObject> healthUI = new List<GameObject>();
-    public List<TMP_Text> winsCounter = new List<TMP_Text>();
-
-    [SerializeField] private GameObject gameOverBG;
-    [SerializeField] private TMP_Text gameOverText;
-    [SerializeField] private string[] gameOverMessages;
 
     private ConfigurationManager _configManager;
 
     private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
     public List<Player> _players = new List<Player>();
-
-    private float originalTimeScale = 1.0f;
 
     private PauseManager pauseManager;
     private UIManager uiManager;
@@ -58,26 +50,10 @@ public class GameManager : Manager
         {
             _players.Add(_playerConfigs[i].Input.GetComponent<SpawnPlayer>().SpawnPlayerFirst(_playerConfigs[i]));
             playerList.Add(_playerConfigs[i].Input);
-
-
-            if (playerCount <= healthUI.Count)
-            {
-                GameObject newHealthUI = Instantiate(healthUI[i]);
-                newHealthUI.transform.SetParent(HealthUIManager.instance.transform);
-                newHealthUI.SetActive(true); // Enable the health UI for the newly joined player
-
-                // Retrieve the Slider component from the instantiated health UI
-                Slider healthSlider = newHealthUI.GetComponentInChildren<Slider>();
-
-                // Here, you would set the health value on the player.
-                _players[i].GetComponent<PlayerHealth>().SetHealthSlider(healthSlider);
-
-                // Update the health value on the slider
-                PlayerHealth playerHealth = _players[i].GetComponent<PlayerHealth>();
-                float initialHealth = playerHealth._maxHealth;
-                healthSlider.value = initialHealth;
-            }
         }
+
+        uiManager.SetUpHealthUI(_players);
+        uiManager.SetPlayerHealthFace(_playerConfigs);
     }
 
     override public void OnStart()
@@ -112,7 +88,7 @@ public class GameManager : Manager
             if (!isGameOver) // Check if game over is not already triggered
             {
                 isGameOver = true;
-                StartCoroutine(ShowGameOverScreen());
+                StartCoroutine(uiManager.ShowGameOverScreen());
             }
         }
 
@@ -120,6 +96,25 @@ public class GameManager : Manager
         {
             deadPlayers = 0;
         }
+    }
+
+    public void EndRound()
+    {
+        deadPlayers = 0;
+        spawnPoints.Clear();
+        for (int j = 0; j < _players.Count; j++)
+        {
+            if (!_players[j].GetComponent<PlayerHealth>()._isDead)
+            {
+                _players[j].AddScore();
+            }
+        }
+
+        ClearLimbs();
+        ResetGroundCheck();
+        uiManager.UpdateLeaderBoard();
+        MapManager.instance.LoadMap();
+        isGameOver = false;
     }
 
     void SpawnPlayer(int playerNum)
@@ -152,9 +147,6 @@ public class GameManager : Manager
 
     public void StartGame()
     {
-        uiManager = FindObjectOfType<UIManager>();
-        pauseManager = FindObjectOfType<PauseManager>();
-
         uiManager.SetUpLeaderBoard();
         uiManager.UpdateLeaderBoard();
 
@@ -178,46 +170,5 @@ public class GameManager : Manager
             _players[i]._groundCheck.localPosition = new Vector3(0, -0.715f, 0);
         }
     }
-
-    private IEnumerator ShowGameOverScreen()
-    {
-        Time.timeScale = 0.5f;
-        gameOverBG.SetActive(true);
-
-        // Display a random game over message from the array
-        int randomMessageIndex = Random.Range(0, gameOverMessages.Length);
-        gameOverText.text = gameOverMessages[randomMessageIndex];
-
-        Color randomColor = new Color(Random.value, Random.value, Random.value);
-        gameOverText.color = randomColor;
-
-        // Wait for 5 seconds
-        float endTime = Time.realtimeSinceStartup + 5.0f;
-
-        while (Time.realtimeSinceStartup < endTime)
-        {
-            yield return null;
-        }
-
-        Time.timeScale = originalTimeScale;
-
-
-        deadPlayers = 0;
-        spawnPoints.Clear();
-        for (int j = 0; j < _players.Count; j++)
-        {
-            if (!_players[j].GetComponent<PlayerHealth>()._isDead)
-            {
-                _players[j].AddScore();
-            }
-        }
-
-        ClearLimbs();
-        ResetGroundCheck();
-        uiManager.UpdateLeaderBoard();
-        MapManager.instance.LoadMap();
-
-        gameOverBG.SetActive(false);
-        isGameOver = false;
-    }
+    
 }
