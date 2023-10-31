@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -74,6 +73,9 @@ public class GameLoader : ASyncLoader
         ServiceLocator.Register<GameManager>(gm.GetComponent<GameManager>());
         ServiceLocator.Register<MapManager>(gm.GetComponent<MapManager>());
         ServiceLocator.Register<CameraManager>(gm.GetComponent<CameraManager>());
+
+        //add ServiceLocator.Register<CameraManager>(gm.GetComponent<ConfigurationManager>());
+
 
         yield return null;
     }

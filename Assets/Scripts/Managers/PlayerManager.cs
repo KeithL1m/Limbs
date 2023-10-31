@@ -36,9 +36,6 @@ public class PlayerManager : Manager
         {
             instance = this;
         }
-        // Instantiate arrow indicator and attach it to the player.
-        //GameObject arrowIndicator = Instantiate(arrowIndicatorPrefab, _basePlayer.transform.position, Quaternion.identity);
-        //arrowIndicator.transform.SetParent(_basePlayer.transform);
         
     }
 

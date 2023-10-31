@@ -1385,10 +1385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _focusLevel: {fileID: 1044451428}
-  _players:
-  - {fileID: 1501408898}
-  - {fileID: 1013235289}
-  - {fileID: 741610233}
+  _players: []
   depthUpdateSpeed: 5
   angleUpdateSpeed: 7
   positionUpdateSpeed: 5

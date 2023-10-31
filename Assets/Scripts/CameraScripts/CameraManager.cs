@@ -1,16 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class CameraManager : MonoBehaviour
 {
     public CameraFocus _focusLevel;
 
     public List<GameObject> _players;
-    //public List<PlayerInput> _playerList = new List<PlayerInput>();
+    
 
     public float depthUpdateSpeed = 5.0f;
     public float angleUpdateSpeed = 7.0f;
@@ -24,11 +21,19 @@ public class CameraManager : MonoBehaviour
 
     private float _CameraEulerX;
     private Vector3 CameraPosition;
+    private void OnPlayerJoined(PlayerInput obj)
+    {
+        Debug.Log($"Adding Player {obj.gameObject.name} to CameraManager");
+        _players.Add(obj.gameObject);
+    }
 
     void Start()
     {
-        _players.Add(_focusLevel.gameObject);  
+        //GameObject players = _playerList.
+        _players.Add(_focusLevel.gameObject);
+        PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
     }
+
 
     private void LateUpdate()
     {
@@ -43,7 +48,7 @@ public class CameraManager : MonoBehaviour
         {
             Vector3 targetPosition = Vector3.zero;
             targetPosition.x = Mathf.MoveTowards(position.x, CameraPosition.x, positionUpdateSpeed * Time.deltaTime);
-            targetPosition.y = Mathf.MoveTowards(position.y, CameraPosition.y, positionUpdateSpeed * Time.deltaTime);
+            //targetPosition.y = Mathf.MoveTowards(position.y, CameraPosition.y, positionUpdateSpeed * Time.deltaTime);
             targetPosition.z = Mathf.MoveTowards(position.z, CameraPosition.z, depthUpdateSpeed * Time.deltaTime);
             gameObject.transform.position = targetPosition;
         }
