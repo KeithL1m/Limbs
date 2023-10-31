@@ -12,6 +12,7 @@ TagManager:
   - P2Health
   - P3Health
   - P4Health
+  - StopPosition
   layers:
   - Default
   - TransparentFX

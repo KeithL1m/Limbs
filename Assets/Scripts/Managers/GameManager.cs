@@ -44,6 +44,7 @@ public class GameManager : Manager
             instance = this;
         }
 
+        //_configManager = ServiceLocator.Get<ConfigurationManager>();
         _configManager = FindObjectOfType<ConfigurationManager>();
         playerCount = _configManager.GetPlayerNum();
         _playerConfigs = _configManager.GetPlayerConfigs();
