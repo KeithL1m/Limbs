@@ -24,10 +24,6 @@ public class PlayerSetupController : MonoBehaviour
     private Image _currentHead;
     [SerializeField]
     private Image _currentBody;
-    [SerializeField]
-    private Image _readyButton;
-    [SerializeField]
-    private Sprite _readyImage;
 
     private int _headIndex;
     private int _bodyIndex;
@@ -50,7 +46,6 @@ public class PlayerSetupController : MonoBehaviour
         _configManager.ReadyPlayer(_playerIndex);
         _configManager.SetPlayerHead(_playerIndex, _playerHead[_headIndex]);
         _configManager.SetPlayerBody(_playerIndex, _playerBody[_bodyIndex]);
-        _readyButton.sprite = _readyImage;
     }
 
     public void ChangeCurrentHeadLeft()
