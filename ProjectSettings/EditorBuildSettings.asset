@@ -17,43 +17,40 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NEW PLAYER SELECT.unity
     guid: c2b56dbdcbaeb284ca77092c14d4b4b1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Vince MapScenes/VinceScene 1.unity
     guid: 646c086073f4b4d468b3fc1d6123c639
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Vince MapScenes/VinceScene 2.unity
     guid: 589ac47aefad0734d9f02e7d7faa0595
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Vince MapScenes/VinceScene 3.unity
     guid: e3beb7db6513f8244a21d92e22958b43
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Vince MapScenes/VinceScene 4.unity
     guid: da36db522ac36624897f1506a99d131a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Vince MapScenes/VinceScene 5.unity
     guid: 5050f639d98928b4daaca9e64511708b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Vince MapScenes/VinceScene 6.unity
     guid: ee2a323574d2eba4787d959dc222c534
-  - enabled: 1
-    path: Assets/Scenes/KY Scene 4.unity
+  - enabled: 0
+    path: Assets/Scenes/KevinY Maps/KY Scene 4.unity
     guid: 5ded8a065338f69429946fbea35ae646
-  - enabled: 1
-    path: Assets/Scenes/Molten Lava.unity
+  - enabled: 0
+    path: Assets/Scenes/Alex Maps/Molten Lava.unity
     guid: d2acd89d83897ca4cb32fc72eab46c40
   - enabled: 0
-    path: Assets/Scenes/nasa.unity
-    guid: 7133aa0d9eed5904c87b140e3fe76601
-  - enabled: 0
-    path: Assets/Scenes/BUTCHER_SHOP_MAPA.unity
-    guid: 29c3c8ad692189b47b2691930aa12a2a
-  - enabled: 0
-    path: Assets/Scenes/KY Scene 2.unity
-    guid: 81ba6cb8c9703a74eb704103ec195f3e
-  - enabled: 1
-    path: Assets/Scenes/KY Scene 5.unity
+    path: Assets/Scenes/KevinY Maps/KY Scene 5.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/KY Scene 6.unity
+  - enabled: 0
+    path: Assets/Scenes/KevinY Maps/KY Scene 6.unity
     guid: 4d1a3be73476a354a9b75756dc9782d6
+  - enabled: 1
+    path: Assets/Scenes/KevinH Maps/Red Sea.unity
+    guid: 1807d8fcbe9fe9049982560da7f089ca
+  - enabled: 0
+    path: Assets/Scenes/KevinH Maps/The Sawblade.unity
+    guid: d6454f81466f30b40941c20a33b0f658
   m_configObjects: {}
