@@ -7,16 +7,13 @@ using System.Collections;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _scoreBox;
+    private List<RectTransform> _scoreBoxes;
     [SerializeField]
-    private GameObject _leaderboard;
-
-    private List<GameObject> _scoreBoxes;
-    private List<Vector2> _positions;
-
+    private List<Image> _playerHeads;
     [SerializeField]
-    private float _margin;
-    private float _totalMargin;
+    private List<TextMeshProUGUI> _scores;
+    public List<Vector2> _positions;
+    private List<PlayerConfiguration> _players;
 
     [SerializeField] private List<GameObject> healthUI = new List<GameObject>();
     [SerializeField] private List<Image> healthImage = new List<Image>();
@@ -32,7 +29,6 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        _scoreBoxes = new List<GameObject>();
         _positions = new List<Vector2>();
     }
 
@@ -43,34 +39,37 @@ public class UIManager : MonoBehaviour
 
     public void SetUpLeaderBoard()
     {
-        _scoreBoxes.Add(_scoreBox);
+        _players = GameManager.instance.GetPlayerConfigs();
 
-        for (int i = 1; i < playerCount; i++)
-        {
-            _totalMargin += _margin;
-            
-            var box = Instantiate(_scoreBox, Vector3.zero, Quaternion.identity);
-            box.transform.SetParent(_leaderboard.transform, false);
-            box.transform.localPosition = new Vector3(_scoreBox.transform.localPosition.x, _scoreBox.transform.localPosition.y - _totalMargin, _scoreBox.transform.localPosition.z);
-            _scoreBoxes.Add(_scoreBox);
-        }
+        Debug.Log("Setup Leaderboard");
 
         for (int i = 0; i < playerCount; i++)
         {
-            _positions.Add(_scoreBoxes[i].transform.position);
+            Debug.Log("yo");
+            _scoreBoxes[i].gameObject.SetActive(true);
+            _positions.Add(_scoreBoxes[i].localPosition);
+            _playerHeads[i].sprite = _players[i].Head;
         }
     }
 
     public void UpdateLeaderBoard()
     {
-        //get player datas automatically sorts the list by the score
-        List<PlayerConfiguration> players = GameManager.instance.GetPlayerConfigs();
+        Debug.Log("Updating Leaderboard");
+        List<PlayerConfiguration> configs = _players;
+
+        configs.Sort((x, y) => y.Score.CompareTo(x.Score));
 
         for (int i = 0; i < playerCount; i++)
         {
-            TextMeshProUGUI textMesh = _scoreBoxes[i].GetComponentInChildren<TextMeshProUGUI>();
-
-            textMesh.text = players[i].Name + ": " + players[i].Score.ToString("000");
+            for (int j = 0; j < playerCount; j++)
+            {
+                if (configs[i] == _players[j])
+                {
+                    _scoreBoxes[j].localPosition = _positions[j];
+                    break;
+                }
+            }
+            _scores[i].text = "Wins: " + _players[i].Score;
         }
     }
 

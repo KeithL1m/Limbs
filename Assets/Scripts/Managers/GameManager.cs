@@ -139,16 +139,7 @@ public class GameManager : Manager
 
     public List<PlayerConfiguration> GetPlayerConfigs()
     {
-        List<PlayerConfiguration> configs = new List<PlayerConfiguration>();
-
-        for (int i = 0; i < playerCount; i++)
-        {
-            configs.Add(_playerConfigs[i]);
-        }
-
-        configs.Sort((x, y) => y.Score.CompareTo(x.Score));
-
-        return configs;
+        return _playerConfigs;
     }
 
     public void StartGame()

@@ -1768,6 +1768,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2004165281026322084, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3653324655297376610, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277877076834216726, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6800667065507422228, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7286767260740390294, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
       propertyPath: m_Name
       value: UIManager
@@ -1890,7 +1906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8567420189660224395, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8567420189922274525, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
       propertyPath: m_IsActive
@@ -1930,11 +1946,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8567420190427027002, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8567420190427027002, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8567420190504578821, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
       propertyPath: _margin
@@ -2068,6 +2084,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1985464632}
+    - target: {fileID: 8567420190504578873, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8567420190535492536, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
       propertyPath: m_IsActive
       value: 0
