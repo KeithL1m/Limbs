@@ -7,7 +7,7 @@ public class RisingDeadzone : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rb;
     private float _currentTime;
-    public float requiredTime = 10;
+    public float requiredTime = 20;
 
     private bool targetTimeReached;
     private bool isMoving = false;
@@ -36,7 +36,7 @@ public class RisingDeadzone : MonoBehaviour
     {
         if (collide.CompareTag(("Player")))
         {
-            collide.GetComponent<PlayerHealth>().AddDamage(0.05f);
+            collide.GetComponent<PlayerHealth>().AddDamage(0.10f);
         }
     }
 
@@ -46,7 +46,7 @@ public class RisingDeadzone : MonoBehaviour
         {
             isMoving = false;
             targetTimeReached = false;
-            requiredTime = 20;
+            requiredTime += 20;
         }
     }
 
