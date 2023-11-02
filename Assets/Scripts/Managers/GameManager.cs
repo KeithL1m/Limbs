@@ -11,7 +11,7 @@ public class GameManager : Manager
 {
     public List<PlayerInput> playerList = new List<PlayerInput>();
     public List<GameObject> spawnPoints = new List<GameObject>();
-    public List<GameObject> healthUI = new List<GameObject>();
+    public List<GameObject> healthUI = new List<GameObject>();  
     public List<TMP_Text> winsCounter = new List<TMP_Text>();
 
     [SerializeField] private GameObject gameOverBG;
