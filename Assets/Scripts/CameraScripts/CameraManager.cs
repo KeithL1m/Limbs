@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class CameraManager : MonoBehaviour
 {
@@ -21,21 +20,39 @@ public class CameraManager : MonoBehaviour
 
     private float _CameraEulerX;
     private Vector3 CameraPosition;
-    private void OnPlayerJoined(PlayerInput obj)
-    {
-        Debug.Log($"Adding Player {obj.gameObject.name} to CameraManager");
-        _players.Add(obj.gameObject);
-    }
+
+
+    private GameLoader _gameLoader = null;
+    private PlayerManager _playerManager = null;
+    private bool _initialized = false;
 
     void Start()
     {
-        _players.Add(_focusLevel.gameObject);
-        PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
+        _gameLoader = ServiceLocator.Get<GameLoader>();
+        _gameLoader.CallOnComplete(Initialize);
     }
 
+    private void Initialize()
+    {
+        Debug.Log("Camera Manager Initializing");
+        // Add focus
+        _players.Add(_focusLevel.gameObject);
+
+        // Add players
+        _playerManager = ServiceLocator.Get<PlayerManager>();
+        var playerObjects = _playerManager.GetPlayerObjects();
+        Debug.Log($"Camera is tracking {playerObjects.Count} players");
+        _players.AddRange(playerObjects);
+        _initialized = true;
+    }
 
     private void LateUpdate()
     {
+        if(_initialized == false)
+        {
+            return;
+        }
+
         CalculateCameraLocation();
         MoveCamera();
     }
@@ -47,9 +64,11 @@ public class CameraManager : MonoBehaviour
         {
             Vector3 targetPosition = Vector3.zero;
             targetPosition.x = Mathf.MoveTowards(position.x, CameraPosition.x, positionUpdateSpeed * Time.deltaTime);
-            //targetPosition.y = Mathf.MoveTowards(position.y, CameraPosition.y, positionUpdateSpeed * Time.deltaTime);
             targetPosition.z = Mathf.MoveTowards(position.z, CameraPosition.z, depthUpdateSpeed * Time.deltaTime);
             gameObject.transform.position = targetPosition;
+
+            // If you want camera to bounce like players
+            //targetPosition.y = Mathf.MoveTowards(position.y, CameraPosition.y, positionUpdateSpeed * Time.deltaTime);
         }
 
         Vector3 localEulerAngles = gameObject.transform.localEulerAngles;

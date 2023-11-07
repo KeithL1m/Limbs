@@ -57,12 +57,12 @@ public class PauseManager : MonoBehaviour
 
     private void OnEnable()
     {
-        action.Enable();
+        action?.Enable();
     }
 
     private void OnDisable()
     {
-        action.Disable();
+        action?.Disable();
     }
 
     private void DeterminePause()

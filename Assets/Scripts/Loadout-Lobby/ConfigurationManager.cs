@@ -1,32 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class ConfigurationManager : MonoBehaviour, IGameModule
+public class ConfigurationManager : MonoBehaviour
 {
-    #region IGameModule Implementation
-    public bool IsInitialized { get { return _isInitialized; } }
-    private bool _isInitialized = false;
-
-    public IEnumerator LoadModule()
+    public ConfigurationManager Initialize()
     {
         Debug.Log("Loading Configuration Manager");
-
-        InitializeVillage();
-        yield return new WaitUntil(() => { return IsInitialized; });
-
-        ServiceLocator.Register<ConfigurationManager>(this);
-        yield return null;
+        return this;
     }
-    private void InitializeVillage()
-    {
-        DontDestroyOnLoad(this);
-        _isInitialized = true;
-    }
-    #endregion
 
     private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
 

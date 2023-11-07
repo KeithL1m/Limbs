@@ -1,17 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
-using TMPro;
 
 public class GameManager : Manager
 {
     private GameLoader _loader = null;
     private ConfigurationManager _configManager = null;
     private MapManager _mapManager = null;
+    private PlayerManager _playerManager = null;
 
     public List<PlayerInput> playerList = new List<PlayerInput>();
     public List<GameObject> spawnPoints = new List<GameObject>();
@@ -19,8 +15,8 @@ public class GameManager : Manager
     private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
     public List<Player> _players = new List<Player>();
 
-    private PauseManager pauseManager;
-    private UIManager uiManager;
+    private PauseManager _pauseManager;
+    private UIManager _uiManager;
     private bool isGameOver = false;
 
     private int playerCount;
@@ -39,33 +35,40 @@ public class GameManager : Manager
     {
         _configManager = ServiceLocator.Get<ConfigurationManager>();
         _mapManager = ServiceLocator.Get<MapManager>();
+        _playerManager = ServiceLocator.Get<PlayerManager>();
     }
 
-    public void SetUp(GameManagerSetup setUp)
+    public void SetUp(UIManager uiManager, PauseManager pauseManager)
     {
+        _pauseManager = pauseManager;
+        _uiManager = uiManager;
+
         playerCount = _configManager.GetPlayerNum();
         _playerConfigs = _configManager.GetPlayerConfigs();
 
-        uiManager = setUp.UIManager;
-        pauseManager = setUp.PauseManager;
-
         for (int i = 0; i < playerCount; i++)
         {
-            _players.Add(_playerConfigs[i].Input.GetComponent<SpawnPlayer>().SpawnPlayerFirst(_playerConfigs[i]));
+            var playerSpawner =_playerConfigs[i].Input.GetComponent<SpawnPlayer>();
+            var playerComp = playerSpawner.SpawnPlayerFirst(_playerConfigs[i]);
+            _players.Add(playerComp);
             playerList.Add(_playerConfigs[i].Input);
+
+            var playerObj = playerSpawner.Player;
+            _playerManager.AddPlayerObject(playerObj);
+            Debug.Log($"Adding Player {playerObj.name} to PlayerManager");
         }
 
-        uiManager.SetPlayerCount(playerCount);
-        uiManager.SetUpHealthUI(_players);
-        uiManager.SetPlayerHealthFace(_playerConfigs);
-        uiManager.UpdatePlayerWins(_playerConfigs);
+        _uiManager.SetPlayerCount(playerCount);
+        _uiManager.SetUpHealthUI(_players);
+        _uiManager.SetPlayerHealthFace(_playerConfigs);
+        _uiManager.UpdatePlayerWins(_playerConfigs);
     }
 
     override public void OnStart()
     {
-        pauseManager.SetCamera(Camera.main);
+        _pauseManager.SetCamera(Camera.main);
 
-        uiManager.UpdatePlayerWins(_playerConfigs);
+        _uiManager.UpdatePlayerWins(_playerConfigs);
 
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spawn");
         for (int i = 0; i < gameObjects.Length; i++)
@@ -96,7 +99,7 @@ public class GameManager : Manager
             if (!isGameOver) // Check if game over is not already triggered
             {
                 isGameOver = true;
-                StartCoroutine(uiManager.ShowGameOverScreen());
+                StartCoroutine(_uiManager.ShowGameOverScreen());
             }
         }
 
@@ -120,7 +123,7 @@ public class GameManager : Manager
 
         ClearLimbs();
         ResetGroundCheck();
-        uiManager.UpdateLeaderBoard();
+        _uiManager.UpdateLeaderBoard();
         _mapManager.LoadMap();
         isGameOver = false;
     }
@@ -146,8 +149,8 @@ public class GameManager : Manager
 
     public void StartGame()
     {
-        uiManager.SetUpLeaderBoard();
-        uiManager.UpdateLeaderBoard();
+        _uiManager.SetUpLeaderBoard();
+        _uiManager.UpdateLeaderBoard();
 
 		ClearLimbs();
         startScreen = false;
