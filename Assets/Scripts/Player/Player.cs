@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using UnityEditorInternal;
 
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerJump))]
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour
 
     //facing left = -1, right = 1
     public int direction;
+    private bool _initialized = false;
 
 
     private void Awake()
@@ -56,11 +58,16 @@ public class Player : MonoBehaviour
 
         _playerHead.sprite = _config.Head;
         _playerBody.sprite = _config.Body;
+
+        _initialized = true;
     }
 
     void Update()
     {
-        if (PauseManager.paused) return;
+        if (!_initialized)
+            return;
+        if (PauseManager.paused) 
+            return;
 
         if (_playerMovement.facingRight)
         {

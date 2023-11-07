@@ -15,13 +15,13 @@ public class ConfigurationManager : MonoBehaviour, IGameModule
     {
         Debug.Log("Loading Configuration Manager");
 
-        InitializeVillage();
+        Initialize();
         yield return new WaitUntil(() => { return IsInitialized; });
 
         ServiceLocator.Register<ConfigurationManager>(this);
         yield return null;
     }
-    private void InitializeVillage()
+    private void Initialize()
     {
         DontDestroyOnLoad(this);
         _isInitialized = true;

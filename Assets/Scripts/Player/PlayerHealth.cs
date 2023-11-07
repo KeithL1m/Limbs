@@ -16,6 +16,7 @@ public class PlayerHealth : MonoBehaviour
 
     public float _health;
     public bool _isDead = false;
+    private bool _initialized = false;
 
     [SerializeField]
     private Slider healthSlider;
@@ -31,10 +32,13 @@ public class PlayerHealth : MonoBehaviour
     {
         _gm = ServiceLocator.Get<GameManager>();
         _health = _maxHealth;
+        _initialized = true;
 }
 
     private void Update()
     {
+        if (!_initialized)
+            return;
         if (_health <= 0 && !_isDead)
         {
             KillPlayer();

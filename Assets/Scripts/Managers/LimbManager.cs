@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LimbManager : Manager
 {
-    GameLoader _loader;
     private List<Limb> _limbs;
+    private bool _initialized = false;
 
     public void Initialize()
     {
@@ -15,10 +15,17 @@ public class LimbManager : Manager
         {
             _limbs.Add(gameObjects[i].GetComponent<Limb>());
         }
+
+        _initialized = true;
     }
 
     void Update()
     {
+        if (!_initialized)
+        {
+            return;
+        }
+
         //make object pool for this
         for (int i = 0; i < _limbs.Count; i++)
         {
