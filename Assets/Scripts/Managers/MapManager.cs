@@ -3,32 +3,38 @@ using UnityEngine.SceneManagement;
 
 public class MapManager : Manager
 {
+    private GameLoader _loader = null;
+    private GameManager _gm = null;
+
     public int _mapCount;
 
     private static System.Random rnd = new System.Random();
 
-    public static MapManager instance = null;
-
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
+        _loader = ServiceLocator.Get<GameLoader>();
+        _loader.CallOnComplete(Initialize);
+    }
+
+    private void Initialize()
+    {
+        Debug.Log($"{nameof(Initialize)}");
+
+        _gm = ServiceLocator.Get<GameManager>();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     public void LoadMap()
     {
-        int mapNum = rnd.Next(3, _mapCount + 1);
+        int mapNum = rnd.Next(4, _mapCount + 3);
         SceneManager.LoadScene(mapNum);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (GameManager.instance.startScreen)
+        if (_gm.startScreen)
             return;
         Debug.Log("new scene loaded");
-        GameManager.instance.OnStart();
+        _gm.OnStart();
     }
 }

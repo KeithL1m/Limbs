@@ -8,6 +8,9 @@ public class LimbSpawning : MonoBehaviour
     /*
      * SPAWN LIMBS IN A RANGE
      */
+    GameLoader _loader;
+    GameManager _gm;
+
     public List<PlayerInput> playerList = new List<PlayerInput>();
 
     public int playerCount;
@@ -19,6 +22,7 @@ public class LimbSpawning : MonoBehaviour
     private Transform _rightLimit;
     private float _right;
 
+    [SerializeField]
     private LimbManager _limbManager;
 
     [Header("Customizable")]
@@ -45,9 +49,17 @@ public class LimbSpawning : MonoBehaviour
 
     private static System.Random rnd = new System.Random();
 
-    private void Start()
+    private void Awake()
     {
-        _limbManager = GetComponent<LimbManager>();
+        _loader = ServiceLocator.Get<GameLoader>();
+        _loader.CallOnComplete(Initialize);
+    }
+
+    private void Initialize()
+    {
+        _gm = ServiceLocator.Get<GameManager>();
+
+        _limbManager.Initialize();
 
         _left = _leftLimit.position.x;
         _right = _rightLimit.position.x;
@@ -82,7 +94,7 @@ public class LimbSpawning : MonoBehaviour
 
     private void SpawnLimb()
     {
-        playerCount = GameManager.instance.GetPlayerCount();
+        playerCount = _gm.GetPlayerCount();
 
         if(playerCount > 1)
         {

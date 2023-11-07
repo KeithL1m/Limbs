@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+    GameLoader _loader = null;
+    GameManager _gm = null;
+
     [SerializeField]
     public float _maxHealth;
     [SerializeField]
@@ -17,8 +20,16 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField]
     private Slider healthSlider;
 
-    private void Start()
+
+    private void Awake()
     {
+        _loader = ServiceLocator.Get<GameLoader>();
+        _loader.CallOnComplete(Initialize);
+    }
+
+    private void Initialize()
+    {
+        _gm = ServiceLocator.Get<GameManager>();
         _health = _maxHealth;
 }
 
@@ -53,7 +64,7 @@ public class PlayerHealth : MonoBehaviour
         chain.EnableChain(deathPositions[0].transform);
         deathPositions[0].Occupied = true;
 
-        GameManager.instance.CheckGameOver();
+        _gm.CheckGameOver();
     }
 
     public void ResetHealth()

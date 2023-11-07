@@ -5025,7 +5025,7 @@ PrefabInstance:
     - target: {fileID: 6819372074900375388, guid: f006804b92770d248bca2198b577cd39, type: 3}
       propertyPath: _limbManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1355711616}
     - target: {fileID: 6819372074900375388, guid: f006804b92770d248bca2198b577cd39, type: 3}
       propertyPath: _maxSpawnTimer
       value: 4
@@ -5088,6 +5088,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f006804b92770d248bca2198b577cd39, type: 3}
+--- !u!114 &1355711616 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 46868454023163942, guid: f006804b92770d248bca2198b577cd39, type: 3}
+  m_PrefabInstance: {fileID: 1355711615}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09e8b47242a9ed84a9a573ba9ae2010b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1395875994
 GameObject:
   m_ObjectHideFlags: 0
