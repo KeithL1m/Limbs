@@ -29,7 +29,6 @@ public class CameraManager : MonoBehaviour
 
     void Start()
     {
-        //GameObject players = _playerList.
         _players.Add(_focusLevel.gameObject);
         PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
     }
