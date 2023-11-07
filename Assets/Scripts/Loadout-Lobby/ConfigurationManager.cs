@@ -1,19 +1,38 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class ConfigurationManager : MonoBehaviour
+public class ConfigurationManager : MonoBehaviour, IGameModule
 {
-    private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
+    #region IGameModule Implementation
+    public bool IsInitialized { get { return _isInitialized; } }
+    private bool _isInitialized = false;
 
-    private int _playerNum;
+    public IEnumerator LoadModule()
+    {
+        Debug.Log("Loading Configuration Manager");
 
-    private void Awake()
+        InitializeVillage();
+        yield return new WaitUntil(() => { return IsInitialized; });
+
+        ServiceLocator.Register<ConfigurationManager>(this);
+        yield return null;
+    }
+    private void InitializeVillage()
     {
         DontDestroyOnLoad(this);
+        _isInitialized = true;
     }
+    #endregion
+
+    private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
+
+    public bool InLoadout { get; set; } = false;
+
+    private int _playerNum;
 
     public void SetPlayerHead(int index, Sprite head)
     {
@@ -36,14 +55,17 @@ public class ConfigurationManager : MonoBehaviour
 
         if (_playerConfigs.All(p => p.IsReady == true) && _playerNum > 1)
         {
-          SceneManager.LoadScene(2);
+          SceneManager.LoadScene(3);
         }
     }
 
     public void HandlePlayerJoin(PlayerInput pi)
     {
+        if (!InLoadout)
+            return;
         if (!_playerConfigs.Any(p =>p.PlayerIndex == pi.playerIndex))
         {
+            Debug.Log("Player Has Joined");
             pi.transform.SetParent(transform);
             _playerConfigs.Add(new PlayerConfiguration(pi));
             _playerNum++;

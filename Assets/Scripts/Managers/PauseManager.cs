@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
+    GameLoader _loader;
     PauseAction action;
 
     public static bool paused = false;
@@ -33,17 +34,19 @@ public class PauseManager : MonoBehaviour
     [SerializeField]
     private Canvas _canvas;
 
+    [SerializeField]
     private UIManager _uiManager;
 
     private void Awake()
     {
-        action = new PauseAction();
-
-        _uiManager = FindObjectOfType<UIManager>();
+        _loader = ServiceLocator.Get<GameLoader>();
+        _loader.CallOnComplete(Initialize);
     }
 
-    void Start()
-    {   
+    void Initialize()
+    {
+        action = new PauseAction();
+
         DontDestroyOnLoad(this);
         _pauseMenu.SetActive(false);
         _arsenalMenu.SetActive(false);

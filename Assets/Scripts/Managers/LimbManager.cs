@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class LimbManager : Manager
 {
+    GameLoader _loader;
     private List<Limb> _limbs;
 
-    void Start()
+    public void Initialize()
     {
         _limbs = new List<Limb>();
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Limb");

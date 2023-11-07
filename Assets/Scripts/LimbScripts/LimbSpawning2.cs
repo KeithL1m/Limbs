@@ -7,7 +7,10 @@ public class LimbSpawning2 : MonoBehaviour
     /*
      * SPAWN LIMBS USING SPAWN POINTS 
      */
+    GameLoader _loader;
+    GameManager _gm;
 
+    [SerializeField]
     private LimbManager _limbManager;
 
     [Header("Customizable")]
@@ -32,9 +35,16 @@ public class LimbSpawning2 : MonoBehaviour
 
     private static System.Random rnd = new System.Random();
 
-    private void Start()
+
+    private void Awake()
     {
-        _limbManager= GetComponent<LimbManager>();
+        _loader = ServiceLocator.Get<GameLoader>();
+        _loader.CallOnComplete(Initialize);
+    }
+
+    private void Initialize()
+    {
+        _limbManager.Initialize();
 
         for (int i = 0; i < _startLimbCount; i++)
         {

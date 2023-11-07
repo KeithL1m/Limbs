@@ -9,10 +9,12 @@ using TMPro;
 
 public class GameManager : Manager
 {
+    private GameLoader _loader = null;
+    private ConfigurationManager _configManager = null;
+    private MapManager _mapManager = null;
+
     public List<PlayerInput> playerList = new List<PlayerInput>();
     public List<GameObject> spawnPoints = new List<GameObject>();
-
-    private ConfigurationManager _configManager;
 
     private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
     public List<Player> _players = new List<Player>();
@@ -24,29 +26,29 @@ public class GameManager : Manager
     private int playerCount;
     public int deadPlayers;
 
-    public static GameManager instance = null;
-
     public bool startScreen = true;
 
-    void Awake()
-    {
-        DontDestroyOnLoad(this);
-        if (instance == null)
-        {
-            instance = this;
-        }
 
-        _configManager = FindObjectOfType<ConfigurationManager>();
+    private void Awake()
+    {
+        _loader = ServiceLocator.Get<GameLoader>();
+        _loader.CallOnComplete(Initialize);
+    }
+
+    private void Initialize()
+    {
+        _configManager = ServiceLocator.Get<ConfigurationManager>();
+        _mapManager = ServiceLocator.Get<MapManager>();
+    }
+
+    public void SetUp(GameManagerSetup setUp)
+    {
         playerCount = _configManager.GetPlayerNum();
         _playerConfigs = _configManager.GetPlayerConfigs();
 
-        uiManager = FindObjectOfType<UIManager>();
-        pauseManager = FindObjectOfType<PauseManager>();
-    }
+        uiManager = setUp.UIManager;
+        pauseManager = setUp.PauseManager;
 
-    private void Start()
-    {
-        Debug.Log(playerCount);
         for (int i = 0; i < playerCount; i++)
         {
             _players.Add(_playerConfigs[i].Input.GetComponent<SpawnPlayer>().SpawnPlayerFirst(_playerConfigs[i]));
@@ -61,7 +63,7 @@ public class GameManager : Manager
 
     override public void OnStart()
     {
-        pauseManager.SetCamera(FindObjectOfType<Camera>());
+        pauseManager.SetCamera(Camera.main);
 
         uiManager.UpdatePlayerWins(_playerConfigs);
 
@@ -119,7 +121,7 @@ public class GameManager : Manager
         ClearLimbs();
         ResetGroundCheck();
         uiManager.UpdateLeaderBoard();
-        MapManager.instance.LoadMap();
+        _mapManager.LoadMap();
         isGameOver = false;
     }
 
@@ -149,7 +151,7 @@ public class GameManager : Manager
 
 		ClearLimbs();
         startScreen = false;
-        MapManager.instance.LoadMap();
+        _mapManager.LoadMap();
 	}
 	
     public void ClearLimbs()

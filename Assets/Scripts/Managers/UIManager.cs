@@ -3,16 +3,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    private GameLoader _loader = null;
+    private GameManager _gm = null;
+
     [SerializeField]
     private List<RectTransform> _scoreBoxes;
     [SerializeField]
     private List<Image> _playerHeads;
     [SerializeField]
     private List<TextMeshProUGUI> _scores;
-    public List<Vector2> _positions;
+    private List<Vector2> _positions = new List<Vector2>();
     private List<PlayerConfiguration> _players;
 
     [SerializeField] private List<GameObject> healthUI = new List<GameObject>();
@@ -27,9 +31,18 @@ public class UIManager : MonoBehaviour
 
     private int playerCount;
 
-    private void Start()
+
+    private void Awake()
     {
-        _positions = new List<Vector2>();
+        _loader = ServiceLocator.Get<GameLoader>();
+        _loader.CallOnComplete(Initialize);
+    }
+
+    private void Initialize()
+    {
+        Debug.Log($"{nameof(Initialize)}");
+
+        _gm = ServiceLocator.Get<GameManager>();
     }
 
     public void SetPlayerCount(int count)
@@ -39,13 +52,12 @@ public class UIManager : MonoBehaviour
 
     public void SetUpLeaderBoard()
     {
-        _players = GameManager.instance.GetPlayerConfigs();
+        _players = _gm.GetPlayerConfigs();
 
         Debug.Log("Setup Leaderboard");
 
         for (int i = 0; i < playerCount; i++)
         {
-            Debug.Log("yo");
             _scoreBoxes[i].gameObject.SetActive(true);
             _positions.Add(_scoreBoxes[i].localPosition);
             _playerHeads[i].sprite = _players[i].Head;
@@ -134,6 +146,6 @@ public class UIManager : MonoBehaviour
 
         gameOverBG.SetActive(false);
 
-        GameManager.instance.EndRound();
+        _gm.EndRound();
     }
 }

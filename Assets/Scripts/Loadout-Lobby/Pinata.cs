@@ -1,17 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Pinata : MonoBehaviour
 {
+    private GameLoader _loader = null;
+    private GameManager _gm = null;
+
     [SerializeField]
     private float _maxHealth;
     private float _health;
 
 
-    void Start()
+    private void Awake()
     {
-        _health = _maxHealth;    
+        _loader = ServiceLocator.Get<GameLoader>();
+        _loader.CallOnComplete(Initialize);
+    }
+
+    private void Initialize()
+    {
+        Debug.Log($"{nameof(Initialize)}");
+
+        _gm = ServiceLocator.Get<GameManager>();
+        _health = _maxHealth;
     }
 
     //Dealing damage to Pinata
@@ -33,6 +46,6 @@ public class Pinata : MonoBehaviour
 
     private void PinataDestroyed()
     {
-        GameManager.instance.StartGame();
+        _gm.StartGame();
     }
 }
