@@ -1,17 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class LimbSpawning : MonoBehaviour
 {
+    public enum SpawningType
+    { 
+        Random,
+        Specific
+    }
     /*
      * SPAWN LIMBS IN A RANGE
      */
     GameLoader _loader;
     GameManager _gm;
-
-    public List<PlayerInput> playerList = new List<PlayerInput>();
 
     public int playerCount;
 
@@ -70,7 +71,7 @@ public class LimbSpawning : MonoBehaviour
         {
             double val = rnd.NextDouble() * (_right - _left) + _left;
             _spawnPosX = (float)val;
-            SpawnLimb();
+            SpawnLimbRandom();
         }
 
         double time = rnd.NextDouble() * (_maxSpawnTimer - _minSpawnTimer) + _minSpawnTimer;
@@ -79,33 +80,34 @@ public class LimbSpawning : MonoBehaviour
 
     private void Update()
     {
-        if (_currentLimbs < _limbLimit)
-        {
-            _limbTimer -= Time.deltaTime;
-        }
+        if (_currentLimbs >= _limbLimit)
+            return;
+        
+        _limbTimer -= Time.deltaTime;
 
         if (_limbTimer <= 0.0f)
         {
-            SpawnLimb();
+            SpawnLimbRandom();
             double time = rnd.NextDouble() * (_maxSpawnTimer - _minSpawnTimer) + _minSpawnTimer;
             _limbTimer = (float)time;
         }
     }
 
-    private void SpawnLimb()
+    private void SpawnLimbRandom()
     {
-        playerCount = _gm.GetPlayerCount();
-
-        if(playerCount > 1)
+        if (playerCount <= 1)
         {
-            int index = rnd.Next(_limbOptions.Count);
-            double val = rnd.NextDouble() * (_right - _left) + _left;
-            double val2 = rnd.NextDouble() * _maxAngularVelocity;
-            _spawnPosX = (float)val;
-            Limb limb = Instantiate(_limbOptions[index], new Vector3(_spawnPosX, _spawnPosY, 0), Quaternion.identity).GetComponent<Limb>();
-            limb.GetComponent<Rigidbody2D>().angularVelocity = (float)val2;
-            _limbManager.AddLimb(limb);
-            _currentLimbs++;
+            playerCount = _gm.GetPlayerCount();
+            return;
         }
+        
+        int index = rnd.Next(_limbOptions.Count);
+        double val = rnd.NextDouble() * (_right - _left) + _left;
+        double val2 = rnd.NextDouble() * _maxAngularVelocity;
+        _spawnPosX = (float)val;
+        Limb limb = Instantiate(_limbOptions[index], new Vector3(_spawnPosX, _spawnPosY, 0), Quaternion.identity).GetComponent<Limb>();
+        limb.GetComponent<Rigidbody2D>().angularVelocity = (float)val2;
+        _limbManager.AddLimb(limb);
+        _currentLimbs++;
     }
 }

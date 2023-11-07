@@ -8,7 +8,6 @@ public class LimbSpawning2 : MonoBehaviour
      * SPAWN LIMBS USING SPAWN POINTS 
      */
     GameLoader _loader;
-    GameManager _gm;
 
     [SerializeField]
     private LimbManager _limbManager;
@@ -48,7 +47,7 @@ public class LimbSpawning2 : MonoBehaviour
 
         for (int i = 0; i < _startLimbCount; i++)
         {
-            SpawnLimb();
+            SpawnLimbSpecific();
         }
 
         double time = rnd.NextDouble() * (_maxSpawnTimer - _minSpawnTimer) + _minSpawnTimer;
@@ -64,13 +63,13 @@ public class LimbSpawning2 : MonoBehaviour
 
         if (_limbTimer <= 0.0f)
         {
-            SpawnLimb();
+            SpawnLimbSpecific();
             double time = rnd.NextDouble() * (_maxSpawnTimer - _minSpawnTimer) + _minSpawnTimer;
             _limbTimer = (float)time;
         }
     }
 
-    private void SpawnLimb()
+    private void SpawnLimbSpecific()
     {
         int index = rnd.Next(_limbOptions.Count);
         Vector3 position = _spawnPositions[index].transform.position;
