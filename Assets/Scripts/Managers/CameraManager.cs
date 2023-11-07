@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class CameraManager : MonoBehaviour
+/* public class CameraManager : MonoBehaviour
 {
     public CameraFocus _focusLevel;
 
@@ -45,3 +45,4 @@ public class CameraManager : MonoBehaviour
 
     }
 }
+*/
