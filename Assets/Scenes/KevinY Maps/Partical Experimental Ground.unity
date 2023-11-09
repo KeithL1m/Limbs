@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 303752178}
   - component: {fileID: 303752177}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Particle System Meat Chunks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
