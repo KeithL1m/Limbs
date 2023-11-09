@@ -6,7 +6,8 @@ public class MapManager : Manager
     private GameLoader _loader = null;
     private GameManager _gm = null;
 
-    public int _mapCount;
+    [SerializeField] private int _mapCount;
+    [SerializeField] private int _loadingMaps;
 
     private static System.Random rnd = new System.Random();
 
@@ -26,7 +27,7 @@ public class MapManager : Manager
 
     public void LoadMap()
     {
-        int mapNum = rnd.Next(4, _mapCount + 3);
+        int mapNum = rnd.Next(_loadingMaps, _mapCount);
         SceneManager.LoadScene(mapNum);
     }
 

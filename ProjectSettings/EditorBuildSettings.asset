@@ -59,4 +59,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/KevinY Maps/KY Scene 6.unity
     guid: 4d1a3be73476a354a9b75756dc9782d6
+  - enabled: 1
+    path: Assets/Scenes/KevinH Maps/Red Sea.unity
+    guid: 954aba8589c020140a6cbeab91860f06
+  - enabled: 1
+    path: Assets/Scenes/KevinH Maps/The Sawblade.unity
+    guid: 1807d8fcbe9fe9049982560da7f089ca
   m_configObjects: {}
