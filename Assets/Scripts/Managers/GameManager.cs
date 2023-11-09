@@ -57,11 +57,6 @@ public class GameManager : Manager
             _playerManager.AddPlayerObject(playerObj);
             Debug.Log($"Adding Player {playerObj.name} to PlayerManager");
         }
-
-        _uiManager.SetPlayerCount(playerCount);
-        _uiManager.SetUpHealthUI(_players);
-        _uiManager.SetPlayerHealthFace(_playerConfigs);
-        _uiManager.UpdatePlayerWins(_playerConfigs);
     }
 
     override public void OnStart()
@@ -149,6 +144,11 @@ public class GameManager : Manager
 
     public void StartGame()
     {
+        _uiManager.SetPlayerCount(playerCount);
+        _uiManager.SetUpHealthUI(_players);
+        _uiManager.SetPlayerHealthFace(_playerConfigs);
+        _uiManager.UpdatePlayerWins(_playerConfigs);
+
         _uiManager.SetUpLeaderBoard();
         _uiManager.UpdateLeaderBoard();
 
