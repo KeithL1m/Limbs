@@ -15,7 +15,7 @@ public class LimbManager : Manager
         {
             _limbs.Add(gameObjects[i].GetComponent<Limb>());
         }
-
+		
         _initialized = true;
     }
 

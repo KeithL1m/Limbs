@@ -50,7 +50,9 @@ public class LimbSpawning : MonoBehaviour
 
     private static System.Random rnd = new System.Random();
 
-    private void Awake()
+    private bool _initialized = false;
+
+    private void Start()
     {
         _loader = ServiceLocator.Get<GameLoader>();
         _loader.CallOnComplete(Initialize);
@@ -76,10 +78,15 @@ public class LimbSpawning : MonoBehaviour
 
         double time = rnd.NextDouble() * (_maxSpawnTimer - _minSpawnTimer) + _minSpawnTimer;
         _limbTimer = (float)time;
+        _initialized = true;
     }
 
     private void Update()
     {
+		if (!_initialized)
+        {
+            return;
+        }
         if (_currentLimbs >= _limbLimit)
             return;
         

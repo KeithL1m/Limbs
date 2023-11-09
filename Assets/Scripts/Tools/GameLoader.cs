@@ -72,8 +72,8 @@ public class GameLoader : ASyncLoader
         var gm = Instantiate(_gameManager, SystemsParent);
         ServiceLocator.Register<GameManager>(gm.GetComponent<GameManager>());
         ServiceLocator.Register<MapManager>(gm.GetComponent<MapManager>());
-        ServiceLocator.Register<ConfigurationManager>(gm.GetComponent<ConfigurationManager>());
-
+        ServiceLocator.Register<ConfigurationManager>(gm.GetComponent<ConfigurationManager>().Initialize());
+        ServiceLocator.Register<PlayerManager>(gm.GetComponent<PlayerManager>().Initialize());
 
         yield return null;
     }

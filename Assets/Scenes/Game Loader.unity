@@ -131,6 +131,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2067436587355091163, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
+      propertyPath: _configManagerPrefab
+      value: 
+      objectReference: {fileID: 4302288957892833376, guid: 98158c09a718bbf4697b4a189860720e, type: 3}
+    - target: {fileID: 2067436587355091163, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
       propertyPath: _moduleComponents.Array.size
       value: 0
       objectReference: {fileID: 0}
