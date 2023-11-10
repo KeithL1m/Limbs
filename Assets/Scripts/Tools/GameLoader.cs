@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameLoader : ASyncLoader
 {
     [SerializeField] private GameObject _gameManager = null;
-    [SerializeField] private int sceneIndexToLoad = 1;
+    private int sceneIndexToLoad = 1;
     private static int _sceneIndex = 1; // change this to 0 if you want to look at specific map
     private static GameLoader _instance; // only singleton that should be here.
 
