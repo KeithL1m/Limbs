@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Manager
 {
+    [SerializeField] private int _winsNeeded;
+
     private GameLoader _loader = null;
     private ConfigurationManager _configManager = null;
     private MapManager _mapManager = null;
@@ -23,6 +26,7 @@ public class GameManager : Manager
     public int deadPlayers;
 
     public bool startScreen = true;
+    public bool VictoryScreen { get; private set; } = false;
 
 
     private void Awake()
@@ -62,8 +66,6 @@ public class GameManager : Manager
     override public void OnStart()
     {
         _pauseManager.SetCamera(Camera.main);
-
-        _uiManager.UpdatePlayerWins(_playerConfigs);
 
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spawn");
         for (int i = 0; i < gameObjects.Length; i++)
@@ -113,17 +115,22 @@ public class GameManager : Manager
             if (!_players[j].GetComponent<PlayerHealth>()._isDead)
             {
                 _players[j].AddScore();
+                if (_players[j].GetScore() == _winsNeeded)
+                {
+                    EnterVictoryScreen();
+                }
             }
         }
 
         ClearLimbs();
         ResetGroundCheck();
         _uiManager.UpdateLeaderBoard();
+        _uiManager.UpdatePlayerWins(_playerConfigs);
         _mapManager.LoadMap();
         isGameOver = false;
     }
 
-    void SpawnPlayer(int playerNum)
+    private void SpawnPlayer(int playerNum)
     {
         _players[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         _players[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -173,4 +180,10 @@ public class GameManager : Manager
         }
     }
     
+    private void EnterVictoryScreen()
+    {
+        VictoryScreen = true;
+
+        _players.Sort((emp2, emp1) => emp1.GetScore().CompareTo(emp2.GetScore()));
+    }
 }
