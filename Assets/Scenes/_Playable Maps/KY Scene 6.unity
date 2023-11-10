@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 858746072}
   m_Layer: 3
   m_Name: Boulder
-  m_TagString: Untagged
+  m_TagString: Props
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -333,6 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToSpawn: {fileID: 858746071}
+  objectToSpawn2: {fileID: 4497791327026258478, guid: d4dd6591b7c5d5847af9dc57e8be3146, type: 3}
   timeToSpawn: 2
 --- !u!4 &984509531
 Transform:
