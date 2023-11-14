@@ -7,7 +7,8 @@ public class GameLoader : ASyncLoader
 {
     [SerializeField] private GameObject _gameManager = null;
     [SerializeField] private DebugSettings _debugSettings;
-    private int _sceneIndexToLoad = 1;
+    [SerializeField] private int _sceneIndexToLoad = 0;
+
     private static int _sceneIndex = 1; // change this to 0 if you want to look at specific map
     private static GameLoader _instance; // only singleton that should be here.
 
