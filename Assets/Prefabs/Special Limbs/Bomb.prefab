@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 226410322061432257}
   - component: {fileID: 2692078187771432802}
   - component: {fileID: 4851596079391317809}
-  - component: {fileID: 1095353705754262059}
   - component: {fileID: 2991732532819495535}
   m_Layer: 0
   m_Name: BombObject
@@ -103,21 +102,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.49999997
---- !u!114 &1095353705754262059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2873346948794119236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65c6792ef36898e47b0a264737c83172, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _explosionForce: 5
-  _delay: 3
-  _radius: 5
 --- !u!50 &2991732532819495535
 Rigidbody2D:
   serializedVersion: 4

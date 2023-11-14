@@ -5,6 +5,7 @@ using UnityEngine;
 public class BoulderSpawner : MonoBehaviour
 {
     public GameObject objectToSpawn;
+    public GameObject objectToSpawn2;
     public float timeToSpawn;
     private float currentTimeToSpawn;
     
@@ -32,5 +33,6 @@ public class BoulderSpawner : MonoBehaviour
     public void SpawnObject()
     {
         Instantiate(objectToSpawn, transform.position, transform.rotation);
+        Instantiate(objectToSpawn2, transform.position, transform.rotation);
     }
 }
