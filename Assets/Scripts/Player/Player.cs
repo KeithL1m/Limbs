@@ -9,6 +9,7 @@ using UnityEditorInternal;
 [RequireComponent(typeof(PlayerLimbs))]
 public class Player : MonoBehaviour
 {
+    private GameManager _gameManager;
     public enum MovementState
     {
         Move,
@@ -59,6 +60,8 @@ public class Player : MonoBehaviour
         _playerHead.sprite = _config.Head;
         _playerBody.sprite = _config.Body;
 
+        _gameManager = ServiceLocator.Get<GameManager>();
+
         _initialized = true;
     }
 
@@ -67,6 +70,8 @@ public class Player : MonoBehaviour
         if (!_initialized)
             return;
         if (PauseManager.paused) 
+            return;
+        if (_gameManager.VictoryScreen)
             return;
 
         if (_playerMovement.facingRight)
