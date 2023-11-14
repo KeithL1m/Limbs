@@ -12,5 +12,11 @@ public class Deadzone : MonoBehaviour
         {
             collide.GetComponent<PlayerHealth>().KillPlayer();
         }
+
+
+        if(collide.gameObject.tag == "Props")
+        {
+            Destroy(collide.gameObject);
+        }
     }
 }
