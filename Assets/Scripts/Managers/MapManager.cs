@@ -8,6 +8,7 @@ public class MapManager : Manager
 
     [SerializeField] private int _mapCount;
     [SerializeField] private int _loadingMaps;
+    [SerializeField] private int _victoryScreen;
 
     private static System.Random rnd = new System.Random();
 
@@ -27,8 +28,15 @@ public class MapManager : Manager
 
     public void LoadMap()
     {
-        int mapNum = rnd.Next(_loadingMaps, _mapCount);
-        SceneManager.LoadScene(mapNum);
+        if (_gm.VictoryScreen)
+        {
+            SceneManager.LoadScene(_victoryScreen);
+        }
+        else
+        {
+            int mapNum = rnd.Next(_loadingMaps, _mapCount);
+            SceneManager.LoadScene(mapNum);
+        }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
