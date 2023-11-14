@@ -7,7 +7,7 @@ public class GameLoader : ASyncLoader
 {
     [SerializeField] private GameObject _gameManager = null;
     [SerializeField] private DebugSettings _debugSettings;
-    private int sceneIndexToLoad = 1;
+    private int _sceneIndexToLoad = 1;
     private static int _sceneIndex = 1; // change this to 0 if you want to look at specific map
     private static GameLoader _instance; // only singleton that should be here.
 
@@ -40,7 +40,7 @@ public class GameLoader : ASyncLoader
         DontDestroyOnLoad(gameObject);
 
         // Scene Index Check
-        if(sceneIndexToLoad == 0)  // change sceneIndexToLoad to _sceneIndex
+        if(_sceneIndexToLoad == 0)  // change sceneIndexToLoad to _sceneIndex
         {
             _sceneIndex = SceneManager.GetActiveScene().buildIndex;
         }
