@@ -28,6 +28,15 @@ public class MapManager : Manager
 
     public void LoadMap()
     {
+        #if LIMBS_DEBUG
+        var debugSceneName = ServiceLocator.Get<DebugSettings>().NextScene;
+        if (string.IsNullOrWhiteSpace(debugSceneName) == false)
+        {
+            SceneManager.LoadScene(debugSceneName);
+            return;
+        }
+        #endif
+
         if (_gm.VictoryScreen)
         {
             SceneManager.LoadScene(_victoryScreen);
