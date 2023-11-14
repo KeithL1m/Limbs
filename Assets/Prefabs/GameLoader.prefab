@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 2200296758692526866, guid: 27fc355aefafe3142868f9c38c7f36c5, type: 3}
-  sceneIndexToLoad: 1
+  _debugSettings: {fileID: 11400000, guid: 38bf32b6c65073d46b3a6522091c72c4, type: 2}
   _moduleComponents: []
