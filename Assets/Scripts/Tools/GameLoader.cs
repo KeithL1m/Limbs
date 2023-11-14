@@ -6,13 +6,18 @@ using UnityEngine.SceneManagement;
 public class GameLoader : ASyncLoader
 {
     [SerializeField] private GameObject _gameManager = null;
-    [SerializeField] private int sceneIndexToLoad = 1;
+    [SerializeField] private int _sceneIndexToLoad = 1;
+    [SerializeField] private DebugSettings _debugSettings;
     private static int _sceneIndex = 1;
     private static GameLoader _instance; // only singleton that should be here.
 
     [SerializeField] private List<Component> _moduleComponents = new List<Component>();
 
-    public static Transform SystemsParent { get { return _systemsParent; } }
+    public static Transform SystemsParent
+    {
+        get { return _systemsParent; }
+    }
+
     private static Transform _systemsParent;
 
     protected override void Awake()
@@ -20,9 +25,10 @@ public class GameLoader : ASyncLoader
         Debug.Log("GameLoader Booting Up!");
 
         //Safety Check
-        if(_instance != null && _instance != this)
+        if (_instance != null && _instance != this)
         {
-            Debug.Log("A duplicate instance of the GameLoader was found and will be ignored. Only 1 instance is allowed ");
+            Debug.Log(
+                "A duplicate instance of the GameLoader was found and will be ignored. Only 1 instance is allowed ");
             Destroy(gameObject);
             return;
         }
@@ -34,17 +40,17 @@ public class GameLoader : ASyncLoader
         DontDestroyOnLoad(gameObject);
 
         // Scene Index Check
-        if(sceneIndexToLoad == 0) 
+        if (_sceneIndexToLoad == 0)
         {
             _sceneIndex = SceneManager.GetActiveScene().buildIndex;
         }
-        else if (sceneIndexToLoad < 0 || sceneIndexToLoad >= SceneManager.sceneCountInBuildSettings)
+        else if (_sceneIndexToLoad < 0 || _sceneIndexToLoad >= SceneManager.sceneCountInBuildSettings)
         {
-            Debug.Log($"Invalid Scene Index {sceneIndexToLoad} ... using default value of {_sceneIndex}");
+            Debug.Log($"Invalid Scene Index {_sceneIndexToLoad} ... using default value of {_sceneIndex}");
         }
         else
         {
-            _sceneIndex = sceneIndexToLoad;
+            _sceneIndex = _sceneIndexToLoad;
         }
 
         // Setup System GameObject
@@ -61,7 +67,6 @@ public class GameLoader : ASyncLoader
 
         // set completion callback
         CallOnComplete(OnComplete);
-
     }
 
     private IEnumerator InitializeCoreSystems()
@@ -75,6 +80,8 @@ public class GameLoader : ASyncLoader
         ServiceLocator.Register<ConfigurationManager>(gm.GetComponent<ConfigurationManager>().Initialize());
         ServiceLocator.Register<PlayerManager>(gm.GetComponent<PlayerManager>().Initialize());
 
+        ServiceLocator.Register<DebugSettings>(_debugSettings);
+        
         yield return null;
     }
 
@@ -85,7 +92,7 @@ public class GameLoader : ASyncLoader
 
         foreach (var comp in _moduleComponents)
         {
-            if(comp is IGameModule)
+            if (comp is IGameModule)
             {
                 var module = comp as IGameModule;
                 yield return module.LoadModule();
@@ -98,7 +105,11 @@ public class GameLoader : ASyncLoader
     private void OnComplete()
     {
         Debug.Log("GameLoader Completed");
-        StartCoroutine(LoadInitialScene(_sceneIndex));
+
+        if (_sceneIndexToLoad != 0)
+        {
+            StartCoroutine(LoadInitialScene(_sceneIndex));
+        }
     }
 
     private IEnumerator LoadInitialScene(int index)
