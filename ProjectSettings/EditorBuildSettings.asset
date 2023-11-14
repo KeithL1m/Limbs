@@ -17,32 +17,35 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/z_PinataRoom.unity
     guid: 21856d405cfab984e8820a45e2b8f51d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/NEW PLAYER SELECT.unity
     guid: c2b56dbdcbaeb284ca77092c14d4b4b1
-  - enabled: 0
-    path: Assets/Scenes/_Playable Maps/VinceScene 1.unity
+  - enabled: 1
+    path: Assets/Scenes/Meatcase.unity
+    guid: c931da184cfe0f742b3603a24d72b68f
+  - enabled: 1
+    path: Assets/Scenes/Vince Maps/VinceScene 1.unity
     guid: 646c086073f4b4d468b3fc1d6123c639
-  - enabled: 0
-    path: Assets/Scenes/_Playable Maps/VinceScene 2.unity
+  - enabled: 1
+    path: Assets/Scenes/Vince Maps/VinceScene 2.unity
     guid: 589ac47aefad0734d9f02e7d7faa0595
-  - enabled: 0
-    path: Assets/Scenes/_Playable Maps/VinceScene 3.unity
+  - enabled: 1
+    path: Assets/Scenes/Vince Maps/VinceScene 3.unity
     guid: e3beb7db6513f8244a21d92e22958b43
-  - enabled: 0
-    path: Assets/Scenes/_Playable Maps/VinceScene 4.unity
+  - enabled: 1
+    path: Assets/Scenes/Vince Maps/VinceScene 4.unity
     guid: da36db522ac36624897f1506a99d131a
-  - enabled: 0
-    path: Assets/Scenes/_Playable Maps/VinceScene 5.unity
+  - enabled: 1
+    path: Assets/Scenes/Vince Maps/VinceScene 5.unity
     guid: 5050f639d98928b4daaca9e64511708b
-  - enabled: 0
-    path: Assets/Scenes/_Playable Maps/VinceScene 6.unity
+  - enabled: 1
+    path: Assets/Scenes/Vince Maps/VinceScene 6.unity
     guid: ee2a323574d2eba4787d959dc222c534
-  - enabled: 0
-    path: Assets/Scenes/_Playable Maps/KY Scene 4.unity
+  - enabled: 1
+    path: Assets/Scenes/KevinY Maps/KY Scene 4.unity
     guid: 5ded8a065338f69429946fbea35ae646
-  - enabled: 0
-    path: Assets/Scenes/_Playable Maps/Molten Lava.unity
+  - enabled: 1
+    path: Assets/Scenes/Alex Maps/Molten Lava.unity
     guid: d2acd89d83897ca4cb32fc72eab46c40
   - enabled: 0
     path: Assets/Scenes/Alex Maps/nasa.unity
@@ -53,16 +56,19 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/KevinY Maps/KY Scene 2.unity
     guid: 81ba6cb8c9703a74eb704103ec195f3e
-  - enabled: 0
-    path: Assets/Scenes/_Playable Maps/KY Scene 5.unity
+  - enabled: 1
+    path: Assets/Scenes/KevinY Maps/KY Scene 5.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/_Playable Maps/Avalanche.unity
+    path: Assets/Scenes/KevinY Maps/KY Scene 6.unity
     guid: 4d1a3be73476a354a9b75756dc9782d6
-  - enabled: 0
-    path: Assets/Scenes/_Playable Maps/Red Sea.unity
+  - enabled: 1
+    path: Assets/Scenes/KevinH Maps/Red Sea.unity
     guid: 954aba8589c020140a6cbeab91860f06
-  - enabled: 0
-    path: Assets/Scenes/_Playable Maps/The Sawblade.unity
+  - enabled: 1
+    path: Assets/Scenes/KevinH Maps/The Sawblade.unity
     guid: 1807d8fcbe9fe9049982560da7f089ca
+  - enabled: 1
+    path: Assets/Scenes/VictoryMap.unity
+    guid: c6f88a4fbefe2f84294a71ba5213eba4
   m_configObjects: {}
