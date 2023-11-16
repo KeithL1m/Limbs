@@ -67,15 +67,19 @@ public class UIManager : MonoBehaviour
     public void UpdateLeaderBoard()
     {
         Debug.Log("Updating Leaderboard");
-        List<PlayerConfiguration> configs = _players;
+        List<KeyValuePair<string, int>> scores = new List<KeyValuePair<string, int>>();
+        for (int i = 0; i < playerCount; i++)
+        {
+            scores.Add(new KeyValuePair<string, int>(_players[i].Name, _players[i].Score));
+        }
 
-        configs.Sort((x, y) => y.Score.CompareTo(x.Score));
+        scores.Sort((x, y) => y.Value.CompareTo(x.Value));
 
         for (int i = 0; i < playerCount; i++)
         {
             for (int j = 0; j < playerCount; j++)
             {
-                if (configs[i] == _players[j])
+                if (scores[i].Key == _players[j].Name)
                 {
                     _scoreBoxes[j].localPosition = _positions[j];
                     break;
@@ -114,11 +118,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdatePlayerWins(List<PlayerConfiguration> pConfigs)
+    public void UpdatePlayerWins()
     {
         for (int i = 0; i < playerCount; i++)
         {
-            winsCounter[i].text = "Wins: " + pConfigs[i].Score.ToString();
+            winsCounter[i].text = "Wins: " + _players[i].Score.ToString();
         }
     }
 

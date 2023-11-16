@@ -2387,6 +2387,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4379813963526838094, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
+      propertyPath: _sceneIndexToLoad
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7150891192111988303, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
       propertyPath: m_Name
       value: GameLoader
@@ -2951,9 +2955,25 @@ PrefabInstance:
       value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 6819372074900375388, guid: f006804b92770d248bca2198b577cd39, type: 3}
+      propertyPath: _limbLimit
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819372074900375388, guid: f006804b92770d248bca2198b577cd39, type: 3}
       propertyPath: _limbManager
       value: 
       objectReference: {fileID: 1784265752}
+    - target: {fileID: 6819372074900375388, guid: f006804b92770d248bca2198b577cd39, type: 3}
+      propertyPath: _maxSpawnTimer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819372074900375388, guid: f006804b92770d248bca2198b577cd39, type: 3}
+      propertyPath: _minSpawnTimer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819372074900375388, guid: f006804b92770d248bca2198b577cd39, type: 3}
+      propertyPath: _startLimbCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6819372075964717750, guid: f006804b92770d248bca2198b577cd39, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.72
