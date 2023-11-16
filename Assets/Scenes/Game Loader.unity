@@ -145,7 +145,7 @@ PrefabInstance:
     - target: {fileID: 4379813963526838094, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
       propertyPath: _debugSettings
       value: 
-      objectReference: {fileID: 11400000, guid: 97ce0bd3c61abc2448289244d1c88888, type: 2}
+      objectReference: {fileID: 11400000, guid: 9ada6c4880c1bdf458e4d1dc9779e5fa, type: 2}
     - target: {fileID: 4379813963526838094, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
       propertyPath: _sceneIndexToLoad
       value: 1
