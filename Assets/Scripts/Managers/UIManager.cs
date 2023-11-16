@@ -114,11 +114,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdatePlayerWins(List<PlayerConfiguration> pConfigs)
+    public void UpdatePlayerWins()
     {
         for (int i = 0; i < playerCount; i++)
         {
-            winsCounter[i].text = "Wins: " + pConfigs[i].Score.ToString();
+            winsCounter[i].text = "Wins: " + _players[i].Score.ToString();
         }
     }
 

@@ -391,7 +391,7 @@ MonoBehaviour:
   - {fileID: 1427167016933034745}
   - {fileID: 8728228691016103962}
   _parallaxMultipliers:
-  - 0.4
+  - 0.45
   - 0.6
   - 0.8
   - 1
