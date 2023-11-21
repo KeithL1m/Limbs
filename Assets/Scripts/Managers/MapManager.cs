@@ -28,14 +28,14 @@ public class MapManager : Manager
 
     public void LoadMap()
     {
-        #if LIMBS_DEBUG
+#if LIMBS_DEBUG
         var debugSceneName = ServiceLocator.Get<DebugSettings>().NextScene;
         if (string.IsNullOrWhiteSpace(debugSceneName) == false)
         {
             SceneManager.LoadScene(debugSceneName);
             return;
         }
-        #endif
+#endif
 
         if (_gm.VictoryScreen)
         {
@@ -52,7 +52,7 @@ public class MapManager : Manager
     {
         if (_gm.startScreen)
             return;
-        Debug.Log("new scene loaded");
+        Debug.Log("New scene loaded");
         _gm.OnStart();
     }
 }

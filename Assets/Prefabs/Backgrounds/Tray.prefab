@@ -429,6 +429,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1095710636155504754}
+  - component: {fileID: 6537672520613851666}
   m_Layer: 0
   m_Name: Tray
   m_TagString: Untagged
@@ -456,3 +457,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6537672520613851666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2308275002013227331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a10cc27e3ba351244b102db5b85807d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _backgrounds:
+  - {fileID: 250912751896415679}
+  - {fileID: 250912752787969620}
+  - {fileID: 250912752886244677}
+  - {fileID: 250912753523041066}
+  - {fileID: 250912752449203372}
+  _parallaxMultipliers:
+  - 1
+  - 0.9
+  - 0.8
+  - 0.6
+  - 0.4

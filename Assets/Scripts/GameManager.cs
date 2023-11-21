@@ -125,7 +125,7 @@ public class GameManager : Manager
         ClearLimbs();
         ResetGroundCheck();
         _uiManager.UpdateLeaderBoard();
-        _uiManager.UpdatePlayerWins(_playerConfigs);
+        _uiManager.UpdatePlayerWins();
         _mapManager.LoadMap();
         isGameOver = false;
     }
@@ -154,7 +154,6 @@ public class GameManager : Manager
         _uiManager.SetPlayerCount(playerCount);
         _uiManager.SetUpHealthUI(_players);
         _uiManager.SetPlayerHealthFace(_playerConfigs);
-        _uiManager.UpdatePlayerWins(_playerConfigs);
 
         _uiManager.SetUpLeaderBoard();
         _uiManager.UpdateLeaderBoard();
