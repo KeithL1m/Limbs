@@ -4,18 +4,17 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using Mono.Cecil;
 
 public class UIManager : MonoBehaviour
 {
     private GameLoader _loader = null;
     private GameManager _gm = null;
 
-    [SerializeField]
-    private List<RectTransform> _scoreBoxes;
-    [SerializeField]
-    private List<Image> _playerHeads;
-    [SerializeField]
-    private List<TextMeshProUGUI> _scores;
+    [SerializeField] private List<RectTransform> _scoreBoxes;
+    [SerializeField] private List<Image> _playerHeads;
+    [SerializeField] private List<TextMeshProUGUI> _scores;
+
     private List<Vector2> _positions = new List<Vector2>();
     private List<PlayerConfiguration> _players;
 
@@ -151,5 +150,19 @@ public class UIManager : MonoBehaviour
         gameOverBG.SetActive(false);
 
         _gm.EndRound();
+    }
+
+    public void ResetPlayerUI()
+    {
+        for (int i = 0; i < playerCount; i++)
+        {
+            winsCounter[i].text = "Wins: 0";
+            healthUI[i].SetActive(false);
+            _scores[i].text = "Wins: 0";
+            _scoreBoxes[i].gameObject.SetActive(false);
+        }
+
+        _players.Clear();
+        _positions.Clear();
     }
 }

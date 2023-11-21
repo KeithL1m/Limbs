@@ -56,6 +56,12 @@ public class ConfigurationManager : MonoBehaviour
         }
     }
 
+    public void ResetConfigs()
+    {
+        _playerConfigs.Clear();
+        _playerNum = 0;
+    }
+
     public List<PlayerConfiguration> GetPlayerConfigs()
     {
         return _playerConfigs;

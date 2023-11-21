@@ -38,6 +38,12 @@ public class PlayerManager : Manager
             _playerList[i].GetComponent<PlayerHealth>()._isDead = false;
         }
     }
+
+    public void ClearList()
+    {
+        _playerList.Clear();
+        _playerObjects.Clear();
+    }
 }
 
 
