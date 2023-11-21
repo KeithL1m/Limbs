@@ -52,7 +52,7 @@ public class MapManager : Manager
     {
         if (_gm.startScreen)
             return;
-        Debug.Log("new scene loaded");
+        Debug.Log("New scene loaded");
         _gm.OnStart();
     }
 }
