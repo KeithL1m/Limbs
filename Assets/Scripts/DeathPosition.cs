@@ -2,5 +2,5 @@ using UnityEngine;
 
 public class DeathPosition : MonoBehaviour
 {
-    public bool _occupied = false;
+    public bool Occupied { get; set; } = false;
 }

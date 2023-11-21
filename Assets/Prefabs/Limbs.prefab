@@ -155,14 +155,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc2716bc56ce7f4293f7fbf532b5e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attachedPlayer: {fileID: 0}
-  _anchorPoint: {fileID: 0}
-  _limbType: 0
-  _limbState: 0
   _limbData: {fileID: 11400000, guid: 76d2735fb647a41419933b8acfdb8866, type: 2}
-  _trail: {fileID: 1123106515960743069}
-  _pickUpIndicator: {fileID: 7254546142229159940}
-  _size: 0
+  <Trail>k__BackingField: {fileID: 1123106515960743069}
+  <PickUpIndicator>k__BackingField: {fileID: 7254546142229159940}
 --- !u!1 &1123106515960743069
 GameObject:
   m_ObjectHideFlags: 0

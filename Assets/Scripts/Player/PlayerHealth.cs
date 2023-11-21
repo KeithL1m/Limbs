@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+    GameLoader _loader = null;
+    GameManager _gm = null;
+
     [SerializeField]
     public float _maxHealth;
     [SerializeField]
@@ -13,13 +16,33 @@ public class PlayerHealth : MonoBehaviour
 
     public float _health;
     public bool _isDead = false;
+    private bool _initialized = false;
 
     [SerializeField]
     private Slider healthSlider;
 
-    private void Start()
+
+    private void Awake()
     {
+        _loader = ServiceLocator.Get<GameLoader>();
+        _loader.CallOnComplete(Initialize);
+    }
+
+    private void Initialize()
+    {
+        _gm = ServiceLocator.Get<GameManager>();
         _health = _maxHealth;
+        _initialized = true;
+}
+
+    private void Update()
+    {
+        if (!_initialized)
+            return;
+        if (_health <= 0 && !_isDead)
+        {
+            KillPlayer();
+        }
     }
 
     public void AddDamage(float damage)
@@ -28,29 +51,24 @@ public class PlayerHealth : MonoBehaviour
 
         // Update the health slider value here
         UpdateHealthSlider();
-
-        if (_health <= 0 && !_isDead)
-        {
-            KillPlayer();
-        }
     }
 
     public bool IsDead() { return _isDead; }
 
     public void KillPlayer()
     {
-        GameManager.instance.CheckGameOver();
-
         deathPositions = FindObjectsOfType<DeathPosition>();
         _isDead = true;
-        if (deathPositions[0]._occupied)
+        if (deathPositions[0].Occupied)
         {
             transform.position = deathPositions[1].transform.position;
             chain.EnableChain(deathPositions[1].transform);
         }
         transform.position = deathPositions[0].transform.position;
         chain.EnableChain(deathPositions[0].transform);
-        deathPositions[0]._occupied = true;
+        deathPositions[0].Occupied = true;
+
+        _gm.CheckGameOver();
     }
 
     public void ResetHealth()

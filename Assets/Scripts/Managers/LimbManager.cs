@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class LimbManager : Manager
 {
-    public List<Limb> _limbs;
+    private List<Limb> _limbs;
+    private bool _initialized = false;
 
-    void Start()
+    public void Initialize()
     {
         _limbs = new List<Limb>();
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Limb");
@@ -14,27 +15,37 @@ public class LimbManager : Manager
         {
             _limbs.Add(gameObjects[i].GetComponent<Limb>());
         }
+		
+        _initialized = true;
     }
 
     void Update()
     {
+        if (!_initialized)
+        {
+            return;
+        }
+
+        //make object pool for this
         for (int i = 0; i < _limbs.Count; i++)
         {
-            if (_limbs[i]._limbState == Limb.LimbState.Attached && _limbs[i]._anchorPoint != null)
+            if (_limbs[i].State == Limb.LimbState.PickUp)
+                continue;
+            if (_limbs[i].State == Limb.LimbState.Attached && _limbs[i].AnchorPoint != null)
             {
-                _limbs[i].transform.position = _limbs[i]._anchorPoint.position;
-                _limbs[i]._trail.SetActive(false);
+                _limbs[i].transform.position = _limbs[i].AnchorPoint.position;
+                _limbs[i].Trail.SetActive(false);
             }
-            else if (_limbs[i]._limbState == Limb.LimbState.Throwing || _limbs[i]._limbState == Limb.LimbState.Returning)
+            else if (_limbs[i].State == Limb.LimbState.Throwing || _limbs[i].State == Limb.LimbState.Returning)
             {
-                if (_limbs[i].GetComponent<Rigidbody2D>().velocity.magnitude < 4.0f)
+                if (_limbs[i].LimbRB.velocity.magnitude < 4.0f)
                 {
-                    Physics2D.IgnoreCollision(_limbs[i]._attachedPlayer.GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), false);
-                    _limbs[i]._trail.SetActive(false);
-                    _limbs[i]._pickUpIndicator.SetActive(true);
-                    _limbs[i]._limbState = Limb.LimbState.PickUp;
-                    _limbs[i]._attachedPlayer = null;
-                    _limbs[i]._attachedPlayerLimbs = null;
+                    Physics2D.IgnoreCollision(_limbs[i].AttachedPlayer.GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), false);
+                    _limbs[i].Trail.SetActive(false);
+                    _limbs[i].PickUpIndicator.SetActive(true);
+                    _limbs[i].State = Limb.LimbState.PickUp;
+                    _limbs[i].AttachedPlayer = null;
+                    _limbs[i].AttachedPlayerLimbs = null;
                 }
             }
         }

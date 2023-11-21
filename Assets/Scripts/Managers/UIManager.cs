@@ -1,62 +1,155 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField]
-    GameObject scoreBox;
-    [SerializeField]
-    GameObject leaderboard;
-
-    List<GameObject> scoreBoxes;
-    List<Vector2> positions;
+    private GameLoader _loader = null;
+    private GameManager _gm = null;
 
     [SerializeField]
-    float margin;
-    float totalMargin;
+    private List<RectTransform> _scoreBoxes;
+    [SerializeField]
+    private List<Image> _playerHeads;
+    [SerializeField]
+    private List<TextMeshProUGUI> _scores;
+    private List<Vector2> _positions = new List<Vector2>();
+    private List<PlayerConfiguration> _players;
 
-    public int playerCount;
+    [SerializeField] private List<GameObject> healthUI = new List<GameObject>();
+    [SerializeField] private List<Image> healthImage = new List<Image>();
+    [SerializeField] private List<TMP_Text> winsCounter = new List<TMP_Text>();
 
-    private void Start()
+    [SerializeField] private GameObject gameOverBG;
+    [SerializeField] private TMP_Text gameOverText;
+    [SerializeField] private string[] gameOverMessages;
+
+    private float originalTimeScale = 1.0f;
+
+    private int playerCount;
+
+
+    private void Awake()
     {
-        scoreBoxes = new List<GameObject>();
-        positions = new List<Vector2>();
+        _loader = ServiceLocator.Get<GameLoader>();
+        _loader.CallOnComplete(Initialize);
+    }
+
+    private void Initialize()
+    {
+        Debug.Log($"{nameof(Initialize)}");
+
+        _gm = ServiceLocator.Get<GameManager>();
+    }
+
+    public void SetPlayerCount(int count)
+    {
+        playerCount = count;
     }
 
     public void SetUpLeaderBoard()
     {
-        playerCount = GameManager.instance.GetPlayerCount();
+        _players = _gm.GetPlayerConfigs();
 
-        scoreBoxes.Add(scoreBox);
-
-        for (int i = 1; i < playerCount; i++)
-        {
-            totalMargin += margin;
-            
-            var box = Instantiate(scoreBox, Vector3.zero, Quaternion.identity);
-            box.transform.SetParent(leaderboard.transform, false);
-            box.transform.localPosition = new Vector3(scoreBox.transform.localPosition.x, scoreBox.transform.localPosition.y - totalMargin, scoreBox.transform.localPosition.z);
-            scoreBoxes.Add(box);
-        }
+        Debug.Log("Setup Leaderboard");
 
         for (int i = 0; i < playerCount; i++)
         {
-            positions.Add(scoreBoxes[i].transform.position);
+            _scoreBoxes[i].gameObject.SetActive(true);
+            _positions.Add(_scoreBoxes[i].localPosition);
+            _playerHeads[i].sprite = _players[i].Head;
         }
     }
 
     public void UpdateLeaderBoard()
     {
-        //get player datas automatically sorts the list by the score
-        List<PlayerConfiguration> players = GameManager.instance.GetPlayerConfigs();
+        Debug.Log("Updating Leaderboard");
+        List<KeyValuePair<string, int>> scores = new List<KeyValuePair<string, int>>();
+        for (int i = 0; i < playerCount; i++)
+        {
+            scores.Add(new KeyValuePair<string, int>(_players[i].Name, _players[i].Score));
+        }
+
+        scores.Sort((x, y) => y.Value.CompareTo(x.Value));
 
         for (int i = 0; i < playerCount; i++)
         {
-            TextMeshProUGUI textMesh = scoreBoxes[i].GetComponentInChildren<TextMeshProUGUI>();
-
-            textMesh.text = players[i].Name + ": " + players[i].Score.ToString("000");
+            for (int j = 0; j < playerCount; j++)
+            {
+                if (scores[i].Key == _players[j].Name)
+                {
+                    _scoreBoxes[j].localPosition = _positions[j];
+                    break;
+                }
+            }
+            _scores[i].text = "Wins: " + _players[i].Score;
         }
+    }
+
+    public void SetUpHealthUI(List<Player> players)
+    {
+        Debug.Log(playerCount);
+
+        for (int i = 0; i < playerCount; i++)
+        {
+            healthUI[i].SetActive(true);// Enable the health UI for the newly joined player
+
+            // Retrieve the Slider component from the instantiated health UI
+            Slider healthSlider = healthUI[i].GetComponentInChildren<Slider>();
+
+            // Here, you would set the health value on the player.
+            players[i].GetComponent<PlayerHealth>().SetHealthSlider(healthSlider);
+
+            // Update the health value on the slider
+            PlayerHealth playerHealth = players[i].GetComponent<PlayerHealth>();
+            float initialHealth = playerHealth._maxHealth;
+            healthSlider.value = initialHealth;
+        }
+    }
+
+    public void SetPlayerHealthFace(List<PlayerConfiguration> pConfigs)
+    {
+        for (int i = 0; i < playerCount; i++)
+        {
+            healthImage[i].sprite = pConfigs[i].Head;
+        }
+    }
+
+    public void UpdatePlayerWins()
+    {
+        for (int i = 0; i < playerCount; i++)
+        {
+            winsCounter[i].text = "Wins: " + _players[i].Score.ToString();
+        }
+    }
+
+    public IEnumerator ShowGameOverScreen()
+    {
+        Time.timeScale = 0.5f;
+        gameOverBG.SetActive(true);
+
+        // Display a random game over message from the array
+        int randomMessageIndex = Random.Range(0, gameOverMessages.Length);
+        gameOverText.text = gameOverMessages[randomMessageIndex];
+
+        Color randomColor = new Color(Random.value, Random.value, Random.value);
+        gameOverText.color = randomColor;
+
+        // Wait for 5 seconds
+        float endTime = Time.realtimeSinceStartup + 5.0f;
+
+        while (Time.realtimeSinceStartup < endTime)
+        {
+            yield return null;
+        }
+
+        Time.timeScale = originalTimeScale;
+
+        gameOverBG.SetActive(false);
+
+        _gm.EndRound();
     }
 }

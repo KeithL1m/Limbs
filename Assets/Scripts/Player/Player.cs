@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using UnityEditorInternal;
 
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerJump))]
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(PlayerLimbs))]
 public class Player : MonoBehaviour
 {
+    private GameManager _gameManager;
     public enum MovementState
     {
         Move,
@@ -24,16 +26,20 @@ public class Player : MonoBehaviour
     public  PlayerInputHandler _inputHandler;
     private PlayerConfiguration _config;
 
+    [SerializeField] private SpriteRenderer _playerHead;
+    [SerializeField] private SpriteRenderer _playerBody;
+
     //
     // make all limbs get thrown from same place?
     //
     //[SerializeField] Transform _leftLaunchPoint;
     //[SerializeField] Transform _rightLaunchPoint;
     [SerializeField] private Transform _aimTransform;
-    [SerializeField] private Transform _groundCheck;
+    [SerializeField] public Transform _groundCheck;
 
     //facing left = -1, right = 1
     public int direction;
+    private bool _initialized = false;
 
 
     private void Awake()
@@ -45,19 +51,28 @@ public class Player : MonoBehaviour
         _inputHandler = GetComponent<PlayerInputHandler>();
     }
 
-    public Player Initialize(PlayerConfiguration pc)
+    public void Initialize(PlayerConfiguration pc)
     {
         _config = pc;
 
         _inputHandler.InitializePlayer(_config);
 
-        return this;
-        //set skins, score, name etc.
+        _playerHead.sprite = _config.Head;
+        _playerBody.sprite = _config.Body;
+
+        _gameManager = ServiceLocator.Get<GameManager>();
+
+        _initialized = true;
     }
 
     void Update()
     {
-        if (PauseManager.paused) return;
+        if (!_initialized)
+            return;
+        if (PauseManager.paused) 
+            return;
+        if (_gameManager.VictoryScreen)
+            return;
 
         if (_playerMovement.facingRight)
         {
@@ -123,6 +138,11 @@ public class Player : MonoBehaviour
     public string GetName()
     {
         return _config.Name;
+    }
+
+    public SpriteRenderer GetArrow()
+    {
+        return _aimTransform.GetComponentInChildren<SpriteRenderer>();
     }
 
 }
