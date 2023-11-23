@@ -6,7 +6,6 @@ public class PlayerManager : Manager
     [SerializeField] private  Player _basePlayer;
     private List<GameObject> _playerObjects = new();
 
-    public GameObject arrowIndicatorPrefab;
     public List<Player> _playerList = new ();
     public static PlayerManager instance;
 
