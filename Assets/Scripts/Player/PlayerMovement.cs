@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
 
     public bool facingRight;
 
-
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
