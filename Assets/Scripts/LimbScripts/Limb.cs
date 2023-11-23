@@ -38,6 +38,8 @@ public class Limb : MonoBehaviour
     public GameObject Trail { get; set; }
     [field: SerializeField]
     public GameObject PickUpIndicator { get; set; }
+    [SerializeField]
+    private SpriteRenderer _sprite;
 
     //limb properties
     public float Size { get; set; }
@@ -99,6 +101,18 @@ public class Limb : MonoBehaviour
     public void LimbAttack()
     {
         //for if we ever do melee
+    }
+
+    public void Flip(int i )
+    {
+        if (i < 0)
+        {
+            _sprite.flipY = true;
+        }
+        else
+        {
+            _sprite.flipY = false;
+        }
     }
 
     // Limb damage
