@@ -9,7 +9,7 @@ public class ExplosiveLimb : MonoBehaviour
     float countdown = 0.0f;
 
     Collider2D[] explosionRadius = null;
-    private float _explosionForce = 50;
+    private float _explosionForce = 500;
     private float _explosionRadius = 5;
 
 
@@ -20,10 +20,19 @@ public class ExplosiveLimb : MonoBehaviour
 
     void Update()
     {
+        bool exploded = false;
+
         countdown -= Time.deltaTime;
         if(countdown <= 0.0f)
         {
             Explode();
+            exploded= true;
+        }
+
+
+        if(exploded)
+        {
+            Destroy(gameObject);
         }
 
 
