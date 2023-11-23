@@ -1,15 +1,14 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class StartGame : MonoBehaviour
+public class EndGame : MonoBehaviour
 {
     private GameLoader _loader;
-    private ConfigurationManager _configManager;
-
+    private GameManager _gm;
     public GameObject SelectedButton;
-
-    public int nextScene;
 
     private void Awake()
     {
@@ -19,13 +18,13 @@ public class StartGame : MonoBehaviour
 
     private void Initialize()
     {
-        _configManager = ServiceLocator.Get<ConfigurationManager>();
+        _gm = ServiceLocator.Get<GameManager>();
         EventSystem.current.SetSelectedGameObject(SelectedButton);
     }
 
-    public void LoadGame()
+    public void RestartGame()
     {
-        _configManager.InLoadout = true;
-        SceneManager.LoadScene(nextScene);
+        _gm.EndGame();
+        SceneManager.LoadScene(1);
     }
 }
