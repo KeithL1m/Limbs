@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,26 +17,17 @@ public class ExplosiveLimb : MonoBehaviour
     void Start()
     {
         countdown = _timer;
-    }
-
-    void Update()
-    {
-        bool exploded = false;
-
-        countdown -= Time.deltaTime;
-        if(countdown <= 0.0f)
-        {
-            Explode();
-            exploded= true;
-        }
-
-
-        if(exploded)
+        StartCoroutine(ExplodeAfterDelay(() => 
         {
             Destroy(gameObject);
-        }
+        }));
+    }
 
-
+    private IEnumerator ExplodeAfterDelay(Action callback)
+    {
+        yield return new WaitForSeconds(countdown);
+        Explode();
+        callback?.Invoke();
     }
 
     void Explode()

@@ -23,20 +23,3 @@ public class GasLimb : MonoBehaviour
 
 }
 
-public class GasCloud : MonoBehaviour
-{
-    private float _gasRadiusRadius = 10;
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Player"))
-        {
-            // Apply gas effect (reduce player health)
-        }
-    }
-
-    private void OnDrawGizmos() // draw gizmos
-    {
-        Gizmos.DrawWireSphere(transform.position, _gasRadiusRadius);
-    }
-}

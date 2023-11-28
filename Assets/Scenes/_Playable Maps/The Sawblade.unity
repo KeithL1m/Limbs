@@ -8490,6 +8490,10 @@ PrefabInstance:
       propertyPath: timer
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 9112282733535931313, guid: 016feb9387a047543adc6828975d9bd1, type: 3}
+      propertyPath: _timer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 016feb9387a047543adc6828975d9bd1, type: 3}
 --- !u!1001 &973626931
@@ -8688,6 +8692,10 @@ PrefabInstance:
     - target: {fileID: 9112282733535931313, guid: 016feb9387a047543adc6828975d9bd1, type: 3}
       propertyPath: timer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112282733535931313, guid: 016feb9387a047543adc6828975d9bd1, type: 3}
+      propertyPath: _timer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 016feb9387a047543adc6828975d9bd1, type: 3}
