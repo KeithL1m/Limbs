@@ -79,14 +79,14 @@ public class Player : MonoBehaviour
         if (_playerMovement.facingRight)
         {
             direction = 1;
-            _playerHead.flipX = false;
-            _playerBody.flipX = false;
+            //_playerHead.flipX = false;
+            //_playerBody.flipX = false;
         }
         else
         {
             direction = -1;
-            _playerHead.flipX = true;  
-            _playerBody.flipX = true;
+            //_playerHead.flipX = true;  
+            //_playerBody.flipX = true;
         }
 
         /*throwing limbs*/
@@ -119,15 +119,29 @@ public class Player : MonoBehaviour
             if (direction == 1)
             {
                 _aimTransform.eulerAngles = new Vector3(0, 0, -180);
+                _playerHead.flipX = false;
+                _playerBody.flipX = false;
             }
             else
             {
                 _aimTransform.eulerAngles = new Vector3(0, 0, 0);
+                _playerHead.flipX = true;
+                _playerBody.flipX = true;
             }
         }
         else
         {
             _aimTransform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-_inputHandler.Aim.y, -_inputHandler.Aim.x) * Mathf.Rad2Deg);
+            if (_inputHandler.Aim.x > 0)
+            {
+                _playerHead.flipX = false;
+                _playerBody.flipX = false;
+            }
+            else
+            {
+                _playerHead.flipX = true;
+                _playerBody.flipX = true;
+            }
         }
     }
 
