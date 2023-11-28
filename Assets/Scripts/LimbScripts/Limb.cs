@@ -49,6 +49,9 @@ public class Limb : MonoBehaviour
 
     private void Start()
     {
+        var limbManager = ServiceLocator.Get<LimbManager>();
+        limbManager.AddLimb(this);
+
         State = LimbState.PickUp;
         LimbRB = GetComponent<Rigidbody2D>();
         LimbRB.SetRotation(0);

@@ -13,7 +13,11 @@ public class LimbManager : Manager
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Limb");
         for (int i = 0; i < gameObjects.Length; i++)
         {
-            _limbs.Add(gameObjects[i].GetComponent<Limb>());
+            Limb limb = gameObjects[i].GetComponent<Limb>();
+            if(limb != null)
+            {
+                _limbs.Add(limb);
+            }
         }
 		
         _initialized = true;

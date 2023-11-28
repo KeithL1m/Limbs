@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7956902740491100891}
   - component: {fileID: 1776383790799413760}
   - component: {fileID: 7366846002913776074}
+  - component: {fileID: 9211534369997808831}
   m_Layer: 0
   m_Name: Gas
   m_TagString: Untagged
@@ -97,3 +98,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dce07a794e825645a9011930faa6737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &9211534369997808831
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8540868700325874929}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5

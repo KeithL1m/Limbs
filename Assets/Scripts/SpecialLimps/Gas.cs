@@ -15,6 +15,9 @@ public class Gas : MonoBehaviour
     private void Start()
     {
         StartCoroutine(DamageTick());
+
+        var collider = GetComponent<CircleCollider2D>();
+        collider.radius = _gasRadiusRadius;
     }
 
     private IEnumerator DamageTick()
@@ -32,13 +35,16 @@ public class Gas : MonoBehaviour
         foreach(var player in _playersInCloud)
         {
             // Get the player script 
-            // Apply gas effect (reduce player health)
+            PlayerHealth _healthPlayer = player.gameObject.GetComponent<PlayerHealth>();
+            _healthPlayer.AddDamage(5);
+            // Apply gas effect
         }
     }
 
     // when players are in the gas
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         if (collision.CompareTag("Player"))
         {
             _playersInCloud.Add(collision.gameObject);

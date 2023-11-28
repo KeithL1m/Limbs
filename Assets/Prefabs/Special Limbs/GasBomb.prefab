@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392f6597c426e5e4cac59fcbb8f65386, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gasCloudPrefab: {fileID: 0}
+  gasCloudPrefab: {fileID: 8540868700325874929, guid: e5de6000cd7fb07468ecd4aac2969b18, type: 3}
 --- !u!1 &9105726736969598521
 GameObject:
   m_ObjectHideFlags: 0
