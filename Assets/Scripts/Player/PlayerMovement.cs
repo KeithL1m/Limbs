@@ -8,15 +8,18 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInputHandler _inputHandler;
 
     [Header("Customizable")]
-    [SerializeField] float _2LegMoveSpeed;
-    [SerializeField] float _1LegMoveSpeed;
-    [SerializeField] float _noLegSpeed;
-    [SerializeField] float _hopForce;
+    [SerializeField] private float _2LegMoveSpeed;
+    [SerializeField] private float _1LegMoveSpeed;
+    [SerializeField] private float _noLegSpeed;
+    [SerializeField] private float _hopForce;
     private float _hopTimer = 0.0f;
     [SerializeField] float _maxHopTime;
 
-    [SerializeField] float _startMovePoint = 0.5f;
-    [SerializeField] float _smoothMoveSpeed = 0.06f; //the higher the number the less responsive it gets
+    [SerializeField] private float _startMovePoint = 0.5f;
+    [SerializeField] private float _smoothMoveSpeed = 0.06f; //the higher the number the less responsive it gets
+
+    [SerializeField] private Transform _headRotation;
+    [SerializeField] private float _maxRotation = 33.5f;
 
     Vector3 zeroVector = Vector3.zero;
 
@@ -63,6 +66,12 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 targetVelocity = new Vector2(moveSpeed, _rb.velocity.y);
         _rb.velocity = Vector3.SmoothDamp(_rb.velocity, targetVelocity, ref zeroVector, _smoothMoveSpeed);
+
+        float speed = _rb.velocity.x;
+        float currentRotation = (speed / _2LegMoveSpeed) * _maxRotation;
+
+        Quaternion rotation = Quaternion.Euler(0f, 0f, currentRotation);
+        _headRotation.rotation = rotation;
     }
 
     private void Hop(float moveSpeed)
