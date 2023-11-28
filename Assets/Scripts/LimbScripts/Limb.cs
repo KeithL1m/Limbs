@@ -129,31 +129,6 @@ public class Limb : MonoBehaviour
     }
 
     // Limb pickup
-    //private void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.tag != "Player")
-    //        return;
-    //    else if (State == LimbState.Throwing || State == LimbState.Attached)
-    //        return;
-    //    else if (State == LimbState.Returning && collision.gameObject.GetComponent<Player>() != AttachedPlayer)
-    //        return;
-
-    //    if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
-    //    {
-    //        PickUpIndicator.SetActive(false);
-    //        AttachedPlayer = collision.gameObject.GetComponent<Player>();
-    //        AttachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
-    //        if (Type == LimbType.Arm)
-    //        {
-
-    //            _rb.SetRotation(90);
-    //        }
-    //        if (Type == LimbType.Leg)
-    //        {
-    //            _rb.SetRotation(0);
-    //        }
-    //    }
-    //}
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag != "Player")
