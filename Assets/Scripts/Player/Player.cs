@@ -79,14 +79,10 @@ public class Player : MonoBehaviour
         if (_playerMovement.facingRight)
         {
             direction = 1;
-            //_playerHead.flipX = false;
-            //_playerBody.flipX = false;
         }
         else
         {
             direction = -1;
-            //_playerHead.flipX = true;  
-            //_playerBody.flipX = true;
         }
 
         /*throwing limbs*/
