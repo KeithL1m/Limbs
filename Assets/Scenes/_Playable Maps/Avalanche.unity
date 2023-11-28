@@ -134,6 +134,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathLocations
       objectReference: {fileID: 0}
+    - target: {fileID: 4799732122992004047, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799732122992004047, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799732124840465400, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799732124840465401, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799732124840465401, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.33
+      objectReference: {fileID: 0}
     - target: {fileID: 9088968178397644748, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -14658,8 +14678,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleCheck: 0.7801498
   tolerenceCheck: 0.1
-  shrinkSpeed: 10
-  shrinkValue: 1.5
+  shrinkSpeed: 5
+  shrinkValue: 10
 --- !u!212 &1804807555
 SpriteRenderer:
   m_ObjectHideFlags: 0

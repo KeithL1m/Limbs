@@ -13,11 +13,11 @@ public class ShrinkingPlatform : MonoBehaviour
     [SerializeField]
     private float shrinkValue = 5f;
 
-    private bool isShrinking;
+    private bool isShrinking = true;
     // Start is called before the first frame update
     void Start()
     {
-        isShrinking = true;
+        
     }
 
 // Update is called once per frame
