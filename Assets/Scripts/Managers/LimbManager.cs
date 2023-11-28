@@ -19,7 +19,7 @@ public class LimbManager : Manager
         _initialized = true;
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (!_initialized)
         {
