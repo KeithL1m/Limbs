@@ -59,7 +59,7 @@ public class Limb : MonoBehaviour
 
         float angle = _limbData._throwAngle * Mathf.Deg2Rad;
 
-        Size = _limbData._limbSize;
+        Size = GetComponent<CapsuleCollider2D>().bounds.size.y;
         _throwVelocity.x = _limbData._throwSpeed * Mathf.Cos(angle);
         _throwSpeed = _limbData._throwSpeed;
         _throwVelocity.y = _limbData._throwSpeed * Mathf.Sin(angle);
