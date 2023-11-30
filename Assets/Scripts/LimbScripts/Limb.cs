@@ -68,11 +68,17 @@ public class Limb : MonoBehaviour
 
         Trail.SetActive(true);
 
-        if (AttachedPlayer._inputHandler.Aim.x == 0.0f && AttachedPlayer._inputHandler.Aim.y == 0.0f)
+        if (AttachedPlayer._inputHandler.Aim.x == 0.0f && AttachedPlayer._inputHandler.Aim.y == 0.0f && !AttachedPlayer._inputHandler.FlickAiming)
         {
             _throwVelocity.x = Mathf.Abs(_throwVelocity.x);
             _throwVelocity.x *= direction;
             LimbRB.velocity = _throwVelocity;
+        }
+        else if (AttachedPlayer._inputHandler.FlickAiming)
+        {
+            Vector2 tVelocity = AttachedPlayer.LastAimed;
+            tVelocity *= _throwSpeed;
+            LimbRB.velocity = tVelocity;
         }
         else
         {

@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
     //facing left = -1, right = 1
     public int direction;
     private bool _initialized = false;
+    public Vector2 LastAimed { get; private set; } = Vector2.zero;
 
 
     private void Awake()
@@ -76,6 +77,17 @@ public class Player : MonoBehaviour
         if (_gameManager.VictoryScreen)
             return;
 
+        if (LastAimed != new Vector2(_inputHandler.Aim.x, _inputHandler.Aim.y) && _inputHandler.FlickAiming)
+        {
+            if (_inputHandler.Aim.magnitude > 0.4f)
+            {
+                if (_inputHandler.Aim.x != 0.0f && _inputHandler.Aim.y != 0.0f)
+                {
+                    LastAimed = new Vector2(_inputHandler.Aim.x, _inputHandler.Aim.y);
+                }                                                        
+            }
+        }
+
         if (_playerMovement.facingRight)
         {
             direction = 1;
@@ -110,7 +122,7 @@ public class Player : MonoBehaviour
         }
 
         //updating arrow
-        if (_inputHandler.Aim.x == 0.0f && _inputHandler.Aim.y == 0.0f)
+        if (_inputHandler.Aim.x == 0.0f && _inputHandler.Aim.y == 0.0f && !_inputHandler.FlickAiming)
         {
             if (direction == 1)
             {
@@ -125,10 +137,24 @@ public class Player : MonoBehaviour
                 _playerBody.flipX = true;
             }
         }
-        else
+        else if (!_inputHandler.FlickAiming)
         {
             _aimTransform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-_inputHandler.Aim.y, -_inputHandler.Aim.x) * Mathf.Rad2Deg);
             if (_inputHandler.Aim.x > 0)
+            {
+                _playerHead.flipX = false;
+                _playerBody.flipX = false;
+            }
+            else
+            {
+                _playerHead.flipX = true;
+                _playerBody.flipX = true;
+            }
+        }
+        else
+        {
+            _aimTransform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-LastAimed.y, -LastAimed.x) * Mathf.Rad2Deg);
+            if (LastAimed.x > 0)
             {
                 _playerHead.flipX = false;
                 _playerBody.flipX = false;
