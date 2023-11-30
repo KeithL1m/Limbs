@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
 
         if (LastAimed != new Vector2(_inputHandler.Aim.x, _inputHandler.Aim.y) && _inputHandler.FlickAiming)
         {
-            if (_inputHandler.Aim.magnitude > 0.4f)
+            if (_inputHandler.Aim.magnitude > 0.6f)
             {
                 if (_inputHandler.Aim.x != 0.0f && _inputHandler.Aim.y != 0.0f)
                 {
