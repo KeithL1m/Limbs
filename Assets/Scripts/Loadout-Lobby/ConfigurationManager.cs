@@ -14,9 +14,11 @@ public class ConfigurationManager : MonoBehaviour
 
     private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
 
+    [SerializeField] private List<Sprite> _playerNums;
+
     public bool InLoadout { get; set; } = false;
 
-    private int _playerNum;
+    private int _playerNum = 0;
 
     public void SetPlayerHead(int index, Sprite head)
     {
@@ -52,8 +54,15 @@ public class ConfigurationManager : MonoBehaviour
             Debug.Log("Player Has Joined");
             pi.transform.SetParent(transform);
             _playerConfigs.Add(new PlayerConfiguration(pi));
+            _playerConfigs[_playerNum].Num = _playerNums[_playerNum];
             _playerNum++;
         }
+    }
+
+    public void ResetConfigs()
+    {
+        _playerConfigs.Clear();
+        _playerNum = 0;
     }
 
     public List<PlayerConfiguration> GetPlayerConfigs()
@@ -81,5 +90,6 @@ public class PlayerConfiguration
     public int Score { get; set; }
     public Sprite Head { get; set; }
     public Sprite Body { get; set; }
+    public Sprite Num { get; set; }
     public string Name { get; set; }
 }

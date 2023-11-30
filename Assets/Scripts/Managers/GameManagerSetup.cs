@@ -17,6 +17,7 @@ public class GameManagerSetup : MonoBehaviour
     private void Initialize()
     {
         _gm  = ServiceLocator.Get<GameManager>();
+
         _gm.SetUp(_uIManager, _pauseManager);
     }
 }

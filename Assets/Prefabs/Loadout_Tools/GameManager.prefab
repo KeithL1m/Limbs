@@ -104,11 +104,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 374c21a867c75cb4baa385994bad6b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _winsNeeded: 5
-  playerList: []
+  _winsNeeded: 1
   spawnPoints: []
   _players: []
-  deadPlayers: 0
   startScreen: 1
 --- !u!114 &8822850745060225480
 MonoBehaviour:
@@ -137,6 +135,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b7ba6278cf58f40ad9d0d3287e671e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerNums:
+  - {fileID: 21300000, guid: 21e28102ebbcb594cb794728affc09d2, type: 3}
+  - {fileID: 21300000, guid: f0aaf57510ad2f34aa0d37ab20227d89, type: 3}
+  - {fileID: 21300000, guid: 743a13325e985c54f8c597e9df3345ab, type: 3}
+  - {fileID: 21300000, guid: 5a6a0706dc259c143948ff5df9a1260b, type: 3}
 --- !u!114 &-2330629437284295947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,5 +153,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _basePlayer: {fileID: 0}
-  arrowIndicatorPrefab: {fileID: 0}
   _playerList: []

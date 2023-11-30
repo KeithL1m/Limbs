@@ -79,6 +79,7 @@ public class PauseManager : MonoBehaviour
 
     public void PauseGame()
     {
+        Debug.Log("Pausing game");
         Time.timeScale = 0.0f;
         paused = true;
         _pauseMenu.SetActive(true);
@@ -88,6 +89,7 @@ public class PauseManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        Debug.Log("Unpausing game");
         Time.timeScale = 1.0f;
         paused = false;
         _pauseMenu.SetActive(false);
@@ -134,8 +136,15 @@ public class PauseManager : MonoBehaviour
 
     public void LoadMainMenu()
     {
-        ResumeGame();
-        SceneManager.LoadScene(0);
+        Debug.Log("Going back to main menu");
+        GameManager gm = ServiceLocator.Get<GameManager>();
+        gm.ResetRound();
+        gm.EarlyEnd = true;
+        gm.EndGame();
+        Time.timeScale = 1.0f;
+        paused = false;
+        Debug.Log("Unpausing game");
+        SceneManager.LoadScene(1);
     }
 
     public void SetCamera(Camera camera)

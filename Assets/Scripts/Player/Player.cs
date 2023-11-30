@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private SpriteRenderer _playerHead;
     [SerializeField] private SpriteRenderer _playerBody;
+    [SerializeField] private SpriteRenderer _playerNum;
 
     //
     // make all limbs get thrown from same place?
@@ -59,6 +60,7 @@ public class Player : MonoBehaviour
 
         _playerHead.sprite = _config.Head;
         _playerBody.sprite = _config.Body;
+        _playerNum.sprite = _config.Num;
 
         _gameManager = ServiceLocator.Get<GameManager>();
 
@@ -113,15 +115,29 @@ public class Player : MonoBehaviour
             if (direction == 1)
             {
                 _aimTransform.eulerAngles = new Vector3(0, 0, -180);
+                _playerHead.flipX = false;
+                _playerBody.flipX = false;
             }
             else
             {
                 _aimTransform.eulerAngles = new Vector3(0, 0, 0);
+                _playerHead.flipX = true;
+                _playerBody.flipX = true;
             }
         }
         else
         {
             _aimTransform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-_inputHandler.Aim.y, -_inputHandler.Aim.x) * Mathf.Rad2Deg);
+            if (_inputHandler.Aim.x > 0)
+            {
+                _playerHead.flipX = false;
+                _playerBody.flipX = false;
+            }
+            else
+            {
+                _playerHead.flipX = true;
+                _playerBody.flipX = true;
+            }
         }
     }
 
