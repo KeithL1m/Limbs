@@ -80,6 +80,8 @@ public class Limb : MonoBehaviour
             tVelocity *= _throwSpeed;
             LimbRB.velocity = tVelocity;
         }
+
+        _returnVelocity = new Vector3(-LimbRB.velocity.x * _rVMultiplier * 0.6f, -LimbRB.velocity.y * _rVMultiplier * 0.6f, 0f);
     }
 
     private void ReturnLimb()
@@ -92,7 +94,6 @@ public class Limb : MonoBehaviour
         }
         LimbRB.velocity = _returnVelocity;
     }
-
 
     public void LimbAttack()
     {
