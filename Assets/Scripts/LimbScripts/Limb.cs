@@ -43,8 +43,10 @@ public class Limb : MonoBehaviour
 
     private void Start()
     {
-        var limbManager = ServiceLocator.Get<LimbManager>();
-        limbManager.AddLimb(this);
+        // rework to add limb managers to the service locator  
+
+        /*var limbManager = ServiceLocator.Get<LimbManager>();
+        limbManager.AddLimb(this);*/
 
         State = LimbState.PickUp;
         LimbRB = GetComponent<Rigidbody2D>();
