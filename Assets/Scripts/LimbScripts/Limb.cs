@@ -18,28 +18,19 @@ public class Limb : MonoBehaviour
         PickUp
     }
 
-    [HideInInspector]
-    public Player AttachedPlayer { get; set; }
-    [HideInInspector]
-    public PlayerLimbs AttachedPlayerLimbs { get; set; }
-    [HideInInspector]
-    public Transform AnchorPoint { get; set; } = null;
-    [HideInInspector]
-    public Rigidbody2D LimbRB { get; set; } 
+    [HideInInspector] public Player AttachedPlayer { get; set; }
+    [HideInInspector] public PlayerLimbs AttachedPlayerLimbs { get; set; }
+    [HideInInspector] public Transform AnchorPoint { get; set; } = null;
+    [HideInInspector] public Rigidbody2D LimbRB { get; set; }
 
-    [HideInInspector]
-    public LimbType Type { get; set; } //this will help most with animations
-    [HideInInspector]
-    public LimbState State { get; set; }
+    [SerializeField] private SpriteRenderer _sprite;
 
-    [SerializeField]
-    private LimbData _limbData;
-    [field: SerializeField]
-    public GameObject Trail { get; set; }
-    [field: SerializeField]
-    public GameObject PickUpIndicator { get; set; }
-    [SerializeField]
-    private SpriteRenderer _sprite;
+    [HideInInspector] public LimbType Type { get; set; } //this will help most with animations
+    [HideInInspector] public LimbState State { get; set; }
+
+    [SerializeField] private LimbData _limbData;
+    [field: SerializeField] public GameObject Trail { get; set; }
+    [field: SerializeField]  public GameObject PickUpIndicator { get; set; }
 
     //limb properties
     public float Size { get; set; }
@@ -48,6 +39,7 @@ public class Limb : MonoBehaviour
     private float _damage;
     private float _specialDamage;
     private Vector3 _returnVelocity;
+    private float _rVMultiplier;
 
     private void Start()
     {
@@ -65,6 +57,7 @@ public class Limb : MonoBehaviour
         _throwVelocity.y = _limbData._throwSpeed * Mathf.Sin(angle);
         _damage = _limbData._damage;
         _specialDamage = _limbData._specialDamage;
+        _rVMultiplier = _limbData._returnVelocityMultiplier;
     }
 
     public void ThrowLimb(int direction)
@@ -93,7 +86,10 @@ public class Limb : MonoBehaviour
     {
         Trail.SetActive(true);
         State = LimbState.Returning;
-        _throwVelocity.x *= -1;
+        if (_returnVelocity.y < 0)
+        {
+            _returnVelocity.y *= -1;
+        }
         LimbRB.velocity = _returnVelocity;
     }
 
@@ -140,7 +136,7 @@ public class Limb : MonoBehaviour
 
         if (State == LimbState.Throwing)
         {
-            _returnVelocity = -LimbRB.velocity;
+            _returnVelocity = new Vector3(-LimbRB.velocity.x * _rVMultiplier, -LimbRB.velocity.y * _rVMultiplier, 0f);
             return;
         }
 

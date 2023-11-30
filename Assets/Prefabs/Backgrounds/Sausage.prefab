@@ -59,7 +59,6 @@ MonoBehaviour:
   - {fileID: 8347796254118091313}
   - {fileID: 8347796252460080653}
   - {fileID: 8935634859491843516}
-  - {fileID: 0}
   _parallaxMultipliers:
   - 1
   - 0.8
