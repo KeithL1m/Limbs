@@ -17,6 +17,7 @@ public class GasLimb : MonoBehaviour
 
     void GasExplode()
     {
+        Debug.Log("FART");
         Instantiate(gasCloudPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
