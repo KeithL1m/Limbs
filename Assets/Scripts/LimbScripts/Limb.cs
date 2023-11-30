@@ -28,18 +28,19 @@ public class Limb : MonoBehaviour
     [HideInInspector] public LimbType Type { get; set; } //this will help most with animations
     [HideInInspector] public LimbState State { get; set; }
 
-    [SerializeField] private LimbData _limbData;
+    [SerializeField] protected LimbData _limbData;
     [field: SerializeField] public GameObject Trail { get; set; }
     [field: SerializeField]  public GameObject PickUpIndicator { get; set; }
 
     //limb properties
     public float Size { get; set; }
-    private Vector2 _throwVelocity; //used when not aiming
-    private float _throwSpeed; //used when aiming
-    private float _damage;
-    private float _specialDamage;
-    private Vector3 _returnVelocity;
-    private float _rVMultiplier;
+    protected Vector2 _throwVelocity; //used when not aiming
+    protected float _throwSpeed; //used when aiming
+    protected float _damage;
+    protected float _specialDamage;
+    protected Vector3 _returnVelocity;
+    protected float _rVMultiplier;
+    public bool _specialLimb = false;
 
     private void Start()
     {

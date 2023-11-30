@@ -42,7 +42,7 @@ public class LimbManager : Manager
             }
             else if (_limbs[i].State == Limb.LimbState.Throwing || _limbs[i].State == Limb.LimbState.Returning)
             {
-                if (_limbs[i].LimbRB.velocity.magnitude < 4.0f)
+                if (_limbs[i].LimbRB.velocity.magnitude < 4.0f && !_limbs[i]._specialLimb)
                 {
                     _limbs[i].Flip(1);
                     Physics2D.IgnoreCollision(_limbs[i].AttachedPlayer.GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), false);

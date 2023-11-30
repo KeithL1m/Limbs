@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Gas : MonoBehaviour
 {
-    private float _gasRadiusRadius = 10;
+    private float _gasRadiusRadius = 0.5f;
     private float _tickRate = 1;
     private float _lifeTime = 10;
 
@@ -28,6 +28,11 @@ public class Gas : MonoBehaviour
             --_lifeTime;
             DoDamage();
         }
+
+        if(_lifeTime <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void DoDamage()
@@ -35,8 +40,7 @@ public class Gas : MonoBehaviour
         foreach(var player in _playersInCloud)
         {
             // Get the player script 
-            PlayerHealth _healthPlayer = player.gameObject.GetComponent<PlayerHealth>();
-            _healthPlayer.AddDamage(5);
+            player.GetComponent<PlayerHealth>().AddDamage(5);
             // Apply gas effect
         }
     }

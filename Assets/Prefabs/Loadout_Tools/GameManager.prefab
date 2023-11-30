@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 374c21a867c75cb4baa385994bad6b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _winsNeeded: 1
+  _winsNeeded: 3
   spawnPoints: []
   _players: []
   startScreen: 1
