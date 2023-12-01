@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class ShrinkingPlatform : MonoBehaviour
 {
+    [Header("Bool Settings")]
+    [SerializeField]
+    private bool activateOnStart;
+    [SerializeField]
+    private bool activateOnTouch;
+    
+    [Header("Scale Settings")] 
     [SerializeField]
     private float scaleCheck;
     [SerializeField]
@@ -13,15 +20,19 @@ public class ShrinkingPlatform : MonoBehaviour
     [SerializeField]
     private float shrinkValue = 5f;
 
-    private bool isShrinking = true;
+    private bool isShrinking = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (activateOnStart == true)
+        {
+            isShrinking = true;
+        }
     }
 
 // Update is called once per frame
-void Update()
+    void Update()
     {
         if (isShrinking == true)
         {
@@ -34,5 +45,11 @@ void Update()
         }
     }
 
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (activateOnTouch == true)
+        {
+            isShrinking = true;
+        }
+    }
 }

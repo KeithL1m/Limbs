@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class RisingDeadzone : MonoBehaviour
 {
+    [Header("General Settings")]
     [SerializeField]
-    private Rigidbody2D rb;
-    private float _currentTime;
-    public float requiredTime = 20;
+    private bool moveOnStart;
+    [SerializeField]
+    private bool disableMovement;
+    [SerializeField]
+    private float damageOutput = 0.10f;
+    [SerializeField]
+    private float requiredTime = 20;
 
+    private Rigidbody2D rb;
+
+    private float _currentTime;
     private bool targetTimeReached;
     private bool isMoving = false;
 
@@ -20,7 +28,7 @@ public class RisingDeadzone : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (targetTimeReached == false)
+        if (targetTimeReached == false && moveOnStart == true && disableMovement == false) 
         {
             _currentTime += Time.fixedDeltaTime;
         }
@@ -36,7 +44,7 @@ public class RisingDeadzone : MonoBehaviour
     {
         if (collide.CompareTag(("Player")))
         {
-            collide.GetComponent<PlayerHealth>().AddDamage(0.10f);
+            collide.GetComponent<PlayerHealth>().AddDamage(damageOutput);
         }
     }
 
