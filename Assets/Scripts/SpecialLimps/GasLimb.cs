@@ -30,6 +30,9 @@ public class GasLimb : Limb
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
+            if (State != LimbState.Throwing)
+                return;
+            
             GasExplode();
         }
     }
