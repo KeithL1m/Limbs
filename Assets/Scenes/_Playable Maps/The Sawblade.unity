@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &35538862
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.432377
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3037854002031635674, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_Name
+      value: GasBomb (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
 --- !u!1001 &40275438
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8764,6 +8821,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 016feb9387a047543adc6828975d9bd1, type: 3}
+--- !u!1001 &1121895135
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_RootOrder
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.432377
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817910181011066892, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3037854002031635674, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      propertyPath: m_Name
+      value: GasBomb (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
 --- !u!1001 &1131958489
 PrefabInstance:
   m_ObjectHideFlags: 0

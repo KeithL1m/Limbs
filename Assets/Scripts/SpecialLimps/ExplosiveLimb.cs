@@ -59,6 +59,11 @@ public class ExplosiveLimb : Limb
                 {
                     float explosion = _explosionForce / distanceVector.magnitude;
                     item_rigidbody.AddForce(distanceVector.normalized * explosion);
+                    
+                    if(item.CompareTag("Player"))
+                    {
+                        item.GetComponent<PlayerHealth>().AddDamage(35);
+                    }
                 }
             }
         }

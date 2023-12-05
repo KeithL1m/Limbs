@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GasLimb : Limb
+public class TeleportLimb : Limb
 {
-    public GameObject gasCloudPrefab;
 
     void Start()
     {
@@ -26,22 +25,17 @@ public class GasLimb : Limb
         _specialLimb = true;
     }
 
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (State != LimbState.Throwing)
             return;
-            
-        GasExplode();
-        
+
+        Teleport();
     }
 
-
-    void GasExplode()
+    void Teleport()
     {
-        Debug.Log("FART");
-        Instantiate(gasCloudPrefab, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        Debug.Log("TELEPORT");
     }
-
 }
-
