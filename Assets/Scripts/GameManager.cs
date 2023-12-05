@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,7 +13,6 @@ public class GameManager : Manager
     private MapManager _mapManager = null;
     private PlayerManager _playerManager = null;
 
-    public List<PlayerInput> playerList = new List<PlayerInput>();
     public List<GameObject> spawnPoints = new List<GameObject>();
 
     private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
@@ -22,11 +22,12 @@ public class GameManager : Manager
     private UIManager _uiManager;
     private bool isGameOver = false;
 
-    private int playerCount;
-    public int deadPlayers;
+    private int _playerCount;
+    private int _deadPlayers;
 
-    public bool startScreen = true;
+    public bool startScreen { get; set; } = true;
     public bool VictoryScreen { get; private set; } = false;
+    public bool EarlyEnd { get; set; } = false;
 
 
     private void Awake()
@@ -46,16 +47,16 @@ public class GameManager : Manager
     {
         _pauseManager = pauseManager;
         _uiManager = uiManager;
-
-        playerCount = _configManager.GetPlayerNum();
+    
+        _playerCount = _configManager.GetPlayerNum();
         _playerConfigs = _configManager.GetPlayerConfigs();
+        _configManager.InLoadout = false;
 
-        for (int i = 0; i < playerCount; i++)
+        for (int i = 0; i < _playerCount; i++)
         {
-            var playerSpawner =_playerConfigs[i].Input.GetComponent<SpawnPlayer>();
+            var playerSpawner = _playerConfigs[i].Input.GetComponent<SpawnPlayer>();
             var playerComp = playerSpawner.SpawnPlayerFirst(_playerConfigs[i]);
             _players.Add(playerComp);
-            playerList.Add(_playerConfigs[i].Input);
 
             var playerObj = playerSpawner.Player;
             _playerManager.AddPlayerObject(playerObj);
@@ -63,17 +64,35 @@ public class GameManager : Manager
         }
     }
 
+    public void StartGame()
+    {
+        _uiManager.SetPlayerCount(_playerCount);
+        _uiManager.SetUpHealthUI(_players);
+        _uiManager.SetPlayerHealthFace(_playerConfigs);
+
+        _uiManager.SetUpLeaderBoard();
+        _uiManager.UpdateLeaderBoard();
+
+        ClearLimbs();
+        startScreen = false;
+        _mapManager.LoadMap();
+    }
+
     override public void OnStart()
     {
-        _pauseManager.SetCamera(Camera.main);
+        if (!startScreen)
+        {
+            _pauseManager.SetCamera(Camera.main);
+        }
 
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spawn");
         for (int i = 0; i < gameObjects.Length; i++)
         {
+            Debug.Log("Found Spawn Point");
             spawnPoints.Add(gameObjects[i]);
         }
 
-        for (int i = 0; i < playerCount; i++)
+        for (int i = 0; i < _playerCount; i++)
         {
             Debug.Log("player is being spawned");
             _players[i].GetComponent<PlayerHealth>().ResetHealth();
@@ -83,15 +102,15 @@ public class GameManager : Manager
 
     public void CheckGameOver()
     {
-        for (int i = 0; i < playerCount; i++)
+        for (int i = 0; i < _playerCount; i++)
         {
             if (_players[i].GetComponent<PlayerHealth>().IsDead())
             {
-                deadPlayers++;
+                _deadPlayers++;
             }
         }
 
-        if (deadPlayers == playerCount - 1)
+        if (_deadPlayers == _playerCount - 1)
         {
             if (!isGameOver) // Check if game over is not already triggered
             {
@@ -102,13 +121,13 @@ public class GameManager : Manager
 
         else
         {
-            deadPlayers = 0;
+            _deadPlayers = 0;
         }
     }
 
     public void EndRound()
     {
-        deadPlayers = 0;
+        _deadPlayers = 0;
         spawnPoints.Clear();
         for (int j = 0; j < _players.Count; j++)
         {
@@ -122,12 +141,8 @@ public class GameManager : Manager
             }
         }
 
-        ClearLimbs();
-        ResetGroundCheck();
-        _uiManager.UpdateLeaderBoard();
-        _uiManager.UpdatePlayerWins();
+        ResetRound();
         _mapManager.LoadMap();
-        isGameOver = false;
     }
 
     private void SpawnPlayer(int playerNum)
@@ -138,34 +153,10 @@ public class GameManager : Manager
         _players[playerNum].GetComponent<PlayerHealth>()._isDead = false;
         _players[playerNum].transform.position = spawnPoints[playerNum].transform.position;
     }
-
-    public int GetPlayerCount()
-    {
-        return playerCount;
-    }
-
-    public List<PlayerConfiguration> GetPlayerConfigs()
-    {
-        return _playerConfigs;
-    }
-
-    public void StartGame()
-    {
-        _uiManager.SetPlayerCount(playerCount);
-        _uiManager.SetUpHealthUI(_players);
-        _uiManager.SetPlayerHealthFace(_playerConfigs);
-
-        _uiManager.SetUpLeaderBoard();
-        _uiManager.UpdateLeaderBoard();
-
-		ClearLimbs();
-        startScreen = false;
-        _mapManager.LoadMap();
-	}
 	
     public void ClearLimbs()
     {
-        for (int i = 0; i < playerCount; i++)
+        for (int i = 0; i < _playerCount; i++)
         {
             _players[i].GetComponent<PlayerLimbs>().ClearLimbs();
         }
@@ -173,7 +164,7 @@ public class GameManager : Manager
 
     private void ResetGroundCheck()
     {
-        for (int i = 0; i < playerCount; i++)
+        for (int i = 0; i < _playerCount; i++)
         {
             _players[i]._groundCheck.localPosition = new Vector3(0, -0.715f, 0);
         }
@@ -184,5 +175,48 @@ public class GameManager : Manager
         VictoryScreen = true;
 
         _players.Sort((emp2, emp1) => emp1.GetScore().CompareTo(emp2.GetScore()));
+    }
+
+    public void ResetRound()
+    {
+        ClearLimbs();
+        ResetGroundCheck();
+        _uiManager.UpdateLeaderBoard();
+        _uiManager.UpdatePlayerWins();
+        isGameOver = false;
+    }
+
+    public void EndGame()
+    {
+        VictoryScreen = false;
+        startScreen = true;
+        for (int i = 0; i < _playerCount; i++)
+        {
+            Destroy(_playerConfigs[i].Input.gameObject);
+            Destroy(_players[i].gameObject);
+        }
+
+        _playerConfigs.Clear();
+        _players.Clear();
+
+        _playerManager.ClearList();
+
+        _configManager.ResetConfigs();
+
+        Destroy(_uiManager.gameObject);
+
+        _playerCount = 0;
+
+        spawnPoints.Clear();
+    }
+
+    public int GetPlayerCount()
+    {
+        return _playerCount;
+    }
+
+    public List<PlayerConfiguration> GetPlayerConfigs()
+    {
+        return _playerConfigs;
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,6 +45,9 @@ public class PlayerHealth : MonoBehaviour
 
     public void AddDamage(float damage)
     {
+        if (_gm.startScreen)
+            return;
+        
         _health -= damage;
 
         // Update the health slider value here

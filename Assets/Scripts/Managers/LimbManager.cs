@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,7 +18,7 @@ public class LimbManager : Manager
         _initialized = true;
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (!_initialized)
         {
@@ -40,6 +39,7 @@ public class LimbManager : Manager
             {
                 if (_limbs[i].LimbRB.velocity.magnitude < 4.0f)
                 {
+                    _limbs[i].Flip(1);
                     Physics2D.IgnoreCollision(_limbs[i].AttachedPlayer.GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), false);
                     _limbs[i].Trail.SetActive(false);
                     _limbs[i].PickUpIndicator.SetActive(true);

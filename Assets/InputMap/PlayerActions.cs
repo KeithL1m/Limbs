@@ -62,6 +62,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchAimType"",
+                    ""type"": ""Button"",
+                    ""id"": ""267b0c8b-b6b3-4a2e-a36b-411e4f27f22e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -196,6 +205,17 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb1cecea-354d-4a72-b755-30cb44e0cd4e"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""SwitchAimType"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -235,7 +255,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""2D Vector"",
+                    ""name"": ""Keyboard"",
                     ""id"": ""6599ed2b-b928-4aa4-8f5d-dff0e45fe6e9"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -285,6 +305,61 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""D-pad"",
+                    ""id"": ""2180e7c6-758b-4301-817b-fc41cbe71f4e"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""1372520c-0d4e-4815-a0cd-6b444520b92b"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""beb2868a-8ae2-4765-a482-4ccd7b900c06"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""fd51326d-d71f-4805-937c-1540cfb88ba1"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""9f881527-2eae-47a3-9bbf-6a35108595ee"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -345,6 +420,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_ThrowLimb = m_Gameplay.FindAction("ThrowLimb", throwIfNotFound: true);
         m_Gameplay_Aim = m_Gameplay.FindAction("Aim", throwIfNotFound: true);
+        m_Gameplay_SwitchAimType = m_Gameplay.FindAction("SwitchAimType", throwIfNotFound: true);
         // Menu Nav
         m_MenuNav = asset.FindActionMap("Menu Nav", throwIfNotFound: true);
         m_MenuNav_Move = m_MenuNav.FindAction("Move", throwIfNotFound: true);
@@ -412,6 +488,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_ThrowLimb;
     private readonly InputAction m_Gameplay_Aim;
+    private readonly InputAction m_Gameplay_SwitchAimType;
     public struct GameplayActions
     {
         private @PlayerActions m_Wrapper;
@@ -420,6 +497,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @ThrowLimb => m_Wrapper.m_Gameplay_ThrowLimb;
         public InputAction @Aim => m_Wrapper.m_Gameplay_Aim;
+        public InputAction @SwitchAimType => m_Wrapper.m_Gameplay_SwitchAimType;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -441,6 +519,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Aim.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAim;
                 @Aim.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAim;
                 @Aim.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAim;
+                @SwitchAimType.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchAimType;
+                @SwitchAimType.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchAimType;
+                @SwitchAimType.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchAimType;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -457,6 +538,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Aim.started += instance.OnAim;
                 @Aim.performed += instance.OnAim;
                 @Aim.canceled += instance.OnAim;
+                @SwitchAimType.started += instance.OnSwitchAimType;
+                @SwitchAimType.performed += instance.OnSwitchAimType;
+                @SwitchAimType.canceled += instance.OnSwitchAimType;
             }
         }
     }
@@ -526,6 +610,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnThrowLimb(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
+        void OnSwitchAimType(InputAction.CallbackContext context);
     }
     public interface IMenuNavActions
     {
