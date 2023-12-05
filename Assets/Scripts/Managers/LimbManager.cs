@@ -30,6 +30,8 @@ public class LimbManager : Manager
             return;
         }
 
+        UpdateLimbList();
+
         //make object pool for this
         for (int i = 0; i < _limbs.Count; i++)
         {
@@ -42,7 +44,12 @@ public class LimbManager : Manager
             }
             else if (_limbs[i].State == Limb.LimbState.Throwing || _limbs[i].State == Limb.LimbState.Returning)
             {
-                if (_limbs[i].LimbRB.velocity.magnitude < 4.0f && !_limbs[i]._specialLimb)
+                if(_limbs[i].LimbRB is null)
+                {
+                    continue;
+                }
+
+                if (_limbs[i].LimbRB?.velocity.magnitude < 4.0f && !_limbs[i]._specialLimb)
                 {
                     _limbs[i].Flip(1);
                     Physics2D.IgnoreCollision(_limbs[i].AttachedPlayer.GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), false);
@@ -59,5 +66,16 @@ public class LimbManager : Manager
     public void AddLimb(Limb limb)
     {
         _limbs.Add(limb);
+    }
+
+    private void UpdateLimbList()
+    {
+        for(int i = _limbs.Count -1; i >= 0; --i)
+        {
+            if(_limbs[i] == null)
+            {
+                _limbs.RemoveAt(i);
+            }
+        }
     }
 }
