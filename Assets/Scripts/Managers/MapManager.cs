@@ -41,6 +41,10 @@ public class MapManager : Manager
         {
             SceneManager.LoadScene(_victoryScreen);
         }
+        else if (_gm.EarlyEnd)
+        {
+            return;
+        }
         else
         {
             int mapNum = rnd.Next(_loadingMaps, _mapCount);

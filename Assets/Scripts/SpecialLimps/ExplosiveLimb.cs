@@ -5,25 +5,34 @@ using UnityEngine;
 public class ExplosiveLimb : MonoBehaviour
 {
     // countdown
-    float timer = 3.0f;
+    [SerializeField] private float _timer = 3.0f;
     float countdown = 0.0f;
 
     Collider2D[] explosionRadius = null;
-    private float _explosionForce = 50;
+    private float _explosionForce = 300;
     private float _explosionRadius = 5;
 
 
     void Start()
     {
-        countdown = timer;
+        countdown = _timer;
     }
 
     void Update()
     {
+        bool exploded = false;
+
         countdown -= Time.deltaTime;
         if(countdown <= 0.0f)
         {
             Explode();
+            exploded= true;
+        }
+
+
+        if(exploded)
+        {
+            Destroy(gameObject);
         }
 
 

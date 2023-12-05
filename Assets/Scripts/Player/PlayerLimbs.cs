@@ -1,4 +1,4 @@
-using UnityEngine.InputSystem;
+ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,8 +24,8 @@ public class PlayerLimbs : MonoBehaviour
     public LimbState _limbState;
 
     private Transform _groundCheck;
-    [SerializeField] List<Transform> _limbAnchors;
-    [SerializeField] CapsuleCollider2D _collider;
+    [SerializeField] private List<Transform> _limbAnchors;
+    [SerializeField] private CapsuleCollider2D _collider;
 
     Vector2 _originalSize;
     Vector2 _originalOffset;
@@ -92,13 +92,19 @@ public class PlayerLimbs : MonoBehaviour
         }
         else
         {
-            _selectedLimb++;
             _limbs[i].Type = Limb.LimbType.Arm;
+            _selectedLimb++;
             _limbs[i].transform.rotation = Quaternion.Euler(0, 0, 90);
             if (i == 2)
+            {
                 _limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x - _limbs[i].Size * 0.5f, _limbAnchors[i].position.y);
+                _limbs[i].Flip(-1);
+            }
             else if (i == 3)
+            {
                 _limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x + _limbs[i].Size * 0.5f, _limbAnchors[i].position.y);
+            }
+               
         }
 
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), true);
