@@ -8,14 +8,16 @@ public class LimbManager : Manager
 
     public void Initialize()
     {
-        _limbs = new List<Limb>();
-        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Limb");
-        for (int i = 0; i < gameObjects.Length; i++)
+        if (!_initialized)
         {
-            _limbs.Add(gameObjects[i].GetComponent<Limb>());
+            _limbs = new List<Limb>();
+
+            _initialized = true;
         }
-		
-        _initialized = true;
+        else
+        {
+            _limbs.Clear();
+        }
     }
 
     void LateUpdate()

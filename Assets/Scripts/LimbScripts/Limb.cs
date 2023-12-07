@@ -41,8 +41,15 @@ public class Limb : MonoBehaviour
     private Vector3 _returnVelocity;
     private float _rVMultiplier;
 
-    private void Start()
+    private void Awake()
     {
+        GameLoader loader = ServiceLocator.Get<GameLoader>();
+        loader.CallOnComplete(Initialize);
+    }
+
+    private void Initialize()
+    {
+        ServiceLocator.Get<LimbManager>().AddLimb(this);
         State = LimbState.PickUp;
         LimbRB = GetComponent<Rigidbody2D>();
         LimbRB.SetRotation(0);
