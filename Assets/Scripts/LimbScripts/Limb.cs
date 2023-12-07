@@ -155,7 +155,7 @@ public class Limb : MonoBehaviour
             return;
 
         LimbTimer = false;
-        CanNotPickUp = 0.2f;
+        CanNotPickUp = 0.1f;
 
         if (State == LimbState.Throwing)
         {

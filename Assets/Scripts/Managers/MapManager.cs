@@ -10,6 +10,8 @@ public class MapManager : Manager
     [SerializeField] private int _loadingMaps;
     [SerializeField] private int _victoryScreen;
 
+    public SceneFade fade;
+
     private static System.Random rnd = new System.Random();
 
     private void Awake()
@@ -26,13 +28,20 @@ public class MapManager : Manager
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    public void ChangeScene()
+    {
+        fade.FadeOut = true;
+    }
+
     public void LoadMap()
     {
+        _gm.ResetRound();
 #if LIMBS_DEBUG
         var debugSceneName = ServiceLocator.Get<DebugSettings>().NextScene;
         if (string.IsNullOrWhiteSpace(debugSceneName) == false)
         {
             SceneManager.LoadScene(debugSceneName);
+            fade.FadeIn = true;
             return;
         }
 #endif
@@ -50,6 +59,8 @@ public class MapManager : Manager
             int mapNum = rnd.Next(_loadingMaps, _mapCount);
             SceneManager.LoadScene(mapNum);
         }
+
+        fade.FadeIn = true;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
