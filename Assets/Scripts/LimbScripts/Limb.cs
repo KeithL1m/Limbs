@@ -74,11 +74,17 @@ public class Limb : MonoBehaviour
 
         Trail.SetActive(true);
 
-        if (AttachedPlayer._inputHandler.Aim.x == 0.0f && AttachedPlayer._inputHandler.Aim.y == 0.0f)
+        if (AttachedPlayer._inputHandler.Aim.x == 0.0f && AttachedPlayer._inputHandler.Aim.y == 0.0f && !AttachedPlayer._inputHandler.FlickAiming)
         {
             _throwVelocity.x = Mathf.Abs(_throwVelocity.x);
             _throwVelocity.x *= direction;
             LimbRB.velocity = _throwVelocity;
+        }
+        else if (AttachedPlayer._inputHandler.FlickAiming)
+        {
+            Vector2 tVelocity = AttachedPlayer.LastAimed;
+            tVelocity *= _throwSpeed;
+            LimbRB.velocity = tVelocity;
         }
         else
         {
@@ -86,6 +92,8 @@ public class Limb : MonoBehaviour
             tVelocity *= _throwSpeed;
             LimbRB.velocity = tVelocity;
         }
+
+        _returnVelocity = new Vector3(-LimbRB.velocity.x * _rVMultiplier * 0.6f, -LimbRB.velocity.y * _rVMultiplier * 0.6f, 0f);
     }
 
     private void ReturnLimb()
@@ -98,7 +106,6 @@ public class Limb : MonoBehaviour
         }
         LimbRB.velocity = _returnVelocity;
     }
-
 
     public void LimbAttack()
     {

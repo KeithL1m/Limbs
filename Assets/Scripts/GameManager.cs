@@ -25,7 +25,7 @@ public class GameManager : Manager
     private int _playerCount;
     private int _deadPlayers;
 
-    public bool startScreen = true;
+    public bool startScreen { get; set; } = true;
     public bool VictoryScreen { get; private set; } = false;
     public bool EarlyEnd { get; set; } = false;
 
