@@ -11,10 +11,11 @@ public class MapManager : Manager
     [SerializeField] private int _loadingMaps;
     [SerializeField] private int _victoryScreen;
 
-    [SerializeField] private int[] _specialMaps = { 13, 14, 15, 17};
+    [SerializeField] private int[] _specialMaps = { 13, 14, 15, 16};
     private int specialMapCounter;
 
-    private static System.Random rnd = new System.Random();
+    //Previous Randomizer
+    //private static System.Random rnd = new System.Random();
 
     private void Awake()
     {
@@ -52,17 +53,14 @@ public class MapManager : Manager
         }
         else
         {
-            int mapNum = rnd.Next(_loadingMaps, _mapCount);
-            // Put special maps counter HERE
-            for (int i = 0; i < _specialMaps.Length; i++)
+            //Check if map is repeated
+            int mapNum = Random.Range(_loadingMaps, _mapCount);
+            int currentMap = mapNum;
+            if(mapNum == currentMap)
             {
-                if(mapNum != i)
-                {
-                    specialMapCounter++;
-                }
-                
+                Debug.Log("MAP WAS REPEATED");
+                mapNum = Random.Range(_loadingMaps, _mapCount);
             }
-
             SceneManager.LoadScene(mapNum);
         }
     }

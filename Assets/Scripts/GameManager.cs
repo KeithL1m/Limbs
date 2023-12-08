@@ -108,6 +108,11 @@ public class GameManager : Manager
             {
                 _deadPlayers++;
             }
+            // Add score to player that is alive
+            if(!_players[i].GetComponent<PlayerHealth>().IsDead())
+            {
+                _players[i].AddScore();
+            }
         }
 
         if (_deadPlayers == _playerCount - 1)
@@ -131,13 +136,9 @@ public class GameManager : Manager
         spawnPoints.Clear();
         for (int j = 0; j < _players.Count; j++)
         {
-            if (!_players[j].GetComponent<PlayerHealth>()._isDead)
+            if (_players[j].GetScore() == _winsNeeded)
             {
-                _players[j].AddScore();
-                if (_players[j].GetScore() == _winsNeeded)
-                {
-                    EnterVictoryScreen();
-                }
+                EnterVictoryScreen();
             }
         }
 
