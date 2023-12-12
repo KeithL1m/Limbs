@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public ParticleSystem dust;
+    
     private Rigidbody2D _rb;
     private PlayerJump _playerJump;
     private PlayerInputHandler _inputHandler;
@@ -33,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(PlayerLimbs.LimbState state)
     {
+        CreateDust();
+        
         if (GetComponent<PlayerHealth>().IsDead())
             return;
         float moveSpeed = 0f;
@@ -80,5 +84,10 @@ public class PlayerMovement : MonoBehaviour
             _hopTimer = _maxHopTime;
             _rb.AddForce(_rb.mass * Vector2.up * _hopForce * Mathf.Abs(moveSpeed), ForceMode2D.Impulse);
         }
+    }
+
+    void CreateDust()
+    {
+        dust.Play();
     }
 }
