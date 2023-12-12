@@ -107,7 +107,6 @@ MonoBehaviour:
   _winsNeeded: 5
   spawnPoints: []
   _players: []
-  startScreen: 1
 --- !u!114 &8822850745060225480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd11a86ef013d645a8c498d0643f725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mapCount: 15
+  _mapCount: 16
   _loadingMaps: 4
   _victoryScreen: 16
 --- !u!114 &5952273605013709200
