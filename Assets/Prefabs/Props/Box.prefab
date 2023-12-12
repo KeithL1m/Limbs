@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -7997163009967871997}
   m_Layer: 3
   m_Name: Box
-  m_TagString: Untagged
+  m_TagString: Props
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

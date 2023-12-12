@@ -6,14 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class ConfigurationManager : MonoBehaviour
 {
+    public ConfigurationManager Initialize()
+    {
+        Debug.Log("Loading Configuration Manager");
+        return this;
+    }
+
     private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
 
-    private int _playerNum;
+    [SerializeField] private List<Sprite> _playerNums;
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(this);
-    }
+    public bool InLoadout { get; set; } = false;
+
+    private int _playerNum = 0;
 
     public void SetPlayerHead(int index, Sprite head)
     {
@@ -36,18 +41,28 @@ public class ConfigurationManager : MonoBehaviour
 
         if (_playerConfigs.All(p => p.IsReady == true) && _playerNum > 1)
         {
-          SceneManager.LoadScene(2);
+          SceneManager.LoadScene(3);
         }
     }
 
     public void HandlePlayerJoin(PlayerInput pi)
     {
+        if (!InLoadout)
+            return;
         if (!_playerConfigs.Any(p =>p.PlayerIndex == pi.playerIndex))
         {
+            Debug.Log("Player Has Joined");
             pi.transform.SetParent(transform);
             _playerConfigs.Add(new PlayerConfiguration(pi));
+            _playerConfigs[_playerNum].Num = _playerNums[_playerNum];
             _playerNum++;
         }
+    }
+
+    public void ResetConfigs()
+    {
+        _playerConfigs.Clear();
+        _playerNum = 0;
     }
 
     public List<PlayerConfiguration> GetPlayerConfigs()
@@ -75,5 +90,6 @@ public class PlayerConfiguration
     public int Score { get; set; }
     public Sprite Head { get; set; }
     public Sprite Body { get; set; }
+    public Sprite Num { get; set; }
     public string Name { get; set; }
 }

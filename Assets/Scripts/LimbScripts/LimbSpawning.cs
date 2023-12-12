@@ -1,14 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class LimbSpawning : MonoBehaviour
 {
+    public enum SpawningType
+    { 
+        Random,
+        Specific
+    }
     /*
      * SPAWN LIMBS IN A RANGE
      */
-    public List<PlayerInput> playerList = new List<PlayerInput>();
+    GameLoader _loader;
+    GameManager _gm;
 
     public int playerCount;
 
@@ -45,9 +49,20 @@ public class LimbSpawning : MonoBehaviour
 
     private static System.Random rnd = new System.Random();
 
-    private void Start()
+    private bool _initialized = false;
+
+    private void Awake()
     {
-        _limbManager = GetComponent<LimbManager>();
+        _loader = ServiceLocator.Get<GameLoader>();
+        _loader.CallOnComplete(Initialize);
+    }
+
+    private void Initialize()
+    {
+        _gm = ServiceLocator.Get<GameManager>();
+        _limbManager = ServiceLocator.Get<LimbManager>();
+
+        _limbManager.Initialize();
 
         _left = _leftLimit.position.x;
         _right = _rightLimit.position.x;
@@ -58,42 +73,47 @@ public class LimbSpawning : MonoBehaviour
         {
             double val = rnd.NextDouble() * (_right - _left) + _left;
             _spawnPosX = (float)val;
-            SpawnLimb();
+            SpawnLimbRandom();
         }
 
         double time = rnd.NextDouble() * (_maxSpawnTimer - _minSpawnTimer) + _minSpawnTimer;
         _limbTimer = (float)time;
+        _initialized = true;
     }
 
     private void Update()
     {
-        if (_currentLimbs < _limbLimit)
+		if (!_initialized)
         {
-            _limbTimer -= Time.deltaTime;
+            return;
         }
+        if (_currentLimbs >= _limbLimit)
+            return;
+        
+        _limbTimer -= Time.deltaTime;
 
         if (_limbTimer <= 0.0f)
         {
-            SpawnLimb();
+            SpawnLimbRandom();
             double time = rnd.NextDouble() * (_maxSpawnTimer - _minSpawnTimer) + _minSpawnTimer;
             _limbTimer = (float)time;
         }
     }
 
-    private void SpawnLimb()
+    private void SpawnLimbRandom()
     {
-        playerCount = GameManager.instance.GetPlayerCount();
-
-        if(playerCount > 1)
+        if (playerCount <= 1)
         {
-            int index = rnd.Next(_limbOptions.Count);
-            double val = rnd.NextDouble() * (_right - _left) + _left;
-            double val2 = rnd.NextDouble() * _maxAngularVelocity;
-            _spawnPosX = (float)val;
-            Limb limb = Instantiate(_limbOptions[index], new Vector3(_spawnPosX, _spawnPosY, 0), Quaternion.identity).GetComponent<Limb>();
-            limb.GetComponent<Rigidbody2D>().angularVelocity = (float)val2;
-            _limbManager.AddLimb(limb);
-            _currentLimbs++;
+            playerCount = _gm.GetPlayerCount();
+            return;
         }
+        
+        int index = rnd.Next(_limbOptions.Count);
+        double val = rnd.NextDouble() * (_right - _left) + _left;
+        double val2 = rnd.NextDouble() * _maxAngularVelocity;
+        _spawnPosX = (float)val;
+        Limb limb = Instantiate(_limbOptions[index], new Vector3(_spawnPosX, _spawnPosY, 0), Quaternion.identity).GetComponent<Limb>();
+        limb.GetComponent<Rigidbody2D>().angularVelocity = (float)val2;
+        _currentLimbs++;
     }
 }

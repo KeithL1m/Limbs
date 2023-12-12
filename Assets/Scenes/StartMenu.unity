@@ -413,7 +413,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a58ad37e50fe8449c6ee6893cf4adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: 1
+  SelectedButton: {fileID: 1766101337}
+  _textureToSave: {fileID: 2800000, guid: d06d8ad3841f4874795133aa047f7881, type: 3}
+  nextScene: 2
 --- !u!1 &1453451309
 GameObject:
   m_ObjectHideFlags: 0

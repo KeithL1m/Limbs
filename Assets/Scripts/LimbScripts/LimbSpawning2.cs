@@ -7,6 +7,7 @@ public class LimbSpawning2 : MonoBehaviour
     /*
      * SPAWN LIMBS USING SPAWN POINTS 
      */
+    GameLoader _loader;
 
     private LimbManager _limbManager;
 
@@ -32,13 +33,22 @@ public class LimbSpawning2 : MonoBehaviour
 
     private static System.Random rnd = new System.Random();
 
-    private void Start()
+
+    private void Awake()
     {
-        _limbManager= GetComponent<LimbManager>();
+        _loader = ServiceLocator.Get<GameLoader>();
+        _loader.CallOnComplete(Initialize);
+    }
+
+    private void Initialize()
+    {
+        _limbManager = ServiceLocator.Get<LimbManager>();
+
+        _limbManager.Initialize();
 
         for (int i = 0; i < _startLimbCount; i++)
         {
-            SpawnLimb();
+            SpawnLimbSpecific();
         }
 
         double time = rnd.NextDouble() * (_maxSpawnTimer - _minSpawnTimer) + _minSpawnTimer;
@@ -54,18 +64,18 @@ public class LimbSpawning2 : MonoBehaviour
 
         if (_limbTimer <= 0.0f)
         {
-            SpawnLimb();
+            SpawnLimbSpecific();
             double time = rnd.NextDouble() * (_maxSpawnTimer - _minSpawnTimer) + _minSpawnTimer;
             _limbTimer = (float)time;
         }
     }
 
-    private void SpawnLimb()
+    private void SpawnLimbSpecific()
     {
         int index = rnd.Next(_limbOptions.Count);
-        Vector3 position = _spawnPositions[index].transform.position;
+        int spawnIndex = rnd.Next(_spawnPositions.Count);
+        Vector3 position = _spawnPositions[spawnIndex].transform.position;
         Limb limb = Instantiate(_limbOptions[index], new Vector3(position.x, position.y, position.z), Quaternion.identity).GetComponent<Limb>();
-        _limbManager.AddLimb(limb);
         _currentLimbs++;
     }
 }
