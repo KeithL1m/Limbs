@@ -74,4 +74,9 @@ public class LimbManager : Manager
     {
         _limbs.Add(limb);
     }
+
+    public void ClearList()
+    {
+        _limbs.Clear();
+    }
 }
