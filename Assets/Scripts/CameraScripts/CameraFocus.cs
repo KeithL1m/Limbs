@@ -19,6 +19,5 @@ public class CameraFocus : MonoBehaviour
         bounds.Encapsulate(new Vector3(position.x - _halfXBounds, position.y - _halfYBounds, position.z - _halfZBounds));
         bounds.Encapsulate(new Vector3(position.x + _halfXBounds, position.y + _halfYBounds, position.z + _halfZBounds));
         focusBounds = bounds;
-
     }
 }

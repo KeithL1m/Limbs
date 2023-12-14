@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text gameOverText;
     [SerializeField] private string[] gameOverMessages;
 
+    [SerializeField] private SceneFade _fade;
+
     private float originalTimeScale = 1.0f;
 
     private int playerCount;
@@ -162,5 +164,10 @@ public class UIManager : MonoBehaviour
 
         _players.Clear();
         _positions.Clear();
+    }
+
+    public SceneFade GetFade()
+    {
+        return _fade;
     }
 }
