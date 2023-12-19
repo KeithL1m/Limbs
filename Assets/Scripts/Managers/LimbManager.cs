@@ -32,39 +32,41 @@ public class LimbManager : Manager
         {
             Limb limb = _limbs[i];
 
-            if (limb.State == Limb.LimbState.PickUp)
+            if (!limb.CanPickUp)
             {
-                if (limb.LimbTimer)
+                limb.PickupTimer -= Time.deltaTime;
+                if (limb.PickupTimer <= 0.0f)
                 {
-                    limb.CanNotPickUp -= Time.deltaTime;
+                    limb.CanPickUp = true;
+                    if (limb.State == Limb.LimbState.Attached)
+                    {
+                        limb.CanPickUp = true;
+                        limb.PickupTimer = 0.2f;
+                    }
                 }
-                continue;
             }
 
             if (limb.State == Limb.LimbState.Attached && limb.AnchorPoint != null)
             {
-                limb.transform.position = limb.AnchorPoint.position;
-                limb.Trail.SetActive(false);
+                limb.AttachedUpdate();
             }
             else if (limb.State == Limb.LimbState.Throwing || limb.State == Limb.LimbState.Returning)
             {
-                if (limb.State == Limb.LimbState.Returning)
-                {
-                    if (limb.LimbTimer)
-                    {
-                        limb.CanNotPickUp -= Time.deltaTime;
-                    }
-                }
+                
                 if (limb.LimbRB.velocity.magnitude < 4.0f)
                 {
-                    limb.Flip(1);
-                    Physics2D.IgnoreCollision(limb.AttachedPlayer.GetComponent<Collider2D>(), limb.GetComponent<Collider2D>(), false);
-                    limb.Trail.SetActive(false);
-                    limb.PickUpIndicator.SetActive(true);
-                    limb.State = Limb.LimbState.PickUp;
-                    limb.AttachedPlayer = null;
-                    limb.AttachedPlayerLimbs = null;
-                    limb.LimbTimer = true;
+                    if (!limb.CanPickUp)
+                    {
+                        continue;
+                    }
+                    else if (limb.PickupTimer > 0.1f)
+                    {
+                        limb.CanPickUp = false;
+                        continue;
+                    }
+
+                    limb.PickupTimer = 0.2f;
+                    limb.EnterPickupState();
                 }
             }
         }
@@ -73,5 +75,10 @@ public class LimbManager : Manager
     public void AddLimb(Limb limb)
     {
         _limbs.Add(limb);
+    }
+
+    public void ClearList()
+    {
+        _limbs.Clear();
     }
 }

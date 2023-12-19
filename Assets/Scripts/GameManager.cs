@@ -142,6 +142,7 @@ public class GameManager : Manager
             }
         }
 
+        ServiceLocator.Get<LimbManager>().ClearList();
         _mapManager.ChangeScene();
     }
 

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CapsuleCollider2D))]
 public class Limb : MonoBehaviour
 {
     public enum LimbType
@@ -18,10 +19,10 @@ public class Limb : MonoBehaviour
         PickUp
     }
 
-    [HideInInspector] public Player AttachedPlayer { get; set; }
-    [HideInInspector] public PlayerLimbs AttachedPlayerLimbs { get; set; }
+    private Player _attachedPlayer;
+    private PlayerLimbs _attachedPlayerLimbs;
     [HideInInspector] public Transform AnchorPoint { get; set; } = null;
-    [HideInInspector] public Rigidbody2D LimbRB { get; set; }
+    [HideInInspector] public Rigidbody2D LimbRB { get; private set; } = null;
 
     [SerializeField] private SpriteRenderer _sprite;
 
@@ -32,8 +33,9 @@ public class Limb : MonoBehaviour
     [field: SerializeField] public GameObject Trail { get; set; }
     [field: SerializeField]  public GameObject PickUpIndicator { get; set; }
 
-    public float CanNotPickUp { get; set; } = 0.0f;
-    public bool LimbTimer { get; set; } = true;
+    [field: SerializeField] public bool CanPickUp { get; set; }
+    [field: SerializeField] public float PickupTimer { get; set; }
+
 
     //limb properties
     public float Size { get; set; }
@@ -68,31 +70,34 @@ public class Limb : MonoBehaviour
         _damage = _limbData._damage;
         _specialDamage = _limbData._specialDamage;
         _rVMultiplier = _limbData._returnVelocityMultiplier;
+
+        PickupTimer = 0.2f;
+        CanPickUp = true;
     }
 
     public void ThrowLimb(int direction)
     {
-        AttachedPlayerLimbs.MoveBodyDown();
+        _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
         State = LimbState.Throwing;
 
         Trail.SetActive(true);
 
-        if (AttachedPlayer._inputHandler.Aim.x == 0.0f && AttachedPlayer._inputHandler.Aim.y == 0.0f && !AttachedPlayer._inputHandler.FlickAiming)
+        if (_attachedPlayer._inputHandler.Aim.x == 0.0f && _attachedPlayer._inputHandler.Aim.y == 0.0f && !_attachedPlayer._inputHandler.FlickAiming)
         {
             _throwVelocity.x = Mathf.Abs(_throwVelocity.x);
             _throwVelocity.x *= direction;
             LimbRB.velocity = _throwVelocity;
         }
-        else if (AttachedPlayer._inputHandler.FlickAiming)
+        else if (_attachedPlayer._inputHandler.FlickAiming)
         {
-            Vector2 tVelocity = AttachedPlayer.LastAimed;
+            Vector2 tVelocity = _attachedPlayer.LastAimed;
             tVelocity *= _throwSpeed;
             LimbRB.velocity = tVelocity;
         }
         else
         {
-            Vector2 tVelocity = AttachedPlayer._inputHandler.Aim;
+            Vector2 tVelocity = _attachedPlayer._inputHandler.Aim;
             tVelocity *= _throwSpeed;
             LimbRB.velocity = tVelocity;
         }
@@ -116,6 +121,33 @@ public class Limb : MonoBehaviour
         //for if we ever do melee
     }
 
+    public void AttachedUpdate()
+    {
+        PickupTimer = 0.2f;
+        transform.position = AnchorPoint.position;
+        if (Trail != null)
+        {
+            Trail.SetActive(false);
+        }
+    }
+
+    public void EnterPickupState()
+    {
+        Flip(1);
+        Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
+        State = LimbState.PickUp;
+        _attachedPlayer = null;
+        _attachedPlayerLimbs = null;
+        if (Trail != null)
+        {
+            Trail.SetActive(false);
+        }
+        if (PickUpIndicator != null)
+        {
+            PickUpIndicator.SetActive(true);
+        }
+    }
+
     public void Flip(int i )
     {
         if (i < 0)
@@ -136,7 +168,6 @@ public class Limb : MonoBehaviour
         else if (State != LimbState.Throwing)
             return;
 
-        LimbTimer = true;
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
         _healthPlayer.AddDamage(_damage + _specialDamage);
         ReturnLimb();
@@ -149,13 +180,8 @@ public class Limb : MonoBehaviour
             return;
         else if (State == LimbState.Attached)
             return;
-        else if (State == LimbState.Returning && collision.gameObject.GetComponent<Player>() != AttachedPlayer)
+        else if (State == LimbState.Returning && collision.gameObject.GetComponent<Player>() != _attachedPlayer)
             return;
-        else if (CanNotPickUp > 0f)
-            return;
-
-        LimbTimer = false;
-        CanNotPickUp = 0.1f;
 
         if (State == LimbState.Throwing)
         {
@@ -165,9 +191,10 @@ public class Limb : MonoBehaviour
 
         if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
         {
+            PickupTimer = 0.2f;
             PickUpIndicator.SetActive(false);
-            AttachedPlayer = collision.gameObject.GetComponent<Player>();
-            AttachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
+            _attachedPlayer = collision.gameObject.GetComponent<Player>();
+            _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
             if (Type == LimbType.Arm)
             {
 
@@ -186,9 +213,7 @@ public class Limb : MonoBehaviour
             return;
         else if (State == LimbState.Attached)
             return;
-        else if (State == LimbState.Returning && collision.gameObject.GetComponent<Player>() != AttachedPlayer)
-            return;
-        else if (CanNotPickUp > 0f)
+        else if (State == LimbState.Returning && collision.gameObject.GetComponent<Player>() != _attachedPlayer)
             return;
 
         if (State == LimbState.Throwing)
@@ -199,11 +224,10 @@ public class Limb : MonoBehaviour
 
         if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
         {
-            LimbTimer = false;
-            CanNotPickUp = 0.1f;
+            PickupTimer = 0.2f;
             PickUpIndicator.SetActive(false);
-            AttachedPlayer = collision.gameObject.GetComponent<Player>();
-            AttachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
+            _attachedPlayer = collision.gameObject.GetComponent<Player>();
+            _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
             if (Type == LimbType.Arm)
             {
 
