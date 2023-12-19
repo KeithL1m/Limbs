@@ -32,8 +32,6 @@ public class Limb : MonoBehaviour
     [field: SerializeField] public GameObject Trail { get; set; }
     [field: SerializeField]  public GameObject PickUpIndicator { get; set; }
 
-    public float CanNotPickUp { get; set; } = 0.0f;
-    public bool LimbTimer { get; set; } = true;
 
     //limb properties
     public float Size { get; set; }
@@ -136,7 +134,6 @@ public class Limb : MonoBehaviour
         else if (State != LimbState.Throwing)
             return;
 
-        LimbTimer = true;
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
         _healthPlayer.AddDamage(_damage + _specialDamage);
         ReturnLimb();
@@ -151,11 +148,6 @@ public class Limb : MonoBehaviour
             return;
         else if (State == LimbState.Returning && collision.gameObject.GetComponent<Player>() != AttachedPlayer)
             return;
-        else if (CanNotPickUp > 0f)
-            return;
-
-        LimbTimer = false;
-        CanNotPickUp = 0.1f;
 
         if (State == LimbState.Throwing)
         {
@@ -188,8 +180,6 @@ public class Limb : MonoBehaviour
             return;
         else if (State == LimbState.Returning && collision.gameObject.GetComponent<Player>() != AttachedPlayer)
             return;
-        else if (CanNotPickUp > 0f)
-            return;
 
         if (State == LimbState.Throwing)
         {
@@ -199,8 +189,6 @@ public class Limb : MonoBehaviour
 
         if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
         {
-            LimbTimer = false;
-            CanNotPickUp = 0.1f;
             PickUpIndicator.SetActive(false);
             AttachedPlayer = collision.gameObject.GetComponent<Player>();
             AttachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();

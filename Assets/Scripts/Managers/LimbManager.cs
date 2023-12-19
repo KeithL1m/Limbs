@@ -32,14 +32,7 @@ public class LimbManager : Manager
         {
             Limb limb = _limbs[i];
 
-            if (limb.State == Limb.LimbState.PickUp)
-            {
-                if (limb.LimbTimer)
-                {
-                    limb.CanNotPickUp -= Time.deltaTime;
-                }
-                continue;
-            }
+            
 
             if (limb.State == Limb.LimbState.Attached && limb.AnchorPoint != null)
             {
@@ -48,13 +41,7 @@ public class LimbManager : Manager
             }
             else if (limb.State == Limb.LimbState.Throwing || limb.State == Limb.LimbState.Returning)
             {
-                if (limb.State == Limb.LimbState.Returning)
-                {
-                    if (limb.LimbTimer)
-                    {
-                        limb.CanNotPickUp -= Time.deltaTime;
-                    }
-                }
+                
                 if (limb.LimbRB.velocity.magnitude < 4.0f)
                 {
                     limb.Flip(1);
@@ -64,7 +51,6 @@ public class LimbManager : Manager
                     limb.State = Limb.LimbState.PickUp;
                     limb.AttachedPlayer = null;
                     limb.AttachedPlayerLimbs = null;
-                    limb.LimbTimer = true;
                 }
             }
         }
