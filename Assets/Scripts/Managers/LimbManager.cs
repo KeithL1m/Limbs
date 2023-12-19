@@ -32,6 +32,20 @@ public class LimbManager : Manager
         {
             Limb limb = _limbs[i];
 
+            if (!limb.CanPickUp)
+            {
+                limb.PickupTimer -= Time.deltaTime;
+                if (limb.PickupTimer <= 0.0f)
+                {
+                    limb.CanPickUp = true;
+                    if (limb.State == Limb.LimbState.Attached)
+                    {
+                        limb.CanPickUp = true;
+                        limb.PickupTimer = 0.2f;
+                    }
+                }
+            }
+
             if (limb.State == Limb.LimbState.Attached && limb.AnchorPoint != null)
             {
                 limb.AttachedUpdate();
@@ -41,6 +55,17 @@ public class LimbManager : Manager
                 
                 if (limb.LimbRB.velocity.magnitude < 4.0f)
                 {
+                    if (!limb.CanPickUp)
+                    {
+                        continue;
+                    }
+                    else if (limb.PickupTimer > 0.1f)
+                    {
+                        limb.CanPickUp = false;
+                        continue;
+                    }
+
+                    limb.PickupTimer = 0.2f;
                     limb.EnterPickupState();
                 }
             }

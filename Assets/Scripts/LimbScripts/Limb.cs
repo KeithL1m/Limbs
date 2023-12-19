@@ -33,6 +33,9 @@ public class Limb : MonoBehaviour
     [field: SerializeField] public GameObject Trail { get; set; }
     [field: SerializeField]  public GameObject PickUpIndicator { get; set; }
 
+    [field: SerializeField] public bool CanPickUp { get; set; }
+    [field: SerializeField] public float PickupTimer { get; set; }
+
 
     //limb properties
     public float Size { get; set; }
@@ -67,6 +70,9 @@ public class Limb : MonoBehaviour
         _damage = _limbData._damage;
         _specialDamage = _limbData._specialDamage;
         _rVMultiplier = _limbData._returnVelocityMultiplier;
+
+        PickupTimer = 0.2f;
+        CanPickUp = true;
     }
 
     public void ThrowLimb(int direction)
@@ -117,6 +123,7 @@ public class Limb : MonoBehaviour
 
     public void AttachedUpdate()
     {
+        PickupTimer = 0.2f;
         transform.position = AnchorPoint.position;
         if (Trail != null)
         {
@@ -128,7 +135,7 @@ public class Limb : MonoBehaviour
     {
         Flip(1);
         Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
-        State = Limb.LimbState.PickUp;
+        State = LimbState.PickUp;
         _attachedPlayer = null;
         _attachedPlayerLimbs = null;
         if (Trail != null)
@@ -184,6 +191,7 @@ public class Limb : MonoBehaviour
 
         if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
         {
+            PickupTimer = 0.2f;
             PickUpIndicator.SetActive(false);
             _attachedPlayer = collision.gameObject.GetComponent<Player>();
             _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
@@ -216,6 +224,7 @@ public class Limb : MonoBehaviour
 
         if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
         {
+            PickupTimer = 0.2f;
             PickUpIndicator.SetActive(false);
             _attachedPlayer = collision.gameObject.GetComponent<Player>();
             _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
