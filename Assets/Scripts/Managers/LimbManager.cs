@@ -32,25 +32,16 @@ public class LimbManager : Manager
         {
             Limb limb = _limbs[i];
 
-            
-
             if (limb.State == Limb.LimbState.Attached && limb.AnchorPoint != null)
             {
-                limb.transform.position = limb.AnchorPoint.position;
-                limb.Trail.SetActive(false);
+                limb.AttachedUpdate();
             }
             else if (limb.State == Limb.LimbState.Throwing || limb.State == Limb.LimbState.Returning)
             {
                 
                 if (limb.LimbRB.velocity.magnitude < 4.0f)
                 {
-                    limb.Flip(1);
-                    Physics2D.IgnoreCollision(limb.AttachedPlayer.GetComponent<Collider2D>(), limb.GetComponent<Collider2D>(), false);
-                    limb.Trail.SetActive(false);
-                    limb.PickUpIndicator.SetActive(true);
-                    limb.State = Limb.LimbState.PickUp;
-                    limb.AttachedPlayer = null;
-                    limb.AttachedPlayerLimbs = null;
+                    limb.EnterPickupState();
                 }
             }
         }
