@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     //facing left = -1, right = 1
     public int direction;
     private bool _initialized = false;
+    private bool _canThrow = true;
     public Vector2 LastAimed { get; private set; } = Vector2.zero;
 
 
@@ -90,11 +91,15 @@ public class Player : MonoBehaviour
         }
 
         /*throwing limbs*/
-        if (_inputHandler.ThrowLimb > 0.5f && _playerLimbs.CanThrowLimb()) 
+        if (_inputHandler.ThrowLimb > 0.5f && _playerLimbs.CanThrowLimb() && _canThrow) 
         {
             _playerLimbs.ThrowLimb(direction);
+            _canThrow = false;
         }
-
+        else if (_inputHandler.ThrowLimb < 0.5f)
+        {
+            _canThrow = true;
+        }
         //limb attack?
 
 

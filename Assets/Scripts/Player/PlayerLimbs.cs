@@ -200,11 +200,15 @@ public class PlayerLimbs : MonoBehaviour
     public void ThrowLimb(int direction)
     {
         _limbs[(int)_selectedLimb].ThrowLimb(direction);
-        _limbs[(int)_selectedLimb] = null;
-        if (_selectedLimb != SelectedLimb.LeftLeg)
+
+        if (!_limbs[(int)_selectedLimb].TripleShot)
         {
-            _selectedLimb--;
+            _limbs[(int)_selectedLimb] = null;
+            if (_selectedLimb != SelectedLimb.LeftLeg)
+            {
+                _selectedLimb--;
+            }
+            _canThrow = false;
         }
-        _canThrow = false;
     }
 }

@@ -55,6 +55,7 @@ public class PlayerInputHandler : MonoBehaviour
         if (ctx.action.name != "Aim")
             return;
         Aim = ctx.ReadValue<Vector2>();
+        Debug.Log(Aim);
     }
 
     public void FlickAimInput(InputAction.CallbackContext ctx)

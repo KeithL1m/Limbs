@@ -19,8 +19,8 @@ public class Limb : MonoBehaviour
         PickUp
     }
 
-    private Player _attachedPlayer;
-    private PlayerLimbs _attachedPlayerLimbs;
+    protected Player _attachedPlayer;
+    protected PlayerLimbs _attachedPlayerLimbs;
     [HideInInspector] public Transform AnchorPoint { get; set; } = null;
     [HideInInspector] public Rigidbody2D LimbRB { get; private set; } = null;
 
@@ -39,12 +39,14 @@ public class Limb : MonoBehaviour
 
     //limb properties
     public float Size { get; set; }
-    private Vector2 _throwVelocity; //used when not aiming
-    private float _throwSpeed; //used when aiming
+    protected Vector2 _throwVelocity; //used when not aiming
+    protected float _throwSpeed; //used when aiming
     private float _damage;
     private float _specialDamage;
-    private Vector3 _returnVelocity;
-    private float _rVMultiplier;
+    protected Vector3 _returnVelocity;
+    protected float _rVMultiplier;
+
+    public bool TripleShot = false;
 
     private void Awake()
     {
@@ -52,7 +54,7 @@ public class Limb : MonoBehaviour
         loader.CallOnComplete(Initialize);
     }
 
-    private void Initialize()
+    protected virtual void Initialize()
     {
         ServiceLocator.Get<LimbManager>().AddLimb(this);
         State = LimbState.PickUp;
@@ -75,7 +77,7 @@ public class Limb : MonoBehaviour
         CanPickUp = true;
     }
 
-    public void ThrowLimb(int direction)
+    public virtual void ThrowLimb(int direction)
     {
         _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
@@ -197,7 +199,6 @@ public class Limb : MonoBehaviour
             _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
             if (Type == LimbType.Arm)
             {
-
                 LimbRB.SetRotation(90);
             }
             if (Type == LimbType.Leg)
@@ -230,7 +231,6 @@ public class Limb : MonoBehaviour
             _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
             if (Type == LimbType.Arm)
             {
-
                 LimbRB.SetRotation(90);
             }
             if (Type == LimbType.Leg)
