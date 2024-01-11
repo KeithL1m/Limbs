@@ -86,8 +86,10 @@ public class StickyBomb : Limb
                 gameObject.transform.position = _player.transform.position;
                 break;
             case BombStickState.Environment:
-                //LimbRB.velocity = Vector2.zero;
+                LimbRB.velocity = Vector2.zero;
                 LimbRB.isKinematic = true;
+                LimbRB.freezeRotation = true;
+                
                 break;
             default:
                 break;
