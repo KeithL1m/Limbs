@@ -31,7 +31,7 @@ public class Limb : MonoBehaviour
 
     [SerializeField] private LimbData _limbData;
     [field: SerializeField] public GameObject Trail { get; set; }
-    [field: SerializeField]  public GameObject PickUpIndicator { get; set; }
+    [field: SerializeField] public GameObject PickUpIndicator { get; set; }
 
     [field: SerializeField] public bool CanPickUp { get; set; }
     [field: SerializeField] public float PickupTimer { get; set; }
@@ -150,7 +150,7 @@ public class Limb : MonoBehaviour
         }
     }
 
-    public void Flip(int i )
+    public void Flip(int i)
     {
         if (i < 0)
         {
@@ -163,8 +163,13 @@ public class Limb : MonoBehaviour
     }
 
     // Limb damage
-    private void OnCollisionEnter2D(Collision2D collision)
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("BreakWall"))
+        {
+            collision.gameObject.GetComponent<LimbInstantiateWall>().Damage();
+            ReturnLimb();
+        }
         if (collision.gameObject.tag != "Player")
             return;
         else if (State != LimbState.Throwing)
@@ -176,7 +181,7 @@ public class Limb : MonoBehaviour
     }
 
     // Limb pickup
-    private void OnTriggerEnter2D(Collider2D collision)
+    public virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag != "Player")
             return;
@@ -208,7 +213,7 @@ public class Limb : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    public virtual void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag != "Player")
             return;
