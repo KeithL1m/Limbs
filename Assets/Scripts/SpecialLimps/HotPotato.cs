@@ -1,14 +1,13 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosiveLimb : Limb
+public class HotPotato : Limb
 {
-    // countdown
-    [SerializeField] private float _timer = 3.0f;
-    float countdown = 0.0f;
+    // counter
+    [SerializeField] private int _explodeCounter = 5;
 
+    //explosion force
     Collider2D[] explosionRadius = null;
     private float _explosionForce = 300;
     private float _explosionRadius = 5;
@@ -31,20 +30,39 @@ public class ExplosiveLimb : Limb
         _damage = _limbData._damage;
         _specialDamage = _limbData._specialDamage;
         _rVMultiplier = _limbData._returnVelocityMultiplier;
-        countdown = _timer;
         _specialLimb = true;
     }
 
-    // timer for explosion
-    private IEnumerator ExplodeAfterDelay(Action callback)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        yield return new WaitForSeconds(countdown);
-        Explode();
-        callback?.Invoke();
+        if (State != LimbState.Throwing)
+            return;
+
+        // Art and what happens each state of hot potato
+        switch (_explodeCounter)
+        {
+            case 5:
+                break;
+            case 4:
+                break;
+            case 3:
+                break;
+            case 2:
+                break;
+            case 1:
+                break;
+            case 0:
+                Explode();
+                Destroy(gameObject);
+                break;
+            default:
+                break;
+        }
+
     }
 
     void Explode()
-    { 
+    {
         Debug.Log("BOOOOM");
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
@@ -53,37 +71,21 @@ public class ExplosiveLimb : Limb
         {
             Rigidbody2D item_rigidbody = item.GetComponent<Rigidbody2D>();
 
-            if(item_rigidbody != null)
+            if (item_rigidbody != null)
             {
                 Vector2 distanceVector = item.transform.position - transform.position;
-                if(distanceVector.magnitude > 0)
+                if (distanceVector.magnitude > 0)
                 {
                     float explosion = _explosionForce / distanceVector.magnitude;
                     item_rigidbody.AddForce(distanceVector.normalized * explosion);
-                    
-                    if(item.CompareTag("Player"))
+
+                    if (item.CompareTag("Player"))
                     {
-                        item.GetComponent<PlayerHealth>().AddDamage(35);
+                        item.GetComponent<PlayerHealth>().AddDamage(1000);
                     }
                 }
             }
         }
 
-    }
-
-    private void OnDrawGizmos() // draw gizmos
-    {
-        Gizmos.DrawWireSphere(transform.position, _explosionRadius);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (State != LimbState.Throwing)
-            return;
-        StartCoroutine(ExplodeAfterDelay(() =>
-        {
-            Destroy(gameObject);
-        }));
-        
     }
 }

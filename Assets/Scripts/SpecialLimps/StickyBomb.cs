@@ -57,6 +57,14 @@ public class StickyBomb : Limb
         {
             _state = BombStickState.Player;
             _player = collision.gameObject.GetComponent<Player>();
+
+
+
+            //stick to player
+            //var fixedJoint = gameObject.AddComponent(FixedJoint);
+            //anchor = contact;
+            //connectedBody = collision.collider.rigidbody;
+
         }
         else
         {
@@ -83,7 +91,7 @@ public class StickyBomb : Limb
                 break;
             case BombStickState.Player:
                 // update this limbs position to the _player position
-                gameObject.transform.position = _player.transform.position;
+                //gameObject.transform.position = _player.transform.position;
                 break;
             case BombStickState.Environment:
                 LimbRB.velocity = Vector2.zero;
