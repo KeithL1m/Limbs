@@ -7,11 +7,20 @@ public class TripleShot : Limb
     [SerializeField] private GameObject _bullet;
     public int _shotsLeft = 3;
 
+    [SerializeField] private Sprite _launcherTwo;
+    [SerializeField] private Sprite _launcherOne;
+    [SerializeField] private Sprite _launcherEmpty;
+    [SerializeField] private Sprite _bullet1;
+    [SerializeField] private Sprite _bullet2;
+    [SerializeField] private Sprite _bullet3;
+    private Sprite _currentBullet;
+
     protected override void Initialize()
     {
         base.Initialize();
 
         TripleShot = true;
+        _currentBullet = _bullet1;
     }
 
     public override void ThrowLimb(int direction)
@@ -35,12 +44,28 @@ public class TripleShot : Limb
             }
 
             Bullet bullet = Instantiate(_bullet).GetComponent<Bullet>();
-            bullet.Initialize(throwDirection, transform.position);
+            bullet.Initialize(throwDirection, transform.position, _currentBullet);
 
             Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>(), true);
             Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>(), true);
 
             _shotsLeft--;
+
+            if (_shotsLeft == 2)
+            {
+                _sprite.sprite = _launcherTwo;
+                _currentBullet = _bullet2;
+            }
+            else if (_shotsLeft == 1)
+            {
+                _sprite.sprite = _launcherOne;
+                _currentBullet = _bullet3;
+            }
+            else
+            {
+                _sprite.sprite = _launcherEmpty;
+            }
+
 
             return;
         }

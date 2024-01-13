@@ -69,7 +69,7 @@ public class PlayerLimbs : MonoBehaviour
     //used to attach a limb
     private void AttachLimb(int i)
     {
-        if (i == 0 || i == 1)
+        if (i < 2)
         {
             _limbs[i].Type = Limb.LimbType.Leg;
             if (i == 1)
@@ -81,6 +81,7 @@ public class PlayerLimbs : MonoBehaviour
                     MoveBodyUp(i);
                     _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + _limbs[0].Size);
                 }
+                _limbs[i].FlipX(-1);
             }
             else
             {
@@ -97,7 +98,7 @@ public class PlayerLimbs : MonoBehaviour
             if (i == 2)
             {
                 _limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x - _limbs[i].Size * 0.5f, _limbAnchors[i].position.y);
-                _limbs[i].Flip(-1);
+                _limbs[i].FlipY(-1);
             }
             else if (i == 3)
             {
@@ -112,7 +113,7 @@ public class PlayerLimbs : MonoBehaviour
         _limbs[i].GetComponent<Rigidbody2D>().simulated = false;
     }
 
-    //called when losing a leg limb
+    //called when picking up a leg limb
     private void MoveBodyUp(int i)
     {
         _collider.size = new Vector2(_originalSize.x, _originalSize.y + _limbs[i].Size);

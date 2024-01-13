@@ -24,7 +24,7 @@ public class Limb : MonoBehaviour
     [HideInInspector] public Transform AnchorPoint { get; set; } = null;
     [HideInInspector] public Rigidbody2D LimbRB { get; private set; } = null;
 
-    [SerializeField] private SpriteRenderer _sprite;
+    [SerializeField] protected SpriteRenderer _sprite;
 
     [HideInInspector] public LimbType Type { get; set; } //this will help most with animations
     [HideInInspector] public LimbState State { get; set; }
@@ -135,7 +135,8 @@ public class Limb : MonoBehaviour
 
     public void EnterPickupState()
     {
-        Flip(1);
+        FlipY(1);
+        FlipX(1);
         Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
         State = LimbState.PickUp;
         _attachedPlayer = null;
@@ -150,7 +151,7 @@ public class Limb : MonoBehaviour
         }
     }
 
-    public void Flip(int i )
+    public void FlipY(int i )
     {
         if (i < 0)
         {
@@ -159,6 +160,18 @@ public class Limb : MonoBehaviour
         else
         {
             _sprite.flipY = false;
+        }
+    }
+
+    public void FlipX(int i)
+    {
+        if (i < 0)
+        {
+            _sprite.flipX = true;
+        }
+        else
+        {
+            _sprite.flipX = false;
         }
     }
 
