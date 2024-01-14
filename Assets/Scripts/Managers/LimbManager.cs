@@ -77,6 +77,11 @@ public class LimbManager : Manager
         _limbs.Add(limb);
     }
 
+    public void RemoveLimb(Limb limb)
+    {
+        _limbs.Remove(limb);
+    }
+
     public void ClearList()
     {
         _limbs.Clear();
