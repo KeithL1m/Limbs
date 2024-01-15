@@ -148,6 +148,7 @@ public class Limb : MonoBehaviour
         {
             PickUpIndicator.SetActive(true);
         }
+
     }
 
     public void Flip(int i)
@@ -210,6 +211,7 @@ public class Limb : MonoBehaviour
             {
                 LimbRB.SetRotation(0);
             }
+            PickUpExtra(_attachedPlayer);
         }
     }
 
@@ -243,5 +245,10 @@ public class Limb : MonoBehaviour
                 LimbRB.SetRotation(0);
             }
         }
+
+        PickUpExtra(_attachedPlayer);
+
     }
+
+    public virtual void PickUpExtra(Player Player) { }
 }

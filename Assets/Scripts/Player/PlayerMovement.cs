@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInputHandler _inputHandler;
 
     [Header("Customizable")]
+    [SerializeField] private float[] extraAcceleration;
     [SerializeField] private float _2LegMoveSpeed;
     [SerializeField] private float _1LegMoveSpeed;
     [SerializeField] private float _noLegSpeed;
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _maxRotation = 33.5f;
 
     Vector3 zeroVector = Vector3.zero;
+    private int currentAccelerationLimbNumber = 0;
 
     public bool facingRight;
 
@@ -50,10 +52,10 @@ public class PlayerMovement : MonoBehaviour
         switch (state)
         {
             case PlayerLimbs.LimbState.TwoLeg:
-                moveSpeed *= _2LegMoveSpeed;
+                moveSpeed *= _2LegMoveSpeed* (1 + (extraAcceleration[currentAccelerationLimbNumber]));
                 break;
             case PlayerLimbs.LimbState.OneLeg:
-                moveSpeed *= _1LegMoveSpeed;
+                moveSpeed *= _1LegMoveSpeed * (1 + (extraAcceleration[currentAccelerationLimbNumber]));
                 break;
             case PlayerLimbs.LimbState.NoLimb:
                 _hopTimer -= Time.deltaTime;
@@ -71,6 +73,17 @@ public class PlayerMovement : MonoBehaviour
 
         Quaternion rotation = Quaternion.Euler(0f, 0f, currentRotation);
         _headRotation.rotation = rotation;
+    }
+
+    public void AddAccelerationLimb() 
+    {
+        Debug.Log("应该加速了");
+        currentAccelerationLimbNumber++;
+    }
+
+    public void RemoveAccelerationLimb() 
+    {
+        currentAccelerationLimbNumber--;
     }
 
     private void Hop(float moveSpeed)

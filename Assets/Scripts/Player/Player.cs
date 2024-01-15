@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
 
     //Player components
     private PlayerMovement _playerMovement;
+    public PlayerMovement PlayerMovement { get { return _playerMovement; } }
     private PlayerJump _playerJump;
     private PlayerLimbs _playerLimbs;
     [HideInInspector]
