@@ -58,8 +58,8 @@ public class StickyBomb : Limb
             _state = BombStickState.Player;
             _player = collision.gameObject.GetComponent<Player>();
 
+            // Stick to the player
             transform.SetParent(collision.transform);
-
             GetComponent<Rigidbody2D>().simulated= false;
         }
         else
@@ -86,7 +86,7 @@ public class StickyBomb : Limb
             case BombStickState.None:
                 break;
             case BombStickState.Player:
-                // stick to the player counter
+                // stick to the player counter (if wanted)
 
                 
                 break;
