@@ -61,10 +61,17 @@ public class Teleport : Limb
             offset = new Vector3(0, -size.y / 2);
         }
 
+        StartCoroutine(Wait());
+
         _attachedPlayer.ZeroVelocity();
         _attachedPlayer.transform.position = transform.position + offset;
         ServiceLocator.Get<LimbManager>().RemoveLimb(this);
         Destroy(gameObject);
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1.0f);
     }
 }
 
