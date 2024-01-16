@@ -14,7 +14,6 @@ public class StickyPlatform : MonoBehaviour
             rb = collision.collider.GetComponent<Rigidbody2D>();
             originalRBC = rb.constraints;
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
-
             StartCoroutine(UnstickPlayer());
             Debug.Log("STUCK");
         }
@@ -35,7 +34,7 @@ public class StickyPlatform : MonoBehaviour
             yield return null;
         }
             Debug.Log("Done sticking!");
-
+        Destroy(gameObject);
         rb.constraints = originalRBC;
     }
 
