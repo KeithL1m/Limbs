@@ -125,12 +125,12 @@ public class CameraManager : MonoBehaviour
         if (_currentDistance <= _lastDistance)
         {
             _camera.orthographicSize = Mathf.SmoothDamp(_camera.orthographicSize, _currentDistance, ref _zoomVelocity, _smoothZoomInTime);
-            Debug.Log("zoom in");
+            //Debug.Log("zoom in");
         }
         else
         {
             _camera.orthographicSize = Mathf.SmoothDamp(_camera.orthographicSize, _currentDistance, ref _zoomVelocity, _smoothZoomOutTime);
-            Debug.Log("zoom out");
+            //Debug.Log("zoom out");
         }
 
         _lastDistance = _currentDistance;

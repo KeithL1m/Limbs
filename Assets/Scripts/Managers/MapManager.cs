@@ -7,6 +7,8 @@ public class MapManager : Manager
     private GameLoader _loader = null;
     private GameManager _gm = null;
 
+    public SceneFade fade;
+
     [SerializeField] private int _mapCount;
     [SerializeField] private int _loadingMaps;
     [SerializeField] private int _victoryScreen;
@@ -27,6 +29,12 @@ public class MapManager : Manager
         _gm = ServiceLocator.Get<GameManager>();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
+
+    public void ChangeScene()
+    {
+        fade.FadeOut = true;
+    }
+
 
     public void LoadMap()
     {
