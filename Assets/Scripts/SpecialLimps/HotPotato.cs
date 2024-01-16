@@ -12,6 +12,13 @@ public class HotPotato : Limb
     private float _explosionForce = 300;
     private float _explosionRadius = 5;
 
+    //Hot potato phases
+    [SerializeField] Sprite _potato5;
+    [SerializeField] Sprite _potato4;
+    [SerializeField] Sprite _potato3;
+    [SerializeField] Sprite _potato2;
+    [SerializeField] Sprite _potato1;
+
 
     void Start()
     {
@@ -42,14 +49,19 @@ public class HotPotato : Limb
         switch (_explodeCounter)
         {
             case 5:
+                // potato sprite 5
                 break;
             case 4:
+                // potato sprite 4
                 break;
             case 3:
+                // potato sprite 3
                 break;
             case 2:
+                // potato sprite 2
                 break;
             case 1:
+                // potato sprite 1
                 break;
             case 0:
                 Explode();

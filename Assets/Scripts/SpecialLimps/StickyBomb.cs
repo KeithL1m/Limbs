@@ -58,13 +58,9 @@ public class StickyBomb : Limb
             _state = BombStickState.Player;
             _player = collision.gameObject.GetComponent<Player>();
 
+            transform.SetParent(collision.transform);
 
-
-            //stick to player
-            //var fixedJoint = gameObject.AddComponent(FixedJoint);
-            //anchor = contact;
-            //connectedBody = collision.collider.rigidbody;
-
+            GetComponent<Rigidbody2D>().simulated= false;
         }
         else
         {
@@ -90,10 +86,12 @@ public class StickyBomb : Limb
             case BombStickState.None:
                 break;
             case BombStickState.Player:
-                // update this limbs position to the _player position
-                //gameObject.transform.position = _player.transform.position;
+                // stick to the player counter
+
+                
                 break;
             case BombStickState.Environment:
+                // stick to the environment / wall
                 LimbRB.velocity = Vector2.zero;
                 LimbRB.isKinematic = true;
                 LimbRB.freezeRotation = true;
@@ -134,6 +132,7 @@ public class StickyBomb : Limb
                     if (item.CompareTag("Player"))
                     {
                         item.GetComponent<PlayerHealth>().AddDamage(35);
+                        
                     }
                 }
             }

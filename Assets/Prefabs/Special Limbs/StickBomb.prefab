@@ -318,10 +318,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7858356672939467842}
   - component: {fileID: 7965745459981159472}
+  - component: {fileID: 8979968550971920008}
   - component: {fileID: 7747594739649255799}
   - component: {fileID: 7031974623823099388}
   - component: {fileID: 7682079628322840279}
-  - component: {fileID: 8979968550971920008}
   m_Layer: 0
   m_Name: StickBomb
   m_TagString: Limb
@@ -399,6 +399,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8979968550971920008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6727379245335464739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e58bdcee8f4af4541a0de1f827b24364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sprite: {fileID: 7470400702023595257}
+  _limbData: {fileID: 11400000, guid: 76d2735fb647a41419933b8acfdb8866, type: 2}
+  <Trail>k__BackingField: {fileID: 747674157333451708}
+  <PickUpIndicator>k__BackingField: {fileID: 327099054212538446}
+  _specialLimb: 1
+  _timer: 6
 --- !u!70 &7747594739649255799
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -452,21 +470,3 @@ CircleCollider2D:
   m_Offset: {x: 0.0014047623, y: 0}
   serializedVersion: 2
   m_Radius: 1.0519805
---- !u!114 &8979968550971920008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6727379245335464739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e58bdcee8f4af4541a0de1f827b24364, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _sprite: {fileID: 7470400702023595257}
-  _limbData: {fileID: 11400000, guid: 76d2735fb647a41419933b8acfdb8866, type: 2}
-  <Trail>k__BackingField: {fileID: 747674157333451708}
-  <PickUpIndicator>k__BackingField: {fileID: 327099054212538446}
-  _specialLimb: 0
-  _timer: 6
