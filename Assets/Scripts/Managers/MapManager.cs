@@ -11,9 +11,6 @@ public class MapManager : Manager
     [SerializeField] private int _loadingMaps;
     [SerializeField] private int _victoryScreen;
 
-    [SerializeField] private int[] _specialMaps = { 13, 14, 15, 16};
-    private int specialMapCounter;
-
     //Previous Randomizer
     //private static System.Random rnd = new System.Random();
 
@@ -21,7 +18,6 @@ public class MapManager : Manager
     {
         _loader = ServiceLocator.Get<GameLoader>();
         _loader.CallOnComplete(Initialize);
-        specialMapCounter = 0;
     }
 
     private void Initialize()
