@@ -414,6 +414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedButton: {fileID: 1766101337}
+  _textureToSave: {fileID: 2800000, guid: d06d8ad3841f4874795133aa047f7881, type: 3}
   nextScene: 2
 --- !u!1 &1453451309
 GameObject:

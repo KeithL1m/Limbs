@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 258226899}
   - component: {fileID: 258226900}
   - component: {fileID: 258226901}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pinata
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -439,7 +439,7 @@ GameObject:
   - component: {fileID: 445212568}
   - component: {fileID: 445212567}
   - component: {fileID: 445212566}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,7 +595,7 @@ GameObject:
   - component: {fileID: 522089958}
   - component: {fileID: 522089957}
   - component: {fileID: 522089956}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -751,7 +751,7 @@ GameObject:
   - component: {fileID: 608354318}
   - component: {fileID: 608354317}
   - component: {fileID: 608354316}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -903,7 +903,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 661807559}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FullPinata
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -973,7 +973,7 @@ GameObject:
   - component: {fileID: 852879655}
   - component: {fileID: 852879654}
   - component: {fileID: 852879653}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Rope4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1079,7 +1079,7 @@ GameObject:
   - component: {fileID: 960729458}
   - component: {fileID: 960729457}
   - component: {fileID: 960729456}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Rope2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1187,7 +1187,7 @@ GameObject:
   - component: {fileID: 1072524689}
   - component: {fileID: 1072524688}
   - component: {fileID: 1072524687}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1341,7 +1341,7 @@ GameObject:
   - component: {fileID: 1209994641}
   - component: {fileID: 1209994640}
   - component: {fileID: 1209994639}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Rope3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1447,7 +1447,7 @@ GameObject:
   - component: {fileID: 1225964494}
   - component: {fileID: 1225964496}
   - component: {fileID: 1225964495}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Connector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1553,7 +1553,7 @@ GameObject:
   - component: {fileID: 1233170674}
   - component: {fileID: 1233170673}
   - component: {fileID: 1233170672}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Rope1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1661,7 +1661,7 @@ GameObject:
   - component: {fileID: 1426790344}
   - component: {fileID: 1426790343}
   - component: {fileID: 1426790342}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1815,7 +1815,7 @@ GameObject:
   - component: {fileID: 1528140303}
   - component: {fileID: 1528140302}
   - component: {fileID: 1528140301}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Rope5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2253,7 +2253,7 @@ GameObject:
   - component: {fileID: 1830159059}
   - component: {fileID: 1830159058}
   - component: {fileID: 1830159057}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Joint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2405,7 +2405,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1936476586}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Rope
   m_TagString: Untagged
   m_Icon: {fileID: 0}

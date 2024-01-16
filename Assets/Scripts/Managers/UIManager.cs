@@ -1,10 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Collections;
-using UnityEngine.SceneManagement;
-using Mono.Cecil;
 
 public class UIManager : MonoBehaviour
 {
@@ -25,6 +23,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameOverBG;
     [SerializeField] private TMP_Text gameOverText;
     [SerializeField] private string[] gameOverMessages;
+
+    [SerializeField] private SceneFade _fade;
 
     private float originalTimeScale = 1.0f;
 
@@ -164,5 +164,10 @@ public class UIManager : MonoBehaviour
 
         _players.Clear();
         _positions.Clear();
+    }
+
+    public SceneFade GetFade()
+    {
+        return _fade;
     }
 }

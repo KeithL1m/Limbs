@@ -1,29 +1,35 @@
 using System.Collections.Generic;
+using System.Net.Mime;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    public CameraFocus _focusLevel;
+   // public CameraFocus _focusLevel;
 
     public List<GameObject> _players;
 
+    public Bounds _maxBounds;
+    private Bounds _playerBounds;
+    private Vector3 _velocity;
 
-    public float depthUpdateSpeed = 5.0f;
-    public float angleUpdateSpeed = 7.0f;
-    public float positionUpdateSpeed = 5.0f;
+    public float _lastDistance = 0;
+    public float _currentDistance = 0;
 
-    public float depthMax = -10.0f;
-    public float depthMin = -22.0f;
+    private Vector3 _offset;
+    [SerializeField] private float _smoothTime = 0.3f;
+    [SerializeField] public float _smoothZoomInTime = 1f;
+    [SerializeField] public float _smoothZoomOutTime = 0.2f;
+    public float _minHeight = 12.5f;
+    public float _maxHeight;
 
-    public float angleMax = 11.0f;
-    public float angleMin = 3.0f;
-
-    private float _CameraEulerX;
-    private Vector3 CameraPosition;
-
+    public float _heightMultiplier = 1.7f;
+    public float _widthMultiplier = 1.3f;
+    public float _zoomLimiter;
+    private float _zoomVelocity;
 
     private GameLoader _gameLoader = null;
     private PlayerManager _playerManager = null;
+    private Camera _camera;
     private bool _initialized = false;
 
     void Start()
@@ -35,14 +41,38 @@ public class CameraManager : MonoBehaviour
     private void Initialize()
     {
         Debug.Log("Camera Manager Initializing");
-        // Add focus
-        _players.Add(_focusLevel.gameObject);
+
+        //get the max extents of the camera
+        _camera = GetComponent<Camera>();
+
+        Vector3 cameraPosition = transform.position;
+
+        float cameraHalfWidth = _camera.orthographicSize * _camera.aspect;
+        float cameraHalfHeight = _camera.orthographicSize;
+
+        Vector3 boundsMin = cameraPosition - new Vector3(cameraHalfWidth, cameraHalfHeight, 0f);
+        Vector3 boundsMax = cameraPosition + new Vector3(cameraHalfWidth, cameraHalfHeight, 0f);
+
+        _maxBounds = new Bounds(cameraPosition, Vector3.zero);
+        _maxBounds.min = boundsMin;
+        _maxBounds.max = boundsMax;
+
+        _maxHeight = cameraHalfHeight * 2f;
+
+        _offset = new Vector3(0, -1, -10);
 
         // Add players
         _playerManager = ServiceLocator.Get<PlayerManager>();
         var playerObjects = _playerManager.GetPlayerObjects();
         Debug.Log($"Camera is tracking {playerObjects.Count} players");
         _players.AddRange(playerObjects);
+
+        _playerBounds = new Bounds();
+        for (int i = 0; i < _players.Count; i++)
+        {
+            _playerBounds.Encapsulate(_players[i].transform.position);
+        }
+
         _initialized = true;
     }
 
@@ -53,63 +83,69 @@ public class CameraManager : MonoBehaviour
             return;
         }
 
-        CalculateCameraLocation();
         MoveCamera();
+        AdjustCameraSize();
     }
 
     private void MoveCamera()
     {
-        Vector3 position = gameObject.transform.position;
-        if (position != CameraPosition)
-        {
-            Vector3 targetPosition = Vector3.zero;
-            targetPosition.x = Mathf.MoveTowards(position.x, CameraPosition.x, positionUpdateSpeed * Time.deltaTime);
-            targetPosition.z = Mathf.MoveTowards(position.z, CameraPosition.z, depthUpdateSpeed * Time.deltaTime);
-            gameObject.transform.position = targetPosition;
+        Vector3 centrePoint = CalculateCentrePoint();
 
-            // If you want camera to bounce like players
-            //targetPosition.y = Mathf.MoveTowards(position.y, CameraPosition.y, positionUpdateSpeed * Time.deltaTime);
-        }
+        Vector3 newPos = centrePoint + _offset;
 
-        Vector3 localEulerAngles = gameObject.transform.localEulerAngles;
-        if (localEulerAngles.x != _CameraEulerX)
-        {
-            Vector3 targetEulerAngles = new Vector3(_CameraEulerX, localEulerAngles.y, localEulerAngles.z);
-            gameObject.transform.localEulerAngles = Vector3.MoveTowards(localEulerAngles, targetEulerAngles, angleUpdateSpeed * Time.deltaTime);
-        }
+        transform.position = Vector3.SmoothDamp(transform.position, newPos, ref _velocity, _smoothTime);
     }
 
-    private void CalculateCameraLocation()
+    private void AdjustCameraSize()
     {
-        Vector3 averageCenter = Vector3.zero;
-        Vector3 totalPositions = Vector3.zero;
-        Bounds playerBounds = new Bounds();
 
-        for (int i = 0; i < _players.Count; i++)
+        float distanceX = _playerBounds.size.x * _widthMultiplier;
+        float distanceY = _playerBounds.size.y * _heightMultiplier;
+
+        distanceX = distanceX / _camera.aspect;
+
+        _currentDistance = distanceX;
+
+        if (distanceY > _currentDistance)
         {
-            Vector3 playerPosition = _players[i].transform.position;
-
-            if (!_focusLevel.focusBounds.Contains(playerPosition))
-            {
-                float playerX = Mathf.Clamp(playerPosition.x, _focusLevel.focusBounds.min.x, _focusLevel.focusBounds.max.x);
-                float playerY = Mathf.Clamp(playerPosition.y, _focusLevel.focusBounds.min.y, _focusLevel.focusBounds.max.y);
-                float playerZ = Mathf.Clamp(playerPosition.z, _focusLevel.focusBounds.min.z, _focusLevel.focusBounds.max.z);
-                playerPosition = new Vector3(playerX, playerY, playerZ);
-            }
-
-            totalPositions += playerPosition;
-            playerBounds.Encapsulate(playerPosition);
+            _currentDistance = distanceY;
         }
 
-        averageCenter = (totalPositions / _players.Count);
+        if (_currentDistance > _maxHeight)
+        {
+            _currentDistance = _maxHeight;
+        }
+        else if (_currentDistance < _minHeight)
+        {
+            _currentDistance = _minHeight;
+        }
 
-        float extents = (playerBounds.extents.x + playerBounds.extents.y);
-        float lerpPercent = Mathf.InverseLerp(0, (_focusLevel._halfXBounds + _focusLevel._halfYBounds) / 2, extents);
+        _currentDistance *= 0.5f;
 
-        float depth = Mathf.Lerp(depthMax, depthMin, lerpPercent);
-        float angle = Mathf.Lerp(angleMax, angleMin, lerpPercent);
+        if (_currentDistance <= _lastDistance)
+        {
+            _camera.orthographicSize = Mathf.SmoothDamp(_camera.orthographicSize, _currentDistance, ref _zoomVelocity, _smoothZoomInTime);
+            Debug.Log("zoom in");
+        }
+        else
+        {
+            _camera.orthographicSize = Mathf.SmoothDamp(_camera.orthographicSize, _currentDistance, ref _zoomVelocity, _smoothZoomOutTime);
+            Debug.Log("zoom out");
+        }
 
-        _CameraEulerX = angle;
-        CameraPosition = new Vector3(averageCenter.x, averageCenter.y, depth);
+        _lastDistance = _currentDistance;
+    }
+
+    private Vector3 CalculateCentrePoint()
+    {
+        _playerBounds = new Bounds();
+        for (int i = 0; i < _players.Count; i++)
+        {
+            _playerBounds.Encapsulate(_players[i].transform.position);
+        }
+
+        //make sure camera doesn't move too far 
+
+        return _playerBounds.center;
     }
 }
