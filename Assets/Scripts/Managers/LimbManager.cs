@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,18 +8,16 @@ public class LimbManager : Manager
 
     public void Initialize()
     {
-        _limbs = new List<Limb>();
-        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Limb");
-        for (int i = 0; i < gameObjects.Length; i++)
+        if (!_initialized)
         {
-            Limb limb = gameObjects[i].GetComponent<Limb>();
-            if(limb != null)
-            {
-                _limbs.Add(limb);
-            }
+            _limbs = new List<Limb>();
+
+            _initialized = true;
         }
-		
-        _initialized = true;
+        else
+        {
+            _limbs.Clear();
+        }
     }
 
     void LateUpdate()
@@ -30,34 +27,46 @@ public class LimbManager : Manager
             return;
         }
 
-        UpdateLimbList();
-
         //make object pool for this
         for (int i = 0; i < _limbs.Count; i++)
         {
-            if (_limbs[i].State == Limb.LimbState.PickUp)
-                continue;
-            if (_limbs[i].State == Limb.LimbState.Attached && _limbs[i].AnchorPoint != null)
-            {
-                _limbs[i].transform.position = _limbs[i].AnchorPoint.position;
-                _limbs[i].Trail.SetActive(false);
-            }
-            else if (_limbs[i].State == Limb.LimbState.Throwing || _limbs[i].State == Limb.LimbState.Returning)
-            {
-                if(_limbs[i].LimbRB is null)
-                {
-                    continue;
-                }
+            Limb limb = _limbs[i];
 
-                if (_limbs[i].LimbRB?.velocity.magnitude < 4.0f && !_limbs[i]._specialLimb)
+            if (!limb.CanPickUp)
+            {
+                limb.PickupTimer -= Time.deltaTime;
+                if (limb.PickupTimer <= 0.0f)
                 {
-                    _limbs[i].Flip(1);
-                    Physics2D.IgnoreCollision(_limbs[i].AttachedPlayer.GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), false);
-                    _limbs[i].Trail.SetActive(false);
-                    _limbs[i].PickUpIndicator.SetActive(true);
-                    _limbs[i].State = Limb.LimbState.PickUp;
-                    _limbs[i].AttachedPlayer = null;
-                    _limbs[i].AttachedPlayerLimbs = null;
+                    limb.CanPickUp = true;
+                    if (limb.State == Limb.LimbState.Attached)
+                    {
+                        limb.CanPickUp = true;
+                        limb.PickupTimer = 0.2f;
+                    }
+                }
+            }
+
+            if (limb.State == Limb.LimbState.Attached && limb.AnchorPoint != null)
+            {
+                limb.AttachedUpdate();
+            }
+            else if (limb.State == Limb.LimbState.Throwing || limb.State == Limb.LimbState.Returning)
+            {
+                
+                if (limb.LimbRB.velocity.magnitude < 4.0f)
+                {
+                    if (!limb.CanPickUp)
+                    {
+                        continue;
+                    }
+                    else if (limb.PickupTimer > 0.1f)
+                    {
+                        limb.CanPickUp = false;
+                        continue;
+                    }
+
+                    limb.PickupTimer = 0.2f;
+                    limb.EnterPickupState();
                 }
             }
         }
@@ -68,14 +77,8 @@ public class LimbManager : Manager
         _limbs.Add(limb);
     }
 
-    private void UpdateLimbList()
+    public void ClearList()
     {
-        for(int i = _limbs.Count -1; i >= 0; --i)
-        {
-            if(_limbs[i] == null)
-            {
-                _limbs.RemoveAt(i);
-            }
-        }
+        _limbs.Clear();
     }
 }

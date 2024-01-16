@@ -23,7 +23,6 @@ public class LimbSpawning : MonoBehaviour
     private Transform _rightLimit;
     private float _right;
 
-    [SerializeField]
     private LimbManager _limbManager;
 
     [Header("Customizable")]
@@ -52,7 +51,7 @@ public class LimbSpawning : MonoBehaviour
 
     private bool _initialized = false;
 
-    private void Start()
+    private void Awake()
     {
         _loader = ServiceLocator.Get<GameLoader>();
         _loader.CallOnComplete(Initialize);
@@ -61,6 +60,7 @@ public class LimbSpawning : MonoBehaviour
     private void Initialize()
     {
         _gm = ServiceLocator.Get<GameManager>();
+        _limbManager = ServiceLocator.Get<LimbManager>();
 
         _limbManager.Initialize();
 
@@ -114,7 +114,6 @@ public class LimbSpawning : MonoBehaviour
         _spawnPosX = (float)val;
         Limb limb = Instantiate(_limbOptions[index], new Vector3(_spawnPosX, _spawnPosY, 0), Quaternion.identity).GetComponent<Limb>();
         limb.GetComponent<Rigidbody2D>().angularVelocity = (float)val2;
-        _limbManager.AddLimb(limb);
         _currentLimbs++;
     }
 }
