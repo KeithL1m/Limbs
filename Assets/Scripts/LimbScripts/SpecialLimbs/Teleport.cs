@@ -29,9 +29,40 @@ public class Teleport : Limb
         if (State != LimbState.Throwing)
             return;
 
-        //set teleport position and add delay?
+        bool top = false;
+        bool bottom = false;
 
-        _attachedPlayer.transform.position = transform.position;
+        ContactPoint2D point2D = collision.contacts[0];
+
+        Vector2 collNormal = point2D.normal;
+
+        if (Mathf.Abs(collNormal.y) > Mathf.Abs(collNormal.x))
+        {
+            if (collNormal.y > 0)
+            {
+                top = true;
+            }
+            else
+            {
+                bottom = true;
+            }
+        }
+
+        Vector3 offset = new();
+
+        if (top)
+        {
+            Vector3 size = _attachedPlayer.GetSize();
+            offset = new Vector3(0, size.y / 2);
+        }
+        else if (bottom)
+        {
+            Vector3 size = _attachedPlayer.GetSize();
+            offset = new Vector3(0, -size.y / 2);
+        }
+
+        _attachedPlayer.ZeroVelocity();
+        _attachedPlayer.transform.position = transform.position + offset;
         ServiceLocator.Get<LimbManager>().RemoveLimb(this);
         Destroy(gameObject);
     }

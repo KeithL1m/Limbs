@@ -36649,6 +36649,10 @@ PrefabInstance:
       value: -11.790001
       objectReference: {fileID: 0}
     - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
+      propertyPath: _limbLimit
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: _limbManager
       value: 
       objectReference: {fileID: 0}

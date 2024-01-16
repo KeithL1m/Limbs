@@ -212,4 +212,9 @@ public class PlayerLimbs : MonoBehaviour
             _canThrow = false;
         }
     }
+
+    public Vector3 GetSize()
+    {
+        return _collider.size;
+    }
 }
