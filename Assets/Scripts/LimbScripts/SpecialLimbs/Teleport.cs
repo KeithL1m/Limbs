@@ -48,30 +48,35 @@ public class Teleport : Limb
             }
         }
 
-        Vector3 offset = new();
+        Vector3 position = new();
 
         if (top)
         {
             Vector3 size = _attachedPlayer.GetSize();
-            offset = new Vector3(0, size.y / 2);
+            position = new Vector3(0, size.y / 2);
         }
         else if (bottom)
         {
             Vector3 size = _attachedPlayer.GetSize();
-            offset = new Vector3(0, -size.y / 2);
+            position = new Vector3(0, -size.y / 2);
         }
 
-        StartCoroutine(Wait());
+        position = transform.position + position;
 
-        _attachedPlayer.ZeroVelocity();
-        _attachedPlayer.transform.position = transform.position + offset;
-        ServiceLocator.Get<LimbManager>().RemoveLimb(this);
-        Destroy(gameObject);
+        LimbRB.constraints = RigidbodyConstraints2D.FreezeAll;
+
+        StartCoroutine(StartTeleport(position));
     }
 
-    IEnumerator Wait()
+    IEnumerator StartTeleport(Vector3 position)
     {
         yield return new WaitForSeconds(1.0f);
+        //could have animation play here
+
+        _attachedPlayer.ZeroVelocity();
+        _attachedPlayer.transform.position = position;
+        ServiceLocator.Get<LimbManager>().RemoveLimb(this);
+        Destroy(gameObject);
     }
 }
 
