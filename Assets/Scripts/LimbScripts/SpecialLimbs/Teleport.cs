@@ -5,19 +5,37 @@ using UnityEngine;
 public class Teleport : Limb
 {
     private bool _teleport = false;
+    private bool _startTeleport = false;
+
+    private Vector3 _teleportPosition = new();
     private float _timer = 0f;
+    private float _delay = 0.0f;
+
+    Player _teleportedPlayer;
 
     public override void ThrowLimb(int direction)
     {
         base.ThrowLimb(direction);
 
         _teleport = true;
+        _teleportedPlayer = _attachedPlayer;
     }
 
     private void Update()
     {
         if (_teleport)
         {
+            _timer += Time.deltaTime;
+        }
+        else if (_startTeleport)
+        {
+            if (_timer > _delay)
+            {
+                _teleportedPlayer.ZeroVelocity();
+                _teleportedPlayer.transform.position = _teleportPosition;
+                ServiceLocator.Get<LimbManager>().RemoveLimb(this);
+                Destroy(gameObject);
+            }
             _timer += Time.deltaTime;
         }
     }
@@ -48,35 +66,24 @@ public class Teleport : Limb
             }
         }
 
-        Vector3 position = new();
-
         if (top)
         {
-            Vector3 size = _attachedPlayer.GetSize();
-            position = new Vector3(0, size.y / 2);
+            Vector3 size = _teleportedPlayer.GetSize();
+            _teleportPosition = new Vector3(0, size.y / 2);
         }
         else if (bottom)
         {
-            Vector3 size = _attachedPlayer.GetSize();
-            position = new Vector3(0, -size.y / 2);
+            Vector3 size = _teleportedPlayer.GetSize();
+            _teleportPosition = new Vector3(0, -size.y / 2);
         }
 
-        position = transform.position + position;
+        _teleportPosition += transform.position;
 
         LimbRB.constraints = RigidbodyConstraints2D.FreezeAll;
 
-        StartCoroutine(StartTeleport(position));
-    }
-
-    IEnumerator StartTeleport(Vector3 position)
-    {
-        yield return new WaitForSeconds(1.0f);
-        //could have animation play here
-
-        _attachedPlayer.ZeroVelocity();
-        _attachedPlayer.transform.position = position;
-        ServiceLocator.Get<LimbManager>().RemoveLimb(this);
-        Destroy(gameObject);
+        _teleport = false;
+        _startTeleport = true;
+        _timer = 0.0f;
     }
 }
 
