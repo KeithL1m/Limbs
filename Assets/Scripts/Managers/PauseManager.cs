@@ -17,8 +17,6 @@ public class PauseManager : MonoBehaviour
     private GameObject _optionsMenu;
     [SerializeField]
     private GameObject _popupMenu;
-    [SerializeField]
-    private GameObject _exitPopupMenu;
 
     [SerializeField]
     private EventSystem _eventSystem;
@@ -31,8 +29,6 @@ public class PauseManager : MonoBehaviour
     private GameObject _optionsFirstButton;
     [SerializeField]
     private GameObject _popupFirstButton;
-    [SerializeField]
-    private GameObject _exitPopupFirstButton;
 
 
     [SerializeField]
@@ -100,7 +96,6 @@ public class PauseManager : MonoBehaviour
         _arsenalMenu.SetActive(false);
         _optionsMenu.SetActive(false);
         _popupMenu.SetActive(false);
-        _exitPopupMenu.SetActive(false);
     }
 
     public void LoadArsenalMenu()
@@ -137,33 +132,6 @@ public class PauseManager : MonoBehaviour
         _popupMenu.SetActive(false);
         _eventSystem.SetSelectedGameObject(_pauseFirstButton);
         //make sure an animation plays when this is clicked
-    }
-
-    public void LoadExitPopUpMenu()
-    {
-        _exitPopupMenu.SetActive(true);
-        _eventSystem.SetSelectedGameObject(_exitPopupFirstButton);
-        //make sure an animation plays when this is clicked
-    }
-
-    public void UnloadExitPopupMenu()
-    {
-        _exitPopupMenu.SetActive(false);
-        _eventSystem.SetSelectedGameObject(_exitPopupFirstButton);
-        //make sure an animation plays when this is clicked
-    }
-
-    public void EndGame()
-    {
-        Debug.Log("Ending Game");
-        GameManager gm = ServiceLocator.Get<GameManager>();
-        gm.ResetRound();
-        gm.EarlyEnd = true;
-        gm.EndGame();
-        Time.timeScale = 1.0f;
-        paused = false;
-        Debug.Log("Unpausing game");
-        Application.Quit();
     }
 
     public void LoadMainMenu()

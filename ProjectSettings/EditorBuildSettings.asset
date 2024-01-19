@@ -65,7 +65,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/_Playable Maps/Red Sea.unity
     guid: 954aba8589c020140a6cbeab91860f06
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/The Sawblade.unity
     guid: 1807d8fcbe9fe9049982560da7f089ca
   - enabled: 1
