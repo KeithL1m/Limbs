@@ -82,7 +82,7 @@ public class Limb : MonoBehaviour
         _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
         State = LimbState.Throwing;
-
+        transform.parent = null;
         Trail.SetActive(true);
 
         if (_attachedPlayer._inputHandler.Aim.x == 0.0f && _attachedPlayer._inputHandler.Aim.y == 0.0f && !_attachedPlayer._inputHandler.FlickAiming)
@@ -126,7 +126,7 @@ public class Limb : MonoBehaviour
     public void AttachedUpdate()
     {
         PickupTimer = 0.2f;
-        transform.position = AnchorPoint.position;
+        //transform.position = AnchorPoint.position;
         if (Trail != null)
         {
             Trail.SetActive(false);

@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     private int currentAccelerationLimbNumber = 0;
 
     public bool facingRight;
+    [SerializeField] private Animator anchorsAnim;
 
     void Awake()
     {
@@ -48,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = 1f;
             facingRight = true;
         }
-
         switch (state)
         {
             case PlayerLimbs.LimbState.TwoLeg:
@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
                 break; 
             default: break;
         }
-
+        anchorsAnim.SetFloat("speed", moveSpeed);
         Vector3 targetVelocity = new Vector2(moveSpeed, _rb.velocity.y);
         _rb.velocity = Vector3.SmoothDamp(_rb.velocity, targetVelocity, ref zeroVector, _smoothMoveSpeed);
 
@@ -77,7 +77,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void AddAccelerationLimb() 
     {
-        Debug.Log("应该加速了");
         currentAccelerationLimbNumber++;
     }
 
