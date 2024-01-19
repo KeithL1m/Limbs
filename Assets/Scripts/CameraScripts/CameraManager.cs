@@ -32,6 +32,7 @@ public class CameraManager : MonoBehaviour
     private PlayerManager _playerManager = null;
     private Camera _camera;
     private bool _initialized = false;
+    private bool _teleportThrown = false;
 
     void Start()
     {
@@ -96,7 +97,10 @@ public class CameraManager : MonoBehaviour
 
         Vector3 newPos = centrePoint + _offset;
 
+        
+        
         transform.position = Vector3.SmoothDamp(transform.position, newPos, ref _velocity, _smoothTime);
+        
     }
 
     private void AdjustCameraSize()
@@ -125,7 +129,11 @@ public class CameraManager : MonoBehaviour
 
         _currentDistance *= 0.5f;
 
-        if (_currentDistance <= _lastDistance)
+        if (_teleportThrown)
+        {
+            _camera.orthographicSize = Mathf.SmoothDamp(_camera.orthographicSize, _currentDistance, ref _zoomVelocity, 0.1f);
+        }
+        else if (_currentDistance <= _lastDistance)
         {
             _camera.orthographicSize = Mathf.SmoothDamp(_camera.orthographicSize, _currentDistance, ref _zoomVelocity, _smoothZoomInTime);
            // Debug.Log("zoom in");
@@ -155,14 +163,16 @@ public class CameraManager : MonoBehaviour
         return _playerBounds.center;
     }
 
-    public void AddPlayer(GameObject player)
+    public void AddTeleport(GameObject player)
     {
         _players.Add(player);
+        _teleportThrown = true;
     }
 
-    public void RemovePlayer(GameObject player)
+    public void RemoveTeleport(GameObject player)
     {
         _players.Remove(player);
+        _teleportThrown = false;
     }
 
     public void Unregister()

@@ -15,7 +15,7 @@ public class Teleport : Limb
     {
         base.ThrowLimb(direction);
 
-        ServiceLocator.Get<CameraManager>().AddPlayer(gameObject);
+        ServiceLocator.Get<CameraManager>().AddTeleport(gameObject);
 
         _teleport = true;
         _teleportedPlayer = _attachedPlayer;
@@ -73,7 +73,7 @@ public class Teleport : Limb
         _teleportedPlayer.ZeroVelocity();
         _teleportedPlayer.transform.position = _teleportPosition;
         ServiceLocator.Get<LimbManager>().RemoveLimb(this);
-        ServiceLocator.Get<CameraManager>().RemovePlayer(gameObject);
+        ServiceLocator.Get<CameraManager>().RemoveTeleport(gameObject);
         Destroy(gameObject);
     }
 }

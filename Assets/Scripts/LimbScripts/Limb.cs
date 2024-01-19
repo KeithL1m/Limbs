@@ -175,6 +175,11 @@ public class Limb : MonoBehaviour
         }
     }
 
+    public void SetMaterial(Material material)
+    {
+        _sprite.material = material;
+    }
+
     // Limb damage
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {

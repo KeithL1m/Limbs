@@ -368,6 +368,8 @@ MonoBehaviour:
   - {fileID: 8385072269343438437}
   - {fileID: 8385072270821689308}
   _collider: {fileID: 5770366546305474077}
+  _overlayMaterial: {fileID: 2100000, guid: e1272f360cc7bed43bd495b8ed9cf1ba, type: 2}
+  _standardMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   _canThrow: 0
 --- !u!114 &653569731864945295
 MonoBehaviour:
