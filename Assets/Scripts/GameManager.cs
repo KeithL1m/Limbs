@@ -47,6 +47,7 @@ public class GameManager : Manager
     {
         _pauseManager = pauseManager;
         _uiManager = uiManager;
+        _mapManager.fade = _uiManager.GetFade();
     
         _playerCount = _configManager.GetPlayerNum();
         _playerConfigs = _configManager.GetPlayerConfigs();
@@ -75,7 +76,7 @@ public class GameManager : Manager
 
         ClearLimbs();
         startScreen = false;
-        _mapManager.LoadMap();
+        _mapManager.ChangeScene();
     }
 
     override public void OnStart()
@@ -142,8 +143,8 @@ public class GameManager : Manager
             }
         }
 
-        ResetRound();
-        _mapManager.LoadMap();
+        ServiceLocator.Get<LimbManager>().ClearList();
+        _mapManager.ChangeScene();
     }
 
     private void SpawnPlayer(int playerNum)
