@@ -3,25 +3,28 @@ using UnityEngine;
 public class BalancingPlatform : MonoBehaviour
 {
     public float maxRotation = 30f;
+    public float rotationSpeed = 5f;
 
     private Rigidbody2D platformRigidbody;
-    private Quaternion initialRotation;
+    private float targetRotation = 0f;
 
     void Start()
     {
         platformRigidbody = GetComponent<Rigidbody2D>();
-        initialRotation = transform.rotation;
     }
 
     void FixedUpdate()
     {
-        // Get the current rotation angle
-        float currentRotation = transform.rotation.eulerAngles.z;
+        // Smoothly interpolate towards the target rotation
+        float currentRotation = Mathf.LerpAngle(platformRigidbody.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
 
-        // Clamp the rotation angle within the specified range
+        // Clamp the rotation within the specified range
         float clampedRotation = Mathf.Clamp(currentRotation, -maxRotation, maxRotation);
 
-        // Apply the clamped rotation
-        transform.rotation = Quaternion.Euler(initialRotation.x, initialRotation.y, clampedRotation);
+        // Set the target rotation for the next FixedUpdate
+        targetRotation = clampedRotation;
+
+        // Apply rotation using MoveRotation
+        platformRigidbody.MoveRotation(clampedRotation);
     }
 }
