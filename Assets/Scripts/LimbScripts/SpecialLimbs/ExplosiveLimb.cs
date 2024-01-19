@@ -34,8 +34,6 @@ public class ExplosiveLimb : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-
     }
 
     void Explode()
