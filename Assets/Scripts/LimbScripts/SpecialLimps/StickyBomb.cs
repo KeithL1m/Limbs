@@ -29,7 +29,6 @@ public class StickyBomb : Limb
         base.Start();
 
         countdown = _timer;
-        _bombCollider = GetComponent<Collider2D>();
     }
 
 

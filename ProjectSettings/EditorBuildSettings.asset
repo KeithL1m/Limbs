@@ -74,4 +74,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/VictoryMap.unity
     guid: c6f88a4fbefe2f84294a71ba5213eba4
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/_PrototypeRoom.unity
+    guid: 88ea66465a6023645ad87a72316a77ef
   m_configObjects: {}
