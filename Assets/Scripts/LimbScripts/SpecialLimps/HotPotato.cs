@@ -5,7 +5,7 @@ using UnityEngine;
 public class HotPotato : Limb
 {
     // counter
-    [SerializeField] private int _explodeCounter = 5;
+    [SerializeField] private int _explodeCounter;
 
     //explosion force
     Collider2D[] explosionRadius = null;
@@ -20,9 +20,19 @@ public class HotPotato : Limb
     [SerializeField] Sprite _potato1;
 
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+        
+        _explodeCounter = 5;
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Player"))
+        {
+            _explodeCounter--;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
