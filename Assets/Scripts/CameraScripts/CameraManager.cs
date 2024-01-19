@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Net.Mime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraManager : MonoBehaviour
 {
@@ -41,6 +42,8 @@ public class CameraManager : MonoBehaviour
     private void Initialize()
     {
         Debug.Log("Camera Manager Initializing");
+
+        ServiceLocator.Register<CameraManager>(this);
 
         //get the max extents of the camera
         _camera = GetComponent<Camera>();
@@ -141,11 +144,29 @@ public class CameraManager : MonoBehaviour
         _playerBounds = new Bounds();
         for (int i = 0; i < _players.Count; i++)
         {
-            _playerBounds.Encapsulate(_players[i].transform.position);
+            if (_players[i] != null)
+            {
+                _playerBounds.Encapsulate(_players[i].transform.position);
+            }
         }
 
         //make sure camera doesn't move too far 
 
         return _playerBounds.center;
+    }
+
+    public void AddPlayer(GameObject player)
+    {
+        _players.Add(player);
+    }
+
+    public void RemovePlayer(GameObject player)
+    {
+        _players.Remove(player);
+    }
+
+    public void Unregister()
+    {
+        ServiceLocator.Unegister<CameraManager>();
     }
 }
