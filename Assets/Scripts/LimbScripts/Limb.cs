@@ -216,7 +216,11 @@ public class Limb : MonoBehaviour
             return;
 
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
-        _healthPlayer.AddDamage(_damage + _specialDamage);
+        if (transform.position.x > collision.transform.position.x)
+            _healthPlayer.AddDamage(_damage + _specialDamage, true);
+        else
+            _healthPlayer.AddDamage(_damage + _specialDamage, false);
+
         ReturnLimb();
     }
 
