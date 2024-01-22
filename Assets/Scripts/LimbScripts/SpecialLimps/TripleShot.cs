@@ -39,7 +39,6 @@ public class TripleShot : Limb
 
             Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>(), true);
             Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>(), true);
-
             _shotsLeft--;
 
             return;
@@ -51,6 +50,7 @@ public class TripleShot : Limb
         State = LimbState.Throwing;
 
         Trail.SetActive(true);
+        transform.parent = null;
 
         if (_attachedPlayer._inputHandler.Aim.x == 0.0f && _attachedPlayer._inputHandler.Aim.y == 0.0f && !_attachedPlayer._inputHandler.FlickAiming)
         {

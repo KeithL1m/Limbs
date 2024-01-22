@@ -54,7 +54,19 @@ public class PlayerHealth : MonoBehaviour
         // Update the health slider value here
         UpdateHealthSlider();
     }
+    public void AddDamage(float damage, float x)
+    {
+        if (_gm.startScreen)
+            return;
 
+        _health -= damage;
+        GameObject particles = Instantiate(hitedParticles, transform.position, transform.rotation);
+        if (x<transform.position.x)
+            particles.transform.localEulerAngles = new Vector3(0, 180, 0);
+
+        // Update the health slider value here
+        UpdateHealthSlider();
+    }
     public void AddDamage(float damage, bool isRight)
     {
         if (_gm.startScreen)
