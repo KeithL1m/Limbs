@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool facingRight;
     [SerializeField] private Animator anchorsAnim;
-
+    [SerializeField] private GameObject dust_Step;
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         switch (state)
         {
             case PlayerLimbs.LimbState.TwoLeg:
-                moveSpeed *= _2LegMoveSpeed* (1 + (extraAcceleration[currentAccelerationLimbNumber]));
+                moveSpeed *= _2LegMoveSpeed * (1 + (extraAcceleration[currentAccelerationLimbNumber]));
                 break;
             case PlayerLimbs.LimbState.OneLeg:
                 moveSpeed *= _1LegMoveSpeed * (1 + (extraAcceleration[currentAccelerationLimbNumber]));
@@ -61,8 +61,21 @@ public class PlayerMovement : MonoBehaviour
                 _hopTimer -= Time.deltaTime;
                 Hop(moveSpeed);
                 moveSpeed *= _noLegSpeed;
-                break; 
+                break;
             default: break;
+        }
+        if (moveSpeed == 0)
+        {
+            dust_Step.SetActive(false);
+        }
+        else
+        {
+            if (!dust_Step.activeSelf)
+                dust_Step.SetActive(true);
+            if (moveSpeed < 0)
+                dust_Step.transform.localEulerAngles = new Vector3(0, 180, 0);
+            else
+                dust_Step.transform.localEulerAngles = new Vector3(0, 0, 0);
         }
         anchorsAnim.SetFloat("speed", moveSpeed);
         Vector3 targetVelocity = new Vector2(moveSpeed, _rb.velocity.y);
@@ -75,12 +88,12 @@ public class PlayerMovement : MonoBehaviour
         _headRotation.rotation = rotation;
     }
 
-    public void AddAccelerationLimb() 
+    public void AddAccelerationLimb()
     {
         currentAccelerationLimbNumber++;
     }
 
-    public void RemoveAccelerationLimb() 
+    public void RemoveAccelerationLimb()
     {
         currentAccelerationLimbNumber--;
     }
