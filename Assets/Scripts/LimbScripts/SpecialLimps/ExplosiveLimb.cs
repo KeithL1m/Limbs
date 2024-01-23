@@ -13,10 +13,14 @@ public class ExplosiveLimb : Limb
     private float _explosionForce = 300;
     private float _explosionRadius = 5;
 
-
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
+    }
+
+    protected override void Initialize()
+    {
+        base.Initialize();
 
         countdown = _timer;
     }
@@ -28,6 +32,11 @@ public class ExplosiveLimb : Limb
         yield return new WaitForSeconds(countdown);
         Explode();
         callback?.Invoke();
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
     }
 
     void Explode()

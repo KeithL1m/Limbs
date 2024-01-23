@@ -19,16 +19,21 @@ public class HotPotato : Limb
     [SerializeField] Sprite _potato2;
     [SerializeField] Sprite _potato1;
 
-
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
-        
+        base.Awake();
+    }
+
+    protected override void Initialize()
+    {
+        base.Initialize();
+
         _explodeCounter = 5;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
+        base.OnTriggerEnter2D(collision);
         if (collision.CompareTag("Player"))
         {
             _explodeCounter--;
@@ -42,6 +47,8 @@ public class HotPotato : Limb
             return;
 
     }
+
+
 
     void HotPotatoCheck()
     {

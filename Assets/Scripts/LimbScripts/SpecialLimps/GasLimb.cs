@@ -6,9 +6,19 @@ public class GasLimb : Limb
 {
     public GameObject gasCloudPrefab;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
+    }
+
+    protected override void Initialize()
+    {
+        base.Initialize();
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
     }
 
     void OnCollisionEnter2D(Collision2D collision)

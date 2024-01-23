@@ -46,34 +46,13 @@ public class Limb : MonoBehaviour
     protected Vector3 _returnVelocity;
     protected float _rVMultiplier;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         GameLoader loader = ServiceLocator.Get<GameLoader>();
         loader.CallOnComplete(Initialize);
     }
 
-    protected virtual void Start()
-    {
-        State = LimbState.PickUp;
-        LimbRB = GetComponent<Rigidbody2D>();
-        LimbRB.SetRotation(0);
-
-        Trail.SetActive(false);
-
-        float angle = _limbData._throwAngle * Mathf.Deg2Rad;
-
-        Size = GetComponent<Collider2D>().bounds.size.y;
-        _throwVelocity.x = _limbData._throwSpeed * Mathf.Cos(angle);
-        _throwSpeed = _limbData._throwSpeed;
-        _throwVelocity.y = _limbData._throwSpeed * Mathf.Sin(angle);
-        _damage = _limbData._damage;
-        _specialDamage = _limbData._specialDamage;
-        _rVMultiplier = _limbData._returnVelocityMultiplier;
-        //_specialLimb = true;
-
-    }
-
-    private void Initialize()
+    protected virtual void Initialize()
     {
         ServiceLocator.Get<LimbManager>().AddLimb(this);
         State = LimbState.PickUp;
@@ -195,7 +174,7 @@ public class Limb : MonoBehaviour
     }
 
     // Limb pickup
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag != "Player")
             return;

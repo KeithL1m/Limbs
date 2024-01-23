@@ -24,9 +24,15 @@ public class StickyBomb : Limb
     private Collider2D _bombCollider;
 
 
-    protected override void Start()
+
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
+    }
+
+    protected override void Initialize()
+    {
+        base.Initialize();
 
         countdown = _timer;
     }
@@ -53,8 +59,6 @@ public class StickyBomb : Limb
         }
 
 
-
-
         if (State != LimbState.Throwing)
             return;
 
@@ -62,6 +66,11 @@ public class StickyBomb : Limb
         {
             Destroy(gameObject);
         }));
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
     }
 
     private void LateUpdate()
