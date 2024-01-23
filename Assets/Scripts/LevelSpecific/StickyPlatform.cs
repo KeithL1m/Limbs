@@ -7,8 +7,9 @@ public class StickyPlatform : MonoBehaviour
     private Rigidbody2D rb;
     private RigidbodyConstraints2D originalRBC;
 
-    public bool destroySelf;
-    
+    [Header("Bool Settings")]
+    [SerializeField] private bool destroySelf;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Player"))
@@ -16,6 +17,7 @@ public class StickyPlatform : MonoBehaviour
             rb = collision.collider.GetComponent<Rigidbody2D>();
             originalRBC = rb.constraints;
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+
             StartCoroutine(UnstickPlayer());
             Debug.Log("STUCK");
         }
