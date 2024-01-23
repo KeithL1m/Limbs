@@ -25,6 +25,8 @@ public class PlayerLimbs : MonoBehaviour
     private Transform _groundCheck;
     [SerializeField] private List<Transform> _limbAnchors;
     [SerializeField] private CapsuleCollider2D _collider;
+    [SerializeField] private Material _overlayMaterial;
+    [SerializeField] private Material _standardMaterial;
 
     Vector2 _originalSize;
     Vector2 _originalOffset;
@@ -71,11 +73,10 @@ public class PlayerLimbs : MonoBehaviour
     {
         if (i < 2)
         {
+            _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
             _limbs[i].Type = Limb.LimbType.Leg;
             if (i == 1)
             {
-                _selectedLimb++;
-
                 if (_limbs[1].Size > _limbs[0].Size)
                 {
                     MoveBodyUp(i);
@@ -93,7 +94,6 @@ public class PlayerLimbs : MonoBehaviour
         else
         {
             _limbs[i].Type = Limb.LimbType.Arm;
-            _selectedLimb++;
             _limbs[i].transform.rotation = Quaternion.Euler(0, 0, 90);
             if (i == 2)
             {
@@ -104,7 +104,6 @@ public class PlayerLimbs : MonoBehaviour
             {
                 _limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x + _limbs[i].Size * 0.5f, _limbAnchors[i].position.y);
             }
-               
         }
 
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), true);
@@ -200,6 +199,7 @@ public class PlayerLimbs : MonoBehaviour
 
     public void ThrowLimb(int direction)
     {
+        _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
         _limbs[(int)_selectedLimb].ThrowLimb(direction);
 
         if (!_limbs[(int)_selectedLimb].TripleShot)
@@ -208,8 +208,49 @@ public class PlayerLimbs : MonoBehaviour
             if (_selectedLimb != SelectedLimb.LeftLeg)
             {
                 _selectedLimb--;
+                _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
             }
             _canThrow = false;
+        }
+    }
+
+    public void SwitchLimb(float direction)
+    {
+        int step = (direction > 0.5f) ? 1 : -1;
+        int start = (int)_selectedLimb + step;
+        int start2 = (direction > 0.5f) ? 0 : 3;
+        int end = (direction > 0.5f) ? 4 : -1;
+        
+        int place = start;
+        while (place != end)
+        {
+            if (_limbs[place] == null)
+            {
+                place += step;
+            }
+            else
+            {
+                _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
+                _selectedLimb += step;
+                _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+                return;
+            }
+        }
+
+        place = start2;
+        while (place != (int)_selectedLimb)
+        {
+            if (_limbs[place] == null)
+            {
+                place -= step;
+            }
+            else
+            {
+                _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
+                _selectedLimb -= step;
+                _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+                return;
+            }
         }
     }
 
