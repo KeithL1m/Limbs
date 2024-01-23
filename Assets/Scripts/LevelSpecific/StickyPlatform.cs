@@ -6,6 +6,8 @@ public class StickyPlatform : MonoBehaviour
 {
     private Rigidbody2D rb;
     private RigidbodyConstraints2D originalRBC;
+
+    public bool destroySelf;
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -34,7 +36,12 @@ public class StickyPlatform : MonoBehaviour
             yield return null;
         }
             Debug.Log("Done sticking!");
-        Destroy(gameObject);
+
+        if (destroySelf == true)
+        {
+            Destroy(gameObject);
+        }
+
         rb.constraints = originalRBC;
     }
 
