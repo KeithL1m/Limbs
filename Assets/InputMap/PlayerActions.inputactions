@@ -49,15 +49,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Switch Limb",
-                    "type": "Button",
-                    "id": "54058eee-5eeb-434a-9d01-a5b766919401",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -203,39 +194,6 @@
                     "action": "SwitchAimType",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "1D Axis",
-                    "id": "73f9307c-72fb-4dfc-87e4-71671426f8c4",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Switch Limb",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "202bfb39-bd2d-4fab-bd17-79d6e1b120e4",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "Switch Limb",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "f37eb511-4175-4eaa-bdf9-25d0ea43913c",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "Switch Limb",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 }
             ]
         },

@@ -81,9 +81,4 @@ public class PlayerMovement : MonoBehaviour
             _rb.AddForce(_rb.mass * Vector2.up * _hopForce * Mathf.Abs(moveSpeed), ForceMode2D.Impulse);
         }
     }
-
-    public void ZeroVelocity()
-    {
-        _rb.velocity = Vector3.zero;
-    }
 }

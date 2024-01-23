@@ -368,8 +368,6 @@ MonoBehaviour:
   - {fileID: 8385072269343438437}
   - {fileID: 8385072270821689308}
   _collider: {fileID: 5770366546305474077}
-  _overlayMaterial: {fileID: 2100000, guid: e1272f360cc7bed43bd495b8ed9cf1ba, type: 2}
-  _standardMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   _canThrow: 0
 --- !u!114 &653569731864945295
 MonoBehaviour:
@@ -888,7 +886,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8385072269345563142}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.137, y: -0.761, z: 0.02457965}
+  m_LocalPosition: {x: 0.137, y: -0.761, z: 0.02457965}
   m_LocalScale: {x: 1, y: 0.8346002, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -919,7 +917,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8385072269473608600}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.137, y: -0.761, z: 0.02457965}
+  m_LocalPosition: {x: -0.137, y: -0.761, z: 0.02457965}
   m_LocalScale: {x: 1, y: 0.8346002, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

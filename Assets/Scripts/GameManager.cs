@@ -143,7 +143,6 @@ public class GameManager : Manager
             }
         }
 
-        ServiceLocator.Get<CameraManager>().Unregister();
         ServiceLocator.Get<LimbManager>().ClearList();
         _mapManager.ChangeScene();
     }

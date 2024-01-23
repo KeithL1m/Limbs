@@ -2251,7 +2251,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7286767260740390294}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8081f681b8a456a4588c1cb93eae8a5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 74361f13c96bc364ead51f1b54940cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _pauseMenu: {fileID: 8567420189399801676}
@@ -2266,7 +2266,7 @@ MonoBehaviour:
   _popupFirstButton: {fileID: 8567420190883136200}
   _exitPopupFirstButton: {fileID: 7594664035400025356}
   _canvas: {fileID: 8567420190504578873}
-  _uiManager: {fileID: 8567420190504578821}
+  _uiManager: {fileID: 0}
 --- !u!114 &8567420190504578821
 MonoBehaviour:
   m_ObjectHideFlags: 0

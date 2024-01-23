@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Net.Mime;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class CameraManager : MonoBehaviour
 {
@@ -32,7 +31,6 @@ public class CameraManager : MonoBehaviour
     private PlayerManager _playerManager = null;
     private Camera _camera;
     private bool _initialized = false;
-    private bool _teleportThrown = false;
 
     void Start()
     {
@@ -43,8 +41,6 @@ public class CameraManager : MonoBehaviour
     private void Initialize()
     {
         Debug.Log("Camera Manager Initializing");
-
-        ServiceLocator.Register<CameraManager>(this);
 
         //get the max extents of the camera
         _camera = GetComponent<Camera>();
@@ -97,10 +93,7 @@ public class CameraManager : MonoBehaviour
 
         Vector3 newPos = centrePoint + _offset;
 
-        
-        
         transform.position = Vector3.SmoothDamp(transform.position, newPos, ref _velocity, _smoothTime);
-        
     }
 
     private void AdjustCameraSize()
@@ -129,19 +122,15 @@ public class CameraManager : MonoBehaviour
 
         _currentDistance *= 0.5f;
 
-        if (_teleportThrown)
-        {
-            _camera.orthographicSize = Mathf.SmoothDamp(_camera.orthographicSize, _currentDistance, ref _zoomVelocity, 0.1f);
-        }
-        else if (_currentDistance <= _lastDistance)
+        if (_currentDistance <= _lastDistance)
         {
             _camera.orthographicSize = Mathf.SmoothDamp(_camera.orthographicSize, _currentDistance, ref _zoomVelocity, _smoothZoomInTime);
-           // Debug.Log("zoom in");
+            //Debug.Log("zoom in");
         }
         else
         {
             _camera.orthographicSize = Mathf.SmoothDamp(_camera.orthographicSize, _currentDistance, ref _zoomVelocity, _smoothZoomOutTime);
-           // Debug.Log("zoom out");
+            //Debug.Log("zoom out");
         }
 
         _lastDistance = _currentDistance;
@@ -152,31 +141,11 @@ public class CameraManager : MonoBehaviour
         _playerBounds = new Bounds();
         for (int i = 0; i < _players.Count; i++)
         {
-            if (_players[i] != null)
-            {
-                _playerBounds.Encapsulate(_players[i].transform.position);
-            }
+            _playerBounds.Encapsulate(_players[i].transform.position);
         }
 
         //make sure camera doesn't move too far 
 
         return _playerBounds.center;
-    }
-
-    public void AddTeleport(GameObject player)
-    {
-        _players.Add(player);
-        _teleportThrown = true;
-    }
-
-    public void RemoveTeleport(GameObject player)
-    {
-        _players.Remove(player);
-        _teleportThrown = false;
-    }
-
-    public void Unregister()
-    {
-        ServiceLocator.Unegister<CameraManager>();
     }
 }
