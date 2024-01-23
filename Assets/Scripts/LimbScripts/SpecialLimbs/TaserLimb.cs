@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TaserLimb : Limb
@@ -35,9 +34,9 @@ public class TaserLimb : Limb
 
             var playerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
 
-            foreach(var limb in playerLimbs._limbs)
+            while(playerLimbs._limbs.Count > 0)
             {
-                switch(playerLimbs._selectedLimb)
+                switch (playerLimbs._selectedLimb)
                 {
                     case PlayerLimbs.SelectedLimb.LeftLeg:
                         {
@@ -61,6 +60,7 @@ public class TaserLimb : Limb
                         break;
                 }
             }
+            
 
             _returnVelocity = new Vector3(-LimbRB.velocity.x * _rVMultiplier, -LimbRB.velocity.y * _rVMultiplier, 0f);
             return;
