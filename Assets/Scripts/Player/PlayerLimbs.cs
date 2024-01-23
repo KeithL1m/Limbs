@@ -23,28 +23,34 @@ public class PlayerLimbs : MonoBehaviour
     public LimbState _limbState;
 
     private Transform _groundCheck;
+    private Vector3 _groundCheckPosition = new();
     [SerializeField] private List<Transform> _limbAnchors;
+    private List<Vector3> _anchorPositions;
     [SerializeField] private CapsuleCollider2D _collider;
     [SerializeField] private Material _overlayMaterial;
     [SerializeField] private Material _standardMaterial;
 
-    Vector2 _originalSize;
-    Vector2 _originalOffset;
+    private Vector2 _originalSize;
+    private Vector2 _originalOffset;
 
     public bool _canThrow;
 
-    // Start is called before the first frame update
-    void Awake()
+
+    public void Initialize()
     {
         _limbs = new List<Limb>();
-        _limbs.Capacity = 8;
+        _anchorPositions = new List<Vector3>();
+        _anchorPositions.Capacity = 4;
+        _limbs.Capacity = 4;
         for (int i = 0; i < 4; i++)
         {
             _limbs.Add(null);
+            _anchorPositions.Add(_limbAnchors[i].localPosition);
         }
         _originalSize = _collider.size;
         _originalOffset = _collider.offset;
         _groundCheck = GetComponentInChildren<GroundCheck>().transform;
+        _groundCheckPosition = _groundCheck.localPosition;
     }
 
     //check if limb can be picked up
@@ -79,8 +85,8 @@ public class PlayerLimbs : MonoBehaviour
             {
                 if (_limbs[1].Size > _limbs[0].Size)
                 {
+                    _groundCheck.localPosition = _groundCheckPosition;
                     MoveBodyUp(i);
-                    _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + _limbs[0].Size);
                 }
             }
             else
@@ -127,10 +133,10 @@ public class PlayerLimbs : MonoBehaviour
         switch (_selectedLimb)
         {
             case SelectedLimb.RightArm:
-                _limbAnchors[3].position = new Vector3(_limbAnchors[3].position.x - _limbs[3].Size * 0.5f, _limbAnchors[3].position.y);
+                _limbAnchors[3].localPosition = _anchorPositions[3];
                 return;
             case SelectedLimb.LeftArm:
-                _limbAnchors[2].position = new Vector3(_limbAnchors[2].position.x + _limbs[2].Size * 0.5f, _limbAnchors[2].position.y);
+                _limbAnchors[2].localPosition = _anchorPositions[2];
                 return;
             case SelectedLimb.RightLeg:
                 {
@@ -150,10 +156,10 @@ public class PlayerLimbs : MonoBehaviour
     { 
         if (other == null)
         {
-            _collider.size = new Vector2(_originalSize.x, _originalSize.y);
-            _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y);
+            _collider.size = _originalSize;
+            _collider.offset = _originalOffset;
             _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + current.Size);
-            _limbAnchors[currentNum].position = new Vector3(_limbAnchors[currentNum].position.x, _limbAnchors[currentNum].position.y + current.Size * 0.5f);
+            _limbAnchors[currentNum].localPosition = _anchorPositions[currentNum];
         }
         else
         {
@@ -161,7 +167,7 @@ public class PlayerLimbs : MonoBehaviour
             _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y - other.Size * 0.5f);
             _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + current.Size);
             _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y - other.Size);
-            _limbAnchors[currentNum].position = new Vector3(_limbAnchors[currentNum].position.x, _limbAnchors[currentNum].position.y + _limbs[currentNum].Size * 0.5f);
+            _limbAnchors[currentNum].localPosition = _anchorPositions[currentNum];
         }
     }
 
@@ -187,10 +193,11 @@ public class PlayerLimbs : MonoBehaviour
     {
         for (int i = 3; i >= 0; i--)
         {
-            if (_limbs[i] != null && _limbs[i].State == Limb.LimbState.Attached)
-            {
-                ThrowLimb(0);
-            }
+            _limbAnchors[i].localPosition = _anchorPositions[i];
+            _groundCheck.localPosition = _groundCheckPosition;
+            _collider.size = _originalSize;
+            _collider.offset = _originalOffset;
+            _limbs[i] = null;
         }
 
         _selectedLimb = SelectedLimb.LeftLeg;

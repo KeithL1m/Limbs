@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
         _config = pc;
 
         _inputHandler.InitializePlayer(_config);
+        _playerLimbs.Initialize();
 
         _playerHead.sprite = _config.Head;
         _playerBody.sprite = _config.Body;
