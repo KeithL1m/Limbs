@@ -216,10 +216,10 @@ public class PlayerLimbs : MonoBehaviour
 
     public void SwitchLimb(float direction)
     {
-        int step = (direction > 0.5f) ? 1 : -1;
+        int step = (direction > 0.5f) ? -1 : 1;
         int start = (int)_selectedLimb + step;
-        int start2 = (direction > 0.5f) ? 0 : 3;
-        int end = (direction > 0.5f) ? 4 : -1;
+        int start2 = (direction > 0.5f) ? 3 : 0;
+        int end = (direction > 0.5f) ? -1 : 4;
         
         int place = start;
         while (place != end)
@@ -227,11 +227,12 @@ public class PlayerLimbs : MonoBehaviour
             if (_limbs[place] == null)
             {
                 place += step;
+                Debug.Log(place);
             }
             else
             {
                 _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
-                _selectedLimb += step;
+                _selectedLimb = (SelectedLimb)place;
                 _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
                 return;
             }
@@ -243,11 +244,12 @@ public class PlayerLimbs : MonoBehaviour
             if (_limbs[place] == null)
             {
                 place -= step;
+                Debug.Log(place);
             }
             else
             {
                 _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
-                _selectedLimb -= step;
+                _selectedLimb = (SelectedLimb)place;
                 _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
                 return;
             }
