@@ -83,6 +83,11 @@ public class Limb : MonoBehaviour
         LimbRB.simulated = true;
         State = LimbState.Throwing;
 
+        if (direction == 0)
+        {
+            Destroy(gameObject);
+        }
+
         Trail.SetActive(true);
 
         if (_attachedPlayer._inputHandler.Aim.x == 0.0f && _attachedPlayer._inputHandler.Aim.y == 0.0f && !_attachedPlayer._inputHandler.FlickAiming)
