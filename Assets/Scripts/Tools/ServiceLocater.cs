@@ -35,4 +35,17 @@ public class ServiceLocator : MonoBehaviour
     {
         return (m_systems.ContainsKey(typeof(T)));
     }
+
+    static public void Unegister<T>()
+    {
+        if (m_systems.ContainsKey(typeof(T)))
+        {
+            Debug.Log("Registering " + typeof(T));
+            m_systems.Remove(typeof(T));
+        }
+        else
+        {
+            Debug.Log("There is no type of : " + typeof(T) + " that exists");
+        }
+    }
 }

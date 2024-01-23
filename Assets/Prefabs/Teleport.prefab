@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7031586765184258109}
   - component: {fileID: 7643786849370820877}
   - component: {fileID: 7031586765184258081}
-  - component: {fileID: 7031586765184258110}
+  - component: {fileID: 22963141734421551}
   m_Layer: 3
-  m_Name: Limbs
+  m_Name: Teleport
   m_TagString: Limb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,7 +91,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.49843124
---- !u!114 &7031586765184258110
+--- !u!114 &22963141734421551
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,14 +100,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 479936713415687806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fc2716bc56ce7f4293f7fbf532b5e2e, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb564888ed4ceb45a2bcdd185967a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _sprite: {fileID: 7196619701666252166}
   _limbData: {fileID: 11400000, guid: 76d2735fb647a41419933b8acfdb8866, type: 2}
   <Trail>k__BackingField: {fileID: 1123106515960743069}
   <PickUpIndicator>k__BackingField: {fileID: 7254546142229159940}
-  <CanPickUp>k__BackingField: 0
+  <CanPickUp>k__BackingField: 1
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
 --- !u!1 &1123106515960743069
@@ -275,8 +275,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5923722728741573122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
-  m_LocalScale: {x: 0.1851742, y: 0.1851742, z: 1}
+  m_LocalPosition: {x: 0, y: 0.0134, z: 0.5}
+  m_LocalScale: {x: 0.1851742, y: 0.14827497, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8952520609378391584}
@@ -323,7 +323,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1c7e33b1d222fba49806382917b45cf3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0ccd90b21430a23458ddf19ed905249c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
     //facing left = -1, right = 1
     public int direction;
     private bool _initialized = false;
+    private bool _canThrow = true;
+    private bool _canSwitch = true;
     public Vector2 LastAimed { get; private set; } = Vector2.zero;
 
 
@@ -89,12 +91,26 @@ public class Player : MonoBehaviour
             direction = -1;
         }
 
-        /*throwing limbs*/
-        if (_inputHandler.ThrowLimb > 0.5f && _playerLimbs.CanThrowLimb()) 
+        if ((_inputHandler.LimbSwitch > 0.5f || _inputHandler.LimbSwitch < -0.5f) && _canSwitch)
         {
-            _playerLimbs.ThrowLimb(direction);
+            _playerLimbs.SwitchLimb(_inputHandler.LimbSwitch);
+            _canSwitch = false;
+        }
+        else if (_inputHandler.LimbSwitch < 0.5f && _inputHandler.LimbSwitch > -0.5f)
+        {
+            _canSwitch = true;
         }
 
+        /*throwing limbs*/
+        if (_inputHandler.ThrowLimb > 0.5f && _playerLimbs.CanThrowLimb() && _canThrow) 
+        {
+            _playerLimbs.ThrowLimb(direction);
+            _canThrow = false;
+        }
+        else if (_inputHandler.ThrowLimb < 0.5f)
+        {
+            _canThrow = true;
+        }
         //limb attack?
 
 
@@ -177,6 +193,16 @@ public class Player : MonoBehaviour
     public SpriteRenderer GetArrow()
     {
         return _aimTransform.GetComponentInChildren<SpriteRenderer>();
+    }
+
+    public Vector3 GetSize()
+    {
+        return _playerLimbs.GetSize();
+    }
+
+    public void ZeroVelocity()
+    {
+        _playerMovement.ZeroVelocity();
     }
 
 }
