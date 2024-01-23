@@ -29,9 +29,10 @@ public class HotPotato : Limb
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             _explodeCounter--;
+            HotPotatoCheck();
         }
     }
 
@@ -40,23 +41,32 @@ public class HotPotato : Limb
         if (State != LimbState.Throwing)
             return;
 
+    }
+
+    void HotPotatoCheck()
+    {
         // Art and what happens each state of hot potato
         switch (_explodeCounter)
         {
             case 5:
                 // potato sprite 5
+
                 break;
             case 4:
                 // potato sprite 4
+
                 break;
             case 3:
                 // potato sprite 3
+
                 break;
             case 2:
                 // potato sprite 2
+
                 break;
             case 1:
                 // potato sprite 1
+
                 break;
             case 0:
                 Explode();
@@ -65,7 +75,6 @@ public class HotPotato : Limb
             default:
                 break;
         }
-
     }
 
     void Explode()
