@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7031586765184258109}
   - component: {fileID: 7643786849370820877}
   - component: {fileID: 7031586765184258081}
-  - component: {fileID: 7031586765184258110}
+  - component: {fileID: 676486668557565661}
   m_Layer: 3
-  m_Name: Limbs
+  m_Name: TripleShot
   m_TagString: Limb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.38563117, y: 0.7451}
+  m_Size: {x: 0.4025714, y: 0.6407353}
   m_Direction: 0
 --- !u!58 &7031586765184258081
 CircleCollider2D:
@@ -91,7 +91,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.49843124
---- !u!114 &7031586765184258110
+--- !u!114 &676486668557565661
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 479936713415687806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fc2716bc56ce7f4293f7fbf532b5e2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 69fedb2ad0ad0f84c96661793c1672c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _sprite: {fileID: 7196619701666252166}
@@ -110,6 +110,14 @@ MonoBehaviour:
   <CanPickUp>k__BackingField: 0
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
+  _bullet: {fileID: 7321386805834542928, guid: 6cbf4cb540f6b7e418e41e0645578ee9, type: 3}
+  _shotsLeft: 3
+  _launcherTwo: {fileID: 21300000, guid: f736f036af4042c4988dd87745964a1c, type: 3}
+  _launcherOne: {fileID: 21300000, guid: 6fce43630af16df49b0af5b060cc2293, type: 3}
+  _launcherEmpty: {fileID: 21300000, guid: 8c481d694e9f18a49b34fbe7a3cb91ce, type: 3}
+  _bullet1: {fileID: 21300000, guid: b4659717ccd14c6458d128cb03f7db50, type: 3}
+  _bullet2: {fileID: 21300000, guid: 444044136c7f80d4f8bc80c835f19f07, type: 3}
+  _bullet3: {fileID: 21300000, guid: b50d5ee50e662d444be3b5b313e6427e, type: 3}
 --- !u!1 &1123106515960743069
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,8 +283,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5923722728741573122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
-  m_LocalScale: {x: 0.1851742, y: 0.1851742, z: 1}
+  m_LocalPosition: {x: -0.03, y: 0, z: 0.5}
+  m_LocalScale: {x: 0.24017233, y: 0.24017233, z: 0.24017233}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8952520609378391584}
@@ -322,8 +330,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1c7e33b1d222fba49806382917b45cf3, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 12119769e6daa87429430962f63be179, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -406,7 +414,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 0.906028, g: 0.9433962, b: 0.27945885, a: 0.33333334}
   m_FlipX: 0

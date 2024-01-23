@@ -25,6 +25,8 @@ public class PlayerLimbs : MonoBehaviour
     private Transform _groundCheck;
     [SerializeField] private List<Transform> _limbAnchors;
     [SerializeField] private CapsuleCollider2D _collider;
+    [SerializeField] private Material _overlayMaterial;
+    [SerializeField] private Material _standardMaterial;
 
     Vector2 _originalSize;
     Vector2 _originalOffset;
@@ -35,7 +37,7 @@ public class PlayerLimbs : MonoBehaviour
     void Awake()
     {
         _limbs = new List<Limb>();
-        _limbs.Capacity = 4;
+        _limbs.Capacity = 8;
         for (int i = 0; i < 4; i++)
         {
             _limbs.Add(null);
@@ -69,13 +71,12 @@ public class PlayerLimbs : MonoBehaviour
     //used to attach a limb
     private void AttachLimb(int i)
     {
-        if (i == 0 || i == 1)
+        if (i < 2)
         {
+            _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
             _limbs[i].Type = Limb.LimbType.Leg;
             if (i == 1)
             {
-                _selectedLimb++;
-
                 if (_limbs[1].Size > _limbs[0].Size)
                 {
                     MoveBodyUp(i);
@@ -85,6 +86,7 @@ public class PlayerLimbs : MonoBehaviour
             else
             {
                 MoveBodyUp(i);
+                _limbs[i].FlipX(-1);
             }
             _limbs[i].transform.rotation = Quaternion.Euler(0, 0, 0);
             _limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x, _limbAnchors[i].position.y - _limbs[i].Size * 0.5f);
@@ -92,18 +94,16 @@ public class PlayerLimbs : MonoBehaviour
         else
         {
             _limbs[i].Type = Limb.LimbType.Arm;
-            _selectedLimb++;
             _limbs[i].transform.rotation = Quaternion.Euler(0, 0, 90);
             if (i == 2)
             {
                 _limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x - _limbs[i].Size * 0.5f, _limbAnchors[i].position.y);
-                _limbs[i].Flip(-1);
+                _limbs[i].FlipY(-1);
             }
             else if (i == 3)
             {
                 _limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x + _limbs[i].Size * 0.5f, _limbAnchors[i].position.y);
             }
-               
         }
 
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), true);
@@ -112,7 +112,7 @@ public class PlayerLimbs : MonoBehaviour
         _limbs[i].GetComponent<Rigidbody2D>().simulated = false;
     }
 
-    //called when losing a leg limb
+    //called when picking up a leg limb
     private void MoveBodyUp(int i)
     {
         _collider.size = new Vector2(_originalSize.x, _originalSize.y + _limbs[i].Size);
@@ -134,22 +134,34 @@ public class PlayerLimbs : MonoBehaviour
                 return;
             case SelectedLimb.RightLeg:
                 {
-                    _collider.size = new Vector2(_originalSize.x, _originalSize.y + _limbs[0].Size);
-                    _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y - _limbs[0].Size * 0.5f);
-                    _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + _limbs[1].Size);
-                    _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y - _limbs[0].Size);
-                    _limbAnchors[1].position = new Vector3(_limbAnchors[1].position.x, _limbAnchors[1].position.y + _limbs[1].Size * 0.5f);
+                    LegEdit(_limbs[1], _limbs[0], 1);
                     break;
                 }
             case SelectedLimb.LeftLeg:
                 {
-                    _collider.size = new Vector2(_originalSize.x, _originalSize.y);
-                    _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y);
-                    _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + _limbs[0].Size);
-                    _limbAnchors[0].position = new Vector3(_limbAnchors[0].position.x, _limbAnchors[0].position.y + _limbs[0].Size * 0.5f);
+                    LegEdit(_limbs[0], _limbs[1], 0);
                     break;
                 }
             default: break;
+        }
+    }
+
+    private void LegEdit(Limb current, Limb other, int currentNum)
+    { 
+        if (other == null)
+        {
+            _collider.size = new Vector2(_originalSize.x, _originalSize.y);
+            _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y);
+            _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + current.Size);
+            _limbAnchors[currentNum].position = new Vector3(_limbAnchors[currentNum].position.x, _limbAnchors[currentNum].position.y + current.Size * 0.5f);
+        }
+        else
+        {
+            _collider.size = new Vector2(_originalSize.x, _originalSize.y + other.Size);
+            _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y - other.Size * 0.5f);
+            _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + current.Size);
+            _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y - other.Size);
+            _limbAnchors[currentNum].position = new Vector3(_limbAnchors[currentNum].position.x, _limbAnchors[currentNum].position.y + _limbs[currentNum].Size * 0.5f);
         }
     }
 
@@ -199,12 +211,96 @@ public class PlayerLimbs : MonoBehaviour
 
     public void ThrowLimb(int direction)
     {
+        _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
         _limbs[(int)_selectedLimb].ThrowLimb(direction);
-        _limbs[(int)_selectedLimb] = null;
-        if (_selectedLimb != SelectedLimb.LeftLeg)
+
+        if (_limbs[(int)_selectedLimb].TripleShot)
         {
-            _selectedLimb--;
+            return;
         }
+
+        _limbs[(int)_selectedLimb] = null;
         _canThrow = false;
+
+        int next = (((int)_selectedLimb + 1) % 2 == 0) ? -1 : 1;
+        if (_limbs[(int)_selectedLimb + next] != null)
+        {
+            _selectedLimb += next;
+            _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+            return;
+        }
+
+        next = ((int)_selectedLimb > 1) ? -2 : 2;
+        if (_limbs[(int)_selectedLimb + next] != null)
+        {
+            _selectedLimb += next;
+            _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+            return;
+        }
+
+        next = ((int)_selectedLimb > 1) ? -1 : 1;
+        SelectedLimb limb = _selectedLimb;
+        for (int i = 0; i < 3; i++)
+        {
+            limb += next;
+            Debug.Log(limb);
+            if (limb < 0 || (int)limb > 3)
+            {
+                break;
+            }
+            if (_limbs[(int)limb] != null)
+            {
+                _selectedLimb = limb;
+                _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+                return;
+            }
+        }
+
+        _selectedLimb = SelectedLimb.LeftLeg;
+    }
+
+    public void SwitchLimb(float direction)
+    {
+        int step = (direction > 0.5f) ? 1 : -1;
+        int start = (int)_selectedLimb + step;
+        int start2 = (direction > 0.5f) ? 0 : 3;
+        int end = (direction > 0.5f) ? 4 : -1;
+        
+        int place = start;
+        while (place != end)
+        {
+            if (_limbs[place] == null)
+            {
+                place += step;
+            }
+            else
+            {
+                _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
+                _selectedLimb = (SelectedLimb)place;
+                _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+                return;
+            }
+        }
+
+        place = start2;
+        while (place != (int)_selectedLimb)
+        {
+            if (_limbs[place] == null)
+            {
+                place += step;
+            }
+            else
+            {
+                _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
+                _selectedLimb = (SelectedLimb)place;
+                _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+                return;
+            }
+        }
+    }
+
+    public Vector3 GetSize()
+    {
+        return _collider.size;
     }
 }

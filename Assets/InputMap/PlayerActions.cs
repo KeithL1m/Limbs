@@ -71,6 +71,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Switch Limb"",
+                    ""type"": ""Button"",
+                    ""id"": ""54058eee-5eeb-434a-9d01-a5b766919401"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -216,6 +225,39 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""SwitchAimType"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""73f9307c-72fb-4dfc-87e4-71671426f8c4"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch Limb"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""202bfb39-bd2d-4fab-bd17-79d6e1b120e4"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Switch Limb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""f37eb511-4175-4eaa-bdf9-25d0ea43913c"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Switch Limb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -421,6 +463,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_Gameplay_ThrowLimb = m_Gameplay.FindAction("ThrowLimb", throwIfNotFound: true);
         m_Gameplay_Aim = m_Gameplay.FindAction("Aim", throwIfNotFound: true);
         m_Gameplay_SwitchAimType = m_Gameplay.FindAction("SwitchAimType", throwIfNotFound: true);
+        m_Gameplay_SwitchLimb = m_Gameplay.FindAction("Switch Limb", throwIfNotFound: true);
         // Menu Nav
         m_MenuNav = asset.FindActionMap("Menu Nav", throwIfNotFound: true);
         m_MenuNav_Move = m_MenuNav.FindAction("Move", throwIfNotFound: true);
@@ -489,6 +532,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_ThrowLimb;
     private readonly InputAction m_Gameplay_Aim;
     private readonly InputAction m_Gameplay_SwitchAimType;
+    private readonly InputAction m_Gameplay_SwitchLimb;
     public struct GameplayActions
     {
         private @PlayerActions m_Wrapper;
@@ -498,6 +542,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         public InputAction @ThrowLimb => m_Wrapper.m_Gameplay_ThrowLimb;
         public InputAction @Aim => m_Wrapper.m_Gameplay_Aim;
         public InputAction @SwitchAimType => m_Wrapper.m_Gameplay_SwitchAimType;
+        public InputAction @SwitchLimb => m_Wrapper.m_Gameplay_SwitchLimb;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -522,6 +567,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @SwitchAimType.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchAimType;
                 @SwitchAimType.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchAimType;
                 @SwitchAimType.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchAimType;
+                @SwitchLimb.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchLimb;
+                @SwitchLimb.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchLimb;
+                @SwitchLimb.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchLimb;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -541,6 +589,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @SwitchAimType.started += instance.OnSwitchAimType;
                 @SwitchAimType.performed += instance.OnSwitchAimType;
                 @SwitchAimType.canceled += instance.OnSwitchAimType;
+                @SwitchLimb.started += instance.OnSwitchLimb;
+                @SwitchLimb.performed += instance.OnSwitchLimb;
+                @SwitchLimb.canceled += instance.OnSwitchLimb;
             }
         }
     }
@@ -611,6 +662,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         void OnThrowLimb(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnSwitchAimType(InputAction.CallbackContext context);
+        void OnSwitchLimb(InputAction.CallbackContext context);
     }
     public interface IMenuNavActions
     {
