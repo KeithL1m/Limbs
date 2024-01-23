@@ -106,7 +106,7 @@ public class StickyBomb : Limb
 
     void Explode()
     {
-        Debug.Log("BOOOOM");
+        Debug.Log("STICKY BOMB BOOM!!!");
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
 

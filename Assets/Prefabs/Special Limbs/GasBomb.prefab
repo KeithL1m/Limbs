@@ -54,7 +54,8 @@ MonoBehaviour:
   _limbData: {fileID: 11400000, guid: 76d2735fb647a41419933b8acfdb8866, type: 2}
   <Trail>k__BackingField: {fileID: 5540534422284720917}
   <PickUpIndicator>k__BackingField: {fileID: 8940071924156930077}
-  _specialLimb: 1
+  <CanPickUp>k__BackingField: 0
+  <PickupTimer>k__BackingField: 0
   gasCloudPrefab: {fileID: 8540868700325874929, guid: e5de6000cd7fb07468ecd4aac2969b18, type: 3}
 --- !u!50 &545256134410961637
 Rigidbody2D:
@@ -91,7 +92,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.0000001, y: 2.0000002}
+  m_Size: {x: 0.67, y: 1.35}
   m_Direction: 0
 --- !u!58 &9013129385462799717
 CircleCollider2D:
@@ -135,7 +136,7 @@ Transform:
   m_GameObject: {fileID: 4689326520470003246}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.53253555}
-  m_LocalScale: {x: 1, y: 1, z: 5.4003015}
+  m_LocalScale: {x: 0.2487, y: 0.2487, z: 1.3430549}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1817910181011066892}
@@ -182,8 +183,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.6535051, g: 0.6886792, b: 0.27612138, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 3093064a03a1d924d8330f25b7806a44, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

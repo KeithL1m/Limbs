@@ -48,9 +48,9 @@ public class HotPotato : Limb
 
     }
 
+  
 
-
-    void HotPotatoCheck()
+    private void HotPotatoCheck()
     {
         // Art and what happens each state of hot potato
         switch (_explodeCounter)
@@ -84,7 +84,7 @@ public class HotPotato : Limb
         }
     }
 
-    void Explode()
+    private void Explode()
     {
         Debug.Log("BOOOOM");
 

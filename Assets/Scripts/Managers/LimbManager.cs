@@ -52,21 +52,23 @@ public class LimbManager : Manager
             }
             else if (limb.State == Limb.LimbState.Throwing || limb.State == Limb.LimbState.Returning)
             {
-                
-                if (limb.LimbRB.velocity.magnitude < 4.0f)
+                if(limb.LimbRB != null)
                 {
-                    if (!limb.CanPickUp)
+                    if (limb.LimbRB.velocity.magnitude < 4.0f)
                     {
-                        continue;
-                    }
-                    else if (limb.PickupTimer > 0.1f)
-                    {
-                        limb.CanPickUp = false;
-                        continue;
-                    }
+                        if (!limb.CanPickUp)
+                        {
+                            continue;
+                        }
+                        else if (limb.PickupTimer > 0.1f)
+                        {
+                            limb.CanPickUp = false;
+                            continue;
+                        }
 
-                    limb.PickupTimer = 0.2f;
-                    limb.EnterPickupState();
+                        limb.PickupTimer = 0.2f;
+                        limb.EnterPickupState();
+                    }
                 }
             }
         }

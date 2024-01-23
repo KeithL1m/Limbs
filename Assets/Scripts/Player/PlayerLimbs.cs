@@ -21,20 +21,21 @@ public class PlayerLimbs : MonoBehaviour
     public List<Limb> _limbs;
     public SelectedLimb _selectedLimb = SelectedLimb.LeftLeg;
     public LimbState _limbState;
+    public bool _canThrow;
 
     private Transform _groundCheck;
     [SerializeField] private List<Transform> _limbAnchors;
     [SerializeField] private CapsuleCollider2D _collider;
     [SerializeField] private Material _overlayMaterial;
     [SerializeField] private Material _standardMaterial;
+    [SerializeField] private SpriteRenderer _sprite;
 
-    Vector2 _originalSize;
-    Vector2 _originalOffset;
+    private Vector2 _originalSize;
+    private Vector2 _originalOffset;
 
-    public bool _canThrow;
 
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         _limbs = new List<Limb>();
         _limbs.Capacity = 8;
@@ -209,7 +210,7 @@ public class PlayerLimbs : MonoBehaviour
         return true;
     }
 
-    public void ThrowLimb(int direction)
+    public virtual void ThrowLimb(int direction)
     {
         _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
         _limbs[(int)_selectedLimb].ThrowLimb(direction);

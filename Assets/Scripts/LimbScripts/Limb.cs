@@ -19,12 +19,12 @@ public class Limb : MonoBehaviour
         PickUp
     }
 
-    private Player _attachedPlayer;
-    private PlayerLimbs _attachedPlayerLimbs;
+    protected Player _attachedPlayer;
+    protected PlayerLimbs _attachedPlayerLimbs;
     [HideInInspector] public Transform AnchorPoint { get; set; } = null;
     [HideInInspector] public Rigidbody2D LimbRB { get; private set; } = null;
 
-    [SerializeField] private SpriteRenderer _sprite;
+    [SerializeField] protected SpriteRenderer _sprite;
 
     [HideInInspector] public LimbType Type { get; set; } //this will help most with animations
     [HideInInspector] public LimbState State { get; set; }
@@ -46,10 +46,18 @@ public class Limb : MonoBehaviour
     protected Vector3 _returnVelocity;
     protected float _rVMultiplier;
 
+    private bool _tripleShot;
+    public bool TripleShot { get; set; }
+
     protected virtual void Awake()
     {
         GameLoader loader = ServiceLocator.Get<GameLoader>();
         loader.CallOnComplete(Initialize);
+    }
+
+    public void SetMaterial(Material material)
+    {
+        _sprite.material = material;
     }
 
     protected virtual void Initialize()
@@ -75,7 +83,7 @@ public class Limb : MonoBehaviour
         CanPickUp = true;
     }
 
-    public void ThrowLimb(int direction)
+    public virtual void ThrowLimb(int direction)
     {
         _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
@@ -160,8 +168,32 @@ public class Limb : MonoBehaviour
         }
     }
 
+    public void FlipY(int i)
+    {
+        if (i < 0)
+        {
+            _sprite.flipY = true;
+        }
+        else
+        {
+            _sprite.flipY = false;
+        }
+    }
+
+    public void FlipX(int i)
+    {
+        if (i < 0)
+        {
+            _sprite.flipX = true;
+        }
+        else
+        {
+            _sprite.flipX = false;
+        }
+    }
+
     // Limb damage
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag != "Player")
             return;
