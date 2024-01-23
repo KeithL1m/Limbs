@@ -29536,7 +29536,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 21e7dbe40cd74fd48981a13ff1e5037e, type: 2}
+  - {fileID: 2100000, guid: fd85df9637a5d2f41bb006b36a1c210a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -29557,11 +29557,11 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 4
+  m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 0.5
+  m_MaxParticleSize: 3
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
@@ -29610,7 +29610,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 1
+    scalar: 0
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -34500,7 +34500,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 1.5
+    scalar: 0.5
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -44240,7 +44240,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 1.5
+    scalar: 0.5
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -49111,7 +49111,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 1.7
+    scalar: 0.7
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -53981,7 +53981,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 1.5
+    scalar: 0.5
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -78333,7 +78333,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 1.5
+    scalar: 0.5
     minScalar: 0
     maxCurve:
       serializedVersion: 2
