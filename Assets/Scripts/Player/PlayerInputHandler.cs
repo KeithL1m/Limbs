@@ -12,6 +12,7 @@ public class PlayerInputHandler : MonoBehaviour
     public float ThrowLimb { get; private set; }
     public Vector2 Aim { get; private set; }
     public bool FlickAiming { get; private set; } = false;
+    public float LimbSwitch { get;private set; }
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class PlayerInputHandler : MonoBehaviour
         _input.onActionTriggered += ThrowLimbInput;
         _input.onActionTriggered += AimInput;
         _input.onActionTriggered += FlickAimInput;
+        _input.onActionTriggered += SwitchLimbInput;
     }
 
     public void MoveInput(InputAction.CallbackContext ctx)
@@ -69,5 +71,12 @@ public class PlayerInputHandler : MonoBehaviour
         {
             FlickAiming = true;
         }
+    }
+
+    public void SwitchLimbInput(InputAction.CallbackContext ctx)
+    {
+        if (ctx.action.name != "Switch Limb")
+            return;
+        LimbSwitch = ctx.ReadValue<float>();
     }
 }
