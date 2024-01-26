@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     public int direction;
     private bool _initialized = false;
     private bool _canThrow = true;
+    private bool _canSwitch = true;
     public Vector2 LastAimed { get; private set; } = Vector2.zero;
 
 
@@ -51,6 +52,7 @@ public class Player : MonoBehaviour
         _config = pc;
 
         _inputHandler.InitializePlayer(_config);
+        _playerLimbs.Initialize();
 
         _playerHead.sprite = _config.Head;
         _playerBody.sprite = _config.Body;
@@ -88,6 +90,16 @@ public class Player : MonoBehaviour
         else
         {
             direction = -1;
+        }
+
+        if ((_inputHandler.LimbSwitch > 0.5f || _inputHandler.LimbSwitch < -0.5f) && _canSwitch)
+        {
+            _playerLimbs.SwitchLimb(_inputHandler.LimbSwitch);
+            _canSwitch = false;
+        }
+        else if (_inputHandler.LimbSwitch < 0.5f && _inputHandler.LimbSwitch > -0.5f)
+        {
+            _canSwitch = true;
         }
 
         /*throwing limbs*/
