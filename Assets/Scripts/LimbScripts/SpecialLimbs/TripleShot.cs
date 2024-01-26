@@ -68,7 +68,7 @@ public class TripleShot : Limb
 
             return;
         }
-
+        transform.parent = null;
         TripleShot = false;
         _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
