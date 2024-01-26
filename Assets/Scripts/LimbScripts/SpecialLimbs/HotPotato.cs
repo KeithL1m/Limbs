@@ -86,7 +86,7 @@ public class HotPotato : Limb
 
     private void Explode()
     {
-        Debug.Log("BOOOOM");
+        Debug.Log("POTATO BOOOOM");
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
 
