@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc105bb179138bc4e9e731551038337b, type: 3}
   m_Name: Blunt
   m_EditorClassIdentifier: 
-  _throwSpeed: 15
+  _throwSpeed: 10
   _throwAngle: 30
   _knockback: 1
   _knockbackCounter: 0
