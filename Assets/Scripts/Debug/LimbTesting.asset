@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84c3c2d3cbf7a3a4cb306a0b2f016e7a, type: 3}
-  m_Name: TripleShot
+  m_Name: LimbTesting
   m_EditorClassIdentifier: 
   _sceneToLoad: Assets/Scenes/GameTestingScene/LimbTesting.unity
   _allScenes:

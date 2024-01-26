@@ -24,17 +24,17 @@ public class LimbWall : Limb
     }
 
 
-    public override void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
         base.OnCollisionEnter2D(collision);
     }
 
-    public override void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
     }
 
-    public override void OnTriggerStay2D(Collider2D collision)
+    protected override void OnTriggerStay2D(Collider2D collision)
     {
         base.OnTriggerStay2D(collision);
     }

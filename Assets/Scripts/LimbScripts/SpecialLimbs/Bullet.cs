@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private int _damage;
+
     private Vector2 _direction;
     private Rigidbody2D _rb2d;
 
@@ -32,12 +33,16 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Initialize(Vector2 direction, Vector2 position)
+    public void Initialize(Vector2 direction, Vector2 position, Sprite _sprite)
     {
         _direction = new Vector2();
         _direction = direction;
-        Debug.Log(direction);
+
+        float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, -angle));
+
         transform.position = position;
         _rb2d = GetComponent<Rigidbody2D>();
+        GetComponent<SpriteRenderer>().sprite = _sprite;
     }
 }

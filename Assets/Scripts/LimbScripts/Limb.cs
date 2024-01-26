@@ -24,14 +24,14 @@ public class Limb : MonoBehaviour
     [HideInInspector] public Transform AnchorPoint { get; set; } = null;
     [HideInInspector] public Rigidbody2D LimbRB { get; private set; } = null;
 
-    [SerializeField] private SpriteRenderer _sprite;
+    [SerializeField] protected SpriteRenderer _sprite;
 
     [HideInInspector] public LimbType Type { get; set; } //this will help most with animations
     [HideInInspector] public LimbState State { get; set; }
 
     [SerializeField] private LimbData _limbData;
     [field: SerializeField] public GameObject Trail { get; set; }
-    [field: SerializeField] public GameObject PickUpIndicator { get; set; }
+    [field: SerializeField]  public GameObject PickUpIndicator { get; set; }
 
     [field: SerializeField] public bool CanPickUp { get; set; }
     [field: SerializeField] public float PickupTimer { get; set; }
@@ -82,7 +82,7 @@ public class Limb : MonoBehaviour
         _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
         State = LimbState.Throwing;
-        transform.parent = null;
+
         Trail.SetActive(true);
 
         if (_attachedPlayer._inputHandler.Aim.x == 0.0f && _attachedPlayer._inputHandler.Aim.y == 0.0f && !_attachedPlayer._inputHandler.FlickAiming)
@@ -103,7 +103,6 @@ public class Limb : MonoBehaviour
             tVelocity *= _throwSpeed;
             LimbRB.velocity = tVelocity;
         }
-
         _returnVelocity = new Vector3(-LimbRB.velocity.x * _rVMultiplier * 0.6f, -LimbRB.velocity.y * _rVMultiplier * 0.6f, 0f);
     }
 
@@ -126,7 +125,7 @@ public class Limb : MonoBehaviour
     public void AttachedUpdate()
     {
         PickupTimer = 0.2f;
-        //transform.position = AnchorPoint.position;
+        transform.position = AnchorPoint.position;
         if (Trail != null)
         {
             Trail.SetActive(false);
@@ -135,7 +134,8 @@ public class Limb : MonoBehaviour
 
     public void EnterPickupState()
     {
-        Flip(1);
+        FlipY(1);
+        FlipX(1);
         Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
         State = LimbState.PickUp;
         _attachedPlayer = null;
@@ -148,10 +148,9 @@ public class Limb : MonoBehaviour
         {
             PickUpIndicator.SetActive(true);
         }
-
     }
 
-    public void Flip(int i)
+    public void FlipY(int i )
     {
         if (i < 0)
         {
@@ -163,30 +162,33 @@ public class Limb : MonoBehaviour
         }
     }
 
-    // Limb damage
-    public virtual void OnCollisionEnter2D(Collision2D collision)
+    public void FlipX(int i)
     {
-        if (collision.gameObject.CompareTag("BreakWall"))
+        if (i < 0)
         {
-            collision.gameObject.GetComponent<LimbInstantiateWall>().Damage();
-            ReturnLimb();
+            _sprite.flipX = true;
         }
+        else
+        {
+            _sprite.flipX = false;
+        }
+    }
+
+    // Limb damage
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    {
         if (collision.gameObject.tag != "Player")
             return;
         else if (State != LimbState.Throwing)
             return;
 
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
-        if (transform.position.x > collision.transform.position.x)
-            _healthPlayer.AddDamage(_damage + _specialDamage, true);
-        else
-            _healthPlayer.AddDamage(_damage + _specialDamage, false);
-
+        _healthPlayer.AddDamage(_damage + _specialDamage);
         ReturnLimb();
     }
 
     // Limb pickup
-    public virtual void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag != "Player")
             return;
@@ -219,7 +221,9 @@ public class Limb : MonoBehaviour
         }
     }
 
-    public virtual void OnTriggerStay2D(Collider2D collision)
+
+
+    protected virtual void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag != "Player")
             return;
@@ -248,11 +252,8 @@ public class Limb : MonoBehaviour
             {
                 LimbRB.SetRotation(0);
             }
+            PickUpExtra(_attachedPlayer);
         }
-
-        PickUpExtra(_attachedPlayer);
-
     }
-
     public virtual void PickUpExtra(Player Player) { }
 }

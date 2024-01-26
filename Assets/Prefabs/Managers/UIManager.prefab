@@ -774,7 +774,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8567420190504578820}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: EndGame
         m_Mode: 1
@@ -1659,7 +1659,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8567420190504578820}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: LoadExitPopUpMenu
         m_Mode: 1
@@ -2144,9 +2144,9 @@ GameObject:
   - component: {fileID: 8567420190504578873}
   - component: {fileID: 8567420190504578874}
   - component: {fileID: 8567420190504578875}
+  - component: {fileID: 8567420190504578820}
   - component: {fileID: 8567420190504578821}
   - component: {fileID: 4000859137967174611}
-  - component: {fileID: 5575139360873715353}
   m_Layer: 5
   m_Name: UIManager
   m_TagString: Untagged
@@ -2242,6 +2242,31 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8567420190504578820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7286767260740390294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8081f681b8a456a4588c1cb93eae8a5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pauseMenu: {fileID: 8567420189399801676}
+  _arsenalMenu: {fileID: 8567420189576882046}
+  _optionsMenu: {fileID: 8567420190114775656}
+  _popupMenu: {fileID: 8567420189312164338}
+  _exitPopupMenu: {fileID: 3980183634648225078}
+  _eventSystem: {fileID: 8567420190715858752}
+  _pauseFirstButton: {fileID: 8567420190486687868}
+  _arsenalFirstButton: {fileID: 8567420190181280892}
+  _optionsFirstButton: {fileID: 8567420189683973778}
+  _popupFirstButton: {fileID: 8567420190883136200}
+  _exitPopupFirstButton: {fileID: 7594664035400025356}
+  _canvas: {fileID: 8567420190504578873}
+  _uiManager: {fileID: 8567420190504578821}
 --- !u!114 &8567420190504578821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2344,31 +2369,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fadeImage: {fileID: 8175790250284073220}
   _fadeDuration: 0.5
---- !u!114 &5575139360873715353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7286767260740390294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8081f681b8a456a4588c1cb93eae8a5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pauseMenu: {fileID: 8567420189399801676}
-  _arsenalMenu: {fileID: 8567420189576882046}
-  _optionsMenu: {fileID: 8567420190114775656}
-  _popupMenu: {fileID: 8567420189312164338}
-  _exitPopupMenu: {fileID: 3980183634648225078}
-  _eventSystem: {fileID: 8567420190715858752}
-  _pauseFirstButton: {fileID: 8567420190486687868}
-  _arsenalFirstButton: {fileID: 8567420190181280892}
-  _optionsFirstButton: {fileID: 8567420189683973778}
-  _popupFirstButton: {fileID: 8567420190883136200}
-  _exitPopupFirstButton: {fileID: 6344911498339046247}
-  _canvas: {fileID: 8567420190504578873}
-  _uiManager: {fileID: 8567420190504578821}
 --- !u!1 &7594664035400025356
 GameObject:
   m_ObjectHideFlags: 0
@@ -2491,7 +2491,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8567420190504578820}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: UnloadExitPopupMenu
         m_Mode: 1
@@ -2760,7 +2760,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8567420190504578820}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: LoadMainMenu
         m_Mode: 1
@@ -4041,7 +4041,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8567420190504578820}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: LoadArsenalMenu
         m_Mode: 1
@@ -4475,7 +4475,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8567420190504578820}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: LoadPauseMenu
         m_Mode: 1
@@ -4688,7 +4688,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8567420190504578820}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: LoadPopUpMenu
         m_Mode: 1
@@ -5053,7 +5053,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8567420190504578820}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: ResumeGame
         m_Mode: 1
@@ -5784,7 +5784,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8567420190504578820}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: LoadPauseMenu
         m_Mode: 1
@@ -6569,7 +6569,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8567420190504578820}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: ResumeGame
         m_Mode: 1
@@ -7749,7 +7749,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8567420190504578820}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: ResumeGame
         m_Mode: 1
@@ -7962,7 +7962,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8567420190504578820}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: LoadOptionsMenu
         m_Mode: 1
@@ -8486,7 +8486,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8567420190504578820}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: UnloadPopupMenu
         m_Mode: 1

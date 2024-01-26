@@ -185,4 +185,14 @@ public class Player : MonoBehaviour
         return _aimTransform.GetComponentInChildren<SpriteRenderer>();
     }
 
+    public Vector3 GetSize()
+    {
+        return _playerLimbs.GetSize();
+    }
+
+    public void ZeroVelocity()
+    {
+        _playerMovement.ZeroVelocity();
+    }
+
 }

@@ -18409,7 +18409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7194619280255809899, guid: 5303d603aaf63e442ad6f8da4a82f0cb, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7194619280255809899, guid: 5303d603aaf63e442ad6f8da4a82f0cb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -18549,6 +18549,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4379813963526838094, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
+      propertyPath: _debugSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: b2fc6d1fa591ade48943c6c493402d08, type: 2}
+    - target: {fileID: 4379813963526838094, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
+      propertyPath: _sceneIndexToLoad
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7150891192111988303, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
       propertyPath: m_Name
       value: GameLoader
@@ -36641,6 +36649,10 @@ PrefabInstance:
       value: -11.790001
       objectReference: {fileID: 0}
     - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
+      propertyPath: _limbLimit
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: _limbManager
       value: 
       objectReference: {fileID: 0}
@@ -36651,7 +36663,7 @@ PrefabInstance:
     - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: _limbOptions.Array.data[0]
       value: 
-      objectReference: {fileID: 479936713415687806, guid: 37529f15fa0ca03468bd8d075186cc97, type: 3}
+      objectReference: {fileID: 479936713415687806, guid: ceffc63aa63769f43bdb2e94d9ea3429, type: 3}
     - target: {fileID: 589181753366587948, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: m_LocalPosition.y
       value: -12.01
@@ -36666,7 +36678,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3941183982691062052, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3941183982691062052, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: m_LocalPosition.x
