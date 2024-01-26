@@ -48,7 +48,7 @@ public class Limb : MonoBehaviour
 
     public bool TripleShot = false;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         GameLoader loader = ServiceLocator.Get<GameLoader>();
         loader.CallOnComplete(Initialize);
@@ -194,7 +194,7 @@ public class Limb : MonoBehaviour
     }
 
     // Limb pickup
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag != "Player")
             return;
