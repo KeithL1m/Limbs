@@ -81,6 +81,7 @@ public class PlayerLimbs : MonoBehaviour
         {
             _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
             _limbs[i].Type = Limb.LimbType.Leg;
+            _limbs[i].FlipY(1);
             if (i == 1)
             {
                 if (_limbs[1].Size > _limbs[0].Size)

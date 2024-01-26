@@ -154,6 +154,11 @@ public class GameManager : Manager
         _mapManager.ChangeScene();
     }
 
+    public void VictoryScreenSelect(GameObject button)
+    {
+        _pauseManager.VictoryScreen(button);
+    }
+
     private void SpawnPlayer(int playerNum)
     {
         _players[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
