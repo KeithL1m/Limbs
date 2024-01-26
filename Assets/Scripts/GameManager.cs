@@ -81,10 +81,10 @@ public class GameManager : Manager
 
     override public void OnStart()
     {
-        //if (!startScreen)
-        //{
-        //    _pauseManager.SetCamera(Camera.main);
-        //}
+        if (!startScreen)
+        {
+            _pauseManager.SetCamera(Camera.main);
+        }
 
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spawn");
         for (int i = 0; i < gameObjects.Length; i++)

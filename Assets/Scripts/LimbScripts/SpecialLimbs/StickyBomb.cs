@@ -61,11 +61,13 @@ public class StickyBomb : Limb
 
         if (State != LimbState.Throwing)
             return;
-
-        StartCoroutine(ExplodeAfterDelay(() =>
+        if(gameObject != null)
         {
-            Destroy(gameObject);
-        }));
+            StartCoroutine(ExplodeAfterDelay(() =>
+            {
+                Destroy(gameObject);
+            }));
+        }
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)

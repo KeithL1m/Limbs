@@ -9,15 +9,11 @@ public class HotPotato : Limb
 
     //explosion force
     Collider2D[] explosionRadius = null;
-    private float _explosionForce = 300;
-    private float _explosionRadius = 5;
+    private float _explosionForce = 600;
+    private float _explosionRadius = 3;
 
     //Hot potato phases
-    [SerializeField] Sprite _potato5;
-    [SerializeField] Sprite _potato4;
-    [SerializeField] Sprite _potato3;
-    [SerializeField] Sprite _potato2;
-    [SerializeField] Sprite _potato1;
+    [SerializeField] Sprite _potatoSprite;
 
     protected override void Awake()
     {
@@ -29,6 +25,7 @@ public class HotPotato : Limb
         base.Initialize();
 
         _explodeCounter = 5;
+        //_potatoSprite
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)

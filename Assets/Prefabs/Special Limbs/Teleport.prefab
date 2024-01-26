@@ -109,7 +109,6 @@ MonoBehaviour:
   <PickUpIndicator>k__BackingField: {fileID: 7254546142229159940}
   <CanPickUp>k__BackingField: 1
   <PickupTimer>k__BackingField: 0
-  TripleShot: 0
 --- !u!1 &1123106515960743069
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +323,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0ccd90b21430a23458ddf19ed905249c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5422815, g: 0, b: 0.8207547, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

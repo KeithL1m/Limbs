@@ -181,7 +181,6 @@ GameObject:
   - component: {fileID: 3672172557956614342}
   - component: {fileID: 4104593779078057208}
   - component: {fileID: 3178263607008836139}
-  - component: {fileID: 5338520297660351941}
   m_Layer: 0
   m_Name: HotPotato
   m_TagString: Limb
@@ -226,11 +225,7 @@ MonoBehaviour:
   <CanPickUp>k__BackingField: 0
   <PickupTimer>k__BackingField: 0
   _explodeCounter: 5
-  _potato5: {fileID: 0}
-  _potato4: {fileID: 0}
-  _potato3: {fileID: 0}
-  _potato2: {fileID: 0}
-  _potato1: {fileID: 0}
+  _potatoSprite: {fileID: 0}
 --- !u!50 &3672172557956614342
 Rigidbody2D:
   serializedVersion: 4
@@ -284,22 +279,6 @@ CircleCollider2D:
   m_Offset: {x: -0.019952673, y: 0}
   serializedVersion: 2
   m_Radius: 1.1396694
---- !u!58 &5338520297660351941
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4638563857849589786}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!1 &6718465839082960848
 GameObject:
   m_ObjectHideFlags: 0
