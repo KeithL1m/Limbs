@@ -116,6 +116,7 @@ MonoBehaviour:
   - {fileID: 768787119808473117, guid: a8ce0af062f424e4ba5831494e9b891a, type: 3}
   - {fileID: 8577597915325098454, guid: b86c3619877ef6942bd2676957334f35, type: 3}
   - {fileID: 768787119808473117, guid: f3ef69faad6d9db48b52053057d030e3, type: 3}
+  - {fileID: 768787119808473117, guid: c6308d066eb53f44b955b537af8828e6, type: 3}
   _limbLimit: 20
   _startLimbCount: 6
   _minSpawnTimer: 3
