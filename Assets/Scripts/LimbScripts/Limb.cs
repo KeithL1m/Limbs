@@ -47,6 +47,7 @@ public class Limb : MonoBehaviour
     protected float _rVMultiplier;
 
     public bool TripleShot = false;
+    private bool _initialized = false;
 
     private void Awake()
     {
@@ -75,10 +76,13 @@ public class Limb : MonoBehaviour
 
         PickupTimer = 0.2f;
         CanPickUp = true;
+        _initialized = true;
     }
 
     public virtual void ThrowLimb(int direction)
     {
+        PickupTimer = 0.2f;
+        CanPickUp = false;
         _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
         State = LimbState.Throwing;
@@ -107,6 +111,35 @@ public class Limb : MonoBehaviour
         _returnVelocity = new Vector3(-LimbRB.velocity.x * _rVMultiplier * 0.6f, -LimbRB.velocity.y * _rVMultiplier * 0.6f, 0f);
     }
 
+    public void LimbUpdate()
+    {
+        if (!_initialized)
+        {
+            return;
+        }
+
+        if (State == LimbState.Attached && AnchorPoint != null)
+        {
+            transform.position = AnchorPoint.position;
+            if (Trail != null)
+            {
+                Trail.SetActive(false);
+            }
+        }
+        else if (State == LimbState.Throwing || State == LimbState.Returning)
+        {
+            if (LimbRB.velocity.magnitude < 4.0f)
+            {
+                PickupTimer -= Time.deltaTime;
+            }
+            if (PickupTimer <= 0.0f)
+            {
+                CanPickUp = true;
+                EnterPickupState();
+            }
+        }
+    }
+
     private void ReturnLimb()
     {
         Trail.SetActive(true);
@@ -123,17 +156,7 @@ public class Limb : MonoBehaviour
         //for if we ever do melee
     }
 
-    public void AttachedUpdate()
-    {
-        PickupTimer = 0.2f;
-        transform.position = AnchorPoint.position;
-        if (Trail != null)
-        {
-            Trail.SetActive(false);
-        }
-    }
-
-    public void EnterPickupState()
+    protected virtual void EnterPickupState()
     {
         FlipY(1);
         FlipX(1);
@@ -211,7 +234,6 @@ public class Limb : MonoBehaviour
 
         if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
         {
-            PickupTimer = 0.2f;
             PickUpIndicator.SetActive(false);
             _attachedPlayer = collision.gameObject.GetComponent<Player>();
             _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
@@ -243,7 +265,6 @@ public class Limb : MonoBehaviour
 
         if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
         {
-            PickupTimer = 0.2f;
             PickUpIndicator.SetActive(false);
             _attachedPlayer = collision.gameObject.GetComponent<Player>();
             _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
