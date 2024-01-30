@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Damagable : MonoBehaviour
+public class Icicle : MonoBehaviour
 {
     [Header("General Settings")]
     [SerializeField] private float damageOutput = 20;
@@ -11,7 +11,6 @@ public class Damagable : MonoBehaviour
 
     [Header("Bool Settings")]
     [SerializeField] private bool destroyOnTouch;
-    [SerializeField] private bool regenerateIcicle;
 
 
     [Header("References")]
@@ -26,7 +25,7 @@ public class Damagable : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        rb.isKinematic = false;
+        rb.constraints = RigidbodyConstraints2D.None;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -34,18 +33,27 @@ public class Damagable : MonoBehaviour
         if (collision.collider.CompareTag(("Player")))
         {
             collision.collider.GetComponent<PlayerHealth>().AddDamage(damageOutput);
-            Destroy(gameObject);
-        }
-
-        else if (regenerateIcicle == true)
-        {
             gameObject.transform.position = originalPos;
-            rb.isKinematic = true;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            StartCoroutine(PauseCollision());
         }
 
         else if (destroyOnTouch == true)
         {
-            Destroy(gameObject);
+            gameObject.transform.position = originalPos;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            StartCoroutine(PauseCollision());
         }
     }
+
+    private IEnumerator PauseCollision()
+    {
+
+        triggerCollider.enabled = false;
+
+        yield return new WaitForSecondsRealtime(5);
+
+        triggerCollider.enabled = true;
+    }
+
 }

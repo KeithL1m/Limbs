@@ -3,7 +3,11 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
+
+    [Header("Move Positions")]
     public Transform[] waypoints;
+
+    [Header("Adjustable Settings")]
     public float speed = 5f;
     public float waitTime = 1f;
 
