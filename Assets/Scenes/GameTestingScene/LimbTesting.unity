@@ -36663,7 +36663,39 @@ PrefabInstance:
     - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: _limbOptions.Array.data[0]
       value: 
+      objectReference: {fileID: 479936713415687806, guid: a83eed0ac907c47489b802a99cf9434e, type: 3}
+    - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
+      propertyPath: _limbOptions.Array.data[1]
+      value: 
+      objectReference: {fileID: 479936713415687806, guid: a83eed0ac907c47489b802a99cf9434e, type: 3}
+    - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
+      propertyPath: _limbOptions.Array.data[2]
+      value: 
+      objectReference: {fileID: 479936713415687806, guid: a83eed0ac907c47489b802a99cf9434e, type: 3}
+    - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
+      propertyPath: _limbOptions.Array.data[3]
+      value: 
+      objectReference: {fileID: 479936713415687806, guid: a83eed0ac907c47489b802a99cf9434e, type: 3}
+    - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
+      propertyPath: _limbOptions.Array.data[4]
+      value: 
+      objectReference: {fileID: 479936713415687806, guid: a83eed0ac907c47489b802a99cf9434e, type: 3}
+    - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
+      propertyPath: _limbOptions.Array.data[5]
+      value: 
+      objectReference: {fileID: 479936713415687806, guid: ceffc63aa63769f43bdb2e94d9ea3429, type: 3}
+    - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
+      propertyPath: _limbOptions.Array.data[6]
+      value: 
       objectReference: {fileID: 479936713415687806, guid: 37529f15fa0ca03468bd8d075186cc97, type: 3}
+    - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
+      propertyPath: _limbOptions.Array.data[7]
+      value: 
+      objectReference: {fileID: 479936713415687806, guid: a83eed0ac907c47489b802a99cf9434e, type: 3}
+    - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
+      propertyPath: _limbOptions.Array.data[8]
+      value: 
+      objectReference: {fileID: 479936713415687806, guid: a83eed0ac907c47489b802a99cf9434e, type: 3}
     - target: {fileID: 589181753366587948, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: m_LocalPosition.y
       value: -12.01
