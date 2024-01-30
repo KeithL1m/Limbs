@@ -29,7 +29,7 @@ public class Limb : MonoBehaviour
     [HideInInspector] public LimbType Type { get; set; } //this will help most with animations
     [HideInInspector] public LimbState State { get; set; }
 
-    [SerializeField] private LimbData _limbData;
+    [SerializeField] protected LimbData _limbData;
     [field: SerializeField] public GameObject Trail { get; set; }
     [field: SerializeField]  public GameObject PickUpIndicator { get; set; }
 
@@ -41,18 +41,24 @@ public class Limb : MonoBehaviour
     public float Size { get; set; }
     protected Vector2 _throwVelocity; //used when not aiming
     protected float _throwSpeed; //used when aiming
-    private float _damage;
-    private float _specialDamage;
+    protected float _damage;
+    protected float _specialDamage;
     protected Vector3 _returnVelocity;
     protected float _rVMultiplier;
 
-    [HideInInspector] public bool TripleShot = false;
+    private bool _tripleShot;
+    [HideInInspector] public bool TripleShot { get; set; }
     [HideInInspector] public bool _specialLimbs;
 
     protected virtual void Awake()
     {
         GameLoader loader = ServiceLocator.Get<GameLoader>();
         loader.CallOnComplete(Initialize);
+    }
+
+    public void SetMaterial(Material material)
+    {
+        _sprite.material = material;
     }
 
     protected virtual void Initialize()
@@ -137,8 +143,7 @@ public class Limb : MonoBehaviour
 
     public void EnterPickupState()
     {
-        FlipY(1);
-        FlipX(1);
+        Flip(1);
         Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
         State = LimbState.PickUp;
         _attachedPlayer = null;
@@ -153,7 +158,19 @@ public class Limb : MonoBehaviour
         }
     }
 
-    public void FlipY(int i )
+    public void Flip(int i )
+    {
+        if (i < 0)
+        {
+            _sprite.flipY = true;
+        }
+        else
+        {
+            _sprite.flipY = false;
+        }
+    }
+
+    public void FlipY(int i)
     {
         if (i < 0)
         {
@@ -175,11 +192,6 @@ public class Limb : MonoBehaviour
         {
             _sprite.flipX = false;
         }
-    }
-
-    public void SetMaterial(Material material)
-    {
-        _sprite.material = material;
     }
 
     // Limb damage
@@ -219,6 +231,7 @@ public class Limb : MonoBehaviour
             _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
             if (Type == LimbType.Arm)
             {
+
                 LimbRB.SetRotation(90);
             }
             if (Type == LimbType.Leg)
@@ -251,6 +264,7 @@ public class Limb : MonoBehaviour
             _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
             if (Type == LimbType.Arm)
             {
+
                 LimbRB.SetRotation(90);
             }
             if (Type == LimbType.Leg)

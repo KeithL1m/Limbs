@@ -69,7 +69,7 @@ public class LimbManager : Manager
                         limb.PickupTimer = 0.2f;
                         limb.EnterPickupState();
                     }
-               }
+                }
             }
         }
     }

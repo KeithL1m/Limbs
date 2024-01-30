@@ -116,8 +116,15 @@ public class GameManager : Manager
                 winningConfig = _playerConfigs[i];
                 winningPlayer = _players[i];
             }
-        }
 
+            // Add score to player that is alive
+            if(!_players[i].GetComponent<PlayerHealth>().IsDead())
+            {
+                _players[i].AddScore();
+
+            }
+        }
+        
         if (_deadPlayers == _playerCount - 1)
         {
             if (!isGameOver) // Check if game over is not already triggered

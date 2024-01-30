@@ -56,7 +56,6 @@ MonoBehaviour:
   <PickUpIndicator>k__BackingField: {fileID: 8940071924156930077}
   <CanPickUp>k__BackingField: 0
   <PickupTimer>k__BackingField: 0
-  TripleShot: 0
   gasCloudPrefab: {fileID: 8540868700325874929, guid: e5de6000cd7fb07468ecd4aac2969b18, type: 3}
 --- !u!50 &545256134410961637
 Rigidbody2D:
