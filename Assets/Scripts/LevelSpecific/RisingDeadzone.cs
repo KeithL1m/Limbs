@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RisingDeadzone : MonoBehaviour
 {
-    [Header("General Settings")]
+    [Header("General Settings")]    
     [SerializeField]
     private bool moveOnStart;
     [SerializeField]
