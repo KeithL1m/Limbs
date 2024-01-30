@@ -59,6 +59,12 @@ public class PlayerHealth : MonoBehaviour
     public void KillPlayer()
     {
         deathPositions = FindObjectsOfType<DeathPosition>();
+        if (deathPositions is null)
+        {
+            Debug.LogError("there are no DeathPositions in the Scene");
+            return;
+        }
+
         _isDead = true;
         if (deathPositions[0].Occupied)
         {
