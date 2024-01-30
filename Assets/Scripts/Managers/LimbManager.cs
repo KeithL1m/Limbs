@@ -54,7 +54,7 @@ public class LimbManager : Manager
             {
                 if(limb.LimbRB != null)
                 {
-                    if (limb.LimbRB.velocity.magnitude < 4.0f)
+                    if (limb.LimbRB.velocity.magnitude < 4.0f && limb._specialLimbs == false)
                     {
                         if (!limb.CanPickUp)
                         {

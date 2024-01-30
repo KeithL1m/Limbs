@@ -21,6 +21,7 @@ public class ExplosiveLimb : Limb
     protected override void Initialize()
     {
         base.Initialize();
+        _specialLimbs = true;
 
         countdown = _timer;
     }

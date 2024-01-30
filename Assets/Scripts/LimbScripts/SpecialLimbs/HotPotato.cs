@@ -24,6 +24,7 @@ public class HotPotato : Limb
     {
         base.Initialize();
 
+        _specialLimbs = true;
         _explodeCounter = 5;
         //_potatoSprite
     }

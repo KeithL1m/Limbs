@@ -33,7 +33,7 @@ public class Limb : MonoBehaviour
     [field: SerializeField] public GameObject Trail { get; set; }
     [field: SerializeField]  public GameObject PickUpIndicator { get; set; }
 
-    [field: SerializeField] public bool CanPickUp { get; set; }
+    [HideInInspector] public bool CanPickUp { get; set; }
     [field: SerializeField] public float PickupTimer { get; set; }
 
 
@@ -47,7 +47,8 @@ public class Limb : MonoBehaviour
     protected float _rVMultiplier;
 
     private bool _tripleShot;
-    public bool TripleShot { get; set; }
+    [HideInInspector] public bool TripleShot { get; set; }
+    [HideInInspector] public bool _specialLimbs;
 
     protected virtual void Awake()
     {
@@ -81,6 +82,7 @@ public class Limb : MonoBehaviour
 
         PickupTimer = 0.2f;
         CanPickUp = true;
+        _specialLimbs = false;
     }
 
     public virtual void ThrowLimb(int direction)

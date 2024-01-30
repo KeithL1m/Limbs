@@ -34,6 +34,8 @@ public class StickyBomb : Limb
     {
         base.Initialize();
 
+
+        _specialLimbs = true;
         countdown = _timer;
     }
 
