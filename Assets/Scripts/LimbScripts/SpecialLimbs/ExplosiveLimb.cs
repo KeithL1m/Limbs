@@ -21,6 +21,7 @@ public class ExplosiveLimb : Limb
     protected override void Initialize()
     {
         base.Initialize();
+        _specialLimbs = true;
 
         countdown = _timer;
     }
@@ -78,7 +79,10 @@ public class ExplosiveLimb : Limb
             return;
         StartCoroutine(ExplodeAfterDelay(() =>
         {
-            Destroy(gameObject);
+            if(gameObject!= null)
+            {
+                Destroy(gameObject);
+            }
         }));
         
     }

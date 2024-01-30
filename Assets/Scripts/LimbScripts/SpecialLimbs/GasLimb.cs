@@ -14,6 +14,7 @@ public class GasLimb : Limb
     protected override void Initialize()
     {
         base.Initialize();
+        _specialLimbs = true;
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
@@ -25,7 +26,7 @@ public class GasLimb : Limb
     {
         if (State != LimbState.Throwing)
             return;
-            
+          
         GasExplode();
         
     }
