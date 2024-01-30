@@ -61,6 +61,7 @@ public class ExplosiveLimb : Limb
                     if(item.CompareTag("Player"))
                     {
                         item.GetComponent<PlayerHealth>().AddDamage(35);
+                        
                     }
                 }
             }
