@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosiveLimb : MonoBehaviour
+public class ExplosiveLimb : Limb
 {
     // countdown
     [SerializeField] private float _timer = 3.0f;
@@ -12,28 +13,31 @@ public class ExplosiveLimb : MonoBehaviour
     private float _explosionForce = 300;
     private float _explosionRadius = 5;
 
-
-    void Start()
+    protected override void Awake()
     {
-        countdown = _timer;
+        base.Awake();
     }
 
-    void Update()
+    protected override void Initialize()
     {
-        bool exploded = false;
+        base.Initialize();
+        _specialLimbs = true;
 
-        countdown -= Time.deltaTime;
-        if(countdown <= 0.0f)
-        {
-            Explode();
-            exploded= true;
-        }
+        countdown = _timer;
+    }
+    
 
+    // timer for explosion
+    private IEnumerator ExplodeAfterDelay(Action callback)
+    {
+        yield return new WaitForSeconds(countdown);
+        Explode();
+        callback?.Invoke();
+    }
 
-        if(exploded)
-        {
-            Destroy(gameObject);
-        }
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
     }
 
     void Explode()
@@ -53,6 +57,12 @@ public class ExplosiveLimb : MonoBehaviour
                 {
                     float explosion = _explosionForce / distanceVector.magnitude;
                     item_rigidbody.AddForce(distanceVector.normalized * explosion);
+                    
+                    if(item.CompareTag("Player"))
+                    {
+                        item.GetComponent<PlayerHealth>().AddDamage(35);
+                        
+                    }
                 }
             }
         }
@@ -62,5 +72,19 @@ public class ExplosiveLimb : MonoBehaviour
     private void OnDrawGizmos() // draw gizmos
     {
         Gizmos.DrawWireSphere(transform.position, _explosionRadius);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (State != LimbState.Throwing)
+            return;
+        StartCoroutine(ExplodeAfterDelay(() =>
+        {
+            if(gameObject!= null)
+            {
+                Destroy(gameObject);
+            }
+        }));
+        
     }
 }

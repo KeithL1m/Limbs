@@ -5,17 +5,17 @@ using UnityEngine;
 public class Teleport : Limb
 {
     private bool _teleport = false;
-    private bool _startTeleport = false;
 
     private Vector3 _teleportPosition = new();
     private float _timer = 0f;
-    private float _delay = 0.0f;
 
     Player _teleportedPlayer;
 
     public override void ThrowLimb(int direction)
     {
         base.ThrowLimb(direction);
+
+        ServiceLocator.Get<CameraManager>().AddTeleport(gameObject);
 
         _teleport = true;
         _teleportedPlayer = _attachedPlayer;
@@ -25,17 +25,6 @@ public class Teleport : Limb
     {
         if (_teleport)
         {
-            _timer += Time.deltaTime;
-        }
-        else if (_startTeleport)
-        {
-            if (_timer > _delay)
-            {
-                _teleportedPlayer.ZeroVelocity();
-                _teleportedPlayer.transform.position = _teleportPosition;
-                ServiceLocator.Get<LimbManager>().RemoveLimb(this);
-                Destroy(gameObject);
-            }
             _timer += Time.deltaTime;
         }
     }
@@ -81,9 +70,11 @@ public class Teleport : Limb
 
         LimbRB.constraints = RigidbodyConstraints2D.FreezeAll;
 
-        _teleport = false;
-        _startTeleport = true;
-        _timer = 0.0f;
+        _teleportedPlayer.ZeroVelocity();
+        _teleportedPlayer.transform.position = _teleportPosition;
+        ServiceLocator.Get<LimbManager>().RemoveLimb(this);
+        ServiceLocator.Get<CameraManager>().RemoveTeleport(gameObject);
+        Destroy(gameObject);
     }
 }
 
