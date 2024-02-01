@@ -35,12 +35,12 @@ public class LimbInstantiateWall : MonoBehaviour
         }
         if (isStop)
             return;
+        transform.localScale += new Vector3(0, speed * Time.fixedDeltaTime, 0);
         if (transform.localScale.y > maximumHeight)
         {
             transform.localScale = new Vector3(transform.localScale.x, maximumHeight, transform.localScale.z);
             isStop = true;
         }
-        transform.localScale += new Vector3(0, speed * Time.fixedDeltaTime, 0);
         
     }
     private float damageCD = 0.1f;

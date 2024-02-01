@@ -346,6 +346,7 @@ MonoBehaviour:
   _earlyExitGravityFactor: 3
   _maxJumpBufferTime: 0.15
   _maxCoyoteTime: 0.33
+  flyPower: 40
 --- !u!114 &1550446190603291940
 MonoBehaviour:
   m_ObjectHideFlags: 0

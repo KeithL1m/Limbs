@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerJump : MonoBehaviour
 {
@@ -49,10 +50,10 @@ public class PlayerJump : MonoBehaviour
     {
         if (GetComponent<PlayerHealth>().IsDead())
             return;
-        if (!_player.CanFly)
+        //if (!_player.CanFly)
             NormalJump();
-        else
-            Fly();
+        //else
+        //    Fly();
 
     }
 
@@ -125,12 +126,16 @@ public class PlayerJump : MonoBehaviour
         if (_canDoubleJump)
         {
             _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed * 0.6f, ForceMode2D.Impulse);
+            
             _canDoubleJump = false;
             _isDoubleJumping = true;
         }
         else
         {
-            _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed, ForceMode2D.Impulse);
+            if (!_player.CanFly)
+                _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed, ForceMode2D.Impulse);
+            else
+                _rb.AddForce(_player._inputHandler.Aim * flyPower, ForceMode2D.Impulse);
         }
     }
 
