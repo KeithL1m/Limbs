@@ -31,7 +31,7 @@ public class Limb : MonoBehaviour
 
     [SerializeField] private LimbData _limbData;
     [field: SerializeField] public GameObject Trail { get; set; }
-    [field: SerializeField]  public GameObject PickUpIndicator { get; set; }
+    [field: SerializeField] public GameObject PickUpIndicator { get; set; }
 
     [HideInInspector] public bool CanPickUp { get; set; }
     [field: SerializeField] public float PickupTimer { get; set; }
@@ -84,7 +84,7 @@ public class Limb : MonoBehaviour
         _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
         State = LimbState.Throwing;
-        transform.parent= null;
+        transform.parent = null;
         Trail.SetActive(true);
 
         if (_attachedPlayer._inputHandler.Aim.x == 0.0f && _attachedPlayer._inputHandler.Aim.y == 0.0f && !_attachedPlayer._inputHandler.FlickAiming)
@@ -138,7 +138,8 @@ public class Limb : MonoBehaviour
     {
         FlipY(1);
         FlipX(1);
-        Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
+        if (_attachedPlayer != null)
+            Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
         State = LimbState.PickUp;
         _attachedPlayer = null;
         _attachedPlayerLimbs = null;
@@ -152,7 +153,7 @@ public class Limb : MonoBehaviour
         }
     }
 
-    public void FlipY(int i )
+    public void FlipY(int i)
     {
         if (i < 0)
         {
@@ -184,6 +185,12 @@ public class Limb : MonoBehaviour
     // Limb damage
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("BreakWall")&& State== LimbState.Throwing)
+        {
+            collision.gameObject.GetComponent<LimbInstantiateWall>().Damage();
+            ReturnLimb();
+        }
+
         if (collision.gameObject.tag != "Player")
             return;
         else if (State != LimbState.Throwing)

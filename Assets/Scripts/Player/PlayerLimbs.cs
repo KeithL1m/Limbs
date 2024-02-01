@@ -159,20 +159,18 @@ public class PlayerLimbs : MonoBehaviour
                 return;
             case SelectedLimb.RightLeg:
                 {
-                    LegEdit(_limbs[1], _limbs[0], 1);
                     _limbs[1].transform.parent = _limbAnchors[1].transform;
                     _limbs[1].transform.localEulerAngles = new Vector3(0, 0, 0);
                     _limbs[1].transform.localPosition = new Vector3(0, -_limbs[1].Size * 0.5f, 0);
-
+                    LegEdit(_limbs[1], _limbs[0], 1);
                     break;
                 }
             case SelectedLimb.LeftLeg:
                 {
-                    LegEdit(_limbs[0], _limbs[1], 0);
                     _limbs[0].transform.parent = _limbAnchors[0].transform;
                     _limbs[0].transform.localEulerAngles = new Vector3(0, 0, 0);
                     _limbs[0].transform.localPosition = new Vector3(0, -_limbs[0].Size * 0.5f, 0);
-
+                    LegEdit(_limbs[0], _limbs[1], 0);
                     break;
                 }
             default: break;
@@ -220,11 +218,15 @@ public class PlayerLimbs : MonoBehaviour
     {
         for (int i = 3; i >= 0; i--)
         {
-            _limbAnchors[i].localPosition = _anchorPositions[i];
+            //_limbAnchors[i].localPosition = _anchorPositions[i];
             _groundCheck.localPosition = _groundCheckPosition;
             _collider.size = _originalSize;
             _collider.offset = _originalOffset;
             _limbs[i] = null;
+        }
+        foreach (var item in _limbAnchors)
+        {
+            item.DetachChildren();
         }
 
         _selectedLimb = SelectedLimb.LeftLeg;
@@ -247,7 +249,7 @@ public class PlayerLimbs : MonoBehaviour
     {
         _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
         _limbs[(int)_selectedLimb].ThrowLimb(direction);
-
+        _limbs[(int)_selectedLimb].transform.parent= null;
         if (_limbs[(int)_selectedLimb].TripleShot)
         {
             return;

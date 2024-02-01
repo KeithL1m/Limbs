@@ -37,6 +37,7 @@ public class LimbAccelerate : Limb
             currentPlayer.PlayerMovement.RemoveAccelerationLimb();
             currentPlayer = null;
             isAdd = false;
+            transform.parent= null;
         }
     }
 

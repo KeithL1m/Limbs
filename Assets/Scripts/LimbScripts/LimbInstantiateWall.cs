@@ -12,11 +12,13 @@ public class LimbInstantiateWall : MonoBehaviour
     [SerializeField] private Color hitedColor;
     private SpriteRenderer spriteRenderer;
     [SerializeField] private int hp = 5;
+    private int maxHP;
     public int HP { get { return hp; } }
     [SerializeField] private float colorDuration = 0.2f;
     // Start is called before the first frame update
     void Start()
     {
+        maxHP = hp;
         spriteRenderer = GetComponent<SpriteRenderer>();
         initColor = spriteRenderer.color;
     }
@@ -25,14 +27,6 @@ public class LimbInstantiateWall : MonoBehaviour
     void FixedUpdate()
     {
         damageCD -= Time.fixedDeltaTime;
-        if (isHited)
-        {
-            spriteRenderer.color = Color.Lerp(spriteRenderer.color, hitedColor, 0.2f);
-        }
-        else
-        {
-            spriteRenderer.color = Color.Lerp(spriteRenderer.color, initColor, 0.2f);
-        }
         if (isStop)
             return;
         transform.localScale += new Vector3(0, speed * Time.fixedDeltaTime, 0);
@@ -41,7 +35,7 @@ public class LimbInstantiateWall : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, maximumHeight, transform.localScale.z);
             isStop = true;
         }
-        
+
     }
     private float damageCD = 0.1f;
     public void Damage()
@@ -50,26 +44,16 @@ public class LimbInstantiateWall : MonoBehaviour
             return;
         hp--;
         damageCD = 0.1f;
+        float t = (float)(maxHP - hp - 1) / maxHP;
+        spriteRenderer.color = Color.Lerp(initColor, hitedColor, t);
         if (hp <= 0)
             Destroy(gameObject);
-        ChangeHitedColor();
     }
     private bool isHited;
-    private void ChangeHitedColor()
-    {
-        isHited = true;
-        //spriteRenderer.color = hitedColor;
-        StopCoroutine(ReturnSpriteInitColor());
-        StartCoroutine(ReturnSpriteInitColor());
-    }
-
-    private IEnumerator ReturnSpriteInitColor()
-    {
-        yield return new WaitForSeconds(colorDuration);
-        //spriteRenderer.color = initColor;
-        isHited = false;
-    }
-
-
 
 }
+
+
+
+
+
