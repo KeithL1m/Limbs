@@ -83,7 +83,7 @@ public class PlayerLimbs : MonoBehaviour
             _limbs[i].Type = Limb.LimbType.Leg;
             if (i == 1)
             {
-                if (_limbs[1].Size > _limbs[0].Size)
+                if (_limbs[0] != null && _limbs[1].Size > _limbs[0].Size)
                 {
                     _groundCheck.localPosition = _groundCheckPosition;
                     MoveBodyUp(i);
@@ -91,7 +91,11 @@ public class PlayerLimbs : MonoBehaviour
             }
             else
             {
-                MoveBodyUp(i);
+                if (_limbs[1] == null || _limbs[0].Size > _limbs[1].Size)
+                {
+                    _groundCheck.localPosition = _groundCheckPosition;
+                    MoveBodyUp(i);
+                }
                 _limbs[i].FlipX(-1);
             }
             _limbs[i].transform.rotation = Quaternion.Euler(0, 0, 0);

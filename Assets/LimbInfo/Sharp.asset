@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc105bb179138bc4e9e731551038337b, type: 3}
-  m_Name: Blunt
+  m_Name: Sharp
   m_EditorClassIdentifier: 
-  _throwSpeed: 10
-  _throwAngle: 30
-  _knockback: 1
+  _throwSpeed: 20
+  _throwAngle: 20
+  _knockback: 0
   _knockbackCounter: 0
   _knockbackLength: 0
   _damage: 15
