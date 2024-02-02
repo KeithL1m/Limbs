@@ -80,4 +80,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameTestingScene/LimbTesting.unity
     guid: e5ef2e34cba6dd443bd2ed42dec3b50e
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/_PrototypeRoom.unity
+    guid: 88ea66465a6023645ad87a72316a77ef
   m_configObjects: {}
