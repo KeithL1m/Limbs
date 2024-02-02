@@ -2,41 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GasLimb : MonoBehaviour
+public class GasLimb : Limb
 {
     public GameObject gasCloudPrefab;
 
-    void OnCollisionEnter2D(Collision2D collision)
+    protected override void Awake()
     {
-        if(collision.gameObject.CompareTag("Ground"))
-        {
-            GasExplode();
-        }
+        base.Awake();
+    }
+
+    protected override void Initialize()
+    {
+        base.Initialize();
+        _specialLimbs = true;
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
+    }
+
+    protected override void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (State != LimbState.Throwing)
+            return;
+          
+        GasExplode();
+        
     }
 
 
     void GasExplode()
     {
+        Debug.Log("FART");
         Instantiate(gasCloudPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
 }
 
-public class GasCloud : MonoBehaviour
-{
-    private float _gasRadiusRadius = 10;
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Player"))
-        {
-            // Apply gas effect (reduce player health)
-        }
-    }
-
-    private void OnDrawGizmos() // draw gizmos
-    {
-        Gizmos.DrawWireSphere(transform.position, _gasRadiusRadius);
-    }
-}

@@ -1,12 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class StraightLimb : Limb
+public class AdjustedGravity : Limb
 {
+    [SerializeField] private float _gravityScale;
     public override void ThrowLimb(int direction)
     {
         base.ThrowLimb(direction);
 
-        LimbRB.gravityScale = 0;
+        LimbRB.gravityScale = _gravityScale;
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision)
@@ -23,6 +26,6 @@ public class StraightLimb : Limb
     {
         base.EnterPickupState();
 
-        LimbRB.gravityScale = 1;
+        LimbRB.gravityScale = _gravityScale;
     }
 }
