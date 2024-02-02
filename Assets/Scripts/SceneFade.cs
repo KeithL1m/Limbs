@@ -45,6 +45,7 @@ public class SceneFade : MonoBehaviour
             if (lerpFactor >= 1f)
             {
                 FadeOut = false;
+                FadeIn = true;
                 _elapsedTime = 0f;
                 _currentAlpha = 1f;
                 _mapManager.LoadMap();

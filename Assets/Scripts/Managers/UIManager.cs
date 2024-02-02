@@ -125,7 +125,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public IEnumerator ShowGameOverScreen()
+    public IEnumerator ShowGameOverScreen(PlayerConfiguration winningConfig)
     {
         Time.timeScale = 0.5f;
         gameOverBG.SetActive(true);
@@ -134,8 +134,25 @@ public class UIManager : MonoBehaviour
         int randomMessageIndex = Random.Range(0, gameOverMessages.Length);
         gameOverText.text = gameOverMessages[randomMessageIndex];
 
-        Color randomColor = new Color(Random.value, Random.value, Random.value);
-        gameOverText.color = randomColor;
+        //set colour to winning player colour
+        Color color = Color.white;
+        switch(winningConfig.PlayerIndex)
+        {
+            case 0:
+                color = new Color(1f, 0.3f, 0.3f, 0.5f);
+                break;
+            case 1:
+                color = new Color(0.3f, 0.8f, 1f, 0.5f);
+                break;
+            case 2:
+                color = new Color(1f, 1f, 0.3f, 0.5f);
+                break;
+            case 3:
+                color = new Color(0.4f, 1f, 0.3f, 0.5f);
+                break;
+            default: break;
+        }
+        gameOverText.color = color;
 
         // Wait for 5 seconds
         float endTime = Time.realtimeSinceStartup + 5.0f;
