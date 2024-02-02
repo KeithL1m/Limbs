@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerSetupController : MonoBehaviour
 {
+    private GameLoader _loader = null;
+
     private int _playerIndex;
 
     private ConfigurationManager _configManager;
@@ -34,7 +35,13 @@ public class PlayerSetupController : MonoBehaviour
 
     private void Awake()
     {
-        _configManager = FindObjectOfType<ConfigurationManager>();
+        _loader = ServiceLocator.Get<GameLoader>();
+        _loader.CallOnComplete(Initialize);
+    }
+
+    private void Initialize()
+    {
+        _configManager = ServiceLocator.Get<ConfigurationManager>();
     }
 
     public void SetPlayerIndex(int pi)

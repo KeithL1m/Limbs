@@ -12,6 +12,9 @@ TagManager:
   - P2Health
   - P3Health
   - P4Health
+  - StopPosition
+  - Props
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -48,4 +51,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Chain
+    uniqueID: 1669261225
     locked: 0

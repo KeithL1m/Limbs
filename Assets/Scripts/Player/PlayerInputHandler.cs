@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +11,8 @@ public class PlayerInputHandler : MonoBehaviour
     public float Jump { get; private set; }
     public float ThrowLimb { get; private set; }
     public Vector2 Aim { get; private set; }
+    public bool FlickAiming { get; private set; } = false;
+    public float LimbSwitch { get;private set; }
 
     private void Awake()
     {
@@ -27,6 +27,8 @@ public class PlayerInputHandler : MonoBehaviour
         _input.onActionTriggered += JumpInput;
         _input.onActionTriggered += ThrowLimbInput;
         _input.onActionTriggered += AimInput;
+        _input.onActionTriggered += FlickAimInput;
+        _input.onActionTriggered += SwitchLimbInput;
     }
 
     public void MoveInput(InputAction.CallbackContext ctx)
@@ -55,5 +57,26 @@ public class PlayerInputHandler : MonoBehaviour
         if (ctx.action.name != "Aim")
             return;
         Aim = ctx.ReadValue<Vector2>();
+    }
+
+    public void FlickAimInput(InputAction.CallbackContext ctx)
+    {
+        if (ctx.action.name != "SwitchAimType")
+            return;
+        if (FlickAiming)
+        {
+            FlickAiming = false;
+        }
+        else
+        {
+            FlickAiming = true;
+        }
+    }
+
+    public void SwitchLimbInput(InputAction.CallbackContext ctx)
+    {
+        if (ctx.action.name != "Switch Limb")
+            return;
+        LimbSwitch = ctx.ReadValue<float>();
     }
 }

@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+    GameLoader _loader = null;
+    GameManager _gm = null;
+
     [SerializeField]
     public float _maxHealth;
     [SerializeField]
@@ -13,17 +14,29 @@ public class PlayerHealth : MonoBehaviour
 
     public float _health;
     public bool _isDead = false;
+    private bool _initialized = false;
 
     [SerializeField]
     private Slider healthSlider;
 
-    private void Start()
+
+    private void Awake()
     {
+        _loader = ServiceLocator.Get<GameLoader>();
+        _loader.CallOnComplete(Initialize);
+    }
+
+    private void Initialize()
+    {
+        _gm = ServiceLocator.Get<GameManager>();
         _health = _maxHealth;
+        _initialized = true;
 }
 
     private void Update()
     {
+        if (!_initialized)
+            return;
         if (_health <= 0 && !_isDead)
         {
             KillPlayer();
@@ -32,6 +45,9 @@ public class PlayerHealth : MonoBehaviour
 
     public void AddDamage(float damage)
     {
+        if (_gm.startScreen)
+            return;
+        
         _health -= damage;
 
         // Update the health slider value here
@@ -43,17 +59,26 @@ public class PlayerHealth : MonoBehaviour
     public void KillPlayer()
     {
         deathPositions = FindObjectsOfType<DeathPosition>();
+        if (deathPositions is null)
+        {
+            Debug.LogError("there are no DeathPositions in the Scene");
+            return;
+        }
+
         _isDead = true;
         if (deathPositions[0].Occupied)
         {
             transform.position = deathPositions[1].transform.position;
             chain.EnableChain(deathPositions[1].transform);
         }
-        transform.position = deathPositions[0].transform.position;
-        chain.EnableChain(deathPositions[0].transform);
-        deathPositions[0].Occupied = true;
+        else
+        {
+            transform.position = deathPositions[0].transform.position;
+            chain.EnableChain(deathPositions[0].transform);
+            deathPositions[0].Occupied = true;
+        }
 
-        GameManager.instance.CheckGameOver();
+        _gm.CheckGameOver();
     }
 
     public void ResetHealth()

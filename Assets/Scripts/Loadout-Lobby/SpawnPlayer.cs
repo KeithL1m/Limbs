@@ -5,6 +5,8 @@ public class SpawnPlayer : MonoBehaviour
 {
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private PlayerInput _input;
+
+    public GameObject Player => _player;
     private GameObject _player;
 
     public Player SpawnPlayerFirst(PlayerConfiguration pc)
@@ -15,24 +17,24 @@ public class SpawnPlayer : MonoBehaviour
 
         SpriteRenderer arrow = player.GetArrow();
 
+        Debug.Log(pc.PlayerIndex);
+
         switch (pc.PlayerIndex)
         {
             case 0:
-                arrow.color = Color.red;
+                arrow.color = new Color(1f, 0.3f, 0.3f, 0.5f);
                 break;
             case 1:
-                arrow.color = Color.blue;
+                arrow.color = new Color(0.3f, 0.8f, 1f, 0.5f);
                 break;
             case 2:
-                arrow.color = Color.yellow;
+                arrow.color = new Color(1f, 1f, 0.3f, 0.5f);
                 break;
             case 3:
-                arrow.color = Color.green;
+                arrow.color = new Color(0.4f, 1f, 0.3f, 0.5f);
                 break;
             default: break;
         }
-
-        arrow.color = new Color(arrow.color.r, arrow.color.g, arrow.color.b, 0.5f);
 
         return player;
     }

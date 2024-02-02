@@ -1,34 +1,79 @@
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class MapManager : Manager
 {
-    public int _mapCount;
+    private GameLoader _loader = null;
+    private GameManager _gm = null;
 
-    private static System.Random rnd = new System.Random();
+    public SceneFade fade;
 
-    public static MapManager instance = null;
+    [SerializeField] private int _mapCount;
+    [SerializeField] private int _loadingMaps;
+    [SerializeField] private int _victoryScreen;
+
+    //Previous Randomizer
+    //private static System.Random rnd = new System.Random();
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
+        _loader = ServiceLocator.Get<GameLoader>();
+        _loader.CallOnComplete(Initialize);
+    }
+
+    private void Initialize()
+    {
+        Debug.Log($"{nameof(Initialize)}");
+
+        _gm = ServiceLocator.Get<GameManager>();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    public void ChangeScene()
+    {
+        fade.FadeOut = true;
+    }
+
+
     public void LoadMap()
     {
-        int mapNum = rnd.Next(3, _mapCount + 1);
-        SceneManager.LoadScene(mapNum);
+#if LIMBS_DEBUG
+        var debugSceneName = ServiceLocator.Get<DebugSettings>().NextScene;
+        if (string.IsNullOrWhiteSpace(debugSceneName) == false)
+        {
+            SceneManager.LoadScene(debugSceneName);
+            return;
+        }
+#endif
+
+        if (_gm.VictoryScreen)
+        {
+            SceneManager.LoadScene(_victoryScreen);
+        }
+        else if (_gm.EarlyEnd)
+        {
+            return;
+        }
+        else
+        {
+            //Check if map is repeated
+            int mapNum = Random.Range(_loadingMaps, _mapCount);
+            int currentMap = mapNum;
+            if(mapNum == currentMap)
+            {
+                Debug.Log("MAP WAS REPEATED");
+                mapNum = Random.Range(_loadingMaps, _mapCount);
+            }
+            SceneManager.LoadScene(mapNum);
+        }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (GameManager.instance.startScreen)
+        if (_gm.startScreen)
             return;
-        Debug.Log("new scene loaded");
-        GameManager.instance.OnStart();
+        Debug.Log("New scene loaded");
+        _gm.OnStart();
     }
 }
