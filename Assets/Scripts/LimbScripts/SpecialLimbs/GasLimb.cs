@@ -22,7 +22,7 @@ public class GasLimb : Limb
         base.OnTriggerEnter2D(collision);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
         if (State != LimbState.Throwing)
             return;
