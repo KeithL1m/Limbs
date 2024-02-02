@@ -19,4 +19,4 @@ MonoBehaviour:
   _knockbackLength: 0
   _damage: 6
   _specialDamage: 0
-  _returnVelocityMultiplier: 0.5
+  _returnVelocityMultiplier: 1
