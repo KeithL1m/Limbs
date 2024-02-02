@@ -6,6 +6,11 @@ public class PlayerMovement : MonoBehaviour
     private PlayerJump _playerJump;
     private PlayerInputHandler _inputHandler;
 
+    [SerializeField] private GroundCheck _groundCheck;
+    [SerializeField] private ParticleSystem _walkDust;
+    private ParticleSystem.EmissionModule _dustEmission;
+    private ParticleSystem.Burst _dustBurst;
+
     [Header("Customizable")]
     [SerializeField] private float _2LegMoveSpeed;
     [SerializeField] private float _1LegMoveSpeed;
@@ -23,12 +28,16 @@ public class PlayerMovement : MonoBehaviour
     Vector3 zeroVector = Vector3.zero;
 
     public bool facingRight;
+    private bool _dust;
     
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _playerJump = GetComponent<PlayerJump>();
         _inputHandler = GetComponent<PlayerInputHandler>();
+        _dustEmission = _walkDust.emission;
+        ParticleSystem.Burst[] bursts = new ParticleSystem.Burst[_dustEmission.burstCount];
+        _dustEmission.GetBursts(bursts);
     }
 
     public void Move(PlayerLimbs.LimbState state)
@@ -40,11 +49,28 @@ public class PlayerMovement : MonoBehaviour
         {
             moveSpeed = -1f;
             facingRight = false;
+            _dust = true;
         }
         else if (_inputHandler.Movement >= _startMovePoint)
         {
             moveSpeed = 1f;
             facingRight = true;
+            _dust = true;
+        }
+        else
+        {
+            _dust = false;
+        }
+
+        if (_dust && _groundCheck.isGrounded)
+        {
+            _dustEmission.SetBurst(0, 10);
+            _dustEmission.rateOverTime = 10;
+        }
+        else
+        {
+            _dustBurst.count = 0;
+            _dustEmission.rateOverTime = 0;
         }
 
         switch (state)
