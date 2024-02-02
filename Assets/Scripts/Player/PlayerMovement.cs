@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInputHandler _inputHandler;
 
     [Header("Customizable")]
-    [SerializeField] private float[] extraAcceleration;
     [SerializeField] private float _2LegMoveSpeed;
     [SerializeField] private float _1LegMoveSpeed;
     [SerializeField] private float _noLegSpeed;
@@ -22,11 +21,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _maxRotation = 33.5f;
 
     Vector3 zeroVector = Vector3.zero;
-    private int currentAccelerationLimbNumber = 0;
 
     public bool facingRight;
-    [SerializeField] private Animator anchorsAnim;
-    [SerializeField] private GameObject dust_Step;
+
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -49,35 +46,23 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = 1f;
             facingRight = true;
         }
+
         switch (state)
         {
             case PlayerLimbs.LimbState.TwoLeg:
-                moveSpeed *= _2LegMoveSpeed * (1 + (extraAcceleration[currentAccelerationLimbNumber]));
+                moveSpeed *= _2LegMoveSpeed;
                 break;
             case PlayerLimbs.LimbState.OneLeg:
-                moveSpeed *= _1LegMoveSpeed * (1 + (extraAcceleration[currentAccelerationLimbNumber]));
+                moveSpeed *= _1LegMoveSpeed;
                 break;
             case PlayerLimbs.LimbState.NoLimb:
                 _hopTimer -= Time.deltaTime;
                 Hop(moveSpeed);
                 moveSpeed *= _noLegSpeed;
-                break;
+                break; 
             default: break;
         }
-        if (moveSpeed == 0)
-        {
-            dust_Step.SetActive(false);
-        }
-        else
-        {
-            if (!dust_Step.activeSelf)
-                dust_Step.SetActive(true);
-            if (moveSpeed < 0)
-                dust_Step.transform.localEulerAngles = new Vector3(0, 180, 0);
-            else
-                dust_Step.transform.localEulerAngles = new Vector3(0, 0, 0);
-        }
-        anchorsAnim.SetFloat("speed", moveSpeed);
+
         Vector3 targetVelocity = new Vector2(moveSpeed, _rb.velocity.y);
         _rb.velocity = Vector3.SmoothDamp(_rb.velocity, targetVelocity, ref zeroVector, _smoothMoveSpeed);
 
@@ -86,16 +71,6 @@ public class PlayerMovement : MonoBehaviour
 
         Quaternion rotation = Quaternion.Euler(0f, 0f, currentRotation);
         _headRotation.rotation = rotation;
-    }
-
-    public void AddAccelerationLimb()
-    {
-        currentAccelerationLimbNumber++;
-    }
-
-    public void RemoveAccelerationLimb()
-    {
-        currentAccelerationLimbNumber--;
     }
 
     private void Hop(float moveSpeed)

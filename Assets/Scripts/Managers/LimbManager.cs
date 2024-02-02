@@ -48,8 +48,4 @@ public class LimbManager : Manager
     {
         _limbs.Clear();
     }
-    public void RemoveList(Limb limb) 
-    {
-        _limbs.Remove(limb);
-    }
 }
