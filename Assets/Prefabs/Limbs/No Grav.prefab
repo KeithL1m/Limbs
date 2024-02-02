@@ -107,9 +107,9 @@ MonoBehaviour:
   _limbData: {fileID: 11400000, guid: 76d2735fb647a41419933b8acfdb8866, type: 2}
   <Trail>k__BackingField: {fileID: 1123106515960743069}
   <PickUpIndicator>k__BackingField: {fileID: 7254546142229159940}
-  <CanPickUp>k__BackingField: 0
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
+  _specialLimbs: 0
   _gravityScale: 0
 --- !u!1 &1123106515960743069
 GameObject:
@@ -409,7 +409,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0.906028, g: 0.9433962, b: 0.27945885, a: 0.33333334}
+  m_Color: {r: 0.9137255, g: 0.91764706, b: 0.8392157, a: 0.33333334}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
