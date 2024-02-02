@@ -11,6 +11,7 @@ public class Gas : MonoBehaviour
     private float _lifeTime = 10;
 
     private List<GameObject> _playersInCloud = new();
+    [SerializeField] private ParticleManager _particleManager;
 
     private void Start()
     {
