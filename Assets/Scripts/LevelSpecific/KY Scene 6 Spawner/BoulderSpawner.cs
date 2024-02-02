@@ -32,7 +32,12 @@ public class BoulderSpawner : MonoBehaviour
 
     public void SpawnObject()
     {
-        Instantiate(objectToSpawn, transform.position, transform.rotation);
+        if (objectToSpawn2 != null)
+        {
         Instantiate(objectToSpawn2, transform.position, transform.rotation);
+
+        }
+
+        Instantiate(objectToSpawn, transform.position, transform.rotation);
     }
 }
