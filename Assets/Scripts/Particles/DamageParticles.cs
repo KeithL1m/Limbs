@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class DamageParticles : MonoBehaviour
 {
-    [SerializeField] private float displayTime = 1f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        Destroy(gameObject, displayTime);
-    }
+    [SerializeField] private ParticleSystem _blood;
+    [SerializeField] private ParticleSystem _meat;
 
-    // Update is called once per frame
-    void Update()
+    public void PlayDamageParticle()
     {
-        
+        _blood.Play();
+        _meat.Play();
     }
 }
