@@ -74,7 +74,7 @@ public class ExplosiveLimb : Limb
         Gizmos.DrawWireSphere(transform.position, _explosionRadius);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
         if (State != LimbState.Throwing)
             return;

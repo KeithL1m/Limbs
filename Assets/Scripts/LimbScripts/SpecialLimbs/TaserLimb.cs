@@ -14,7 +14,7 @@ public class TaserLimb : Limb
         rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
 
         if (collision.gameObject.tag != "Player" || State == LimbState.Attached)
