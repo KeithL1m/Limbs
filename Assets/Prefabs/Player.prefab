@@ -332,6 +332,7 @@ MonoBehaviour:
   _health: 0
   _isDead: 0
   healthSlider: {fileID: 0}
+  _hitParticles: {fileID: 5695383723482775819, guid: 34228c117a9a2c54080aee616ab47b39, type: 3}
 --- !u!114 &6432030308765007816
 MonoBehaviour:
   m_ObjectHideFlags: 0

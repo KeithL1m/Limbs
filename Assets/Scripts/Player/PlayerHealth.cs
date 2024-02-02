@@ -18,7 +18,7 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField]
     private Slider healthSlider;
-    [SerializeField] private GameObject hitedParticles;
+    [SerializeField] private GameObject _hitParticles;
 
 
     private void Awake()
@@ -50,7 +50,7 @@ public class PlayerHealth : MonoBehaviour
             return;
 
         _health -= damage;
-        Instantiate(hitedParticles, transform.position, transform.rotation);
+        Instantiate(_hitParticles, transform.position, transform.rotation);
         // Update the health slider value here
         UpdateHealthSlider();
     }
@@ -61,7 +61,7 @@ public class PlayerHealth : MonoBehaviour
             return;
 
         _health -= damage;
-        GameObject particles = Instantiate(hitedParticles, transform.position, transform.rotation);
+        GameObject particles = Instantiate(_hitParticles, transform.position, transform.rotation);
         if (!isRight)
             particles.transform.localEulerAngles = new Vector3(0,180,0);
 
