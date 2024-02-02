@@ -132,15 +132,19 @@ public class Limb : MonoBehaviour
         }
         else if (State == LimbState.Throwing || State == LimbState.Returning)
         {
-            if (LimbRB.velocity.magnitude < 4.0f && _specialLimbs == false)
+            if(LimbRB != null)
             {
-                PickupTimer -= Time.deltaTime;
+                if (LimbRB.velocity.magnitude < 4.0f && _specialLimbs == false)
+                {
+                    PickupTimer -= Time.deltaTime;
+                }
+                if (PickupTimer <= 0.0f)
+                {
+                    CanPickUp = true;
+                    EnterPickupState();
+                }
             }
-            if (PickupTimer <= 0.0f)
-            {
-                CanPickUp = true;
-                EnterPickupState();
-            }
+
         }
     }
 
