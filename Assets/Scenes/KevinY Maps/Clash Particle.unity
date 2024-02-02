@@ -277,15 +277,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1613047735746979955, guid: d03ee42b01cfd52459f9c0a4027b547c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.87
+      value: -4.66
       objectReference: {fileID: 0}
     - target: {fileID: 1613047735746979955, guid: d03ee42b01cfd52459f9c0a4027b547c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.06654181
+      value: 0.39
       objectReference: {fileID: 0}
     - target: {fileID: 1613047735746979955, guid: d03ee42b01cfd52459f9c0a4027b547c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.51181644
+      value: 0.51
       objectReference: {fileID: 0}
     - target: {fileID: 1613047735746979955, guid: d03ee42b01cfd52459f9c0a4027b547c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -442,6 +442,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4955992884008260794, guid: d4eb34e6dc80ea4489ffdd0c40871510, type: 3}
+      propertyPath: ShapeModule.type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4955992884008260794, guid: d4eb34e6dc80ea4489ffdd0c40871510, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
     - target: {fileID: 4955992884805386378, guid: d4eb34e6dc80ea4489ffdd0c40871510, type: 3}
       propertyPath: m_Name
       value: Red Explosion particle
