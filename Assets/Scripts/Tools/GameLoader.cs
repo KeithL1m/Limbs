@@ -81,6 +81,7 @@ public class GameLoader : ASyncLoader
         ServiceLocator.Register<ConfigurationManager>(gm.GetComponent<ConfigurationManager>().Initialize());
         ServiceLocator.Register<PlayerManager>(gm.GetComponent<PlayerManager>().Initialize());
         ServiceLocator.Register<LimbManager>(gm.GetComponent<LimbManager>());
+        ServiceLocator.Register<ParticleManager>(gm.GetComponent<ParticleManager>().Initialize());
 
         ServiceLocator.Register<DebugSettings>(_debugSettings);
         
