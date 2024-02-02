@@ -36663,7 +36663,7 @@ PrefabInstance:
     - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: _limbOptions.Array.data[0]
       value: 
-      objectReference: {fileID: 479936713415687806, guid: c03c82a65be504449a435743e7c5f146, type: 3}
+      objectReference: {fileID: 479936713415687806, guid: d427c6244b1903d489251300a2e76870, type: 3}
     - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: _limbOptions.Array.data[1]
       value: 
