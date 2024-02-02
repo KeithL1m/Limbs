@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
 
     //Player components
     private PlayerMovement _playerMovement;
+    public PlayerMovement PlayerMovement { get { return _playerMovement; } }
     private PlayerJump _playerJump;
     private PlayerLimbs _playerLimbs;
     [HideInInspector]
@@ -36,8 +37,8 @@ public class Player : MonoBehaviour
     private bool _canThrow = true;
     private bool _canSwitch = true;
     public Vector2 LastAimed { get; private set; } = Vector2.zero;
-
-
+    private bool _canFly = false;
+    public bool CanFly { get { return _canFly; } }
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -191,6 +192,10 @@ public class Player : MonoBehaviour
         return _config.Name;
     }
 
+    public void SetCanFly(bool isCan) 
+    {
+        _canFly = isCan; 
+    }
     public SpriteRenderer GetArrow()
     {
         return _aimTransform.GetComponentInChildren<SpriteRenderer>();

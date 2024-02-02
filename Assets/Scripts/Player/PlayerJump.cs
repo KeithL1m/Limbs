@@ -1,9 +1,10 @@
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerJump : MonoBehaviour
 {
     [SerializeField] private GroundCheck _groundCheck;
-    
+
     private Rigidbody2D _rb;
     private Player _player;
     private PlayerInputHandler _inputhandler;
@@ -27,10 +28,11 @@ public class PlayerJump : MonoBehaviour
     private float _initJumpSpeed;
     private float _jumpBufferTime;
     private float _coyoteTime;
-    
+
     private bool _canJump;
     private bool _canDoubleJump;
     private bool _isDoubleJumping;
+    [SerializeField] private float flyPower = 20;
 
     private void Awake()
     {
@@ -48,6 +50,28 @@ public class PlayerJump : MonoBehaviour
     {
         if (GetComponent<PlayerHealth>().IsDead())
             return;
+        //if (!_player.CanFly)
+            NormalJump();
+        //else
+        //    Fly();
+
+    }
+
+    private void Fly()
+    {
+        if (_inputhandler.Jump > 0.2f)
+        {
+            _rb.AddForce(_player._inputHandler.Aim * flyPower, ForceMode2D.Force);
+            //_rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed * 0.6f, ForceMode2D.Impulse);
+        }
+        else
+        {
+            JumpUpdate();
+        }
+    }
+
+    private void NormalJump()
+    {
         if (IsGrounded() && _player._movementState == Player.MovementState.Move)
         {
             _coyoteTime = _maxCoyoteTime;
@@ -75,7 +99,7 @@ public class PlayerJump : MonoBehaviour
             _jumpBufferTime -= Time.deltaTime;
         }
 
-        if (_jumpBufferTime > 0f && _coyoteTime > 0f || _canDoubleJump && _inputhandler.Jump > 0.5f && _canJump) 
+        if (_jumpBufferTime > 0f && _coyoteTime > 0f || _canDoubleJump && _inputhandler.Jump > 0.5f && _canJump)
         {
             _jumpBufferTime = 0f;
             _coyoteTime = 0f;
@@ -86,11 +110,11 @@ public class PlayerJump : MonoBehaviour
             JumpUpdate();
         }
 
-        if (_inputhandler.Jump < 0.5f) 
+        if (_inputhandler.Jump < 0.5f)
         {
             _canJump = true;
         }
-    } 
+    }
 
     private void StartJump()
     {
@@ -102,12 +126,16 @@ public class PlayerJump : MonoBehaviour
         if (_canDoubleJump)
         {
             _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed * 0.6f, ForceMode2D.Impulse);
+            
             _canDoubleJump = false;
             _isDoubleJumping = true;
         }
         else
         {
-            _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed, ForceMode2D.Impulse);
+            if (!_player.CanFly)
+                _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed, ForceMode2D.Impulse);
+            else
+                _rb.AddForce(_player._inputHandler.Aim * flyPower, ForceMode2D.Impulse);
         }
     }
 

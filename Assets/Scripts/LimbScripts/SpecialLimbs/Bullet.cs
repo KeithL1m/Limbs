@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
         }
 
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
-        _healthPlayer.AddDamage(_damage);
+        _healthPlayer.AddDamage(_damage,transform.position.x);
         Destroy(gameObject);
     }
 
