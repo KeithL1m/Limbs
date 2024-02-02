@@ -129,7 +129,7 @@ public class StickyBomb : Limb
 
                     if (item.CompareTag("Player"))
                     {
-                        item.GetComponent<PlayerHealth>().AddDamage(45);
+                        item.GetComponent<PlayerHealth>().AddDamage(25);
                         
                     }
                 }
