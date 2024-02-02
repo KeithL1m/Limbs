@@ -269,12 +269,6 @@ public class Limb : MonoBehaviour
         else if (State == LimbState.Returning && collision.gameObject.GetComponent<Player>() != _attachedPlayer)
             return;
 
-        if (State == LimbState.Throwing)
-        {
-            _returnVelocity = new Vector3(-LimbRB.velocity.x * _rVMultiplier, -LimbRB.velocity.y * _rVMultiplier, 0f);
-            return;
-        }
-
         if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
         {
             PickUpIndicator.SetActive(false);
