@@ -76,7 +76,7 @@ public class Limb : MonoBehaviour
         _specialDamage = _limbData._specialDamage;
         _rVMultiplier = _limbData._returnVelocityMultiplier;
 
-        PickupTimer = 0.2f;
+        PickupTimer = 0.3f;
         CanPickUp = true;
 
         _specialLimbs = false;
@@ -85,7 +85,7 @@ public class Limb : MonoBehaviour
 
     public virtual void ThrowLimb(int direction)
     {
-        PickupTimer = 0.2f;
+        PickupTimer = 0.3f;
         CanPickUp = false;
         _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
