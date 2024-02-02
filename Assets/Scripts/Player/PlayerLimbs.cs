@@ -30,10 +30,9 @@ public class PlayerLimbs : MonoBehaviour
     [SerializeField] private CapsuleCollider2D _collider;
     [SerializeField] private Material _overlayMaterial;
     [SerializeField] private Material _standardMaterial;
-    [SerializeField] private SpriteRenderer _sprite;
 
-    private Vector2 _originalSize;
-    private Vector2 _originalOffset;
+    public Vector2 _originalSize;
+    public Vector2 _originalOffset;
 
     public void Initialize()
     {
@@ -197,11 +196,12 @@ public class PlayerLimbs : MonoBehaviour
         for (int i = 3; i >= 0; i--)
         {
             _limbAnchors[i].localPosition = _anchorPositions[i];
-            _groundCheck.localPosition = _groundCheckPosition;
-            _collider.size = _originalSize;
-            _collider.offset = _originalOffset;
             _limbs[i] = null;
         }
+
+        _groundCheck.localPosition = _groundCheckPosition;
+        _collider.size = _originalSize;
+        _collider.offset = _originalOffset;
 
         _selectedLimb = SelectedLimb.LeftLeg;
     }
