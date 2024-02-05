@@ -561,7 +561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4446038959756221600
 Transform:
   m_ObjectHideFlags: 0
@@ -1076,6 +1076,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4446038959756221600}
     m_Modifications:
+    - target: {fileID: 4266799084059718358, guid: f69bf9176ba4c074ab8233753874d96f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266799084059718358, guid: f69bf9176ba4c074ab8233753874d96f, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4266799084059718359, guid: f69bf9176ba4c074ab8233753874d96f, type: 3}
       propertyPath: m_Name
       value: Dust_Step Particle System

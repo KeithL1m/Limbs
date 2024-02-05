@@ -9,7 +9,7 @@ public class LimbInstantiateWall : MonoBehaviour
     [SerializeField] private float speed = 10f;
     private bool isStop;
     private Color initColor;
-    [SerializeField] private Color hitedColor;
+    [SerializeField] private Sprite[] hitedSprites;
     private SpriteRenderer spriteRenderer;
     [SerializeField] private int hp = 5;
     private int maxHP;
@@ -44,10 +44,12 @@ public class LimbInstantiateWall : MonoBehaviour
             return;
         hp--;
         damageCD = 0.1f;
-        float t = (float)(maxHP - hp - 1) / maxHP;
-        spriteRenderer.color = Color.Lerp(initColor, hitedColor, t);
         if (hp <= 0)
+        {
             Destroy(gameObject);
+        }
+        else
+            spriteRenderer.sprite = hitedSprites[(maxHP - hp)];
     }
     private bool isHited;
 

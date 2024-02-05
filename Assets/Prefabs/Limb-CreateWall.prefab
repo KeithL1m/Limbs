@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4518471586269112581}
   - component: {fileID: 4518471586269112578}
   - component: {fileID: 4518471586269112579}
-  - component: {fileID: 6185044246365777330}
   m_Layer: 0
   m_Name: Limb-CreateWall
   m_TagString: BreakWall
@@ -29,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4518471586269112576}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.61, y: -4.8342, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.35, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,13 +74,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 05f6a87f6466f454aadcd36ab36361f3, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 893691313, guid: 05f6a87f6466f454aadcd36ab36361f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 6.7, y: 30.412508}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -104,8 +103,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.6648436, y: 30.4}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 9.998253, y: 32.879997}
+    newSize: {x: 6.7, y: 30.412508}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -125,29 +124,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee55f077595669846ae8fb7b61edf7e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumHeight: 0.4
-  speed: 20
-  hitedColor: {r: 1, g: 0, b: 0, a: 1}
+  maximumHeight: 0.35
+  speed: 0.2
+  hitedSprites:
+  - {fileID: 893691313, guid: 05f6a87f6466f454aadcd36ab36361f3, type: 3}
+  - {fileID: -1111857756, guid: 05f6a87f6466f454aadcd36ab36361f3, type: 3}
+  - {fileID: 1096564777, guid: 05f6a87f6466f454aadcd36ab36361f3, type: 3}
+  - {fileID: 1985703318, guid: 05f6a87f6466f454aadcd36ab36361f3, type: 3}
+  - {fileID: -558195703, guid: 05f6a87f6466f454aadcd36ab36361f3, type: 3}
   hp: 5
   colorDuration: 0.5
---- !u!50 &6185044246365777330
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4518471586269112576}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 5
