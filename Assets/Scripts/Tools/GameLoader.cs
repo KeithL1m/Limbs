@@ -76,12 +76,13 @@ public class GameLoader : ASyncLoader
         Debug.Log("Loading Core Systems");
 
         var gm = Instantiate(_gameManager, SystemsParent);
+        gm.name = "GameManager";
         ServiceLocator.Register<GameManager>(gm.GetComponent<GameManager>());
         ServiceLocator.Register<MapManager>(gm.GetComponent<MapManager>());
         ServiceLocator.Register<ConfigurationManager>(gm.GetComponent<ConfigurationManager>().Initialize());
         ServiceLocator.Register<PlayerManager>(gm.GetComponent<PlayerManager>().Initialize());
         ServiceLocator.Register<LimbManager>(gm.GetComponent<LimbManager>());
-        //ServiceLocator.Register<ParticleManager>(gm.GetComponent<ParticleManager>().Initialize());
+        ServiceLocator.Register<ParticleManager>(new ParticleManager().Initialize());
 
         ServiceLocator.Register<DebugSettings>(_debugSettings);
         
