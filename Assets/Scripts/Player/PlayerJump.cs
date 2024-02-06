@@ -21,6 +21,10 @@ public class PlayerJump : MonoBehaviour
     private float _maxJumpBufferTime;
     [SerializeField]
     private float _maxCoyoteTime;
+    [SerializeField]
+    private ParticleSystem _jumpParticles;
+    [SerializeField]
+    private ParticleSystem _dJumpParticles;
 
     private float _gravityScaleFactor;
     private float _jumpGravity;
@@ -104,10 +108,12 @@ public class PlayerJump : MonoBehaviour
             _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed * 0.6f, ForceMode2D.Impulse);
             _canDoubleJump = false;
             _isDoubleJumping = true;
+            _jumpParticles.Play();
         }
         else
         {
             _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed, ForceMode2D.Impulse);
+            _dJumpParticles.Play();
         }
     }
 

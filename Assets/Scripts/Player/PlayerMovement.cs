@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
         Quaternion rotation = Quaternion.Euler(0f, 0f, currentRotation);
         _headRotation.rotation = rotation;
 
-        if (_rb.velocity.magnitude > 2.0f)
+        if (_rb.velocity.magnitude > 4.0f)
         {
             _dust = true;
         }
