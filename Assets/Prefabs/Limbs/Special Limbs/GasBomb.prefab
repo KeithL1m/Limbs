@@ -54,8 +54,11 @@ MonoBehaviour:
   _limbData: {fileID: 11400000, guid: 76d2735fb647a41419933b8acfdb8866, type: 2}
   <Trail>k__BackingField: {fileID: 5540534422284720917}
   <PickUpIndicator>k__BackingField: {fileID: 8940071924156930077}
-  <CanPickUp>k__BackingField: 0
   <PickupTimer>k__BackingField: 0
+  TripleShot: 0
+  _specialLimbs: 0
+  _collider: {fileID: 8460407155734473735}
+  _delayTimer: 1
   gasCloudPrefab: {fileID: 8540868700325874929, guid: e5de6000cd7fb07468ecd4aac2969b18, type: 3}
 --- !u!50 &545256134410961637
 Rigidbody2D:

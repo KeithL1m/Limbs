@@ -5,13 +5,16 @@ using UnityEngine;
 
 public class ExplosiveLimb : Limb
 {
-    //Particle
+    [SerializeField] Collider2D _collider;
 
+    //Particle
     [SerializeField] private ParticleManager _particle;
 
     // countdown
     [SerializeField] private float _timer = 3.0f;
     float countdown = 0.0f;
+
+    [SerializeField] float _delayTimer = 0.2f;
 
     Collider2D[] explosionRadius = null;
     private float _explosionForce = 300;
@@ -29,7 +32,21 @@ public class ExplosiveLimb : Limb
 
         countdown = _timer;
     }
-    
+
+    public override void ThrowLimb(int direction)
+    {
+        base.ThrowLimb(direction);
+
+        StartCoroutine(EnableAfterDelay());
+    }
+    //timer for collider not hitting player
+    private IEnumerator EnableAfterDelay()
+    {
+        _collider.enabled = false;
+        yield return new WaitForSeconds(_delayTimer);
+        _collider.enabled = true;
+        yield break;
+    }
 
     // timer for explosion
     private IEnumerator ExplodeAfterDelay(Action callback)

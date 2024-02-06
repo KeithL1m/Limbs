@@ -363,9 +363,12 @@ MonoBehaviour:
   _limbData: {fileID: 11400000, guid: 76d2735fb647a41419933b8acfdb8866, type: 2}
   <Trail>k__BackingField: {fileID: 747674157333451708}
   <PickUpIndicator>k__BackingField: {fileID: 327099054212538446}
-  <CanPickUp>k__BackingField: 0
   <PickupTimer>k__BackingField: 0
+  TripleShot: 0
+  _specialLimbs: 0
   _timer: 6
+  _delayTimer: 0.5
+  _collider: {fileID: 2999128841091220515}
 --- !u!50 &7031974623823099388
 Rigidbody2D:
   serializedVersion: 4

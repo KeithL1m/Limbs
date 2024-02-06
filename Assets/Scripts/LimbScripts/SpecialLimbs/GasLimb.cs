@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GasLimb : Limb
 {
+    [SerializeField] Collider2D _collider;
+    [SerializeField] float _delayTimer = 0.2f;
+
     public GameObject gasCloudPrefab;
 
     protected override void Awake()
@@ -15,6 +18,21 @@ public class GasLimb : Limb
     {
         base.Initialize();
         _specialLimbs = true;
+    }
+
+    public override void ThrowLimb(int direction)
+    {
+        base.ThrowLimb(direction);
+
+        StartCoroutine(EnableAfterDelay());
+    }
+
+    private IEnumerator EnableAfterDelay()
+    {
+        _collider.enabled = false;
+        yield return new WaitForSeconds(_delayTimer);
+        _collider.enabled = true;
+        yield break;
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)

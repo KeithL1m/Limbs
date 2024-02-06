@@ -17,12 +17,13 @@ public class StickyBomb : Limb
     [SerializeField] private float _timer = 6.0f;
     float countdown = 0.0f;
 
+    [SerializeField] float _delayTimer = 0.2f;
+
+    [SerializeField] Collider2D _collider;
     Collider2D[] explosionRadius = null;
     private float _explosionForce = 300;
     private float _explosionRadius = 5;
     private Player _player;
-    private Collider2D _bombCollider;
-
 
 
     protected override void Awake()
@@ -37,6 +38,21 @@ public class StickyBomb : Limb
 
         _specialLimbs = true;
         countdown = _timer;
+    }
+
+    public override void ThrowLimb(int direction)
+    {
+        base.ThrowLimb(direction);
+
+        StartCoroutine(EnableAfterDelay());
+    }
+
+    private IEnumerator EnableAfterDelay()
+    {
+        _collider.enabled = false;
+        yield return new WaitForSeconds(_delayTimer);
+        _collider.enabled = true;
+        yield break;
     }
 
 

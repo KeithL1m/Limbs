@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e549be315834a644886f6316075e698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blood: {fileID: 0}
-  _meat: {fileID: 0}
+  _gas: {fileID: 0}
   _explosion: {fileID: 3107493309301995984}
+  _teleport: {fileID: 0}
 --- !u!1 &3241862981954379957
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,8 +268,10 @@ MonoBehaviour:
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
   _specialLimbs: 0
+  _collider: {fileID: 7770869979052091965}
   _particle: {fileID: 0}
   _timer: 3
+  _delayTimer: 0.5
 --- !u!60 &7770869979052091965
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -337,7 +339,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5690755066905293737}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
