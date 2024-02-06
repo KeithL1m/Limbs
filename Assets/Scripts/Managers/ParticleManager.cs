@@ -27,6 +27,7 @@ public class ParticleManager
         gas.transform.position.Set(pos.x, pos.y, pos.z);
         gas.SetActive(true);
     }
+
     public void PlayTeleportParticle(Vector3 pos) 
     {
         var gas = _objectPoolManager.GetObjectFromPool(TeleportName);
