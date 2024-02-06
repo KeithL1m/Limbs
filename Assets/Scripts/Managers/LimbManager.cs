@@ -30,47 +30,7 @@ public class LimbManager : Manager
         //make object pool for this
         for (int i = 0; i < _limbs.Count; i++)
         {
-            Limb limb = _limbs[i];
-
-            if (!limb.CanPickUp)
-            {
-                limb.PickupTimer -= Time.deltaTime;
-                if (limb.PickupTimer <= 0.0f)
-                {
-                    limb.CanPickUp = true;
-                    if (limb.State == Limb.LimbState.Attached)
-                    {
-                        limb.CanPickUp = true;
-                        limb.PickupTimer = 0.2f;
-                    }
-                }
-            }
-
-            if (limb.State == Limb.LimbState.Attached && limb.AnchorPoint != null)
-            {
-                limb.AttachedUpdate();
-            }
-            else if (limb.State == Limb.LimbState.Throwing || limb.State == Limb.LimbState.Returning)
-            {
-                if (limb.LimbRB != null)
-                {
-                    if (limb.LimbRB.velocity.magnitude < 4.0f && limb._specialLimbs == false)
-                    {
-                        if (!limb.CanPickUp)
-                        {
-                            continue;
-                        }
-                        else if (limb.PickupTimer > 0.1f)
-                        {
-                            limb.CanPickUp = false;
-                            continue;
-                        }
-
-                        limb.PickupTimer = 0.2f;
-                        limb.EnterPickupState();
-                    }
-               }
-            }
+            _limbs[i].LimbUpdate();
         }
     }
 
@@ -88,8 +48,9 @@ public class LimbManager : Manager
     {
         _limbs.Clear();
     }
-    public void RemoveList(Limb limb) 
+
+    public int GetLimbAmount()
     {
-        _limbs.Remove(limb);
+        return _limbs.Count;
     }
 }

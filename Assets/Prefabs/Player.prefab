@@ -309,10 +309,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   extraAcceleration:
-  - 0.7
-  - 0.5
+  - 0
   - 0.2
-  - 0.1
+  - 0.3
+  - 0.4
+  - 0.5
   _2LegMoveSpeed: 14
   _1LegMoveSpeed: 10
   _noLegSpeed: 6
@@ -344,7 +345,7 @@ MonoBehaviour:
   _earlyExitGravityFactor: 3
   _maxJumpBufferTime: 0.15
   _maxCoyoteTime: 0.33
-  flyPower: 20
+  flyPower: 0
 --- !u!114 &1550446190603291940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,7 +363,7 @@ MonoBehaviour:
   _health: 0
   _isDead: 0
   healthSlider: {fileID: 0}
-  hitedParticles: {fileID: 5695383723482775819, guid: 34228c117a9a2c54080aee616ab47b39, type: 3}
+  damageParticles: {fileID: 4109025691695493940, guid: 34228c117a9a2c54080aee616ab47b39, type: 3}
 --- !u!114 &6432030308765007816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,6 +394,7 @@ MonoBehaviour:
   _limbs: []
   _selectedLimb: 0
   _limbState: 0
+  _canThrow: 0
   _limbAnchors:
   - {fileID: 8385072269345563141}
   - {fileID: 8385072269473608607}
@@ -401,7 +403,8 @@ MonoBehaviour:
   _collider: {fileID: 5770366546305474077}
   _overlayMaterial: {fileID: 2100000, guid: e1272f360cc7bed43bd495b8ed9cf1ba, type: 2}
   _standardMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  _canThrow: 0
+  _originalSize: {x: 0, y: 0}
+  _originalOffset: {x: 0, y: 0}
 --- !u!114 &653569731864945295
 MonoBehaviour:
   m_ObjectHideFlags: 0

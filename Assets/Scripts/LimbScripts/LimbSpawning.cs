@@ -87,6 +87,9 @@ public class LimbSpawning : MonoBehaviour
         {
             return;
         }
+
+        _currentLimbs = _limbManager.GetLimbAmount();
+
         if (_currentLimbs >= _limbLimit)
             return;
         
@@ -114,6 +117,5 @@ public class LimbSpawning : MonoBehaviour
         _spawnPosX = (float)val;
         Limb limb = Instantiate(_limbOptions[index], new Vector3(_spawnPosX, _spawnPosY, 0), Quaternion.identity).GetComponent<Limb>();
         limb.GetComponent<Rigidbody2D>().angularVelocity = (float)val2;
-        _currentLimbs++;
     }
 }

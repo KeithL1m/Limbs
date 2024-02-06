@@ -30,15 +30,16 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Transform _aimTransform;
     [SerializeField] public Transform _groundCheck;
-
+    private bool _canFly = false;
+    public bool CanFly { get { return _canFly; } }
     //facing left = -1, right = 1
     public int direction;
     private bool _initialized = false;
     private bool _canThrow = true;
     private bool _canSwitch = true;
     public Vector2 LastAimed { get; private set; } = Vector2.zero;
-    private bool _canFly = false;
-    public bool CanFly { get { return _canFly; } }
+
+
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -177,6 +178,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void SetCanFly(bool isCan)
+    {
+        _canFly = isCan;
+    }
+
     public void AddScore()
     {
         _config.Score++;
@@ -192,10 +198,6 @@ public class Player : MonoBehaviour
         return _config.Name;
     }
 
-    public void SetCanFly(bool isCan) 
-    {
-        _canFly = isCan; 
-    }
     public SpriteRenderer GetArrow()
     {
         return _aimTransform.GetComponentInChildren<SpriteRenderer>();

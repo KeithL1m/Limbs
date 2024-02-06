@@ -31,7 +31,7 @@ public class Limb : MonoBehaviour
 
     [SerializeField] private LimbData _limbData;
     [field: SerializeField] public GameObject Trail { get; set; }
-    [field: SerializeField] public GameObject PickUpIndicator { get; set; }
+    [field: SerializeField]  public GameObject PickUpIndicator { get; set; }
 
     [HideInInspector] public bool CanPickUp { get; set; }
     [field: SerializeField] public float PickupTimer { get; set; }
@@ -46,8 +46,10 @@ public class Limb : MonoBehaviour
     protected Vector3 _returnVelocity;
     protected float _rVMultiplier;
 
+
     [HideInInspector] public bool TripleShot = false;
     [HideInInspector] public bool _specialLimbs;
+    private bool _initialized = false;
 
     protected virtual void Awake()
     {
@@ -74,17 +76,22 @@ public class Limb : MonoBehaviour
         _specialDamage = _limbData._specialDamage;
         _rVMultiplier = _limbData._returnVelocityMultiplier;
 
-        PickupTimer = 0.2f;
+        PickupTimer = 0.3f;
         CanPickUp = true;
+
         _specialLimbs = false;
+        _initialized = true;
     }
 
     public virtual void ThrowLimb(int direction)
     {
+        PickupTimer = 0.3f;
+        CanPickUp = false;
         _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
-        State = LimbState.Throwing;
         transform.parent = null;
+        State = LimbState.Throwing;
+
         Trail.SetActive(true);
 
         if (_attachedPlayer._inputHandler.Aim.x == 0.0f && _attachedPlayer._inputHandler.Aim.y == 0.0f && !_attachedPlayer._inputHandler.FlickAiming)
@@ -105,7 +112,41 @@ public class Limb : MonoBehaviour
             tVelocity *= _throwSpeed;
             LimbRB.velocity = tVelocity;
         }
+
         _returnVelocity = new Vector3(-LimbRB.velocity.x * _rVMultiplier * 0.6f, -LimbRB.velocity.y * _rVMultiplier * 0.6f, 0f);
+    }
+
+    public void LimbUpdate()
+    {
+        if (!_initialized)
+        {
+            return;
+        }
+
+        if (State == LimbState.Attached && AnchorPoint != null)
+        {
+            //transform.position = AnchorPoint.position;
+            if (Trail != null)
+            {
+                Trail.SetActive(false);
+            }
+        }
+        else if (State == LimbState.Throwing || State == LimbState.Returning)
+        {
+            if(LimbRB != null)
+            {
+                if (LimbRB.velocity.magnitude < 4.0f && _specialLimbs == false)
+                {
+                    PickupTimer -= Time.deltaTime;
+                }
+                if (PickupTimer <= 0.0f)
+                {
+                    CanPickUp = true;
+                    EnterPickupState();
+                }
+            }
+
+        }
     }
 
     private void ReturnLimb()
@@ -124,25 +165,15 @@ public class Limb : MonoBehaviour
         //for if we ever do melee
     }
 
-    public void AttachedUpdate()
-    {
-        PickupTimer = 0.2f;
-        //transform.position = AnchorPoint.position;
-        if (Trail != null)
-        {
-            Trail.SetActive(false);
-        }
-    }
-
-    public void EnterPickupState()
+    protected virtual void EnterPickupState()
     {
         FlipY(1);
         FlipX(1);
-        if (_attachedPlayer != null)
-            Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
+        Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
         State = LimbState.PickUp;
         _attachedPlayer = null;
         _attachedPlayerLimbs = null;
+        PickUpExtra(_attachedPlayer);
         if (Trail != null)
         {
             Trail.SetActive(false);
@@ -152,8 +183,9 @@ public class Limb : MonoBehaviour
             PickUpIndicator.SetActive(true);
         }
     }
+    public virtual void PickUpExtra(Player player) { }
 
-    public void FlipY(int i)
+    public void FlipY(int i )
     {
         if (i < 0)
         {
@@ -185,19 +217,22 @@ public class Limb : MonoBehaviour
     // Limb damage
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("BreakWall")&& State== LimbState.Throwing)
+        if (collision.gameObject.CompareTag("BreakWall") && State == LimbState.Throwing)
         {
             collision.gameObject.GetComponent<LimbInstantiateWall>().Damage();
             ReturnLimb();
         }
-
         if (collision.gameObject.tag != "Player")
             return;
         else if (State != LimbState.Throwing)
             return;
 
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
-        _healthPlayer.AddDamage(_damage + _specialDamage);
+        if (transform.position.x > collision.transform.position.x)
+            _healthPlayer.AddDamage(_damage + _specialDamage, true);
+        else
+            _healthPlayer.AddDamage(_damage + _specialDamage, false);
+
         ReturnLimb();
     }
 
@@ -219,7 +254,6 @@ public class Limb : MonoBehaviour
 
         if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
         {
-            PickupTimer = 0.2f;
             PickUpIndicator.SetActive(false);
             _attachedPlayer = collision.gameObject.GetComponent<Player>();
             _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
@@ -231,13 +265,10 @@ public class Limb : MonoBehaviour
             {
                 LimbRB.SetRotation(0);
             }
-            PickUpExtra(_attachedPlayer);
         }
     }
 
-
-
-    protected virtual void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag != "Player")
             return;
@@ -246,15 +277,8 @@ public class Limb : MonoBehaviour
         else if (State == LimbState.Returning && collision.gameObject.GetComponent<Player>() != _attachedPlayer)
             return;
 
-        if (State == LimbState.Throwing)
-        {
-            _returnVelocity = new Vector3(-LimbRB.velocity.x * _rVMultiplier, -LimbRB.velocity.y * _rVMultiplier, 0f);
-            return;
-        }
-
         if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
         {
-            PickupTimer = 0.2f;
             PickUpIndicator.SetActive(false);
             _attachedPlayer = collision.gameObject.GetComponent<Player>();
             _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
@@ -266,8 +290,6 @@ public class Limb : MonoBehaviour
             {
                 LimbRB.SetRotation(0);
             }
-            PickUpExtra(_attachedPlayer);
         }
     }
-    public virtual void PickUpExtra(Player Player) { }
 }

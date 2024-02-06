@@ -8,13 +8,14 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Customizable")]
     [SerializeField] private float[] extraAcceleration;
+    private int currentAccelerationLimbNumber = 0;
+
     [SerializeField] private float _2LegMoveSpeed;
     [SerializeField] private float _1LegMoveSpeed;
     [SerializeField] private float _noLegSpeed;
     [SerializeField] private float _hopForce;
     private float _hopTimer = 0.0f;
     [SerializeField] float _maxHopTime;
-
     [SerializeField] private float _startMovePoint = 0.5f;
     [SerializeField] private float _smoothMoveSpeed = 0.06f; //the higher the number the less responsive it gets
 
@@ -22,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _maxRotation = 33.5f;
 
     Vector3 zeroVector = Vector3.zero;
-    private int currentAccelerationLimbNumber = 0;
 
     public bool facingRight;
     [SerializeField] private Animator anchorsAnim;
@@ -49,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = 1f;
             facingRight = true;
         }
+
         switch (state)
         {
             case PlayerLimbs.LimbState.TwoLeg:
@@ -64,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
             default: break;
         }
+
         if (moveSpeed == 0)
         {
             dust_Step.SetActive(false);
@@ -88,6 +90,15 @@ public class PlayerMovement : MonoBehaviour
         _headRotation.rotation = rotation;
     }
 
+    private void Hop(float moveSpeed)
+    {
+        if (_playerJump.IsGrounded() && _hopTimer <= 0.0f)
+        {
+            _hopTimer = _maxHopTime;
+            _rb.AddForce(_rb.mass * Vector2.up * _hopForce * Mathf.Abs(moveSpeed), ForceMode2D.Impulse);
+        }
+    }
+
     public void AddAccelerationLimb()
     {
         currentAccelerationLimbNumber++;
@@ -96,15 +107,6 @@ public class PlayerMovement : MonoBehaviour
     public void RemoveAccelerationLimb()
     {
         currentAccelerationLimbNumber--;
-    }
-
-    private void Hop(float moveSpeed)
-    {
-        if (_playerJump.IsGrounded() && _hopTimer <= 0.0f)
-        {
-            _hopTimer = _maxHopTime;
-            _rb.AddForce(_rb.mass * Vector2.up * _hopForce * Mathf.Abs(moveSpeed), ForceMode2D.Impulse);
-        }
     }
 
     public void ZeroVelocity()

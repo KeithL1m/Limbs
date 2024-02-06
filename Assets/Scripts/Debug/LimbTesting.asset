@@ -12,16 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c3c2d3cbf7a3a4cb306a0b2f016e7a, type: 3}
   m_Name: LimbTesting
   m_EditorClassIdentifier: 
-  _sceneToLoad: Assets/Scenes/GameTestingScene/LimbTesting.unity
+  _sceneToLoad: Assets/Scenes/_Playable Maps/Avalanche 1.unity
   _allScenes:
   - Assets/Scenes/_Playable Maps/Sausage3.unity
   - Assets/Scenes/_Playable Maps/Icefall.unity
+  - Assets/Scenes/_Playable Maps/Avalanche 1.unity
   - Assets/Scenes/_Playable Maps/Molten Lava.unity
+  - Assets/Scenes/_Playable Maps/TestMap KH.unity
   - Assets/Scenes/_Playable Maps/FrozenMeat2.unity
   - Assets/Scenes/_Playable Maps/FrozenMeat1.unity
   - Assets/Scenes/_Playable Maps/Red Sea.unity
   - Assets/Scenes/_Playable Maps/The Sawblade.unity
   - Assets/Scenes/_Playable Maps/RedMeat1.unity
+  - Assets/Scenes/_Playable Maps/_PrototypeRoom.unity
   - Assets/Scenes/_Playable Maps/Sausage2.unity
   - Assets/Scenes/_Playable Maps/Pit.unity
   - Assets/Scenes/_Playable Maps/Avalanche.unity

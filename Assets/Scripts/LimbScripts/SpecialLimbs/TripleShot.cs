@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TripleShot : Limb
@@ -48,6 +46,7 @@ public class TripleShot : Limb
 
             Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>(), true);
             Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>(), true);
+
             _shotsLeft--;
 
             if (_shotsLeft == 2)
@@ -68,14 +67,13 @@ public class TripleShot : Limb
 
             return;
         }
-        transform.parent = null;
+
         TripleShot = false;
         _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
         State = LimbState.Throwing;
-
-        Trail.SetActive(true);
         transform.parent = null;
+        Trail.SetActive(true);
 
         if (_attachedPlayer._inputHandler.Aim.x == 0.0f && _attachedPlayer._inputHandler.Aim.y == 0.0f && !_attachedPlayer._inputHandler.FlickAiming)
         {

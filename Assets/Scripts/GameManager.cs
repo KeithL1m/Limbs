@@ -1,8 +1,5 @@
-using JetBrains.Annotations;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class GameManager : Manager
 {
@@ -48,7 +45,7 @@ public class GameManager : Manager
         _pauseManager = pauseManager;
         _uiManager = uiManager;
         _mapManager.fade = _uiManager.GetFade();
-    
+
         _playerCount = _configManager.GetPlayerNum();
         _playerConfigs = _configManager.GetPlayerConfigs();
         _configManager.InLoadout = false;
@@ -150,8 +147,14 @@ public class GameManager : Manager
         {
             ServiceLocator.Get<CameraManager>().Unregister();
         }
-        ServiceLocator.Get<LimbManager>().ClearList();
         _mapManager.ChangeScene();
+        ServiceLocator.Get<LimbManager>().ClearList();
+        ResetRound();
+    }
+
+    public void VictoryScreenSelect(GameObject button)
+    {
+        _pauseManager.VictoryScreen(button);
     }
 
     private void SpawnPlayer(int playerNum)
@@ -162,7 +165,7 @@ public class GameManager : Manager
         _players[playerNum].GetComponent<PlayerHealth>()._isDead = false;
         _players[playerNum].transform.position = spawnPoints[playerNum].transform.position;
     }
-	
+
     public void ClearLimbs()
     {
         for (int i = 0; i < _playerCount; i++)
@@ -178,7 +181,7 @@ public class GameManager : Manager
             _players[i]._groundCheck.localPosition = new Vector3(0, -0.715f, 0);
         }
     }
-    
+
     private void EnterVictoryScreen()
     {
         VictoryScreen = true;

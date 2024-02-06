@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class ExplosiveLimb : Limb
 {
+    //Particle
+
+    [SerializeField] private ParticleManager _particle;
+
     // countdown
     [SerializeField] private float _timer = 3.0f;
     float countdown = 0.0f;
@@ -32,6 +36,7 @@ public class ExplosiveLimb : Limb
     {
         yield return new WaitForSeconds(countdown);
         Explode();
+        
         callback?.Invoke();
     }
 
@@ -61,7 +66,6 @@ public class ExplosiveLimb : Limb
                     if(item.CompareTag("Player"))
                     {
                         item.GetComponent<PlayerHealth>().AddDamage(35);
-                        
                     }
                 }
             }
@@ -74,13 +78,13 @@ public class ExplosiveLimb : Limb
         Gizmos.DrawWireSphere(transform.position, _explosionRadius);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
         if (State != LimbState.Throwing)
             return;
         StartCoroutine(ExplodeAfterDelay(() =>
         {
-            if(gameObject!= null)
+            if (gameObject!= null)
             {
                 Destroy(gameObject);
             }

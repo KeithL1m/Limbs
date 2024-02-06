@@ -14,7 +14,7 @@ TagManager:
   - P4Health
   - StopPosition
   - Props
-  - BreakWall
+  - Ground
   layers:
   - Default
   - TransparentFX

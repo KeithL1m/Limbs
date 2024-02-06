@@ -7,6 +7,7 @@ public class EndGame : MonoBehaviour
     private GameLoader _loader;
     private GameManager _gm;
     public GameObject SelectedButton;
+    private PauseManager _pauseManager;
 
     private void Awake()
     {
@@ -17,7 +18,7 @@ public class EndGame : MonoBehaviour
     private void Initialize()
     {
         _gm = ServiceLocator.Get<GameManager>();
-        EventSystem.current.SetSelectedGameObject(SelectedButton);
+        _gm.VictoryScreenSelect(SelectedButton);
     }
 
     public void RestartGame()
