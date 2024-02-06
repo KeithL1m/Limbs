@@ -26,7 +26,7 @@ public class StartGame : MonoBehaviour
         _configManager = ServiceLocator.Get<ConfigurationManager>();
         EventSystem.current.SetSelectedGameObject(SelectedButton);
 
-        if (!Directory.Exists(Application.persistentDataPath + "/DO_NOT_DELETE/"))
+        /*if (!Directory.Exists(Application.persistentDataPath + "/DO_NOT_DELETE/"))
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/DO_NOT_DELETE/");
 
@@ -44,7 +44,7 @@ public class StartGame : MonoBehaviour
         if (!File.Exists(_filePath))
         {
             Application.Quit();
-        }
+        }*/
     }
 
     public void LoadGame()
