@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class Gas : MonoBehaviour
@@ -11,10 +9,13 @@ public class Gas : MonoBehaviour
     private float _lifeTime = 10;
 
     private List<GameObject> _playersInCloud = new();
-    [SerializeField] private ParticleManager _particleManager;
 
-    private void Start()
+    private ObjectPoolManager _objectPoolManager;
+
+
+    private void OnEnable()
     {
+        _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         StartCoroutine(DamageTick());
 
         var collider = GetComponent<CircleCollider2D>();
@@ -30,10 +31,7 @@ public class Gas : MonoBehaviour
             DoDamage();
         }
 
-        if(_lifeTime <= 0)
-        {
-            Destroy(gameObject);
-        }
+        _objectPoolManager.RecycleObject(gameObject);
     }
 
     private void DoDamage()

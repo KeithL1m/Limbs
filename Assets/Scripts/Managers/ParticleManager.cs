@@ -1,33 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleManager : Manager
+public class ParticleManager
 {
-    //Gas particle
-    [SerializeField] private ParticleSystem _gas;
-
-    //Explosion particle
-    [SerializeField] private ParticleSystem _explosion;
-
-    //Teleport particle
-    [SerializeField] private ParticleSystem _teleport;
-
+    private const string GasPoolName = "GasBomb";
+    private const string ExplosionName = "Explosion";
+    private const string TeleportName = "Teleport";
+    
+    private ObjectPoolManager _objectPoolManager;
+    
     public ParticleManager Initialize()
     {
+        _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         return this;
     }
 
-    public void PlayGas()
+    public void PlayGas(Vector3 pos)
     {
-        _gas.Play();
+        var gas = _objectPoolManager.GetObjectFromPool(GasPoolName);
+        gas.transform.position.Set(pos.x, pos.y, pos.z);
+        gas.SetActive(true);
     }
-    public void PlayExplosionParticle()
+    
+    public void PlayExplosionParticle(Vector3 pos)
     {
-        _explosion.Play();
+        var gas = _objectPoolManager.GetObjectFromPool(ExplosionName);
+        gas.transform.position.Set(pos.x, pos.y, pos.z);
+        gas.SetActive(true);
     }
-    public void PlayTeleportParticle() 
+
+    public void PlayTeleportParticle(Vector3 pos) 
     {
-        _teleport.Play();
+        var gas = _objectPoolManager.GetObjectFromPool(TeleportName);
+        gas.transform.position.Set(pos.x, pos.y, pos.z);
+        gas.SetActive(true);
     }
 }

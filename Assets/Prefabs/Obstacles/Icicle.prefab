@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4032378564020250950}
   - component: {fileID: 4032378564020250951}
   - component: {fileID: 4032378564020250944}
-  - component: {fileID: 4032378564020250946}
+  - component: {fileID: 461333960411764864}
   - component: {fileID: 5190367388636018447}
   - component: {fileID: 4032378565722885681}
   m_Layer: 0
@@ -109,7 +109,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4032378564020250946
+--- !u!114 &461333960411764864
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,14 +118,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4032378564020250947}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb7eaf42dbc27e347a6dd99de83c32da, type: 3}
+  m_Script: {fileID: 11500000, guid: 80a57514aa561b44aba3509245c0e275, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damageOutput: 20
-  originalPos: {x: 0, y: 0, z: 0}
+  originalPos: {fileID: 0}
   destroyOnTouch: 0
   regenerateIcicle: 0
-  rb: {fileID: 4032378564020250944}
+  rb: {fileID: 0}
   icicleCollider: {fileID: 5190367388636018447}
   triggerCollider: {fileID: 4032378565722885681}
 --- !u!61 &5190367388636018447

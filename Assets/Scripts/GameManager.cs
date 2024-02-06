@@ -147,9 +147,9 @@ public class GameManager : Manager
         {
             ServiceLocator.Get<CameraManager>().Unregister();
         }
+        _mapManager.ChangeScene();
         ServiceLocator.Get<LimbManager>().ClearList();
         ResetRound();
-        _mapManager.ChangeScene();
     }
 
     public void VictoryScreenSelect(GameObject button)
