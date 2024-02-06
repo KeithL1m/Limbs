@@ -83,7 +83,7 @@ public class GameLoader : ASyncLoader
         ServiceLocator.Register<PlayerManager>(gm.GetComponent<PlayerManager>().Initialize());
         ServiceLocator.Register<LimbManager>(gm.GetComponent<LimbManager>());
 
-        ParticleManager pm = new ParticleManager().Initialize();
+        ParticleManager pm = new ParticleManager();
         ServiceLocator.Register<ParticleManager>(pm);
 
         ServiceLocator.Register<DebugSettings>(_debugSettings);
@@ -111,6 +111,7 @@ public class GameLoader : ASyncLoader
     private void OnComplete()
     {
         Debug.Log("GameLoader Completed");
+        ServiceLocator.Get<ParticleManager>().Initialize();
 
         if (_sceneIndexToLoad != 0)
         {
