@@ -44078,15 +44078,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dec2011524ecfd45b26eb7c70341720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _focusLevel: {fileID: 1166050391}
   _players: []
-  depthUpdateSpeed: 5
-  angleUpdateSpeed: 7
-  positionUpdateSpeed: 5
-  depthMax: -10
-  depthMin: -22
-  angleMax: 11
-  angleMin: 3
+  _maxBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  _lastDistance: 0
+  _currentDistance: 0
+  _smoothTime: 0.3
+  _smoothZoomInTime: 1
+  _smoothZoomOutTime: 0.2
+  _minHeight: 12.5
+  _maxHeight: 0
+  _heightMultiplier: 1.7
+  _widthMultiplier: 1.3
+  _zoomLimiter: 0
 --- !u!1 &822360251
 GameObject:
   m_ObjectHideFlags: 0
@@ -44242,17 +44247,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1166050391 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6635874619483173021, guid: 424fa18e602de1044abbe0d3d259a1a4, type: 3}
-  m_PrefabInstance: {fileID: 314801969}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43f56c8e2386e39469e0390240c089ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1265550819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44844,8 +44838,12 @@ PrefabInstance:
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2990342465962891910, guid: af3cb9c2e3cfebb449feb6db04ccd0bf, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 92.35449
+      objectReference: {fileID: 0}
+    - target: {fileID: 2990342465962891910, guid: af3cb9c2e3cfebb449feb6db04ccd0bf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.03
+      value: 2.78
       objectReference: {fileID: 0}
     - target: {fileID: 2990342465962891910, guid: af3cb9c2e3cfebb449feb6db04ccd0bf, type: 3}
       propertyPath: m_LocalPosition.y
