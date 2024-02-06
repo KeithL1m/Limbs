@@ -56,7 +56,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/KevinY Maps/KY Scene 2.unity
     guid: 81ba6cb8c9703a74eb704103ec195f3e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/_Playable Maps/Pit.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
@@ -74,13 +74,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/VictoryMap.unity
     guid: c6f88a4fbefe2f84294a71ba5213eba4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/_Playable Maps/TestMap KH.unity
     guid: 23389f1492c1b4840a86b6c26f10cdbd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameTestingScene/LimbTesting.unity
     guid: e5ef2e34cba6dd443bd2ed42dec3b50e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/_Playable Maps/_PrototypeRoom.unity
     guid: 88ea66465a6023645ad87a72316a77ef
   m_configObjects: {}

@@ -13050,6 +13050,95 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1001 &2128990364
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 589181752054380552, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 589181752054380552, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 589181753366587948, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 589181753366587948, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 589181753676022985, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 589181753676022985, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 589181753779191276, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 589181753779191276, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941183982691062052, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941183982691062052, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.6148513
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941183982691062052, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 14.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941183982691062052, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941183982691062052, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941183982691062052, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941183982691062052, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941183982691062052, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941183982691062052, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941183982691062052, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941183982691062052, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8498210735230960973, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
+      propertyPath: m_Name
+      value: LimbSpawner (Specific) [SpecialLimbs]
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a6d2b982190754e45a05c4a8608daef2, type: 3}
 --- !u!1001 &940924468773073200
 PrefabInstance:
   m_ObjectHideFlags: 0

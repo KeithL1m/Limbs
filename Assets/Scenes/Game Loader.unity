@@ -145,11 +145,19 @@ PrefabInstance:
     - target: {fileID: 4379813963526838094, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
       propertyPath: _debugSettings
       value: 
-      objectReference: {fileID: 11400000, guid: b2fc6d1fa591ade48943c6c493402d08, type: 2}
+      objectReference: {fileID: 11400000, guid: 38bf32b6c65073d46b3a6522091c72c4, type: 2}
     - target: {fileID: 4379813963526838094, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
       propertyPath: _sceneIndexToLoad
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4379813963526838094, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
+      propertyPath: _moduleComponents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4379813963526838094, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
+      propertyPath: _moduleComponents.Array.data[0]
+      value: 
+      objectReference: {fileID: 902683683}
     - target: {fileID: 7150891192111988303, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
       propertyPath: m_Name
       value: GameLoader
@@ -200,6 +208,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
+--- !u!1 &902683682 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7150891192111988303, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
+  m_PrefabInstance: {fileID: 902683681}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &902683683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902683682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aaecad2f905f39439d9fe14fc5b28ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsToPool:
+  - name: GasBomb
+    prefab: {fileID: 8540868700325874929, guid: e5de6000cd7fb07468ecd4aac2969b18, type: 3}
+    poolSize: 5
+  - name: Explosion
+    prefab: {fileID: 6256034235666780848, guid: 707a4f38868ed0440a8866927473a163, type: 3}
+    poolSize: 5
 --- !u!1 &940593466
 GameObject:
   m_ObjectHideFlags: 0

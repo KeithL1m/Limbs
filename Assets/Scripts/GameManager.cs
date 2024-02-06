@@ -1,8 +1,5 @@
-using JetBrains.Annotations;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class GameManager : Manager
 {
@@ -116,13 +113,6 @@ public class GameManager : Manager
                 winningConfig = _playerConfigs[i];
                 winningPlayer = _players[i];
             }
-
-            // Add score to player that is alive
-            if(!_players[i].GetComponent<PlayerHealth>().IsDead())
-            {
-                _players[i].AddScore();
-
-            }
         }
         
         if (_deadPlayers == _playerCount - 1)
@@ -157,9 +147,9 @@ public class GameManager : Manager
         {
             ServiceLocator.Get<CameraManager>().Unregister();
         }
+        _mapManager.ChangeScene();
         ServiceLocator.Get<LimbManager>().ClearList();
         ResetRound();
-        _mapManager.ChangeScene();
     }
 
     public void VictoryScreenSelect(GameObject button)
