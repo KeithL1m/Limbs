@@ -12,8 +12,10 @@ public class Gas : MonoBehaviour
 
     private ObjectPoolManager _objectPoolManager;
 
-    private void Start()
+
+    private void OnEnable()
     {
+        _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         StartCoroutine(DamageTick());
 
         var collider = GetComponent<CircleCollider2D>();
