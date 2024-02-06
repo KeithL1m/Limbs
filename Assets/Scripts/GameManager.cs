@@ -1,8 +1,5 @@
-using JetBrains.Annotations;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class GameManager : Manager
 {
@@ -115,13 +112,6 @@ public class GameManager : Manager
             {
                 winningConfig = _playerConfigs[i];
                 winningPlayer = _players[i];
-            }
-
-            // Add score to player that is alive
-            if(!_players[i].GetComponent<PlayerHealth>().IsDead())
-            {
-                _players[i].AddScore();
-
             }
         }
         
