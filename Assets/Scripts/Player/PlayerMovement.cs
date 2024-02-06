@@ -8,8 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private GroundCheck _groundCheck;
     [SerializeField] private ParticleSystem _walkDust;
-    private ParticleSystem.EmissionModule _dustEmission;
-    private ParticleSystem.Burst _dustBurst;
+    private ParticleSystem.EmissionModule _walkDustEmission;
 
     [Header("Customizable")]
     [SerializeField] private float _2LegMoveSpeed;
@@ -35,9 +34,7 @@ public class PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _playerJump = GetComponent<PlayerJump>();
         _inputHandler = GetComponent<PlayerInputHandler>();
-        _dustEmission = _walkDust.emission;
-        ParticleSystem.Burst[] bursts = new ParticleSystem.Burst[_dustEmission.burstCount];
-        _dustEmission.GetBursts(bursts);
+        _walkDustEmission = _walkDust.emission;
     }
 
     public void Move(PlayerLimbs.LimbState state)
@@ -49,28 +46,11 @@ public class PlayerMovement : MonoBehaviour
         {
             moveSpeed = -1f;
             facingRight = false;
-            _dust = true;
         }
         else if (_inputHandler.Movement >= _startMovePoint)
         {
             moveSpeed = 1f;
             facingRight = true;
-            _dust = true;
-        }
-        else
-        {
-            _dust = false;
-        }
-
-        if (_dust && _groundCheck.isGrounded)
-        {
-            _dustEmission.SetBurst(0, 10);
-            _dustEmission.rateOverTime = 10;
-        }
-        else
-        {
-            _dustBurst.count = 0;
-            _dustEmission.rateOverTime = 0;
         }
 
         switch (state)
@@ -97,6 +77,24 @@ public class PlayerMovement : MonoBehaviour
 
         Quaternion rotation = Quaternion.Euler(0f, 0f, currentRotation);
         _headRotation.rotation = rotation;
+
+        if (_rb.velocity.magnitude > 2.0f)
+        {
+            _dust = true;
+        }
+        else
+        {
+            _dust = false;
+        }
+
+        if (_dust && _groundCheck.isGrounded)
+        {
+            _walkDustEmission.rateOverTime = 50;
+        }
+        else
+        {
+            _walkDustEmission.rateOverTime = 0;
+        }
     }
 
     private void Hop(float moveSpeed)

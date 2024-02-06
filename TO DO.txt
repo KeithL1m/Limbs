@@ -1,1 +1,0 @@
-To make dust particles stop and start just use the Play and Stop(true, ParticleSystemStopBehavior.StopEmitting)
