@@ -48,4 +48,9 @@ public class LimbManager : Manager
     {
         _limbs.Clear();
     }
+
+    public int GetLimbAmount()
+    {
+        return _limbs.Count;
+    }
 }

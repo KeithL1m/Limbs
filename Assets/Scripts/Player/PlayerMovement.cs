@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 zeroVector = Vector3.zero;
 
     public bool facingRight;
-
+    
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -50,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         switch (state)
         {
             case PlayerLimbs.LimbState.TwoLeg:
+
                 moveSpeed *= _2LegMoveSpeed;
                 break;
             case PlayerLimbs.LimbState.OneLeg:
@@ -59,10 +60,9 @@ public class PlayerMovement : MonoBehaviour
                 _hopTimer -= Time.deltaTime;
                 Hop(moveSpeed);
                 moveSpeed *= _noLegSpeed;
-                break; 
+                break;
             default: break;
         }
-
         Vector3 targetVelocity = new Vector2(moveSpeed, _rb.velocity.y);
         _rb.velocity = Vector3.SmoothDamp(_rb.velocity, targetVelocity, ref zeroVector, _smoothMoveSpeed);
 

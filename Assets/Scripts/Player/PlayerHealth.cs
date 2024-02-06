@@ -18,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField]
     private Slider healthSlider;
+    [SerializeField] private DamageParticles damageParticles;
 
 
     private void Awake()
@@ -31,7 +32,7 @@ public class PlayerHealth : MonoBehaviour
         _gm = ServiceLocator.Get<GameManager>();
         _health = _maxHealth;
         _initialized = true;
-}
+    }
 
     private void Update()
     {
@@ -47,9 +48,21 @@ public class PlayerHealth : MonoBehaviour
     {
         if (_gm.startScreen)
             return;
-        
+
+        _health -= damage;
+        damageParticles.PlayDamageParticle();
+        // Update the health slider value here
+        UpdateHealthSlider();
+    }
+
+    public void AddDamage(float damage, bool isRight)
+    {
+        if (_gm.startScreen)
+            return;
+
         _health -= damage;
 
+        damageParticles.PlayDamageParticle();
         // Update the health slider value here
         UpdateHealthSlider();
     }
@@ -59,6 +72,12 @@ public class PlayerHealth : MonoBehaviour
     public void KillPlayer()
     {
         deathPositions = FindObjectsOfType<DeathPosition>();
+        if (deathPositions is null)
+        {
+            Debug.LogError("there are no DeathPositions in the Scene");
+            return;
+        }
+
         _isDead = true;
         if (deathPositions[0].Occupied)
         {

@@ -28,7 +28,6 @@ public class GasLimb : Limb
             return;
           
         GasExplode();
-        
     }
 
 

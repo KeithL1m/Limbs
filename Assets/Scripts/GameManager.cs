@@ -1,8 +1,5 @@
-using JetBrains.Annotations;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class GameManager : Manager
 {
@@ -117,7 +114,7 @@ public class GameManager : Manager
                 winningPlayer = _players[i];
             }
         }
-
+        
         if (_deadPlayers == _playerCount - 1)
         {
             if (!isGameOver) // Check if game over is not already triggered
@@ -150,8 +147,9 @@ public class GameManager : Manager
         {
             ServiceLocator.Get<CameraManager>().Unregister();
         }
-        ServiceLocator.Get<LimbManager>().ClearList();
         _mapManager.ChangeScene();
+        ServiceLocator.Get<LimbManager>().ClearList();
+        ResetRound();
     }
 
     public void VictoryScreenSelect(GameObject button)

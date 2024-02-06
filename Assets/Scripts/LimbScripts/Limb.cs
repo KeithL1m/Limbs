@@ -132,15 +132,19 @@ public class Limb : MonoBehaviour
         }
         else if (State == LimbState.Throwing || State == LimbState.Returning)
         {
-            if (LimbRB.velocity.magnitude < 4.0f && _specialLimbs == false)
+            if(LimbRB != null)
             {
-                PickupTimer -= Time.deltaTime;
+                if (LimbRB.velocity.magnitude < 4.0f && _specialLimbs == false)
+                {
+                    PickupTimer -= Time.deltaTime;
+                }
+                if (PickupTimer <= 0.0f)
+                {
+                    CanPickUp = true;
+                    EnterPickupState();
+                }
             }
-            if (PickupTimer <= 0.0f)
-            {
-                CanPickUp = true;
-                EnterPickupState();
-            }
+
         }
     }
 
@@ -216,7 +220,11 @@ public class Limb : MonoBehaviour
             return;
 
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
-        _healthPlayer.AddDamage(_damage + _specialDamage);
+        if (transform.position.x > collision.transform.position.x)
+            _healthPlayer.AddDamage(_damage + _specialDamage, true);
+        else
+            _healthPlayer.AddDamage(_damage + _specialDamage, false);
+
         ReturnLimb();
     }
 
@@ -260,12 +268,6 @@ public class Limb : MonoBehaviour
             return;
         else if (State == LimbState.Returning && collision.gameObject.GetComponent<Player>() != _attachedPlayer)
             return;
-
-        if (State == LimbState.Throwing)
-        {
-            _returnVelocity = new Vector3(-LimbRB.velocity.x * _rVMultiplier, -LimbRB.velocity.y * _rVMultiplier, 0f);
-            return;
-        }
 
         if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
         {
