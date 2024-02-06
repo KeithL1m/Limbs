@@ -13,9 +13,6 @@ public class MapManager : Manager
     [SerializeField] private int _loadingMaps;
     [SerializeField] private int _victoryScreen;
 
-    //Previous Randomizer
-    //private static System.Random rnd = new System.Random();
-
     private void Awake()
     {
         _loader = ServiceLocator.Get<GameLoader>();
@@ -37,7 +34,7 @@ public class MapManager : Manager
 
 
     public void LoadMap()
-    {
+    {/*
 #if LIMBS_DEBUG
         var debugSceneName = ServiceLocator.Get<DebugSettings>().NextScene;
         if (string.IsNullOrWhiteSpace(debugSceneName) == false)
@@ -45,7 +42,7 @@ public class MapManager : Manager
             SceneManager.LoadScene(debugSceneName);
             return;
         }
-#endif
+#endif*/
 
         if (_gm.VictoryScreen)
         {
@@ -60,7 +57,7 @@ public class MapManager : Manager
             //Check if map is repeated
             int mapNum = Random.Range(_loadingMaps, _mapCount);
             int currentMap = mapNum;
-            if(mapNum == currentMap)
+            while (mapNum == currentMap)
             {
                 Debug.Log("MAP WAS REPEATED");
                 mapNum = Random.Range(_loadingMaps, _mapCount);
