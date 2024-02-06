@@ -57,7 +57,6 @@ MonoBehaviour:
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
   _specialLimbs: 0
-  gasCloudPrefab: {fileID: 8540868700325874929, guid: e5de6000cd7fb07468ecd4aac2969b18, type: 3}
 --- !u!50 &545256134410961637
 Rigidbody2D:
   serializedVersion: 4
@@ -410,7 +409,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 30f562c54c5d9f04d8fc516683a7d923, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.627451}
+  m_Color: {r: 1, g: 1, b: 0.015686275, a: 0.627451}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

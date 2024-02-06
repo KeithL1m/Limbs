@@ -88,9 +88,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0000000030609324, y: -0.0064192414}
+  m_Offset: {x: -7.9032236e-10, y: 0.0016574264}
   serializedVersion: 2
-  m_Radius: 0.6236082
+  m_Radius: 0.5239963
 --- !u!114 &6748430361449457588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,7 +362,7 @@ Transform:
   m_GameObject: {fileID: 7254546142229159940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.5}
-  m_LocalScale: {x: 0.2115482, y: 0.2115482, z: 0.2115482}
+  m_LocalScale: {x: 0.1828425, y: 0.1828425, z: 0.1828425}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8952520609378391584}
