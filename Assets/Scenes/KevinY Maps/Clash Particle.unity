@@ -333,6 +333,10 @@ PrefabInstance:
       value: Stiky Explosion particle
       objectReference: {fileID: 0}
     - target: {fileID: 4456231009394609340, guid: b011c723598e40846989bfe12d9cf26a, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456231009394609340, guid: b011c723598e40846989bfe12d9cf26a, type: 3}
       propertyPath: SizeModule.enabled
       value: 1
       objectReference: {fileID: 0}
@@ -383,6 +387,18 @@ PrefabInstance:
     - target: {fileID: 4456231009394609343, guid: b011c723598e40846989bfe12d9cf26a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456231009691558865, guid: b011c723598e40846989bfe12d9cf26a, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832102992568403530, guid: b011c723598e40846989bfe12d9cf26a, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832102992568403530, guid: b011c723598e40846989bfe12d9cf26a, type: 3}
+      propertyPath: ShapeModule.type
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4832102992568403530, guid: b011c723598e40846989bfe12d9cf26a, type: 3}
       propertyPath: SizeModule.enabled
