@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
 
     //Player components
     private PlayerMovement _playerMovement;
+    public PlayerMovement PlayerMovement { get { return _playerMovement; } }
     private PlayerJump _playerJump;
     private PlayerLimbs _playerLimbs;
     [HideInInspector]
@@ -29,7 +30,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Transform _aimTransform;
     [SerializeField] public Transform _groundCheck;
-
+    private bool _canFly = false;
+    public bool CanFly { get { return _canFly; } }
     //facing left = -1, right = 1
     public int direction;
     private bool _initialized = false;
@@ -174,6 +176,11 @@ public class Player : MonoBehaviour
                 _playerBody.flipX = true;
             }
         }
+    }
+
+    public void SetCanFly(bool isCan)
+    {
+        _canFly = isCan;
     }
 
     public void AddScore()

@@ -45,7 +45,7 @@ public class GameManager : Manager
         _pauseManager = pauseManager;
         _uiManager = uiManager;
         _mapManager.fade = _uiManager.GetFade();
-    
+
         _playerCount = _configManager.GetPlayerNum();
         _playerConfigs = _configManager.GetPlayerConfigs();
         _configManager.InLoadout = false;
@@ -114,7 +114,7 @@ public class GameManager : Manager
                 winningPlayer = _players[i];
             }
         }
-        
+
         if (_deadPlayers == _playerCount - 1)
         {
             if (!isGameOver) // Check if game over is not already triggered
@@ -165,7 +165,7 @@ public class GameManager : Manager
         _players[playerNum].GetComponent<PlayerHealth>()._isDead = false;
         _players[playerNum].transform.position = spawnPoints[playerNum].transform.position;
     }
-	
+
     public void ClearLimbs()
     {
         for (int i = 0; i < _playerCount; i++)
@@ -181,7 +181,7 @@ public class GameManager : Manager
             _players[i]._groundCheck.localPosition = new Vector3(0, -0.715f, 0);
         }
     }
-    
+
     private void EnterVictoryScreen()
     {
         VictoryScreen = true;

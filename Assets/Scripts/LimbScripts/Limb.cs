@@ -89,6 +89,7 @@ public class Limb : MonoBehaviour
         CanPickUp = false;
         _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
+        transform.parent = null;
         State = LimbState.Throwing;
 
         Trail.SetActive(true);
@@ -124,7 +125,7 @@ public class Limb : MonoBehaviour
 
         if (State == LimbState.Attached && AnchorPoint != null)
         {
-            transform.position = AnchorPoint.position;
+            //transform.position = AnchorPoint.position;
             if (Trail != null)
             {
                 Trail.SetActive(false);
@@ -172,6 +173,7 @@ public class Limb : MonoBehaviour
         State = LimbState.PickUp;
         _attachedPlayer = null;
         _attachedPlayerLimbs = null;
+        PickUpExtra(_attachedPlayer);
         if (Trail != null)
         {
             Trail.SetActive(false);
@@ -181,6 +183,7 @@ public class Limb : MonoBehaviour
             PickUpIndicator.SetActive(true);
         }
     }
+    public virtual void PickUpExtra(Player player) { }
 
     public void FlipY(int i )
     {
@@ -214,6 +217,11 @@ public class Limb : MonoBehaviour
     // Limb damage
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("BreakWall") && State == LimbState.Throwing)
+        {
+            collision.gameObject.GetComponent<LimbInstantiateWall>().Damage();
+            ReturnLimb();
+        }
         if (collision.gameObject.tag != "Player")
             return;
         else if (State != LimbState.Throwing)

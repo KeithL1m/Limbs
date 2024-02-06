@@ -50,7 +50,20 @@ public class PlayerHealth : MonoBehaviour
             return;
 
         _health -= damage;
-        damageParticles.PlayDamageParticle();
+        Instantiate(damageParticles.gameObject, transform.position, transform.rotation);
+        // Update the health slider value here
+        UpdateHealthSlider();
+    }
+
+    public void AddDamage(float damage,float x)
+    {
+        if (_gm.startScreen)
+            return;
+
+        _health -= damage;
+        GameObject particles = Instantiate(damageParticles.gameObject, transform.position, transform.rotation);
+        if (x < transform.position.x)
+            particles.transform.localEulerAngles = new Vector3(0, 180, 0);
         // Update the health slider value here
         UpdateHealthSlider();
     }
@@ -62,7 +75,9 @@ public class PlayerHealth : MonoBehaviour
 
         _health -= damage;
 
-        damageParticles.PlayDamageParticle();
+        GameObject particles = Instantiate(damageParticles.gameObject, transform.position, transform.rotation);
+        if (!isRight)
+            particles.transform.localEulerAngles = new Vector3(0, 180, 0);
         // Update the health slider value here
         UpdateHealthSlider();
     }

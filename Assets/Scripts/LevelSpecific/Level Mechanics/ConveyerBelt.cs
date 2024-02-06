@@ -4,19 +4,12 @@ using UnityEngine;
 
 public class ConveyerBelt : MonoBehaviour
 {
-    [Header("Bool Settings")]
-    [SerializeField] private bool reverseAfterTime;
+    [SerializeField] private bool switchOn = true;
     [SerializeField] private bool isClockwise = true;
+    [SerializeField] private float speed = 1;
 
-    [Header("Adjustable Speed")]
-    public float speed = 1;
-    public float timeTillReverse = 5;
 
-    [Header("References")]
     [SerializeField] private Rigidbody2D rb;
-
-    private bool isReversing;
-
     // Start is called before the first frame update
     void Awake()
     {
@@ -43,35 +36,5 @@ public class ConveyerBelt : MonoBehaviour
         }
 
         rb.MovePosition(position);
-        ReverseMovement();
-    }
-
-    public void ReverseMovement()
-    {
-        if (reverseAfterTime == true && isReversing == false)
-        {
-            StartCoroutine(ReverseCoroutine());
-        }
-    }
-
-    private IEnumerator ReverseCoroutine()
-    {
-        isReversing = true;
-
-        yield return new WaitForSecondsRealtime(timeTillReverse);
-
-        Debug.Log("Waiting");
-        
-        if (isClockwise == true)
-        {
-            isClockwise = false;
-        }
-
-        else
-        {
-            isClockwise = true;
-        }
-
-        isReversing = false;
     }
 }
