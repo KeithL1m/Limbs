@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2990342465962891911}
   - component: {fileID: 2990342465962891908}
   - component: {fileID: 2990342465962891909}
-  - component: {fileID: 2990342465962891905}
+  - component: {fileID: 4152771509659351897}
   m_Layer: 0
   m_Name: RisingSea
   m_TagString: Untagged
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 020bf51e67dcb3b44b35c53724ab6357, type: 3}
   m_Color: {r: 0.6698113, g: 0.2432805, b: 0.2432805, a: 0.7607843}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,8 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ffc5a3695272ed42a1a479cfa8e294a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
   moveOnStart: 0
+  disableMovement: 0
+  damageOutput: 0.1
   requiredTime: 20
 --- !u!50 &2990342465962891909
 Rigidbody2D:
@@ -123,7 +124,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &2990342465962891905
+--- !u!61 &4152771509659351897
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,19 +134,19 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.15523529, y: -12.156215}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 59.21366, y: 50.800003}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 54.487633, y: 23.442698}
   m_EdgeRadius: 0
