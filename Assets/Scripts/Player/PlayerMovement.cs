@@ -6,6 +6,11 @@ public class PlayerMovement : MonoBehaviour
     private PlayerJump _playerJump;
     private PlayerInputHandler _inputHandler;
 
+    [SerializeField] private GroundCheck _groundCheck;
+    [SerializeField] private ParticleSystem _walkDust;
+    private ParticleSystem.EmissionModule _walkDustEmission;
+    [SerializeField] private Animator anchorsAnim;
+
     [Header("Customizable")]
     [SerializeField] private float[] extraAcceleration;
     private int currentAccelerationLimbNumber = 0;
@@ -25,13 +30,14 @@ public class PlayerMovement : MonoBehaviour
     Vector3 zeroVector = Vector3.zero;
 
     public bool facingRight;
-    [SerializeField] private Animator anchorsAnim;
-    [SerializeField] private GameObject dust_Step;
+    private bool _dust;
+    
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _playerJump = GetComponent<PlayerJump>();
         _inputHandler = GetComponent<PlayerInputHandler>();
+        _walkDustEmission = _walkDust.emission;
     }
 
     public void Move(PlayerLimbs.LimbState state)
@@ -88,6 +94,24 @@ public class PlayerMovement : MonoBehaviour
 
         Quaternion rotation = Quaternion.Euler(0f, 0f, currentRotation);
         _headRotation.rotation = rotation;
+
+        if (_rb.velocity.magnitude > 4.0f)
+        {
+            _dust = true;
+        }
+        else
+        {
+            _dust = false;
+        }
+
+        if (_dust && _groundCheck.isGrounded)
+        {
+            _walkDustEmission.rateOverTime = 50;
+        }
+        else
+        {
+            _walkDustEmission.rateOverTime = 0;
+        }
     }
 
     private void Hop(float moveSpeed)

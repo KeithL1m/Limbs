@@ -178,7 +178,7 @@ public class GameManager : Manager
     {
         for (int i = 0; i < _playerCount; i++)
         {
-            _players[i]._groundCheck.localPosition = new Vector3(0, -0.715f, 0);
+            _players[i].GroundCheckTransform.localPosition = new Vector3(0, -0.715f, 0);
         }
     }
 
