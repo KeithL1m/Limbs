@@ -157,7 +157,6 @@ public class PlayerLimbs : MonoBehaviour
             _collider.size = _originalSize;
             _collider.offset = _originalOffset;
             _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + current.Size);
-            //_limbAnchors[currentNum].localPosition = _anchorPositions[currentNum];
         }
         else
         {
@@ -165,7 +164,6 @@ public class PlayerLimbs : MonoBehaviour
             _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y - other.Size * 0.5f);
             _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + current.Size);
             _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y - other.Size);
-            //_limbAnchors[currentNum].localPosition = _anchorPositions[currentNum];
         }
     }
 
