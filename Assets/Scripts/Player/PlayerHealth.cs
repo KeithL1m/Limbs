@@ -50,7 +50,7 @@ public class PlayerHealth : MonoBehaviour
             return;
 
         _health -= damage;
-        Instantiate(damageParticles.gameObject, transform.position, transform.rotation);
+        damageParticles.PlayDamageParticle();
         // Update the health slider value here
         UpdateHealthSlider();
     }
@@ -59,6 +59,11 @@ public class PlayerHealth : MonoBehaviour
 
     public void KillPlayer()
     {
+        if (_health > 0)
+        {
+            _health = 0;
+            UpdateHealthSlider();
+        }
         deathPositions = FindObjectsOfType<DeathPosition>();
         if (deathPositions is null)
         {
