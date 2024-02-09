@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GroundCheck _groundCheck;
     [SerializeField] private ParticleSystem _walkDust;
     private ParticleSystem.EmissionModule _walkDustEmission;
-    [SerializeField] private Animator anchorsAnim;
 
     [Header("Customizable")]
     [SerializeField] private float[] extraAcceleration;
@@ -72,7 +71,6 @@ public class PlayerMovement : MonoBehaviour
             default: break;
         }
 
-        anchorsAnim.SetFloat("speed", moveSpeed);
         Vector3 targetVelocity = new Vector2(moveSpeed, _rb.velocity.y);
         _rb.velocity = Vector3.SmoothDamp(_rb.velocity, targetVelocity, ref zeroVector, _smoothMoveSpeed);
 
