@@ -15,6 +15,7 @@ TagManager:
   - StopPosition
   - Props
   - Ground
+  - BreakWall
   layers:
   - Default
   - TransparentFX
