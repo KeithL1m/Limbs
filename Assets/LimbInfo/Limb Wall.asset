@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc105bb179138bc4e9e731551038337b, type: 3}
   m_Name: Limb Wall
   m_EditorClassIdentifier: 
-  _throwSpeed: 30.72
+  _throwSpeed: 15
   _throwAngle: 0.5
   _knockback: 0
   _knockbackCounter: 0

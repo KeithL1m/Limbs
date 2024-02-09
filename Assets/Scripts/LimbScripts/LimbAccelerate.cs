@@ -24,7 +24,8 @@ public class LimbAccelerate : Limb
         if (isAdd)
             return;
         isAdd = true;
-        player.PlayerMovement.AddAccelerationLimb();
+        currentPlayer= player;
+        currentPlayer.PlayerMovement.AddAccelerationLimb();
     }
 
 

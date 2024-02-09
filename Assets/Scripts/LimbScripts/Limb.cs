@@ -169,11 +169,11 @@ public class Limb : MonoBehaviour
     {
         FlipY(1);
         FlipX(1);
+        PickUpExtra(_attachedPlayer);
         Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
         State = LimbState.PickUp;
         _attachedPlayer = null;
         _attachedPlayerLimbs = null;
-        PickUpExtra(_attachedPlayer);
         if (Trail != null)
         {
             Trail.SetActive(false);
