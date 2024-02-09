@@ -24,8 +24,7 @@ public class LimbAccelerate : Limb
         if (isAdd)
             return;
         isAdd = true;
-        currentPlayer = player;
-        currentPlayer.PlayerMovement.AddAccelerationLimb();
+        player.PlayerMovement.AddAccelerationLimb();
     }
 
 
@@ -37,7 +36,7 @@ public class LimbAccelerate : Limb
             currentPlayer.PlayerMovement.RemoveAccelerationLimb();
             currentPlayer = null;
             isAdd = false;
-            transform.parent= null;
+            transform.parent = null;
         }
     }
 
