@@ -35,7 +35,7 @@ public class MapManager : Manager
 
     public void LoadMap()
     {
-        /*
+
 #if LIMBS_DEBUG
         var debugSceneName = ServiceLocator.Get<DebugSettings>().NextScene;
         if (string.IsNullOrWhiteSpace(debugSceneName) == false)
@@ -43,7 +43,7 @@ public class MapManager : Manager
             SceneManager.LoadScene(debugSceneName);
             return;
         }
-#endif*/
+#endif
 
         if (_gm.VictoryScreen)
         {
