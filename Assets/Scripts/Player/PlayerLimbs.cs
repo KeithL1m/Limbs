@@ -221,7 +221,7 @@ public class PlayerLimbs : MonoBehaviour
     public virtual void ThrowLimb(int direction)
     {
         _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
-        _limbs[(int)_selectedLimb].transform.SetParent(Camera.main.transform);
+        //_limbs[(int)_selectedLimb].transform.SetParent(Camera.main.transform);
         _limbs[(int)_selectedLimb].ThrowLimb(direction);
 
         if (_limbs[(int)_selectedLimb].TripleShot)
