@@ -191,12 +191,12 @@ public class PlayerLimbs : MonoBehaviour
     {
         for (int i = 3; i >= 0; i--)
         {
-            _limbAnchors[i].localPosition = _anchorPositions[i];
-            _limbs[i] = null;
-        }
-        foreach (var item in _limbAnchors)
-        {
-            item.DetachChildren();
+            if (_limbs[i] != null)
+            {
+                _limbs[i].transform.SetParent(null);
+                Destroy(_limbs[i].gameObject);
+                _limbs[i] = null;
+            }
         }
         _groundCheck.localPosition = _groundCheckPosition;
         _collider.size = _originalSize;
@@ -221,6 +221,7 @@ public class PlayerLimbs : MonoBehaviour
     public virtual void ThrowLimb(int direction)
     {
         _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
+        _limbs[(int)_selectedLimb].transform.SetParent(Camera.main.transform);
         _limbs[(int)_selectedLimb].ThrowLimb(direction);
 
         if (_limbs[(int)_selectedLimb].TripleShot)

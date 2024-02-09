@@ -314,7 +314,12 @@ MonoBehaviour:
   _groundCheck: {fileID: 8385072270942222215}
   _walkDust: {fileID: 4964803188951795551}
   anchorsAnim: {fileID: 3589187533235025141}
-  extraAcceleration: []
+  extraAcceleration:
+  - 0
+  - 0.2
+  - 0.3
+  - 0.4
+  - 0.5
   _2LegMoveSpeed: 14
   _1LegMoveSpeed: 10
   _noLegSpeed: 6
