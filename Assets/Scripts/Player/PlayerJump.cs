@@ -116,14 +116,14 @@ public class PlayerJump : MonoBehaviour
             _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed * 0.6f, ForceMode2D.Impulse);
             _canDoubleJump = false;
             _isDoubleJumping = true;
-            _jumpParticles.Play();
+            _dJumpParticles.Play();
         }
         else
         {
             if (!_player.CanFly)
             {
                 _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed, ForceMode2D.Impulse);
-                _dJumpParticles.Play();
+                _jumpParticles.Play();
             }
             else
             {

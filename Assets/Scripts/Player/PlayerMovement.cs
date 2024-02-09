@@ -72,19 +72,6 @@ public class PlayerMovement : MonoBehaviour
             default: break;
         }
 
-        if (moveSpeed == 0)
-        {
-            dust_Step.SetActive(false);
-        }
-        else
-        {
-            if (!dust_Step.activeSelf)
-                dust_Step.SetActive(true);
-            if (moveSpeed < 0)
-                dust_Step.transform.localEulerAngles = new Vector3(0, 180, 0);
-            else
-                dust_Step.transform.localEulerAngles = new Vector3(0, 0, 0);
-        }
         anchorsAnim.SetFloat("speed", moveSpeed);
         Vector3 targetVelocity = new Vector2(moveSpeed, _rb.velocity.y);
         _rb.velocity = Vector3.SmoothDamp(_rb.velocity, targetVelocity, ref zeroVector, _smoothMoveSpeed);
