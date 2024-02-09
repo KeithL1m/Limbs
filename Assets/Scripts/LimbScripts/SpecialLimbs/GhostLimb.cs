@@ -1,14 +1,11 @@
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class GasLimb : Limb
+public class GhostLimb : Limb
 {
-    private ParticleManager _particleManager;
     [SerializeField] Collider2D _collider;
-    [SerializeField] float _delayTimer = 0.2f;
-
-   // public GameObject gasCloudPrefab;
+    float _ghostTimer = 1.2f;
 
     protected override void Awake()
     {
@@ -18,8 +15,7 @@ public class GasLimb : Limb
     protected override void Initialize()
     {
         base.Initialize();
-        _particleManager = ServiceLocator.Get<ParticleManager>();
-        _specialLimbs = true;
+        _specialLimbs = false;
     }
 
     public override void ThrowLimb(int direction)
@@ -32,7 +28,7 @@ public class GasLimb : Limb
     private IEnumerator EnableAfterDelay()
     {
         _collider.enabled = false;
-        yield return new WaitForSeconds(_delayTimer);
+        yield return new WaitForSeconds(_ghostTimer);
         _collider.enabled = true;
         yield break;
     }
@@ -46,15 +42,7 @@ public class GasLimb : Limb
     {
         if (State != LimbState.Throwing)
             return;
-
-        GasExplode();
-    }
-
-
-    void GasExplode()
-    {
-        Debug.Log("FART");
-        _particleManager.PlayGas(gameObject.transform.position);
-        Destroy(gameObject);
+        PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
+        _healthPlayer.AddDamage(10);
     }
 }

@@ -8,7 +8,7 @@ public class ExplosiveLimb : Limb
     [SerializeField] Collider2D _collider;
 
     //Particle
-    [SerializeField] private ParticleManager _particle;
+    private ParticleManager _particleManager;
 
     // countdown
     [SerializeField] private float _timer = 3.0f;
@@ -29,7 +29,7 @@ public class ExplosiveLimb : Limb
     {
         base.Initialize();
         _specialLimbs = true;
-
+        _particleManager = ServiceLocator.Get<ParticleManager>();
         countdown = _timer;
     }
 
@@ -83,6 +83,7 @@ public class ExplosiveLimb : Limb
                     if(item.CompareTag("Player"))
                     {
                         item.GetComponent<PlayerHealth>().AddDamage(35);
+                        _particleManager.PlayExplosionParticle(gameObject.transform.position);
                     }
                 }
             }

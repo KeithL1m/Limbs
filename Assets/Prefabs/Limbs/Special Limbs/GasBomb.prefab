@@ -57,6 +57,8 @@ MonoBehaviour:
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
   _specialLimbs: 0
+  _collider: {fileID: 8460407155734473735}
+  _delayTimer: 0.2
 --- !u!50 &545256134410961637
 Rigidbody2D:
   serializedVersion: 4
