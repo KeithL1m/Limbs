@@ -18,6 +18,7 @@ public class ParticleManager
     public void PlayGas(Vector3 pos)
     {
         var gas = _objectPoolManager.GetObjectFromPool(GasPoolName);
+        //set to new vector 3
         gas.transform.position.Set(pos.x, pos.y, pos.z);
         gas.SetActive(true);
     }
@@ -25,6 +26,7 @@ public class ParticleManager
     public void PlayExplosionParticle(Vector3 pos)
     {
         var gas = _objectPoolManager.GetObjectFromPool(ExplosionName);
+        //set to new vector 3
         gas.transform.position.Set(pos.x, pos.y, pos.z);
         gas.SetActive(true);
     }
@@ -39,11 +41,7 @@ public class ParticleManager
     public void PlaySwordClashParticle(Vector3 pos)
     {
         GameObject sword = _objectPoolManager.GetObjectFromPool(ClashName);
-        Debug.Log(pos);
-        Debug.Log(sword.transform.position);
         sword.transform.position = new Vector3(pos.x, pos.y, pos.z);
-        Debug.Log(pos);
-        Debug.Log(sword.transform.position);
         sword.SetActive(true);
     }
 }
