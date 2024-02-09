@@ -236,7 +236,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""1D Axis"",
+                    ""name"": ""Controller"",
                     ""id"": ""73f9307c-72fb-4dfc-87e4-71671426f8c4"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
@@ -264,6 +264,39 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controller"",
+                    ""action"": ""Switch Limb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""dc33b7ef-feec-4900-b0b1-8d59a25626ee"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch Limb"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""53fac062-de96-4986-ad92-ef5bcfc90755"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Switch Limb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""63fbba2c-4f68-47b2-973a-4515092f120a"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""Switch Limb"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true

@@ -268,17 +268,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8577597915325098454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adeade1f9b52ad44ca364bc4bc37091b, type: 3}
+  m_Script: {fileID: 11500000, guid: 1213eb8e567b70c4097768a557ac15f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _sprite: {fileID: 1332831581517058606}
-  _limbData: {fileID: 11400000, guid: 8a1f8b16e8019364e9ae7cef7077cb3a, type: 2}
+  _limbData: {fileID: 11400000, guid: b5f2e330da96ea947bfa10bce7dae788, type: 2}
   <Trail>k__BackingField: {fileID: 9094666861867324213}
   <PickUpIndicator>k__BackingField: {fileID: 1517149548725008300}
-  <CanPickUp>k__BackingField: 0
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
-  changeTime: 0.5
+  _specialLimbs: 0
+  changeTime: 1
   wall: {fileID: 4518471586269112576, guid: db6b231ae5a81014cbed5df2213ecb29, type: 3}
 --- !u!1 &9094666861867324213
 GameObject:
