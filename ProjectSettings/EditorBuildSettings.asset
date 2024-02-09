@@ -56,7 +56,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/KevinY Maps/KY Scene 2.unity
     guid: 81ba6cb8c9703a74eb704103ec195f3e
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Pit.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
@@ -65,7 +65,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/_Playable Maps/Red Sea.unity
     guid: 954aba8589c020140a6cbeab91860f06
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/The Sawblade.unity
     guid: 1807d8fcbe9fe9049982560da7f089ca
   - enabled: 1

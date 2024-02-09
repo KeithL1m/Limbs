@@ -31,7 +31,7 @@ public class Limb : MonoBehaviour
 
     [SerializeField] private LimbData _limbData;
     [field: SerializeField] public GameObject Trail { get; set; }
-    [field: SerializeField]  public GameObject PickUpIndicator { get; set; }
+    [field: SerializeField] public GameObject PickUpIndicator { get; set; }
 
     [HideInInspector] public bool CanPickUp { get; set; }
     [field: SerializeField] public float PickupTimer { get; set; }
@@ -45,6 +45,8 @@ public class Limb : MonoBehaviour
     private float _specialDamage;
     protected Vector3 _returnVelocity;
     protected float _rVMultiplier;
+
+    public bool Clashing { get;private set; }
 
 
     [HideInInspector] public bool TripleShot = false;
@@ -222,18 +224,32 @@ public class Limb : MonoBehaviour
             collision.gameObject.GetComponent<LimbInstantiateWall>().Damage();
             ReturnLimb();
         }
-        if (collision.gameObject.tag != "Player")
+        else if (collision.gameObject.CompareTag("Limb"))
+        {
+            Limb other = collision.gameObject.GetComponent<Limb>();
+
+            if (other.State == LimbState.Throwing && other.Clashing == false)
+            {
+                Clashing = true;
+                ContactPoint2D contactPoint = collision.GetContact(0);
+                ServiceLocator.Get<ParticleManager>().PlaySwordClashParticle(contactPoint.point);
+            }
             return;
+        }
         else if (State != LimbState.Throwing)
+            return;
+        else if (collision.gameObject.tag != "Player")
             return;
 
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
-        if (transform.position.x > collision.transform.position.x)
-            _healthPlayer.AddDamage(_damage + _specialDamage, true);
-        else
-            _healthPlayer.AddDamage(_damage + _specialDamage, false);
+        _healthPlayer.AddDamage(_damage + _specialDamage);
 
         ReturnLimb();
+    }
+
+    protected virtual void OnCollisionExi2D(Collision2D collision)
+    {
+        Clashing = false;
     }
 
     // Limb pickup
