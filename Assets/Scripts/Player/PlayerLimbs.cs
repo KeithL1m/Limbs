@@ -33,7 +33,7 @@ public class PlayerLimbs : MonoBehaviour
 
     public Vector2 _originalSize;
     public Vector2 _originalOffset;
-
+    private float limbOffest=0.4f;
     public void Initialize()
     {
         _limbs = new List<Limb>();
@@ -96,21 +96,28 @@ public class PlayerLimbs : MonoBehaviour
                 }
                 _limbs[i].FlipX(-1);
             }
-            _limbs[i].transform.rotation = Quaternion.Euler(0, 0, 0);
-            _limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x, _limbAnchors[i].position.y - _limbs[i].Size * 0.5f);
+            //_limbs[i].transform.rotation = Quaternion.Euler(0, 0, 0);
+            //_limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x, _limbAnchors[i].position.y - _limbs[i].Size * 0.5f);
+            _limbs[i].transform.parent = _limbAnchors[i];
+            _limbs[i].transform.localEulerAngles = new Vector3(0, 0, 0);
+            _limbs[i].transform.localPosition = new Vector3(0, -_limbs[i].Size * 0.5f, 0);
         }
         else
         {
             _limbs[i].Type = Limb.LimbType.Arm;
-            _limbs[i].transform.rotation = Quaternion.Euler(0, 0, 90);
+            //_limbs[i].transform.rotation = Quaternion.Euler(0, 0, 90);
+            _limbs[i].transform.parent = _limbAnchors[i].transform;
+            _limbs[i].transform.localEulerAngles = new Vector3(0, 0, 90);
             if (i == 2)
             {
-                _limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x - _limbs[i].Size * 0.5f, _limbAnchors[i].position.y);
+                //_limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x - _limbs[i].Size * 0.5f, _limbAnchors[i].position.y);
+                _limbs[i].transform.localPosition = new Vector3(-_limbs[i].Size * 0.5f, 0, 0);
                 _limbs[i].FlipY(-1);
             }
             else if (i == 3)
             {
-                _limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x + _limbs[i].Size * 0.5f, _limbAnchors[i].position.y);
+                //_limbAnchors[i].position = new Vector3(_limbAnchors[i].position.x + _limbs[i].Size * 0.5f, _limbAnchors[i].position.y);
+                _limbs[i].transform.localPosition = new Vector3(_limbs[i].Size * 0.5f, 0, 0);
             }
         }
 
@@ -123,10 +130,12 @@ public class PlayerLimbs : MonoBehaviour
     //called when picking up a leg limb
     private void MoveBodyUp(int i)
     {
-        _collider.size = new Vector2(_originalSize.x, _originalSize.y + _limbs[i].Size);
+        _collider.size = new Vector2(_originalSize.x, _originalSize.y + (_limbs[i].Size - limbOffest));
         _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y - _limbs[i].Size * 0.5f);
         _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y - _limbs[i].Size);
         transform.position = new Vector3(transform.position.x, transform.position.y + _limbs[i].Size);
+        _limbs[i].transform.parent = _limbAnchors[i].transform;
+        _limbs[i].transform.localPosition = new Vector3(-_limbs[i].Size * 0.5f, 0, 0);
     }
 
     //called when picking up a limb
@@ -135,18 +144,28 @@ public class PlayerLimbs : MonoBehaviour
         switch (_selectedLimb)
         {
             case SelectedLimb.RightArm:
-                _limbAnchors[3].localPosition = _anchorPositions[3];
+                //_limbAnchors[3].localPosition = _anchorPositions[3];
+                _limbs[3].transform.parent = _limbAnchors[3].transform;
+                _limbs[3].transform.localPosition = new Vector3(-_limbs[3].Size * 0.5f, 0);
                 return;
             case SelectedLimb.LeftArm:
-                _limbAnchors[2].localPosition = _anchorPositions[2];
+                //_limbAnchors[2].localPosition = _anchorPositions[2];
+                _limbs[2].transform.parent = _limbAnchors[2].transform;
+                _limbs[2].transform.localPosition = new Vector3(_limbs[2].Size * 0.5f, 0);
                 return;
             case SelectedLimb.RightLeg:
                 {
+                    _limbs[1].transform.parent = _limbAnchors[1].transform;
+                    _limbs[1].transform.localEulerAngles = new Vector3(0, 0, 0);
+                    _limbs[1].transform.localPosition = new Vector3(0, -_limbs[1].Size * 0.5f, 0);
                     LegEdit(_limbs[1], _limbs[0], 1);
                     break;
                 }
             case SelectedLimb.LeftLeg:
                 {
+                    _limbs[0].transform.parent = _limbAnchors[0].transform;
+                    _limbs[0].transform.localEulerAngles = new Vector3(0, 0, 0);
+                    _limbs[0].transform.localPosition = new Vector3(0, -_limbs[0].Size * 0.5f, 0);
                     LegEdit(_limbs[0], _limbs[1], 0);
                     break;
                 }
@@ -161,15 +180,15 @@ public class PlayerLimbs : MonoBehaviour
             _collider.size = _originalSize;
             _collider.offset = _originalOffset;
             _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + current.Size);
-            _limbAnchors[currentNum].localPosition = _anchorPositions[currentNum];
+            //_limbAnchors[currentNum].localPosition = _anchorPositions[currentNum];
         }
         else
         {
-            _collider.size = new Vector2(_originalSize.x, _originalSize.y + other.Size);
+            _collider.size = new Vector2(_originalSize.x, _originalSize.y + (other.Size- limbOffest));
             _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y - other.Size * 0.5f);
             _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + current.Size);
             _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y - other.Size);
-            _limbAnchors[currentNum].localPosition = _anchorPositions[currentNum];
+            //_limbAnchors[currentNum].localPosition = _anchorPositions[currentNum];
         }
     }
 
@@ -198,7 +217,10 @@ public class PlayerLimbs : MonoBehaviour
             _limbAnchors[i].localPosition = _anchorPositions[i];
             _limbs[i] = null;
         }
-
+        foreach (var item in _limbAnchors)
+        {
+            item.DetachChildren();
+        }
         _groundCheck.localPosition = _groundCheckPosition;
         _collider.size = _originalSize;
         _collider.offset = _originalOffset;

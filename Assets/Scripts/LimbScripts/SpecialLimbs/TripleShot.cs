@@ -72,7 +72,7 @@ public class TripleShot : Limb
         _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
         State = LimbState.Throwing;
-
+        transform.parent = null;
         Trail.SetActive(true);
 
         if (_attachedPlayer._inputHandler.Aim.x == 0.0f && _attachedPlayer._inputHandler.Aim.y == 0.0f && !_attachedPlayer._inputHandler.FlickAiming)

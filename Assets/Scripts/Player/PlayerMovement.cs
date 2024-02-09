@@ -7,13 +7,15 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInputHandler _inputHandler;
 
     [Header("Customizable")]
+    [SerializeField] private float[] extraAcceleration;
+    private int currentAccelerationLimbNumber = 0;
+
     [SerializeField] private float _2LegMoveSpeed;
     [SerializeField] private float _1LegMoveSpeed;
     [SerializeField] private float _noLegSpeed;
     [SerializeField] private float _hopForce;
     private float _hopTimer = 0.0f;
     [SerializeField] float _maxHopTime;
-
     [SerializeField] private float _startMovePoint = 0.5f;
     [SerializeField] private float _smoothMoveSpeed = 0.06f; //the higher the number the less responsive it gets
 
@@ -23,7 +25,8 @@ public class PlayerMovement : MonoBehaviour
     Vector3 zeroVector = Vector3.zero;
 
     public bool facingRight;
-    
+    [SerializeField] private Animator anchorsAnim;
+    [SerializeField] private GameObject dust_Step;
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -50,11 +53,10 @@ public class PlayerMovement : MonoBehaviour
         switch (state)
         {
             case PlayerLimbs.LimbState.TwoLeg:
-
-                moveSpeed *= _2LegMoveSpeed;
+                moveSpeed *= _2LegMoveSpeed * (1 + (extraAcceleration[currentAccelerationLimbNumber]));
                 break;
             case PlayerLimbs.LimbState.OneLeg:
-                moveSpeed *= _1LegMoveSpeed;
+                moveSpeed *= _1LegMoveSpeed * (1 + (extraAcceleration[currentAccelerationLimbNumber]));
                 break;
             case PlayerLimbs.LimbState.NoLimb:
                 _hopTimer -= Time.deltaTime;
@@ -63,6 +65,21 @@ public class PlayerMovement : MonoBehaviour
                 break;
             default: break;
         }
+
+        if (moveSpeed == 0)
+        {
+            dust_Step.SetActive(false);
+        }
+        else
+        {
+            if (!dust_Step.activeSelf)
+                dust_Step.SetActive(true);
+            if (moveSpeed < 0)
+                dust_Step.transform.localEulerAngles = new Vector3(0, 180, 0);
+            else
+                dust_Step.transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
+        anchorsAnim.SetFloat("speed", moveSpeed);
         Vector3 targetVelocity = new Vector2(moveSpeed, _rb.velocity.y);
         _rb.velocity = Vector3.SmoothDamp(_rb.velocity, targetVelocity, ref zeroVector, _smoothMoveSpeed);
 
@@ -80,6 +97,16 @@ public class PlayerMovement : MonoBehaviour
             _hopTimer = _maxHopTime;
             _rb.AddForce(_rb.mass * Vector2.up * _hopForce * Mathf.Abs(moveSpeed), ForceMode2D.Impulse);
         }
+    }
+
+    public void AddAccelerationLimb()
+    {
+        currentAccelerationLimbNumber++;
+    }
+
+    public void RemoveAccelerationLimb()
+    {
+        currentAccelerationLimbNumber--;
     }
 
     public void ZeroVelocity()
