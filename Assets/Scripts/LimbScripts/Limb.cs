@@ -219,7 +219,9 @@ public class Limb : MonoBehaviour
     // Limb damage
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("BreakWall") && State == LimbState.Throwing)
+        if (State != LimbState.Throwing)
+            return;
+        else if (collision.gameObject.CompareTag("BreakWall"))
         {
             collision.gameObject.GetComponent<LimbInstantiateWall>().Damage();
             ReturnLimb();
@@ -228,7 +230,7 @@ public class Limb : MonoBehaviour
         {
             Limb other = collision.gameObject.GetComponent<Limb>();
 
-            if (other.State == LimbState.Throwing && other.Clashing == false)
+            if (other.State == LimbState.Throwing && other.Clashing == false && other._attachedPlayer != _attachedPlayer)
             {
                 Clashing = true;
                 ContactPoint2D contactPoint = collision.GetContact(0);
@@ -236,8 +238,6 @@ public class Limb : MonoBehaviour
             }
             return;
         }
-        else if (State != LimbState.Throwing)
-            return;
         else if (collision.gameObject.tag != "Player")
             return;
 
