@@ -33,7 +33,7 @@ public class PlayerLimbs : MonoBehaviour
 
     public Vector2 _originalSize;
     public Vector2 _originalOffset;
-
+    private float limbOffest=0.5f;
     public void Initialize()
     {
         _limbs = new List<Limb>();
@@ -130,7 +130,7 @@ public class PlayerLimbs : MonoBehaviour
     //called when picking up a leg limb
     private void MoveBodyUp(int i)
     {
-        _collider.size = new Vector2(_originalSize.x, _originalSize.y + _limbs[i].Size);
+        _collider.size = new Vector2(_originalSize.x, _originalSize.y + _limbs[i].Size- limbOffest);
         _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y - _limbs[i].Size * 0.5f);
         _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y - _limbs[i].Size);
         transform.position = new Vector3(transform.position.x, transform.position.y + _limbs[i].Size);
@@ -184,7 +184,7 @@ public class PlayerLimbs : MonoBehaviour
         }
         else
         {
-            _collider.size = new Vector2(_originalSize.x, _originalSize.y + other.Size);
+            _collider.size = new Vector2(_originalSize.x, _originalSize.y + (other.Size- limbOffest));
             _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y - other.Size * 0.5f);
             _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + current.Size);
             _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y - other.Size);

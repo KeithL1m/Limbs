@@ -180,7 +180,6 @@ GameObject:
   - component: {fileID: 1168009923208890261}
   - component: {fileID: 1996365233678370469}
   - component: {fileID: 1168009923208890249}
-  - component: {fileID: 856660414963385232}
   m_Layer: 3
   m_Name: LimbWall
   m_TagString: Limb
@@ -259,27 +258,6 @@ CircleCollider2D:
   m_Offset: {x: -0.0039304495, y: -0.031116724}
   serializedVersion: 2
   m_Radius: 0.56472886
---- !u!114 &856660414963385232
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8577597915325098454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adeade1f9b52ad44ca364bc4bc37091b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _sprite: {fileID: 1332831581517058606}
-  _limbData: {fileID: 11400000, guid: 8a1f8b16e8019364e9ae7cef7077cb3a, type: 2}
-  <Trail>k__BackingField: {fileID: 9094666861867324213}
-  <PickUpIndicator>k__BackingField: {fileID: 1517149548725008300}
-  <CanPickUp>k__BackingField: 0
-  <PickupTimer>k__BackingField: 0
-  TripleShot: 0
-  changeTime: 0.5
-  wall: {fileID: 4518471586269112576, guid: db6b231ae5a81014cbed5df2213ecb29, type: 3}
 --- !u!1 &9094666861867324213
 GameObject:
   m_ObjectHideFlags: 0
