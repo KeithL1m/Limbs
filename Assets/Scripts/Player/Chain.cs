@@ -9,6 +9,15 @@ public class Chain : MonoBehaviour
     [SerializeField]
     private Transform linePosition;
 
+    void Start()
+    {
+        // Get the material of the Line Renderer
+        Material material = line.material;
+
+        // Set the render queue to a high value to render the Line Renderer in front
+        material.renderQueue = 5000;
+    }
+
     private void Update()
     {
         if (line.enabled == true)
