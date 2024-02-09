@@ -5,7 +5,6 @@ using UnityEngine;
 public class GhostLimb : Limb
 {
     [SerializeField] Collider2D _collider;
-    [SerializeField] private SpriteRenderer _ghostSprite;
     float _ghostTimer = 1.2f;
 
 
@@ -17,7 +16,6 @@ public class GhostLimb : Limb
     protected override void Initialize()
     {
         base.Initialize();
-        _ghostSprite = GetComponent<SpriteRenderer>();
         _specialLimbs = false;
     }
 
@@ -31,24 +29,11 @@ public class GhostLimb : Limb
     private IEnumerator EnableAfterDelay()
     {
         _collider.enabled = false;
+        //MAKING THE LIMB TRANSPARENT     
+        MakeTransparent();
         yield return new WaitForSeconds(_ghostTimer);
-
-        //MAKING THE LIMB TRANSPARENT
-
-        //if (_ghostSprite != null)
-        //{
-        //    if (!_collider.enabled)
-        //    {
-        //        Color color = _ghostSprite.color;
-        //        // Set the transparency value
-        //        color.a = 0.3f;
-        //        // Assign the modified color back to the sprite renderer
-        //        _ghostSprite.color = color;
-        //    }
-        //}
-
-
         _collider.enabled = true;
+        MakeNormal();
         yield break;
     }
 
@@ -65,6 +50,30 @@ public class GhostLimb : Limb
         {
             PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
             _healthPlayer.AddDamage(10);
+        }
+    }
+
+    void MakeTransparent()
+    {
+        if (_sprite != null)
+        {
+              Color color = _sprite.color;
+              // Set the transparency value
+              color.a = 0.5f;
+              // Assign the modified color back to the sprite renderer
+              _sprite.color = color;
+        }
+    }
+
+    void MakeNormal()
+    {
+        if (_sprite != null)
+        {
+            Color color = _sprite.color;
+            // Set the transparency value
+            color.a = 1.0f;
+            // Assign the modified color back to the sprite renderer
+            _sprite.color = color;
         }
     }
 }
