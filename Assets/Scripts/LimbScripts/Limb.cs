@@ -89,9 +89,13 @@ public class Limb : MonoBehaviour
     {
         PickupTimer = 0.3f;
         CanPickUp = false;
-        _attachedPlayerLimbs.MoveBodyDown();
+        _attachedPlayerLimbs.MoveBodyDown(); 
         LimbRB.simulated = true;
-        transform.parent = null;
+        Debug.Log(transform.localScale);
+        //Set parent to something that gets deleted
+        transform.SetParent(null);
+        Debug.Log(transform.localScale);
+
         State = LimbState.Throwing;
 
         Trail.SetActive(true);
