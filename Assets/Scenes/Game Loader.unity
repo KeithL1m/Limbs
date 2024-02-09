@@ -232,6 +232,9 @@ MonoBehaviour:
   - name: Explosion
     prefab: {fileID: 6256034235666780848, guid: 707a4f38868ed0440a8866927473a163, type: 3}
     poolSize: 5
+  - name: Clash
+    prefab: {fileID: 1613047735746979956, guid: d03ee42b01cfd52459f9c0a4027b547c, type: 3}
+    poolSize: 5
 --- !u!1 &940593466
 GameObject:
   m_ObjectHideFlags: 0
