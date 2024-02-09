@@ -5,7 +5,9 @@ using UnityEngine;
 public class GhostLimb : Limb
 {
     [SerializeField] Collider2D _collider;
+    [SerializeField] private SpriteRenderer _ghostSprite;
     float _ghostTimer = 1.2f;
+
 
     protected override void Awake()
     {
@@ -15,6 +17,7 @@ public class GhostLimb : Limb
     protected override void Initialize()
     {
         base.Initialize();
+        _ghostSprite = GetComponent<SpriteRenderer>();
         _specialLimbs = false;
     }
 
@@ -29,6 +32,22 @@ public class GhostLimb : Limb
     {
         _collider.enabled = false;
         yield return new WaitForSeconds(_ghostTimer);
+
+        //MAKING THE LIMB TRANSPARENT
+
+        //if (_ghostSprite != null)
+        //{
+        //    if (!_collider.enabled)
+        //    {
+        //        Color color = _ghostSprite.color;
+        //        // Set the transparency value
+        //        color.a = 0.3f;
+        //        // Assign the modified color back to the sprite renderer
+        //        _ghostSprite.color = color;
+        //    }
+        //}
+
+
         _collider.enabled = true;
         yield break;
     }
@@ -42,7 +61,10 @@ public class GhostLimb : Limb
     {
         if (State != LimbState.Throwing)
             return;
-        PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
-        _healthPlayer.AddDamage(10);
+        if (string.CompareOrdinal(collision.gameObject.tag, "Player") == 0)
+        {
+            PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
+            _healthPlayer.AddDamage(10);
+        }
     }
 }

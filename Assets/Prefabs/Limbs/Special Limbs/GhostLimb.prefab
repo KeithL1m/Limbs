@@ -198,7 +198,7 @@ MonoBehaviour:
   TripleShot: 0
   _specialLimbs: 0
   _collider: {fileID: 7378542149016335331}
-  _delayTimer: 1
+  _ghostSprite: {fileID: 4998451157093855561}
 --- !u!70 &7378542149016335331
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
