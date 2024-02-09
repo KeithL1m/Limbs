@@ -181,7 +181,7 @@ MonoBehaviour:
   - {fileID: 479936713415687806, guid: 146350379aa1dee4cac50dbf67d651cb, type: 3}
   _limbLimit: 20
   _startLimbCount: 0
-  _minSpawnTimer: 10
+  _minSpawnTimer: 7
   _maxSpawnTimer: 15
   _spawnPositions:
   - {fileID: 589181753779191277}
