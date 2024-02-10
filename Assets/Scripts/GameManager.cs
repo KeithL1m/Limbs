@@ -26,6 +26,7 @@ public class GameManager : Manager
     public bool VictoryScreen { get; private set; } = false;
     public bool EarlyEnd { get; set; } = false;
 
+    [SerializeField] private EmptyDestructibleObject _empyObj;
 
     private void Awake()
     {
@@ -42,6 +43,10 @@ public class GameManager : Manager
 
     public void SetUp(UIManager uiManager, PauseManager pauseManager)
     {
+        GameObject go = Instantiate(_empyObj.gameObject);
+        go.name = "DESTROY";
+        ServiceLocator.Register<EmptyDestructibleObject>(_empyObj);
+
         _pauseManager = pauseManager;
         _uiManager = uiManager;
         _mapManager.fade = _uiManager.GetFade();
@@ -72,12 +77,17 @@ public class GameManager : Manager
         _uiManager.UpdateLeaderBoard();
 
         ClearLimbs();
+        ServiceLocator.Unegister<EmptyDestructibleObject>();
         startScreen = false;
         _mapManager.ChangeScene();
     }
 
     override public void OnStart()
     {
+        GameObject go = Instantiate(_empyObj.gameObject);
+        go.name = "DESTROY";
+        ServiceLocator.Register<EmptyDestructibleObject>(_empyObj);
+
         if (!startScreen)
         {
             _pauseManager.SetCamera(Camera.main);
@@ -150,6 +160,7 @@ public class GameManager : Manager
         _mapManager.ChangeScene();
         ServiceLocator.Get<LimbManager>().ClearList();
         ResetRound();
+        ServiceLocator.Unegister<EmptyDestructibleObject>();
     }
 
     public void VictoryScreenSelect(GameObject button)
