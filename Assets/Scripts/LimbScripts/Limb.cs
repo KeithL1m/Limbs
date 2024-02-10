@@ -21,13 +21,12 @@ public class Limb : MonoBehaviour
 
     protected Player _attachedPlayer;
     protected PlayerLimbs _attachedPlayerLimbs;
-    [HideInInspector] public Transform AnchorPoint { get; set; } = null;
     [HideInInspector] public Rigidbody2D LimbRB { get; private set; } = null;
 
     [SerializeField] protected SpriteRenderer _sprite;
 
     [HideInInspector] public LimbType Type { get; set; } //this will help most with animations
-    [HideInInspector] public LimbState State { get; set; }
+    public LimbState State; //{ get; set; }
 
     [SerializeField] private LimbData _limbData;
     [field: SerializeField] public GameObject Trail { get; set; }
@@ -50,7 +49,7 @@ public class Limb : MonoBehaviour
 
 
     [HideInInspector] public bool TripleShot = false;
-    [HideInInspector] public bool _specialLimbs;
+    [HideInInspector] public bool _specialLimbs = false;
     private bool _initialized = false;
 
     protected virtual void Awake()
@@ -91,10 +90,7 @@ public class Limb : MonoBehaviour
         CanPickUp = false;
         _attachedPlayerLimbs.MoveBodyDown(); 
         LimbRB.simulated = true;
-        Debug.Log(transform.localScale);
-        //Set parent to something that gets deleted
-        transform.SetParent(null);
-        Debug.Log(transform.localScale);
+        transform.SetParent(ServiceLocator.Get<EmptyDestructibleObject>().transform);
 
         State = LimbState.Throwing;
 
@@ -129,9 +125,8 @@ public class Limb : MonoBehaviour
             return;
         }
 
-        if (State == LimbState.Attached && AnchorPoint != null)
+        if (State == LimbState.Attached)
         {
-            //transform.position = AnchorPoint.position;
             if (Trail != null)
             {
                 Trail.SetActive(false);
@@ -139,19 +134,16 @@ public class Limb : MonoBehaviour
         }
         else if (State == LimbState.Throwing || State == LimbState.Returning)
         {
-            if(LimbRB != null)
+            if (LimbRB.velocity.magnitude < 4.0f && _specialLimbs == false)
             {
-                if (LimbRB.velocity.magnitude < 4.0f && _specialLimbs == false)
-                {
-                    PickupTimer -= Time.deltaTime;
-                }
-                if (PickupTimer <= 0.0f)
-                {
-                    CanPickUp = true;
-                    EnterPickupState();
-                }
+                PickupTimer -= Time.deltaTime;
             }
-
+            if (PickupTimer <= 0.0f)
+            {
+                Debug.Log("Entering pickup state");
+                CanPickUp = true;
+                EnterPickupState();
+            }
         }
     }
 

@@ -86,6 +86,7 @@ public class ExplosiveLimb : Limb
         {
             if (gameObject!= null)
             {
+                ServiceLocator.Get<LimbManager>().RemoveLimb(this);
                 Destroy(gameObject);
             }
         }));

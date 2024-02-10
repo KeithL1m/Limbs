@@ -177,6 +177,6 @@ public class CameraManager : MonoBehaviour
 
     public void Unregister()
     {
-        ServiceLocator.Unegister<CameraManager>();
+        ServiceLocator.Unregister<CameraManager>();
     }
 }

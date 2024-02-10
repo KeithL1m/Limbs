@@ -36,11 +36,11 @@ public class ServiceLocator : MonoBehaviour
         return (m_systems.ContainsKey(typeof(T)));
     }
 
-    static public void Unegister<T>()
+    static public void Unregister<T>()
     {
         if (m_systems.ContainsKey(typeof(T)))
         {
-            Debug.Log("Registering " + typeof(T));
+            Debug.Log("Unegistering " + typeof(T));
             m_systems.Remove(typeof(T));
         }
         else

@@ -9,6 +9,7 @@ public class SceneFade : MonoBehaviour
     [SerializeField] private Image _fadeImage;
     [SerializeField] private float _fadeDuration;
     private MapManager _mapManager;
+    private GameManager _gm;
 
     private float _currentAlpha = 0f;
     private float _elapsedTime = 0f;
@@ -22,6 +23,7 @@ public class SceneFade : MonoBehaviour
     private void Initialize()
     {
         _mapManager = ServiceLocator.Get<MapManager>();
+        _gm = ServiceLocator.Get<GameManager>();
 
         Color startColor = _fadeImage.color;
         startColor.a = 0f;
@@ -48,6 +50,7 @@ public class SceneFade : MonoBehaviour
                 FadeIn = true;
                 _elapsedTime = 0f;
                 _currentAlpha = 1f;
+                _gm.ResetRound();
                 _mapManager.LoadMap();
             }
         }

@@ -36650,20 +36650,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: _limbLimit
-      value: 40
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: _limbManager
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
+      propertyPath: _startLimbCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: _limbOptions.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: _limbOptions.Array.data[0]
       value: 
-      objectReference: {fileID: 479936713415687806, guid: c03c82a65be504449a435743e7c5f146, type: 3}
+      objectReference: {fileID: 479936713415687806, guid: d2b3d4b3983896c40957940843227c42, type: 3}
     - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: _limbOptions.Array.data[1]
       value: 

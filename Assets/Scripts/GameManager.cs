@@ -45,7 +45,7 @@ public class GameManager : Manager
     {
         GameObject go = Instantiate(_empyObj.gameObject);
         go.name = "DESTROY";
-        ServiceLocator.Register<EmptyDestructibleObject>(_empyObj);
+        ServiceLocator.Register<EmptyDestructibleObject>(go.GetComponent<EmptyDestructibleObject>());
 
         _pauseManager = pauseManager;
         _uiManager = uiManager;
@@ -77,7 +77,6 @@ public class GameManager : Manager
         _uiManager.UpdateLeaderBoard();
 
         ClearLimbs();
-        ServiceLocator.Unegister<EmptyDestructibleObject>();
         startScreen = false;
         _mapManager.ChangeScene();
     }
@@ -86,7 +85,7 @@ public class GameManager : Manager
     {
         GameObject go = Instantiate(_empyObj.gameObject);
         go.name = "DESTROY";
-        ServiceLocator.Register<EmptyDestructibleObject>(_empyObj);
+        ServiceLocator.Register<EmptyDestructibleObject>(go.GetComponent<EmptyDestructibleObject>());
 
         if (!startScreen)
         {
@@ -158,9 +157,6 @@ public class GameManager : Manager
             ServiceLocator.Get<CameraManager>().Unregister();
         }
         _mapManager.ChangeScene();
-        ServiceLocator.Get<LimbManager>().ClearList();
-        ResetRound();
-        ServiceLocator.Unegister<EmptyDestructibleObject>();
     }
 
     public void VictoryScreenSelect(GameObject button)
@@ -202,11 +198,13 @@ public class GameManager : Manager
 
     public void ResetRound()
     {
+        ServiceLocator.Get<LimbManager>().ClearList();
         ClearLimbs();
         ResetGroundCheck();
         _uiManager.UpdateLeaderBoard();
         _uiManager.UpdatePlayerWins();
         isGameOver = false;
+        ServiceLocator.Unregister<EmptyDestructibleObject>();
     }
 
     public void EndGame()

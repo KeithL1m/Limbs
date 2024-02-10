@@ -75,6 +75,7 @@ public class HotPotato : Limb
                 break;
             case 0:
                 Explode();
+                ServiceLocator.Get<LimbManager>().RemoveLimb(this);
                 Destroy(gameObject);
                 break;
             default:

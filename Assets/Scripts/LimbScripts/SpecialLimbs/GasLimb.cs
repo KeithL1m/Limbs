@@ -23,6 +23,7 @@ public class GasLimb : Limb
     {
         Debug.Log("FART");
         _particleManager.PlayGas(transform.position);
+        ServiceLocator.Get<LimbManager>().RemoveLimb(this);
         Destroy(gameObject);
     }
 }
