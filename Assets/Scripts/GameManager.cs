@@ -9,6 +9,7 @@ public class GameManager : Manager
     private ConfigurationManager _configManager = null;
     private MapManager _mapManager = null;
     private PlayerManager _playerManager = null;
+    private ObjectPoolManager _objManager;
 
     public List<GameObject> spawnPoints = new List<GameObject>();
 
@@ -39,6 +40,7 @@ public class GameManager : Manager
         _configManager = ServiceLocator.Get<ConfigurationManager>();
         _mapManager = ServiceLocator.Get<MapManager>();
         _playerManager = ServiceLocator.Get<PlayerManager>();
+        _objManager = ServiceLocator.Get<ObjectPoolManager>();
     }
 
     public void SetUp(UIManager uiManager, PauseManager pauseManager)
@@ -204,6 +206,7 @@ public class GameManager : Manager
         _uiManager.UpdateLeaderBoard();
         _uiManager.UpdatePlayerWins();
         isGameOver = false;
+        _objManager.DeactivateObjects();
         ServiceLocator.Unregister<EmptyDestructibleObject>();
     }
 

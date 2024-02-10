@@ -33,6 +33,23 @@ public class PlayParticles : MonoBehaviour
         _currentTime = _particles1.main.duration;
     }
 
+    private void OnDisable()
+    {
+        _particles1.Stop();
+        if (_particles2 != null)
+        {
+            _particles2.Stop();
+        }
+        if (_particles3 != null)
+        {
+            _particles3.Stop();
+        }
+        if (_particles4 != null)
+        {
+            _particles4.Stop();
+        }
+    }
+
     private void Update()
     {
         if (_active)
