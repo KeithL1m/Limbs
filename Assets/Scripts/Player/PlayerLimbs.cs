@@ -54,7 +54,7 @@ public class PlayerLimbs : MonoBehaviour
     //check if limb can be picked up
     public bool CanPickUpLimb(Limb limb)
     {
-        if (limb.State != Limb.LimbState.PickUp && limb.State != Limb.LimbState.Returning)
+        if (limb.State != Limb.LimbState.PickUp && limb.State != Limb.LimbState.Returning && !GetComponent<PlayerHealth>().IsDead())
         {
             return false;
         }
