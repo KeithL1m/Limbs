@@ -13368,11 +13368,11 @@ PrefabInstance:
     - target: {fileID: 6819372074900375388, guid: f006804b92770d248bca2198b577cd39, type: 3}
       propertyPath: _limbOptions.Array.data[0]
       value: 
-      objectReference: {fileID: 5690755066905293737, guid: 016feb9387a047543adc6828975d9bd1, type: 3}
+      objectReference: {fileID: 6727379245335464739, guid: c90382689d59db74eae2eb00c7d75ddf, type: 3}
     - target: {fileID: 6819372074900375388, guid: f006804b92770d248bca2198b577cd39, type: 3}
       propertyPath: _limbOptions.Array.data[1]
       value: 
-      objectReference: {fileID: 5001288000470333368, guid: cd3edb648726be54c95099b7a36f839f, type: 3}
+      objectReference: {fileID: 5690755066905293737, guid: 016feb9387a047543adc6828975d9bd1, type: 3}
     - target: {fileID: 6819372074900375388, guid: f006804b92770d248bca2198b577cd39, type: 3}
       propertyPath: _limbOptions.Array.data[2]
       value: 

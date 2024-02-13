@@ -55,7 +55,6 @@ public class StickyBomb : Limb
         yield break;
     }
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (State != LimbState.Throwing)
@@ -144,11 +143,15 @@ public class StickyBomb : Limb
                     float explosion = _explosionForce / distanceVector.magnitude;
                     item_rigidbody.AddForce(distanceVector.normalized * explosion);
 
-                    if (item.CompareTag("Player"))
+                    if(_collider.enabled == true)
                     {
-                        item.GetComponent<PlayerHealth>().AddDamage(25);
-                        
+                        if (item.CompareTag("Player"))
+                        {
+                            item.GetComponent<PlayerHealth>().AddDamage(25);
+
+                        }
                     }
+
                 }
             }
         }

@@ -34,7 +34,7 @@ public class PlayerManager : Manager
             _playerList[i].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
             _playerList[i].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
             _playerList[i].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
-            _playerList[i].GetComponent<PlayerHealth>()._isDead = false;
+            _playerList[i].GetComponent<PlayerHealth>().isDead = false;
         }
     }
 

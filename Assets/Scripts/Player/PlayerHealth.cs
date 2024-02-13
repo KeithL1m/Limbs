@@ -13,7 +13,7 @@ public class PlayerHealth : MonoBehaviour
     private DeathPosition[] deathPositions;
 
     public float _health;
-    public bool _isDead = false;
+    public bool isDead = false;
     private bool _initialized = false;
 
     [SerializeField]
@@ -38,7 +38,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!_initialized)
             return;
-        if (_health <= 0 && !_isDead)
+        if (_health <= 0 && isDead)
         {
             KillPlayer();
         }
@@ -55,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthSlider();
     }
 
-    public bool IsDead() { return _isDead; }
+    public bool IsDead() { return isDead; }
 
     public void KillPlayer()
     {
@@ -71,7 +71,7 @@ public class PlayerHealth : MonoBehaviour
             return;
         }
 
-        _isDead = true;
+        isDead = true;
         if (deathPositions[0].Occupied)
         {
             transform.position = deathPositions[1].transform.position;
