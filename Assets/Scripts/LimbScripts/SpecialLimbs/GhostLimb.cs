@@ -5,7 +5,7 @@ using UnityEngine;
 public class GhostLimb : Limb
 {
     [SerializeField] Collider2D _collider;
-    float _ghostTimer = 1.2f;
+    float _ghostTimer = 0.7f;
 
 
     protected override void Awake()
