@@ -45,6 +45,17 @@ public class ObjectPoolManager : MonoBehaviour , IGameModule
         return ret;
     }
 
+    public void DeactivateObjects()
+    {
+        foreach (var pool in _objectPoolByName.Values)
+        {
+            for (int i = 0; i < pool.Count; i++)
+            {
+                pool[i].SetActive(false);
+            }
+        }
+    }
+
     public void RecycleObject(GameObject go)
     {
         go.SetActive(false);

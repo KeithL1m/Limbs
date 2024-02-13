@@ -83,6 +83,7 @@ public class StickyBomb : Limb
         {
             StartCoroutine(ExplodeAfterDelay(() =>
             {
+                ServiceLocator.Get<LimbManager>().RemoveLimb(this);
                 Destroy(gameObject);
             }));
         }

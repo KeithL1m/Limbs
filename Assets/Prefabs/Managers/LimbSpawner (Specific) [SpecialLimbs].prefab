@@ -178,11 +178,10 @@ MonoBehaviour:
   - {fileID: 479936713415687806, guid: ceffc63aa63769f43bdb2e94d9ea3429, type: 3}
   - {fileID: 479936713415687806, guid: 37529f15fa0ca03468bd8d075186cc97, type: 3}
   - {fileID: 6727379245335464739, guid: c90382689d59db74eae2eb00c7d75ddf, type: 3}
-  - {fileID: 479936713415687806, guid: 146350379aa1dee4cac50dbf67d651cb, type: 3}
   _limbLimit: 20
   _startLimbCount: 0
-  _minSpawnTimer: 10
-  _maxSpawnTimer: 15
+  _minSpawnTimer: 7
+  _maxSpawnTimer: 10
   _spawnPositions:
   - {fileID: 589181753779191277}
   - {fileID: 589181752054380553}

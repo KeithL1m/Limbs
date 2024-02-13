@@ -9,6 +9,7 @@ public class GameManager : Manager
     private ConfigurationManager _configManager = null;
     private MapManager _mapManager = null;
     private PlayerManager _playerManager = null;
+    private ObjectPoolManager _objManager;
 
     public List<GameObject> spawnPoints = new List<GameObject>();
 
@@ -26,6 +27,7 @@ public class GameManager : Manager
     public bool VictoryScreen { get; private set; } = false;
     public bool EarlyEnd { get; set; } = false;
 
+    [SerializeField] private EmptyDestructibleObject _empyObj;
 
     private void Awake()
     {
@@ -38,10 +40,15 @@ public class GameManager : Manager
         _configManager = ServiceLocator.Get<ConfigurationManager>();
         _mapManager = ServiceLocator.Get<MapManager>();
         _playerManager = ServiceLocator.Get<PlayerManager>();
+        _objManager = ServiceLocator.Get<ObjectPoolManager>();
     }
 
     public void SetUp(UIManager uiManager, PauseManager pauseManager)
     {
+        GameObject go = Instantiate(_empyObj.gameObject);
+        go.name = "DESTROY";
+        ServiceLocator.Register<EmptyDestructibleObject>(go.GetComponent<EmptyDestructibleObject>());
+
         _pauseManager = pauseManager;
         _uiManager = uiManager;
         _mapManager.fade = _uiManager.GetFade();
@@ -78,6 +85,10 @@ public class GameManager : Manager
 
     override public void OnStart()
     {
+        GameObject go = Instantiate(_empyObj.gameObject);
+        go.name = "DESTROY";
+        ServiceLocator.Register<EmptyDestructibleObject>(go.GetComponent<EmptyDestructibleObject>());
+
         if (!startScreen)
         {
             _pauseManager.SetCamera(Camera.main);
@@ -148,8 +159,6 @@ public class GameManager : Manager
             ServiceLocator.Get<CameraManager>().Unregister();
         }
         _mapManager.ChangeScene();
-        ServiceLocator.Get<LimbManager>().ClearList();
-        ResetRound();
     }
 
     public void VictoryScreenSelect(GameObject button)
@@ -191,11 +200,14 @@ public class GameManager : Manager
 
     public void ResetRound()
     {
+        ServiceLocator.Get<LimbManager>().ClearList();
         ClearLimbs();
         ResetGroundCheck();
         _uiManager.UpdateLeaderBoard();
         _uiManager.UpdatePlayerWins();
         isGameOver = false;
+        _objManager.DeactivateObjects();
+        ServiceLocator.Unregister<EmptyDestructibleObject>();
     }
 
     public void EndGame()

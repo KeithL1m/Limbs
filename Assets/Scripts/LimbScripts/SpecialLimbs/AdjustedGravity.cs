@@ -26,6 +26,6 @@ public class AdjustedGravity : Limb
     {
         base.EnterPickupState();
 
-        LimbRB.gravityScale = _gravityScale;
+        LimbRB.gravityScale = 1;
     }
 }

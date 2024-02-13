@@ -73,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         anchorsAnim.SetFloat("speed", moveSpeed);
+
         Vector3 targetVelocity = new Vector2(moveSpeed, _rb.velocity.y);
         _rb.velocity = Vector3.SmoothDamp(_rb.velocity, targetVelocity, ref zeroVector, _smoothMoveSpeed);
 

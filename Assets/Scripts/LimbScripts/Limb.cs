@@ -21,17 +21,16 @@ public class Limb : MonoBehaviour
 
     protected Player _attachedPlayer;
     protected PlayerLimbs _attachedPlayerLimbs;
-    [HideInInspector] public Transform AnchorPoint { get; set; } = null;
     [HideInInspector] public Rigidbody2D LimbRB { get; private set; } = null;
 
     [SerializeField] protected SpriteRenderer _sprite;
 
     [HideInInspector] public LimbType Type { get; set; } //this will help most with animations
-    [HideInInspector] public LimbState State { get; set; }
+    public LimbState State; //{ get; set; }
 
     [SerializeField] private LimbData _limbData;
     [field: SerializeField] public GameObject Trail { get; set; }
-    [field: SerializeField]  public GameObject PickUpIndicator { get; set; }
+    [field: SerializeField] public GameObject PickUpIndicator { get; set; }
 
     [HideInInspector] public bool CanPickUp { get; set; }
     [field: SerializeField] public float PickupTimer { get; set; }
@@ -46,9 +45,11 @@ public class Limb : MonoBehaviour
     protected Vector3 _returnVelocity;
     protected float _rVMultiplier;
 
+    public bool Clashing { get;private set; }
+
 
     [HideInInspector] public bool TripleShot = false;
-    [HideInInspector] public bool _specialLimbs;
+    [HideInInspector] public bool _specialLimbs = false;
     private bool _initialized = false;
 
     protected virtual void Awake()
@@ -87,9 +88,10 @@ public class Limb : MonoBehaviour
     {
         PickupTimer = 0.3f;
         CanPickUp = false;
-        _attachedPlayerLimbs.MoveBodyDown();
+        _attachedPlayerLimbs.MoveBodyDown(); 
         LimbRB.simulated = true;
-        transform.parent = null;
+        transform.SetParent(ServiceLocator.Get<EmptyDestructibleObject>().transform);
+
         State = LimbState.Throwing;
 
         Trail.SetActive(true);
@@ -123,9 +125,8 @@ public class Limb : MonoBehaviour
             return;
         }
 
-        if (State == LimbState.Attached && AnchorPoint != null)
+        if (State == LimbState.Attached)
         {
-            //transform.position = AnchorPoint.position;
             if (Trail != null)
             {
                 Trail.SetActive(false);
@@ -133,19 +134,16 @@ public class Limb : MonoBehaviour
         }
         else if (State == LimbState.Throwing || State == LimbState.Returning)
         {
-            if(LimbRB != null)
+            if (LimbRB.velocity.magnitude < 4.0f && _specialLimbs == false)
             {
-                if (LimbRB.velocity.magnitude < 4.0f && _specialLimbs == false)
-                {
-                    PickupTimer -= Time.deltaTime;
-                }
-                if (PickupTimer <= 0.0f)
-                {
-                    CanPickUp = true;
-                    EnterPickupState();
-                }
+                PickupTimer -= Time.deltaTime;
             }
-
+            if (PickupTimer <= 0.0f)
+            {
+                Debug.Log("Entering pickup state");
+                CanPickUp = true;
+                EnterPickupState();
+            }
         }
     }
 
@@ -217,23 +215,37 @@ public class Limb : MonoBehaviour
     // Limb damage
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("BreakWall") && State == LimbState.Throwing)
+        if (State != LimbState.Throwing)
+            return;
+        else if (collision.gameObject.CompareTag("BreakWall"))
         {
             collision.gameObject.GetComponent<LimbInstantiateWall>().Damage();
             ReturnLimb();
         }
-        if (collision.gameObject.tag != "Player")
+        else if (collision.gameObject.CompareTag("Limb"))
+        {
+            Limb other = collision.gameObject.GetComponent<Limb>();
+
+            if (other.State == LimbState.Throwing && other.Clashing == false && other._attachedPlayer != _attachedPlayer)
+            {
+                Clashing = true;
+                ContactPoint2D contactPoint = collision.GetContact(0);
+                ServiceLocator.Get<ParticleManager>().PlaySwordClashParticle(contactPoint.point);
+            }
             return;
-        else if (State != LimbState.Throwing)
+        }
+        else if (collision.gameObject.tag != "Player")
             return;
 
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
-        if (transform.position.x > collision.transform.position.x)
-            _healthPlayer.AddDamage(_damage + _specialDamage, true);
-        else
-            _healthPlayer.AddDamage(_damage + _specialDamage, false);
+        _healthPlayer.AddDamage(_damage + _specialDamage);
 
         ReturnLimb();
+    }
+
+    protected virtual void OnCollisionExi2D(Collision2D collision)
+    {
+        Clashing = false;
     }
 
     // Limb pickup

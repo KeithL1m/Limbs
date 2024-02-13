@@ -117,7 +117,6 @@ public class PlayerLimbs : MonoBehaviour
         }
 
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), true);
-        _limbs[i].AnchorPoint = _limbAnchors[i].transform;
         _limbs[i].State = Limb.LimbState.Attached;
         _limbs[i].GetComponent<Rigidbody2D>().simulated = false;
     }
@@ -157,7 +156,6 @@ public class PlayerLimbs : MonoBehaviour
             _collider.size = _originalSize;
             _collider.offset = _originalOffset;
             _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + current.Size);
-            //_limbAnchors[currentNum].localPosition = _anchorPositions[currentNum];
         }
         else
         {
@@ -165,7 +163,6 @@ public class PlayerLimbs : MonoBehaviour
             _collider.offset = new Vector2(_originalOffset.x, _originalOffset.y - other.Size * 0.5f);
             _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y + current.Size);
             _groundCheck.position = new Vector3(_groundCheck.position.x, _groundCheck.position.y - other.Size);
-            //_limbAnchors[currentNum].localPosition = _anchorPositions[currentNum];
         }
     }
 
@@ -191,10 +188,10 @@ public class PlayerLimbs : MonoBehaviour
     {
         for (int i = 3; i >= 0; i--)
         {
+            Transform destroy = ServiceLocator.Get<EmptyDestructibleObject>().transform;
             if (_limbs[i] != null)
             {
-                _limbs[i].transform.SetParent(null);
-                Destroy(_limbs[i].gameObject);
+                _limbs[i].transform.SetParent(destroy);
                 _limbs[i] = null;
             }
         }
@@ -221,7 +218,6 @@ public class PlayerLimbs : MonoBehaviour
     public virtual void ThrowLimb(int direction)
     {
         _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
-        _limbs[(int)_selectedLimb].transform.SetParent(Camera.main.transform);
         _limbs[(int)_selectedLimb].ThrowLimb(direction);
 
         if (_limbs[(int)_selectedLimb].TripleShot)
