@@ -93,7 +93,13 @@ public class ExplosiveLimb : Limb
 
     private void OnDrawGizmos() // draw gizmos
     {
-        Gizmos.DrawWireSphere(transform.position, _explosionRadius);
+        Gizmos.DrawWireSphere(transform.position, _explosionRadius);    
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red; // Set the color of the gizmo
+        Gizmos.DrawWireSphere(transform.position, _explosionRadius); // Draw a wire sphere gizmo at the game object's position with the specified radius
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision)
