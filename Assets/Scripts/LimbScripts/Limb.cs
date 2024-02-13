@@ -49,7 +49,7 @@ public class Limb : MonoBehaviour
 
 
     [HideInInspector] public bool TripleShot = false;
-    [HideInInspector] public bool _specialLimbs = false;
+    public bool _specialLimbs = false;
     private bool _initialized = false;
 
     protected virtual void Awake()
@@ -134,6 +134,10 @@ public class Limb : MonoBehaviour
         }
         else if (State == LimbState.Throwing || State == LimbState.Returning)
         {
+            if (!CanPickUp)
+            {
+                Debug.Log("Looping");
+            }
             if (LimbRB.velocity.magnitude < 4.0f && _specialLimbs == false)
             {
                 PickupTimer -= Time.deltaTime;
