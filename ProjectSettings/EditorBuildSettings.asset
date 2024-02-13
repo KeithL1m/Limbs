@@ -74,7 +74,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/_Playable Maps/TestMap KH.unity
     guid: 23389f1492c1b4840a86b6c26f10cdbd
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/_PrototypeRoom.unity
     guid: 88ea66465a6023645ad87a72316a77ef
   - enabled: 0
