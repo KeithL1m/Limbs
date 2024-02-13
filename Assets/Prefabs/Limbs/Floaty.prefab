@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7643786849370820877}
   - component: {fileID: 7031586765184258081}
   - component: {fileID: 6748430361449457588}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Floaty
   m_TagString: Limb
   m_Icon: {fileID: 0}
@@ -104,6 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sprite: {fileID: 7196619701666252166}
+  State: 0
   _limbData: {fileID: 11400000, guid: 3ab9559b8a701ce4ab9342ec85b6dbbf, type: 2}
   <Trail>k__BackingField: {fileID: 1123106515960743069}
   <PickUpIndicator>k__BackingField: {fileID: 7254546142229159940}
@@ -121,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5999986537329455631}
   - component: {fileID: 5410735873120487612}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2238277895590105160}
   - component: {fileID: 7196619701666252166}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +347,7 @@ GameObject:
   - component: {fileID: 613239286358201552}
   - component: {fileID: 186158996586743775}
   - component: {fileID: 9185867149309302101}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Pickup Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

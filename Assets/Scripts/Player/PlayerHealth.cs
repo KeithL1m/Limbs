@@ -13,7 +13,7 @@ public class PlayerHealth : MonoBehaviour
     private DeathPosition[] deathPositions;
 
     public float _health;
-    public bool _isDead = false;
+    private bool _isDead = false;
     private bool _initialized = false;
 
     [SerializeField]

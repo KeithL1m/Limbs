@@ -54,7 +54,7 @@ public class PlayerLimbs : MonoBehaviour
     //check if limb can be picked up
     public bool CanPickUpLimb(Limb limb)
     {
-        if (limb.State != Limb.LimbState.PickUp && limb.State != Limb.LimbState.Returning)
+        if (limb.State != Limb.LimbState.PickUp && limb.State != Limb.LimbState.Returning && !GetComponent<PlayerHealth>().IsDead())
         {
             return false;
         }
@@ -217,13 +217,14 @@ public class PlayerLimbs : MonoBehaviour
 
     public virtual void ThrowLimb(int direction)
     {
-        _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
         _limbs[(int)_selectedLimb].ThrowLimb(direction);
 
         if (_limbs[(int)_selectedLimb].TripleShot)
         {
             return;
         }
+
+        _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
 
         _limbs[(int)_selectedLimb] = null;
         _canThrow = false;

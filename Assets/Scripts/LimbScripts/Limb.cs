@@ -49,7 +49,7 @@ public class Limb : MonoBehaviour
 
 
     [HideInInspector] public bool TripleShot = false;
-    [HideInInspector] public bool _specialLimbs = false;
+    public bool _specialLimbs = false;
     private bool _initialized = false;
 
     protected virtual void Awake()
@@ -134,6 +134,10 @@ public class Limb : MonoBehaviour
         }
         else if (State == LimbState.Throwing || State == LimbState.Returning)
         {
+            if (!CanPickUp)
+            {
+                Debug.Log("Looping");
+            }
             if (LimbRB.velocity.magnitude < 4.0f && _specialLimbs == false)
             {
                 PickupTimer -= Time.deltaTime;
@@ -225,8 +229,11 @@ public class Limb : MonoBehaviour
         else if (collision.gameObject.CompareTag("Limb"))
         {
             Limb other = collision.gameObject.GetComponent<Limb>();
-
-            if (other.State == LimbState.Throwing && other.Clashing == false && other._attachedPlayer != _attachedPlayer)
+            if (other.State != LimbState.Throwing)
+            {
+                return;
+            }
+            if (other.Clashing == false && other._attachedPlayer != _attachedPlayer)
             {
                 Clashing = true;
                 ContactPoint2D contactPoint = collision.GetContact(0);
@@ -238,6 +245,23 @@ public class Limb : MonoBehaviour
             return;
 
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
+
+        if (_healthPlayer.IsDead())
+        {
+            if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
+            {
+                _attachedPlayer = collision.gameObject.GetComponent<Player>();
+                _attachedPlayerLimbs = collision.gameObject.GetComponent<PlayerLimbs>();
+                if (Type == LimbType.Arm)
+                {
+                    LimbRB.SetRotation(90);
+                }
+                if (Type == LimbType.Leg)
+                {
+                    LimbRB.SetRotation(0);
+                }
+            }
+        }
         _healthPlayer.AddDamage(_damage + _specialDamage);
 
         ReturnLimb();
