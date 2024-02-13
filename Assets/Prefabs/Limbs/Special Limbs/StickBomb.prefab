@@ -318,8 +318,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f1ddbc259a57d4d46b0e71953c8c0c06, type: 3}
-  m_Color: {r: 0.6535051, g: 0.6886792, b: 0.27612138, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1477eee7f35ea3f42aeed4ee0f76412e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -340,7 +340,6 @@ GameObject:
   - component: {fileID: 7858356672939467842}
   - component: {fileID: 1905572948148146927}
   - component: {fileID: 7031974623823099388}
-  - component: {fileID: 2999128841091220515}
   - component: {fileID: 7682079628322840279}
   - component: {fileID: 1332441338902969101}
   m_Layer: 0
@@ -381,6 +380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sprite: {fileID: 7470400702023595257}
+  State: 0
   _limbData: {fileID: 11400000, guid: 76d2735fb647a41419933b8acfdb8866, type: 2}
   <Trail>k__BackingField: {fileID: 747674157333451708}
   <PickUpIndicator>k__BackingField: {fileID: 327099054212538446}
@@ -389,7 +389,7 @@ MonoBehaviour:
   _specialLimbs: 0
   _timer: 6
   _delayTimer: 0.5
-  _collider: {fileID: 2999128841091220515}
+  _collider: {fileID: 0}
 --- !u!50 &7031974623823099388
 Rigidbody2D:
   serializedVersion: 4
@@ -411,22 +411,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &2999128841091220515
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6727379245335464739}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0034871101, y: 0.03487128}
-  serializedVersion: 2
-  m_Radius: 0.75456023
 --- !u!58 &7682079628322840279
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -450,12 +434,12 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6727379245335464739}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.1, y: 0.1}
+  m_Offset: {x: -0.13354969, y: -0.059671044}
+  m_Size: {x: 0.49212462, y: 1.6514494}
   m_Direction: 0
