@@ -36650,7 +36650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: _limbLimit
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: _limbManager
@@ -36667,7 +36667,7 @@ PrefabInstance:
     - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: _limbOptions.Array.data[0]
       value: 
-      objectReference: {fileID: 3037854002031635674, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+      objectReference: {fileID: 479936713415687806, guid: 37529f15fa0ca03468bd8d075186cc97, type: 3}
     - target: {fileID: 589181752631128242, guid: 7118733dbfccc4f468b716cdd6286e88, type: 3}
       propertyPath: _limbOptions.Array.data[1]
       value: 
