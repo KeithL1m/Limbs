@@ -11,7 +11,7 @@ public class Destructible : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.tag == "Limb")
+        if (collision.collider.CompareTag("Limb"))
         {
             Debug.Log(health);
             health -= 10;
@@ -21,6 +21,14 @@ public class Destructible : MonoBehaviour
                 Destroy(gameObject);
             }
 
+        }
+    }
+    
+    public void CheckDeath()
+    {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }
