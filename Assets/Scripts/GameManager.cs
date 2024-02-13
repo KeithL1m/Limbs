@@ -171,7 +171,7 @@ public class GameManager : Manager
         _players[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         _players[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         _players[playerNum].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
-        _players[playerNum].GetComponent<PlayerHealth>()._isDead = false;
+        _players[playerNum].GetComponent<PlayerHealth>().isDead = false;
         _players[playerNum].transform.position = spawnPoints[playerNum].transform.position;
     }
 
