@@ -9,6 +9,8 @@ public class PlayParticles : MonoBehaviour
     [SerializeField] private ParticleSystem _particles3;
     [SerializeField] private ParticleSystem _particles4;
 
+    [SerializeField] private float _extraTime;
+
     private bool _active;
 
     private float _currentTime;
@@ -30,7 +32,7 @@ public class PlayParticles : MonoBehaviour
         }
 
         _active = true;
-        _currentTime = _particles1.main.duration;
+        _currentTime = _particles1.main.duration + _extraTime;
     }
 
     private void OnDisable()

@@ -134,10 +134,6 @@ public class Limb : MonoBehaviour
         }
         else if (State == LimbState.Throwing || State == LimbState.Returning)
         {
-            if (!CanPickUp)
-            {
-                Debug.Log("Looping");
-            }
             if (LimbRB.velocity.magnitude < 4.0f && _specialLimbs == false)
             {
                 PickupTimer -= Time.deltaTime;
