@@ -13,13 +13,13 @@ public class Destructible : MonoBehaviour
     {
         if (collision.collider.CompareTag("Limb"))
         {
-            Debug.Log(health);
-            health -= 10;
-
-            if (health <= 0)
+            if (collision.collider.GetComponent<Limb>().State == Limb.LimbState.Throwing)
             {
-                Destroy(gameObject);
+                health -= 10;
+                Debug.Log(health);
             }
+
+            CheckDeath();
 
         }
     }
