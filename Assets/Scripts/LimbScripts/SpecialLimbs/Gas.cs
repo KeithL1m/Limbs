@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Gas : MonoBehaviour
 {
-    private float _gasRadiusRadius = 0.5f;
+    [SerializeField] private float _maxLifetime = 10;
+    [SerializeField] private float _gasRadiusRadius = 0.5f;
     private float _tickRate = 1;
-    private float _lifeTime = 10;
+    private float _lifeTime;
 
     private List<GameObject> _playersInCloud = new();
 
@@ -16,10 +17,12 @@ public class Gas : MonoBehaviour
     private void OnEnable()
     {
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-        StartCoroutine(DamageTick());
 
         var collider = GetComponent<CircleCollider2D>();
         collider.radius = _gasRadiusRadius;
+        _lifeTime = _maxLifetime;
+
+        StartCoroutine(DamageTick());
     }
 
     private IEnumerator DamageTick()

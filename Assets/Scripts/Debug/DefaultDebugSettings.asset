@@ -16,6 +16,7 @@ MonoBehaviour:
   _allScenes:
   - Assets/Scenes/_Playable Maps/Sausage3.unity
   - Assets/Scenes/_Playable Maps/Icefall.unity
+  - Assets/Scenes/_Playable Maps/Avalanche 1.unity
   - Assets/Scenes/_Playable Maps/Molten Lava.unity
   - Assets/Scenes/_Playable Maps/TestMap KH.unity
   - Assets/Scenes/_Playable Maps/FrozenMeat2.unity
@@ -24,8 +25,13 @@ MonoBehaviour:
   - Assets/Scenes/_Playable Maps/The Sawblade.unity
   - Assets/Scenes/_Playable Maps/RedMeat1.unity
   - Assets/Scenes/_Playable Maps/_PrototypeRoom.unity
+  - Assets/Scenes/_Playable Maps/Grocery.unity
+  - Assets/Scenes/_Playable Maps/LimbTesting.unity
+  - Assets/Scenes/_Playable Maps/Cashier.unity
   - Assets/Scenes/_Playable Maps/Sausage2.unity
+  - Assets/Scenes/_Playable Maps/BombIntroduction.unity
   - Assets/Scenes/_Playable Maps/Pit.unity
   - Assets/Scenes/_Playable Maps/Avalanche.unity
   - Assets/Scenes/_Playable Maps/Sausage1.unity
+  - Assets/Scenes/_Playable Maps/Fridge.unity
   - Assets/Scenes/_Playable Maps/Sausage4.unity

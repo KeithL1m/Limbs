@@ -17,7 +17,7 @@ public class StickyBomb : Limb
     [SerializeField] private float _timer = 6.0f;
     float countdown = 0.0f;
 
-    [SerializeField] float _delayTimer = 0.0001f;
+    float _delayTimer = 0.001f;
 
     [SerializeField] Collider2D _collider;
     Collider2D[] explosionRadius = null;
