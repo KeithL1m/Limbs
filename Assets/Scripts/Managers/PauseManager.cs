@@ -153,6 +153,11 @@ public class PauseManager : MonoBehaviour
         //make sure an animation plays when this is clicked
     }
 
+    public void VictoryScreen(GameObject button)
+    {
+        _eventSystem.SetSelectedGameObject(button);
+    }
+
     public void EndGame()
     {
         Debug.Log("Ending Game");

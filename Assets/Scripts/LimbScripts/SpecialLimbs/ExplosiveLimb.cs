@@ -5,9 +5,16 @@ using UnityEngine;
 
 public class ExplosiveLimb : Limb
 {
+    [SerializeField] Collider2D _collider;
+
+    //Particle
+    private ParticleManager _particleManager;
+
     // countdown
     [SerializeField] private float _timer = 3.0f;
     float countdown = 0.0f;
+
+    [SerializeField] float _delayTimer = 0.01f;
 
     Collider2D[] explosionRadius = null;
     private float _explosionForce = 300;
@@ -22,16 +29,31 @@ public class ExplosiveLimb : Limb
     {
         base.Initialize();
         _specialLimbs = true;
-
+        _particleManager = ServiceLocator.Get<ParticleManager>();
         countdown = _timer;
     }
-    
+
+    public override void ThrowLimb(int direction)
+    {
+        base.ThrowLimb(direction);
+
+        StartCoroutine(EnableAfterDelay());
+    }
+    //timer for collider not hitting player
+    private IEnumerator EnableAfterDelay()
+    {
+        _collider.enabled = false;
+        yield return new WaitForSeconds(_delayTimer);
+        _collider.enabled = true;
+        yield break;
+    }
 
     // timer for explosion
     private IEnumerator ExplodeAfterDelay(Action callback)
     {
         yield return new WaitForSeconds(countdown);
         Explode();
+        
         callback?.Invoke();
     }
 
@@ -61,6 +83,7 @@ public class ExplosiveLimb : Limb
                     if(item.CompareTag("Player"))
                     {
                         item.GetComponent<PlayerHealth>().AddDamage(35);
+                        _particleManager.PlayExplosionParticle(gameObject.transform.position);
                     }
                 }
             }
@@ -73,14 +96,15 @@ public class ExplosiveLimb : Limb
         Gizmos.DrawWireSphere(transform.position, _explosionRadius);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
         if (State != LimbState.Throwing)
             return;
         StartCoroutine(ExplodeAfterDelay(() =>
         {
-            if(gameObject!= null)
+            if (gameObject!= null)
             {
+                ServiceLocator.Get<LimbManager>().RemoveLimb(this);
                 Destroy(gameObject);
             }
         }));

@@ -64,13 +64,17 @@ public class TripleShot : Limb
                 _sprite.sprite = _launcherEmpty;
             }
 
-
             return;
         }
 
         TripleShot = false;
+
+        PickupTimer = 0.3f;
+        CanPickUp = false;
         _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
+        transform.SetParent(ServiceLocator.Get<EmptyDestructibleObject>().transform);
+
         State = LimbState.Throwing;
 
         Trail.SetActive(true);

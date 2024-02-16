@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
 
     //Player components
     private PlayerMovement _playerMovement;
+    public PlayerMovement PlayerMovement { get { return _playerMovement; } }
     private PlayerJump _playerJump;
     private PlayerLimbs _playerLimbs;
     [HideInInspector]
@@ -27,15 +28,24 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteRenderer _playerBody;
     [SerializeField] private SpriteRenderer _playerNum;
 
+    [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _aimTransform;
-    [SerializeField] public Transform _groundCheck;
+    [SerializeField] public Transform GroundCheckTransform;
+    [SerializeField] private GroundCheck _groundCheck;
+    [SerializeField] private ParticleSystem _impactParticles;
 
     //facing left = -1, right = 1
     public int direction;
     private bool _initialized = false;
     private bool _canThrow = true;
     private bool _canSwitch = true;
+    private bool _wasOnGround = false;
     public Vector2 LastAimed { get; private set; } = Vector2.zero;
+    private Vector2 _previousVelocity1 = Vector2.zero;
+    private Vector2 _previousVelocity2 = Vector2.zero;
+    
+    private bool _canFly = false;
+    public bool CanFly { get { return _canFly; } }
 
 
     private void Awake()
@@ -174,6 +184,20 @@ public class Player : MonoBehaviour
                 _playerBody.flipX = true;
             }
         }
+
+        if (!_wasOnGround && _groundCheck.isGrounded && _previousVelocity2.y < -5.0f)
+        {
+            _impactParticles.Play();
+        }
+
+        _wasOnGround = _groundCheck.isGrounded;
+        _previousVelocity2 = _previousVelocity1;
+        _previousVelocity1 = _rb.velocity;
+    }
+
+    public void SetCanFly(bool isCan)
+    {
+        _canFly = isCan;
     }
 
     public void AddScore()

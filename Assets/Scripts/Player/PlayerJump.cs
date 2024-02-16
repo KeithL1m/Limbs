@@ -21,6 +21,12 @@ public class PlayerJump : MonoBehaviour
     private float _maxJumpBufferTime;
     [SerializeField]
     private float _maxCoyoteTime;
+    [SerializeField]
+    private ParticleSystem _jumpParticles;
+    [SerializeField]
+    private ParticleSystem _dJumpParticles;
+
+    private float flyPower;
 
     private float _gravityScaleFactor;
     private float _jumpGravity;
@@ -48,6 +54,11 @@ public class PlayerJump : MonoBehaviour
     {
         if (GetComponent<PlayerHealth>().IsDead())
             return;
+        NormalJump();
+    }
+
+    private void NormalJump()
+    {
         if (IsGrounded() && _player._movementState == Player.MovementState.Move)
         {
             _coyoteTime = _maxCoyoteTime;
@@ -75,7 +86,7 @@ public class PlayerJump : MonoBehaviour
             _jumpBufferTime -= Time.deltaTime;
         }
 
-        if (_jumpBufferTime > 0f && _coyoteTime > 0f || _canDoubleJump && _inputhandler.Jump > 0.5f && _canJump) 
+        if (_jumpBufferTime > 0f && _coyoteTime > 0f || _canDoubleJump && _inputhandler.Jump > 0.5f && _canJump)
         {
             _jumpBufferTime = 0f;
             _coyoteTime = 0f;
@@ -86,11 +97,12 @@ public class PlayerJump : MonoBehaviour
             JumpUpdate();
         }
 
-        if (_inputhandler.Jump < 0.5f) 
+        if (_inputhandler.Jump < 0.5f)
         {
             _canJump = true;
         }
-    } 
+    }
+
 
     private void StartJump()
     {
@@ -104,10 +116,19 @@ public class PlayerJump : MonoBehaviour
             _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed * 0.6f, ForceMode2D.Impulse);
             _canDoubleJump = false;
             _isDoubleJumping = true;
+            _dJumpParticles.Play();
         }
         else
         {
-            _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed, ForceMode2D.Impulse);
+            if (!_player.CanFly)
+            {
+                _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed, ForceMode2D.Impulse);
+                _jumpParticles.Play();
+            }
+            else
+            {
+                _rb.AddForce(_player._inputHandler.Aim * flyPower, ForceMode2D.Impulse);
+            }
         }
     }
 
