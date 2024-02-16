@@ -114,8 +114,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8800194720702949094}
-  - {fileID: 8800194720877280525}
   - {fileID: 8800194721860603420}
+  - {fileID: 8800194720877280525}
   - {fileID: 8744857605170524413}
   - {fileID: 1544557996326532904}
   - {fileID: 5626907557317045412}
@@ -136,16 +136,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _backgrounds:
   - {fileID: 8800194720702949094}
-  - {fileID: 8800194720877280525}
   - {fileID: 8800194721860603420}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8800194720877280525}
+  - {fileID: 8744857605170524413}
+  - {fileID: 1544557996326532904}
+  - {fileID: 5626907557317045412}
   _parallaxMultipliers:
+  - 0.5
+  - 0.65
+  - 0.85
   - 1
-  - 0.9
-  - 0.8
-  - 0.6
-  - 0.4
+  - 1
+  - 1
 --- !u!1 &7401697163446575964
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +430,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8534117524294869803}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8800194720877280524
 SpriteRenderer:
@@ -512,7 +514,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8534117524294869803}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8800194721860603419
 SpriteRenderer:

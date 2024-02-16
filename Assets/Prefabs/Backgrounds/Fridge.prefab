@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 29.2, y: 17.023829}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &695299499242661877
@@ -385,12 +385,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _backgrounds:
+  - {fileID: 2132670319971094960}
+  - {fileID: 782879646700677638}
   - {fileID: 695299498644192285}
   - {fileID: 695299499242661878}
-  - {fileID: 0}
   _parallaxMultipliers:
   - 1
-  - 0.9
+  - 1
   - 0.8
   - 0.6
-  - 0.4

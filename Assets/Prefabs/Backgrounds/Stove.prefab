@@ -304,9 +304,11 @@ MonoBehaviour:
   - {fileID: 1427167016933034745}
   - {fileID: 6080153880888505879}
   - {fileID: 68159463213849438}
+  - {fileID: 9167367664432489188}
   _parallaxMultipliers:
   - 0.8
   - 0.6
+  - 1
   - 1
 --- !u!1 &1946348927125215606
 GameObject:
