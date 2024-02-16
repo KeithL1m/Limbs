@@ -34,24 +34,21 @@ public class PlayerHealth : MonoBehaviour
         _initialized = true;
     }
 
-    private void Update()
-    {
-        if (!_initialized)
-            return;
-        if (_health <= 0 && isDead)
-        {
-            KillPlayer();
-        }
-    }
-
     public void AddDamage(float damage)
     {
         if (_gm.startScreen)
             return;
+        else if (isDead)
+            return;
 
         _health -= damage;
         damageParticles.PlayDamageParticle();
-        // Update the health slider value here
+
+        if (_health <= 0)
+        {
+            KillPlayer();
+        }
+
         UpdateHealthSlider();
     }
 
