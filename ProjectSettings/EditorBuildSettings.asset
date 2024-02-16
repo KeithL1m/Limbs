@@ -14,12 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/z_Loadout.unity
     guid: eab9c93ff65f43341945a607ca3b194b
-  - enabled: 0
-    path: Assets/Scenes/z_PinataRoom.unity
-    guid: 21856d405cfab984e8820a45e2b8f51d
-  - enabled: 0
-    path: Assets/Scenes/NEW PLAYER SELECT.unity
-    guid: c2b56dbdcbaeb284ca77092c14d4b4b1
   - enabled: 1
     path: Assets/Scenes/Meatcase.unity
     guid: c931da184cfe0f742b3603a24d72b68f
@@ -48,15 +42,6 @@ EditorBuildSettings:
     path: Assets/Scenes/_Playable Maps/Molten Lava.unity
     guid: d2acd89d83897ca4cb32fc72eab46c40
   - enabled: 0
-    path: Assets/Scenes/Alex Maps/nasa.unity
-    guid: 7133aa0d9eed5904c87b140e3fe76601
-  - enabled: 0
-    path: Assets/Scenes/Alex Maps/BUTCHER_SHOP_MAPA.unity
-    guid: 29c3c8ad692189b47b2691930aa12a2a
-  - enabled: 0
-    path: Assets/Scenes/KevinY Maps/KY Scene 2.unity
-    guid: 81ba6cb8c9703a74eb704103ec195f3e
-  - enabled: 0
     path: Assets/Scenes/_Playable Maps/Pit.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
@@ -80,9 +65,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Vince Maps/NEW/Yuh/Avalanche 1.unity
     guid: 219639498ad31104594f1db72235c69c
-  - enabled: 1
-    path: Assets/Scenes/VictoryMap.unity
-    guid: c6f88a4fbefe2f84294a71ba5213eba4
   - enabled: 1
     path: Assets/Scenes/_Playable Maps/LimbTesting.unity
     guid: 99e5ed3875860ff4183871e9f4280436
@@ -131,4 +113,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/_Playable Maps/Z 5.unity
     guid: 07c75e32b070b3a4db7aaf926f399408
+  - enabled: 1
+    path: Assets/Scenes/VictoryMap.unity
+    guid: c6f88a4fbefe2f84294a71ba5213eba4
   m_configObjects: {}
