@@ -30,7 +30,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 13.635403, y: 13.635403, z: 13.635403}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6121281119343706020}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -114,3 +115,65 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.35
+--- !u!1001 &2987715502198663828
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7956902740491100891}
+    m_Modifications:
+    - target: {fileID: 9044731996545471792, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044731996545471792, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.012
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044731996545471792, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.011
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044731996545471792, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044731996545471792, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044731996545471792, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044731996545471792, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044731996545471792, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044731996545471792, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044731996545471792, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044731996545471792, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044731996545471805, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
+      propertyPath: m_Name
+      value: Gas Particle (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
+--- !u!4 &6121281119343706020 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9044731996545471792, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
+  m_PrefabInstance: {fileID: 2987715502198663828}
+  m_PrefabAsset: {fileID: 0}
