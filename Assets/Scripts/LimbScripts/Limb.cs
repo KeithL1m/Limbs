@@ -262,9 +262,13 @@ public class Limb : MonoBehaviour
                 }
             }
         }
-        _healthPlayer.AddDamage(_damage + _specialDamage);
+        else
+        {
+            _healthPlayer.AddDamage(_damage + _specialDamage);
 
-        ReturnLimb();
+            ReturnLimb();
+        }
+
     }
 
     protected virtual void OnCollisionExi2D(Collision2D collision)
