@@ -14,7 +14,7 @@ public class ExplosiveLimb : Limb
     [SerializeField] private float _timer = 3.0f;
     float countdown = 0.0f;
 
-    [SerializeField] float _delayTimer = 0.2f;
+    [SerializeField] float _delayTimer = 0.01f;
 
     Collider2D[] explosionRadius = null;
     private float _explosionForce = 300;
