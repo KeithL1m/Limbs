@@ -85,6 +85,12 @@ public class ExplosiveLimb : Limb
                         item.GetComponent<PlayerHealth>().AddDamage(35);
                         _particleManager.PlayExplosionParticle(gameObject.transform.position);
                     }
+
+                    if (item.CompareTag("Destructible"))
+                    {
+                        item.GetComponent<Destructible>().health -= 35;
+                        item.GetComponent<Destructible>().CheckDeath();
+                    }
                 }
             }
         }

@@ -150,6 +150,12 @@ public class StickyBomb : Limb
                             item.GetComponent<PlayerHealth>().AddDamage(25);
 
                         }
+
+                        if (item.CompareTag("Destructible"))
+                        {
+                            item.GetComponent<Destructible>().health -= 35;
+                            item.GetComponent<Destructible>().CheckDeath();
+                        }
                     }
 
                 }
