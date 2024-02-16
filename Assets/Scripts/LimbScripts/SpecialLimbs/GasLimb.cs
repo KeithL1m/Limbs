@@ -6,7 +6,7 @@ public class GasLimb : Limb
 {
     private ParticleManager _particleManager;
 
-    float _delayTimer = 0.0001f;
+    float _delayTimer = 0.1f;
     [SerializeField] Collider2D _collider;
 
     protected override void Initialize()
