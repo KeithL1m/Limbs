@@ -68,6 +68,8 @@ public class ExplosiveLimb : Limb
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
 
+        _particleManager.PlayExplosionParticle(gameObject.transform.position);
+
         foreach (Collider2D item in explosionRadius)
         {
             Rigidbody2D item_rigidbody = item.GetComponent<Rigidbody2D>();
@@ -83,7 +85,6 @@ public class ExplosiveLimb : Limb
                     if(item.CompareTag("Player"))
                     {
                         item.GetComponent<PlayerHealth>().AddDamage(35);
-                        _particleManager.PlayExplosionParticle(gameObject.transform.position);
                     }
 
                     if (item.CompareTag("Destructible"))

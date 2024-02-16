@@ -24,6 +24,7 @@ public class StickyBomb : Limb
     private float _explosionForce = 300;
     private float _explosionRadius = 5;
     private Player _player;
+    private ParticleManager _particleManager;
 
 
     protected override void Awake()
@@ -35,7 +36,7 @@ public class StickyBomb : Limb
     {
         base.Initialize();
 
-
+        _particleManager = ServiceLocator.Get<ParticleManager>();
         _specialLimbs = true;
         countdown = _timer;
     }
@@ -130,6 +131,8 @@ public class StickyBomb : Limb
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
 
+        _particleManager.PlayExplosionParticle(gameObject.transform.position);
+
         foreach (Collider2D item in explosionRadius)
         {
             Rigidbody2D item_rigidbody = item.GetComponent<Rigidbody2D>();
@@ -148,7 +151,6 @@ public class StickyBomb : Limb
                         if (item.CompareTag("Player"))
                         {
                             item.GetComponent<PlayerHealth>().AddDamage(25);
-
                         }
 
                         if (item.CompareTag("Destructible"))
