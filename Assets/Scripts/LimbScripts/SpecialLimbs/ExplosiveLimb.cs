@@ -14,7 +14,7 @@ public class ExplosiveLimb : Limb
     [SerializeField] private float _timer = 3.0f;
     float countdown = 0.0f;
 
-    [SerializeField] float _delayTimer = 0.01f;
+    [SerializeField] float _delayTimer = 0.0001f;
 
     Collider2D[] explosionRadius = null;
     private float _explosionForce = 300;
@@ -93,7 +93,13 @@ public class ExplosiveLimb : Limb
 
     private void OnDrawGizmos() // draw gizmos
     {
-        Gizmos.DrawWireSphere(transform.position, _explosionRadius);
+        Gizmos.DrawWireSphere(transform.position, _explosionRadius);    
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red; // Set the color of the gizmo
+        Gizmos.DrawWireSphere(transform.position, _explosionRadius); // Draw a wire sphere gizmo at the game object's position with the specified radius
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision)

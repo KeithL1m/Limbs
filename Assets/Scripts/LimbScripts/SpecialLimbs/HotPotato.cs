@@ -26,7 +26,7 @@ public class HotPotato : Limb
 
         _specialLimbs = true;
         _explodeCounter = 5;
-        //_potatoSprite
+        
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
@@ -88,7 +88,7 @@ public class HotPotato : Limb
         Debug.Log("POTATO BOOOOM");
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
-
+        Gizmos.DrawWireSphere(transform.position, _explosionRadius);
         foreach (Collider2D item in explosionRadius)
         {
             Rigidbody2D item_rigidbody = item.GetComponent<Rigidbody2D>();
