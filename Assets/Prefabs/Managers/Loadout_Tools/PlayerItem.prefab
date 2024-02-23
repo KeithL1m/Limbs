@@ -994,6 +994,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f54c010bc3a3375499257ac512646938, type: 3}
   - {fileID: 21300000, guid: 8840b101dcecae14e8bb291f71974ccb, type: 3}
   - {fileID: 21300000, guid: 61783b8c0302890409115faa83ea2d33, type: 3}
+  - {fileID: 21300000, guid: f3e41e3f55bd61844b85664831112ae3, type: 3}
   _playerBody:
   - {fileID: 21300000, guid: 50d37e28a9f833442b092f8fd5021b5e, type: 3}
   - {fileID: 21300000, guid: ec6d5e3f3ec56f14496665d17c18ce38, type: 3}
