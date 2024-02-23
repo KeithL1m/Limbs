@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Net.Mime;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class CameraManager : MonoBehaviour
 {
