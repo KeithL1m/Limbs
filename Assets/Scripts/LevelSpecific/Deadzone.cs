@@ -20,6 +20,7 @@ public class Deadzone : MonoBehaviour
         }
         else if (collide.gameObject.tag == "Limb")
         {
+            ServiceLocator.Get<LimbManager>().RemoveLimb(collide.GetComponent<Limb>());
             Destroy(collide.gameObject);
         }
     }

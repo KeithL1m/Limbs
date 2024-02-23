@@ -220,6 +220,8 @@ public class GameManager : Manager
             Destroy(_players[i].gameObject);
         }
 
+        ServiceLocator.Unregister<EmptyDestructibleObject>();
+
         _playerConfigs.Clear();
         _players.Clear();
 
