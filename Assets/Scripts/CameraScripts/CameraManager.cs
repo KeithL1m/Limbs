@@ -7,19 +7,19 @@ public class CameraManager : MonoBehaviour
 
     public List<GameObject> _players;
 
-    public Bounds _maxBounds;
+    private Bounds _maxBounds;
     private Bounds _playerBounds;
     private Vector3 _velocity;
 
-    public float _lastDistance = 0;
-    public float _currentDistance = 0;
+    private float _lastDistance = 0;
+    private float _currentDistance = 0;
 
-    private Vector3 _offset;
+    [SerializeField] private Vector3 _offset = new Vector3(0, -1, -10);
     [SerializeField] private float _smoothTime = 0.3f;
-    [SerializeField] public float _smoothZoomInTime = 0.7f;
-    [SerializeField] public float _smoothZoomOutTime = 0.5f;
-    public float _minHeight = 12.5f;
-    public float _maxHeight;
+    [SerializeField] private float _smoothZoomInTime = 2f;
+    [SerializeField] private float _smoothZoomOutTime = 0.7f;
+    [SerializeField] private float _minHeight = 12.5f;
+    private float _maxHeight;
 
     public float _heightMultiplier = 1.4f;
     public float _widthMultiplier = 1.4f;
@@ -31,6 +31,8 @@ public class CameraManager : MonoBehaviour
     private Camera _camera;
     private bool _initialized = false;
     private bool _teleportThrown = false;
+
+    private Vector3 centrePoint = new Vector3();
 
     void Start()
     {
@@ -61,7 +63,7 @@ public class CameraManager : MonoBehaviour
 
         _maxHeight = cameraHalfHeight * 2f;
 
-        _offset = new Vector3(0, -1, -10);
+        //_offset = new Vector3(0, -1, -10);
 
         // Add players
         _playerManager = ServiceLocator.Get<PlayerManager>();
@@ -91,14 +93,11 @@ public class CameraManager : MonoBehaviour
 
     private void MoveCamera()
     {
-        Vector3 centrePoint = CalculateCentrePoint();
+        centrePoint = CalculateCentrePoint();
 
         Vector3 newPos = centrePoint + _offset;
 
-        
-        
         transform.position = Vector3.SmoothDamp(transform.position, newPos, ref _velocity, _smoothTime);
-        
     }
 
     private void AdjustCameraSize()
@@ -122,7 +121,7 @@ public class CameraManager : MonoBehaviour
         }
         else if (_currentDistance < _minHeight)
         {
-            _currentDistance = _minHeight;
+          _currentDistance = _minHeight;
         }
 
         _currentDistance *= 0.5f;
@@ -142,13 +141,13 @@ public class CameraManager : MonoBehaviour
            // Debug.Log("zoom out");
         }
 
-        _lastDistance = _currentDistance;
+        _lastDistance = _camera.orthographicSize;
     }
 
     private Vector3 CalculateCentrePoint()
     {
-        _playerBounds = new Bounds();
-        for (int i = 0; i < _players.Count; i++)
+        _playerBounds = new Bounds(_players[0].transform.position, Vector3.zero);
+        for (int i = 1; i < _players.Count; i++)
         {
             if (_players[i] != null)
             {

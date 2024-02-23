@@ -397,7 +397,7 @@ MonoBehaviour:
   _maxHealth: 100
   chain: {fileID: 6432030308765007816}
   _health: 0
-  _isDead: 0
+  isDead: 0
   healthSlider: {fileID: 0}
   damageParticles: {fileID: 7195277598144823241}
 --- !u!114 &6432030308765007816
@@ -1674,6 +1674,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4541016663922128699, guid: 34228c117a9a2c54080aee616ab47b39, type: 3}
+      propertyPath: ColorModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541016663922128699, guid: 34228c117a9a2c54080aee616ab47b39, type: 3}
       propertyPath: ShapeModule.arc.spread
       value: 1
       objectReference: {fileID: 0}
@@ -1684,6 +1688,14 @@ PrefabInstance:
     - target: {fileID: 4541016663922128699, guid: 34228c117a9a2c54080aee616ab47b39, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541016663922128699, guid: 34228c117a9a2c54080aee616ab47b39, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.ctime1
+      value: 38936
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541016663922128699, guid: 34228c117a9a2c54080aee616ab47b39, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.a
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5615911421120993108, guid: 34228c117a9a2c54080aee616ab47b39, type: 3}
       propertyPath: lengthInSec
