@@ -18,13 +18,13 @@ public class CameraManager : MonoBehaviour
 
     private Vector3 _offset;
     [SerializeField] private float _smoothTime = 0.3f;
-    [SerializeField] public float _smoothZoomInTime = 0.6f;
-    [SerializeField] public float _smoothZoomOutTime = 0.4f;
+    [SerializeField] public float _smoothZoomInTime = 0.7f;
+    [SerializeField] public float _smoothZoomOutTime = 0.5f;
     public float _minHeight = 12.5f;
     public float _maxHeight;
 
     public float _heightMultiplier = 1.4f;
-    public float _widthMultiplier = 1.3f;
+    public float _widthMultiplier = 1.4f;
     public float _zoomLimiter;
     private float _zoomVelocity;
 

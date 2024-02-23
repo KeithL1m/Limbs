@@ -47,7 +47,7 @@ public class ShrinkingPlatform : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (activateOnTouch == true)
+        if (activateOnTouch == true && !collision.gameObject.CompareTag("Limb"))
         {
             isShrinking = true;
         }

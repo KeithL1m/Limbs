@@ -14,10 +14,6 @@ public class LimbManager : Manager
 
             _initialized = true;
         }
-        else
-        {
-            _limbs.Clear();
-        }
     }
 
     void LateUpdate()

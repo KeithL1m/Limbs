@@ -18,5 +18,9 @@ public class Deadzone : MonoBehaviour
         {
             Destroy(collide.gameObject);
         }
+        else if (collide.gameObject.tag == "Limb")
+        {
+            Destroy(collide.gameObject);
+        }
     }
 }
