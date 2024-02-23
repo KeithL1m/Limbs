@@ -175,13 +175,10 @@ public class PauseManager : MonoBehaviour
     {
         Debug.Log("Going back to main menu");
         GameManager gm = ServiceLocator.Get<GameManager>();
-        gm.ResetRound();
         gm.EarlyEnd = true;
-        gm.EndGame();
         Time.timeScale = 1.0f;
         paused = false;
-        Debug.Log("Unpausing game");
-        SceneManager.LoadScene(1);
+        gm.EndGame();
     }
 
     public void SetCamera(Camera camera)

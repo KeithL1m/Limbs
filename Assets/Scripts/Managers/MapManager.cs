@@ -11,6 +11,7 @@ public class MapManager : Manager
     [SerializeField] private int _mapCount;
     [SerializeField] private int _loadingMaps;
     [SerializeField] private int _victoryScreen;
+    int currentMap;
 
     private void Awake()
     {
@@ -56,19 +57,19 @@ public class MapManager : Manager
         {
             //Check if map is repeated
             int mapNum = Random.Range(_loadingMaps, _mapCount);
-            int currentMap = mapNum;
             while (mapNum == currentMap)
             {
                 Debug.Log("MAP WAS REPEATED");
                 mapNum = Random.Range(_loadingMaps, _mapCount);
             }
+            currentMap = mapNum;
             SceneManager.LoadScene(mapNum);
         }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (_gm.startScreen)
+        if (_gm.startScreen || _gm.EarlyEnd)
             return;
         Debug.Log("New scene loaded");
         _gm.OnStart();

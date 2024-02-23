@@ -175,12 +175,11 @@ MonoBehaviour:
   _limbOptions:
   - {fileID: 5690755066905293737, guid: 016feb9387a047543adc6828975d9bd1, type: 3}
   - {fileID: 3037854002031635674, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
-  - {fileID: 479936713415687806, guid: ceffc63aa63769f43bdb2e94d9ea3429, type: 3}
   - {fileID: 479936713415687806, guid: 37529f15fa0ca03468bd8d075186cc97, type: 3}
   - {fileID: 6727379245335464739, guid: c90382689d59db74eae2eb00c7d75ddf, type: 3}
   - {fileID: 5001288000470333368, guid: cd3edb648726be54c95099b7a36f839f, type: 3}
   - {fileID: 479936713415687806, guid: 146350379aa1dee4cac50dbf67d651cb, type: 3}
-  _limbLimit: 4
+  _limbLimit: 12
   _startLimbCount: 0
   _minSpawnTimer: 7
   _maxSpawnTimer: 10

@@ -23,6 +23,5 @@ public class EndGame : MonoBehaviour
     public void RestartGame()
     {
         _gm.EndGame();
-        SceneManager.LoadScene(1);
     }
 }
