@@ -108,7 +108,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &461333960411764864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,9 +122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageOutput: 20
-  originalPos: {fileID: 0}
+  originalPos: {x: 0, y: 0, z: 0}
   destroyOnTouch: 0
-  regenerateIcicle: 0
   rb: {fileID: 0}
   icicleCollider: {fileID: 5190367388636018447}
   triggerCollider: {fileID: 4032378565722885681}

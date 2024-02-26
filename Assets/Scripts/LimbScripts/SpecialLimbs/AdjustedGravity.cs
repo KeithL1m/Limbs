@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AdjustedGravity : Limb
@@ -26,6 +24,6 @@ public class AdjustedGravity : Limb
     {
         base.EnterPickupState();
 
-        LimbRB.gravityScale = _gravityScale;
+        LimbRB.gravityScale = 1;
     }
 }

@@ -13,7 +13,7 @@ public class PlayerHealth : MonoBehaviour
     private DeathPosition[] deathPositions;
 
     public float _health;
-    public bool _isDead = false;
+    public bool isDead = false;
     private bool _initialized = false;
 
     [SerializeField]
@@ -34,58 +34,33 @@ public class PlayerHealth : MonoBehaviour
         _initialized = true;
     }
 
-    private void Update()
-    {
-        if (!_initialized)
-            return;
-        if (_health <= 0 && !_isDead)
-        {
-            KillPlayer();
-        }
-    }
-
     public void AddDamage(float damage)
     {
         if (_gm.startScreen)
             return;
-
-        _health -= damage;
-        Instantiate(damageParticles.gameObject, transform.position, transform.rotation);
-        // Update the health slider value here
-        UpdateHealthSlider();
-    }
-
-    public void AddDamage(float damage,float x)
-    {
-        if (_gm.startScreen)
+        else if (isDead)
             return;
 
         _health -= damage;
-        GameObject particles = Instantiate(damageParticles.gameObject, transform.position, transform.rotation);
-        if (x < transform.position.x)
-            particles.transform.localEulerAngles = new Vector3(0, 180, 0);
-        // Update the health slider value here
+        damageParticles.PlayDamageParticle();
+
+        if (_health <= 0)
+        {
+            KillPlayer();
+        }
+
         UpdateHealthSlider();
     }
 
-    public void AddDamage(float damage, bool isRight)
-    {
-        if (_gm.startScreen)
-            return;
-
-        _health -= damage;
-
-        GameObject particles = Instantiate(damageParticles.gameObject, transform.position, transform.rotation);
-        if (!isRight)
-            particles.transform.localEulerAngles = new Vector3(0, 180, 0);
-        // Update the health slider value here
-        UpdateHealthSlider();
-    }
-
-    public bool IsDead() { return _isDead; }
+    public bool IsDead() { return isDead; }
 
     public void KillPlayer()
     {
+        if (_health > 0)
+        {
+            _health = 0;
+            UpdateHealthSlider();
+        }
         deathPositions = FindObjectsOfType<DeathPosition>();
         if (deathPositions is null)
         {
@@ -93,7 +68,7 @@ public class PlayerHealth : MonoBehaviour
             return;
         }
 
-        _isDead = true;
+        isDead = true;
         if (deathPositions[0].Occupied)
         {
             transform.position = deathPositions[1].transform.position;

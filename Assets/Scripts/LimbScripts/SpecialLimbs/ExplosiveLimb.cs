@@ -1,17 +1,19 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ExplosiveLimb : Limb
 {
-    //Particle
+    [SerializeField] Collider2D _collider;
 
-    [SerializeField] private ParticleManager _particle;
+    //Particle
+    private ParticleManager _particleManager;
 
     // countdown
     [SerializeField] private float _timer = 3.0f;
     float countdown = 0.0f;
+
+    float _delayTimer = 0.001f;
 
     Collider2D[] explosionRadius = null;
     private float _explosionForce = 300;
@@ -26,10 +28,24 @@ public class ExplosiveLimb : Limb
     {
         base.Initialize();
         _specialLimbs = true;
-
+        _particleManager = ServiceLocator.Get<ParticleManager>();
         countdown = _timer;
     }
-    
+
+    public override void ThrowLimb(int direction)
+    {
+        base.ThrowLimb(direction);
+
+        StartCoroutine(EnableAfterDelay());
+    }
+    //timer for collider not hitting player
+    private IEnumerator EnableAfterDelay()
+    {
+        _collider.enabled = false;
+        yield return new WaitForSeconds(_delayTimer);
+        _collider.enabled = true;
+        yield break;
+    }
 
     // timer for explosion
     private IEnumerator ExplodeAfterDelay(Action callback)
@@ -51,6 +67,8 @@ public class ExplosiveLimb : Limb
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
 
+        _particleManager.PlayExplosionParticle(gameObject.transform.position);
+
         foreach (Collider2D item in explosionRadius)
         {
             Rigidbody2D item_rigidbody = item.GetComponent<Rigidbody2D>();
@@ -67,6 +85,12 @@ public class ExplosiveLimb : Limb
                     {
                         item.GetComponent<PlayerHealth>().AddDamage(35);
                     }
+
+                    if (item.CompareTag("Destructible"))
+                    {
+                        item.GetComponent<Destructible>().health -= 35;
+                        item.GetComponent<Destructible>().CheckDeath();
+                    }
                 }
             }
         }
@@ -75,7 +99,13 @@ public class ExplosiveLimb : Limb
 
     private void OnDrawGizmos() // draw gizmos
     {
-        Gizmos.DrawWireSphere(transform.position, _explosionRadius);
+        Gizmos.DrawWireSphere(transform.position, _explosionRadius);    
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red; // Set the color of the gizmo
+        Gizmos.DrawWireSphere(transform.position, _explosionRadius); // Draw a wire sphere gizmo at the game object's position with the specified radius
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision)
@@ -86,6 +116,7 @@ public class ExplosiveLimb : Limb
         {
             if (gameObject!= null)
             {
+                ServiceLocator.Get<LimbManager>().RemoveLimb(this);
                 Destroy(gameObject);
             }
         }));

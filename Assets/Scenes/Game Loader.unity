@@ -229,9 +229,15 @@ MonoBehaviour:
   - name: GasBomb
     prefab: {fileID: 8540868700325874929, guid: e5de6000cd7fb07468ecd4aac2969b18, type: 3}
     poolSize: 5
+  - name: GasParticle
+    prefab: {fileID: 9044731996545471805, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
+    poolSize: 5
   - name: Explosion
     prefab: {fileID: 6256034235666780848, guid: 707a4f38868ed0440a8866927473a163, type: 3}
     poolSize: 5
+  - name: Clash
+    prefab: {fileID: 1613047735746979956, guid: d03ee42b01cfd52459f9c0a4027b547c, type: 3}
+    poolSize: 8
 --- !u!1 &940593466
 GameObject:
   m_ObjectHideFlags: 0

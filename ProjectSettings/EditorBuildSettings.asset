@@ -14,17 +14,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/z_Loadout.unity
     guid: eab9c93ff65f43341945a607ca3b194b
-  - enabled: 0
-    path: Assets/Scenes/z_PinataRoom.unity
-    guid: 21856d405cfab984e8820a45e2b8f51d
-  - enabled: 0
-    path: Assets/Scenes/NEW PLAYER SELECT.unity
-    guid: c2b56dbdcbaeb284ca77092c14d4b4b1
   - enabled: 1
     path: Assets/Scenes/Meatcase.unity
     guid: c931da184cfe0f742b3603a24d72b68f
-  - enabled: 1
-    path: Assets/Scenes/_Playable Maps/FrozenMeat1.unity
+  - enabled: 0
+    path: Assets/Scenes/_Playable Maps/Testing/FrozenMeat1.unity
     guid: 646c086073f4b4d468b3fc1d6123c639
   - enabled: 1
     path: Assets/Scenes/_Playable Maps/RedMeat1.unity
@@ -47,16 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/_Playable Maps/Molten Lava.unity
     guid: d2acd89d83897ca4cb32fc72eab46c40
-  - enabled: 0
-    path: Assets/Scenes/Alex Maps/nasa.unity
-    guid: 7133aa0d9eed5904c87b140e3fe76601
-  - enabled: 0
-    path: Assets/Scenes/Alex Maps/BUTCHER_SHOP_MAPA.unity
-    guid: 29c3c8ad692189b47b2691930aa12a2a
-  - enabled: 0
-    path: Assets/Scenes/KevinY Maps/KY Scene 2.unity
-    guid: 81ba6cb8c9703a74eb704103ec195f3e
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Pit.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
@@ -65,22 +50,61 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/_Playable Maps/Red Sea.unity
     guid: 954aba8589c020140a6cbeab91860f06
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/The Sawblade.unity
     guid: 1807d8fcbe9fe9049982560da7f089ca
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/_Playable Maps/Icefall.unity
     guid: e1b52b6c7854f844a8d764ea0f91a66e
+  - enabled: 0
+    path: Assets/Scenes/_Playable Maps/Testing/LimbTesting.unity
+    guid: 99e5ed3875860ff4183871e9f4280436
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/Cashier.unity
+    guid: aa9d6eee50796174bb1ecb802f3772a3
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/Fridge.unity
+    guid: cef4aafcba2ebf3429a06b57bf300403
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/Grocery.unity
+    guid: a8b9f0a0c230db74dbfba20933759907
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/Melt 1.unity
+    guid: 2e7ef92daea50084897cbaf5a9bb7065
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/Boxes - Left 1.unity
+    guid: c8d4a203872c87f4d9cfb141da2921d1
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/Boxes - LR.unity
+    guid: 26c8e5c4931d16f4e8a5e5db3bab1340
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/BoxMove 1.unity
+    guid: 84e3afe8b33b84849b15cf83b55a89a6
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/BoxMove 3.unity
+    guid: 9c9666fa98ccfc541985e35751364d40
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/Flat 1.unity
+    guid: eac6c0318f74e3d42b05ab7b741d6633
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/Flat 3.unity
+    guid: fd5f1af370daa294ca2fd1b8fa20c4c5
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/Flat Ground 2.unity
+    guid: 86297c4f43e09a249a334ba36ba197d0
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/Flat Ground.unity
+    guid: be2d74e18222e2b44aad1ca2a8af6688
+  - enabled: 0
+    path: Assets/Scenes/_Playable Maps/Testing/Flat.unity
+    guid: 743ef5776aeedc840892e22ff7fcc897
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/FlatConverter.unity
+    guid: 0b4d5dfabdccd8d44a15c0d9cdd2f887
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/Z 5.unity
+    guid: 07c75e32b070b3a4db7aaf926f399408
   - enabled: 1
     path: Assets/Scenes/VictoryMap.unity
     guid: c6f88a4fbefe2f84294a71ba5213eba4
-  - enabled: 0
-    path: Assets/Scenes/_Playable Maps/TestMap KH.unity
-    guid: 23389f1492c1b4840a86b6c26f10cdbd
-  - enabled: 0
-    path: Assets/Scenes/GameTestingScene/LimbTesting.unity
-    guid: e5ef2e34cba6dd443bd2ed42dec3b50e
-  - enabled: 1
-    path: Assets/Scenes/_Playable Maps/_PrototypeRoom.unity
-    guid: 88ea66465a6023645ad87a72316a77ef
   m_configObjects: {}

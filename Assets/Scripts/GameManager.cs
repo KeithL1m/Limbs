@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Manager
 {
@@ -9,6 +10,7 @@ public class GameManager : Manager
     private ConfigurationManager _configManager = null;
     private MapManager _mapManager = null;
     private PlayerManager _playerManager = null;
+    private ObjectPoolManager _objManager;
 
     public List<GameObject> spawnPoints = new List<GameObject>();
 
@@ -26,6 +28,7 @@ public class GameManager : Manager
     public bool VictoryScreen { get; private set; } = false;
     public bool EarlyEnd { get; set; } = false;
 
+    [SerializeField] private EmptyDestructibleObject _empyObj;
 
     private void Awake()
     {
@@ -38,10 +41,15 @@ public class GameManager : Manager
         _configManager = ServiceLocator.Get<ConfigurationManager>();
         _mapManager = ServiceLocator.Get<MapManager>();
         _playerManager = ServiceLocator.Get<PlayerManager>();
+        _objManager = ServiceLocator.Get<ObjectPoolManager>();
     }
 
     public void SetUp(UIManager uiManager, PauseManager pauseManager)
     {
+        GameObject go = Instantiate(_empyObj.gameObject);
+        go.name = "DESTROY";
+        ServiceLocator.Register<EmptyDestructibleObject>(go.GetComponent<EmptyDestructibleObject>());
+
         _pauseManager = pauseManager;
         _uiManager = uiManager;
         _mapManager.fade = _uiManager.GetFade();
@@ -72,12 +80,17 @@ public class GameManager : Manager
         _uiManager.UpdateLeaderBoard();
 
         ClearLimbs();
+        EarlyEnd = false;
         startScreen = false;
         _mapManager.ChangeScene();
     }
 
     override public void OnStart()
     {
+        GameObject go = Instantiate(_empyObj.gameObject);
+        go.name = "DESTROY";
+        ServiceLocator.Register<EmptyDestructibleObject>(go.GetComponent<EmptyDestructibleObject>());
+
         if (!startScreen)
         {
             _pauseManager.SetCamera(Camera.main);
@@ -148,8 +161,6 @@ public class GameManager : Manager
             ServiceLocator.Get<CameraManager>().Unregister();
         }
         _mapManager.ChangeScene();
-        ServiceLocator.Get<LimbManager>().ClearList();
-        ResetRound();
     }
 
     public void VictoryScreenSelect(GameObject button)
@@ -162,7 +173,7 @@ public class GameManager : Manager
         _players[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         _players[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         _players[playerNum].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
-        _players[playerNum].GetComponent<PlayerHealth>()._isDead = false;
+        _players[playerNum].GetComponent<PlayerHealth>().isDead = false;
         _players[playerNum].transform.position = spawnPoints[playerNum].transform.position;
     }
 
@@ -178,7 +189,7 @@ public class GameManager : Manager
     {
         for (int i = 0; i < _playerCount; i++)
         {
-            _players[i]._groundCheck.localPosition = new Vector3(0, -0.715f, 0);
+            _players[i].GroundCheckTransform.localPosition = new Vector3(0, -0.715f, 0);
         }
     }
 
@@ -191,15 +202,20 @@ public class GameManager : Manager
 
     public void ResetRound()
     {
+        ServiceLocator.Get<LimbManager>().ClearList();
         ClearLimbs();
         ResetGroundCheck();
         _uiManager.UpdateLeaderBoard();
         _uiManager.UpdatePlayerWins();
         isGameOver = false;
+        _objManager.DeactivateObjects();
+        ServiceLocator.Unregister<EmptyDestructibleObject>();
     }
 
     public void EndGame()
     {
+        _deadPlayers = 0;
+        spawnPoints.Clear();
         VictoryScreen = false;
         startScreen = true;
         for (int i = 0; i < _playerCount; i++)
@@ -207,6 +223,8 @@ public class GameManager : Manager
             Destroy(_playerConfigs[i].Input.gameObject);
             Destroy(_players[i].gameObject);
         }
+
+        ServiceLocator.Unregister<EmptyDestructibleObject>();
 
         _playerConfigs.Clear();
         _players.Clear();
@@ -220,6 +238,10 @@ public class GameManager : Manager
         _playerCount = 0;
 
         spawnPoints.Clear();
+
+        ServiceLocator.Get<LimbManager>().ClearList();
+
+        SceneManager.LoadScene(1);
     }
 
     public int GetPlayerCount()

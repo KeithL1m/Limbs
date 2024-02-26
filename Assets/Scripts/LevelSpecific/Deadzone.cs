@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using UnityEngine;
 
 public class Deadzone : MonoBehaviour
@@ -16,6 +12,11 @@ public class Deadzone : MonoBehaviour
 
         if(collide.gameObject.tag == "Props")
         {
+            Destroy(collide.gameObject);
+        }
+        else if (collide.gameObject.tag == "Limb")
+        {
+            ServiceLocator.Get<LimbManager>().RemoveLimb(collide.GetComponent<Limb>());
             Destroy(collide.gameObject);
         }
     }

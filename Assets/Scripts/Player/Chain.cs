@@ -9,17 +9,26 @@ public class Chain : MonoBehaviour
     [SerializeField]
     private Transform linePosition;
 
+    void Start()
+    {
+        // Get the material of the Line Renderer
+        Material material = line.material;
+
+        // Set the render queue to a high value to render the Line Renderer in front
+        material.renderQueue = 5000;
+    }
+
     private void Update()
     {
         if (line.enabled == true)
-            line.SetPosition(0, new Vector3(linePosition.position.x, linePosition.position.y, -10));
+            line.SetPosition(0, new Vector3(linePosition.position.x, linePosition.position.y, -9));
     }
 
     public void EnableChain(Transform deathLocation)
     {
         spring.connectedAnchor = deathLocation.position;
         line.enabled = true;
-        line.SetPosition(1, new Vector3(deathLocation.position.x, deathLocation.position.y, -10));
+        line.SetPosition(1, new Vector3(deathLocation.position.x, deathLocation.position.y, -9));
         spring.enabled = true;
     }
     
