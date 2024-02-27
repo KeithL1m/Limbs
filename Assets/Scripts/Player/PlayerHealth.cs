@@ -73,6 +73,13 @@ public class PlayerHealth : MonoBehaviour
         {
             transform.position = deathPositions[1].transform.position;
             chain.EnableChain(deathPositions[1].transform);
+            deathPositions[1].Occupied = true;
+        }
+        else if (deathPositions[1].Occupied)
+        {
+            transform.position = deathPositions[2].transform.position;
+            chain.EnableChain(deathPositions[2].transform);
+            deathPositions[2].Occupied = true;
         }
         else
         {
