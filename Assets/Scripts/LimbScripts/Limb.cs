@@ -220,6 +220,7 @@ public class Limb : MonoBehaviour
         {
             collision.gameObject.GetComponent<LimbInstantiateWall>().Damage();
             ReturnLimb();
+            return;
         }
         else if (collision.gameObject.CompareTag("Limb"))
         {
