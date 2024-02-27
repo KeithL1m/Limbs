@@ -8,17 +8,22 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField]
     public float _maxHealth;
+    public float _health;
     [SerializeField]
     private Chain chain;
     private DeathPosition[] deathPositions;
 
-    public float _health;
     public bool isDead = false;
     private bool _initialized = false;
 
     [SerializeField]
     private Slider healthSlider;
+    private HealthBar _healthBar;
+
     [SerializeField] private DamageParticles damageParticles;
+
+    [SerializeField] private Material _grayMaterial;
+    [SerializeField] private Material _standardMaterial;
 
 
     private void Awake()
@@ -56,6 +61,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void KillPlayer()
     {
+        _healthBar.SetMaterial(_grayMaterial);
+
         if (_health > 0)
         {
             _health = 0;
@@ -86,6 +93,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void ResetHealth()
     {
+        _healthBar.SetMaterial(_standardMaterial);
+
         _health = _maxHealth;
 
         // Update the health slider value when resetting health
@@ -107,5 +116,10 @@ public class PlayerHealth : MonoBehaviour
     public void SetHealthSlider(Slider slider)
     {
         healthSlider = slider;
+    }
+
+    public void SetHealthBar(HealthBar healthbar)
+    {
+        _healthBar = healthbar;
     }
 }
