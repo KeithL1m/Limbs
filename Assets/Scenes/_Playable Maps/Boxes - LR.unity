@@ -12840,13 +12840,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathLocations
       objectReference: {fileID: 0}
+    - target: {fileID: 2645848161239143669, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 2645848161239143669, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.37
+      objectReference: {fileID: 0}
     - target: {fileID: 4799732122992004047, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.8
+      value: -33.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799732122992004047, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.53
       objectReference: {fileID: 0}
     - target: {fileID: 4799732124840465401, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.8
+      value: 32.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799732124840465401, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.05
       objectReference: {fileID: 0}
     - target: {fileID: 9088968178397644748, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
       propertyPath: m_RootOrder

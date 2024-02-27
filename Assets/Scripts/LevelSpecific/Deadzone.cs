@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class Deadzone : MonoBehaviour
 {
+    private Vector3 respawnLocation;
+    private GameObject player;
+
     private void OnTriggerEnter2D(Collider2D collide)
     {
         if (collide.CompareTag(("Player")))
         {
-            collide.GetComponent<PlayerHealth>().KillPlayer();
+            collide.GetComponent<PlayerHealth>().AddDamage(25f);
+            respawnLocation = collide.GetComponent<PlayerHealth>().deathPositions[Random.Range(0, 2)].transform.position;
+            player = collide.GetComponent<Player>().gameObject;
+
+            player.transform.position = respawnLocation;
         }
 
 
