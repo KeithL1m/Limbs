@@ -103,7 +103,7 @@ public class GameManager : Manager
 
         for (int i = 0; i < _playerCount; i++)
         {
-            Debug.Log("player is being spawned");
+            Debug.Log($"<color=lime>Player {i} is being spawned</color>");
             _players[i].GetComponent<PlayerHealth>().ResetHealth();
             SpawnPlayer(i);
         }

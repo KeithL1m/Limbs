@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class PlayerLimbs : MonoBehaviour
 {
@@ -30,6 +31,11 @@ public class PlayerLimbs : MonoBehaviour
     [SerializeField] private CapsuleCollider2D _collider;
     [SerializeField] private Material _overlayMaterial;
     [SerializeField] private Material _standardMaterial;
+
+    //for melee
+    [SerializeField] private Animator _animator;
+    [SerializeField] private Transform _attackPoint;
+    [SerializeField] private float _attackRange = 0.5f;
 
     public Vector2 _originalSize;
     public Vector2 _originalOffset;
@@ -215,6 +221,7 @@ public class PlayerLimbs : MonoBehaviour
         return true;
     }
 
+    //throw limb
     public virtual void ThrowLimb(int direction)
     {
         _limbs[(int)_selectedLimb].ThrowLimb(direction);
@@ -266,6 +273,7 @@ public class PlayerLimbs : MonoBehaviour
         _selectedLimb = SelectedLimb.LeftLeg;
     }
 
+    //switch limb
     public void SwitchLimb(float direction)
     {
         int step = (direction > 0.5f) ? 1 : -1;
@@ -301,9 +309,40 @@ public class PlayerLimbs : MonoBehaviour
                 _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
                 _selectedLimb = (SelectedLimb)place;
                 _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
-                return;
+                return;     
             }
         }
+    }
+
+    //melee
+    public void Melee(float direction, int attackerId)
+    {
+
+        //_animator.SetTrigger("Melee");
+
+        Collider2D[] damageRange = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange);
+
+        foreach (Collider2D enemy in damageRange)
+        {
+            if (enemy.CompareTag("Player"))
+            {
+                var otherPlayer = enemy.GetComponent<Player>();
+                if(otherPlayer.Id == attackerId)
+                {
+                    // dont hit yourself
+                    continue;
+                }
+                enemy.GetComponent<PlayerHealth>().AddDamage(5);
+                Debug.Log("You hit" + enemy.name);
+            }
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (_attackPoint == null)
+            return;
+        Gizmos.DrawWireSphere(_attackPoint.position, _attackRange);
     }
 
     public Vector3 GetSize()

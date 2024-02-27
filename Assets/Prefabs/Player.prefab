@@ -119,6 +119,37 @@ Transform:
   m_Father: {fileID: 2291660188333775250}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3315740049192949984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 150890157931490888}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &150890157931490888
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3315740049192949984}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.56, y: 0.38, z: -0.6805403}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5440911822492980829}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3639515775810322964
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,7 +268,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3732604927039312203}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.03, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -247,6 +278,7 @@ Transform:
   - {fileID: 8385072270942222214}
   - {fileID: 5336426743714775589}
   - {fileID: 2449571199622882758}
+  - {fileID: 150890157931490888}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -397,7 +429,7 @@ MonoBehaviour:
   _maxHealth: 100
   chain: {fileID: 6432030308765007816}
   _health: 0
-  _isDead: 0
+  isDead: 0
   healthSlider: {fileID: 0}
   damageParticles: {fileID: 7195277598144823241}
 --- !u!114 &6432030308765007816
@@ -439,6 +471,9 @@ MonoBehaviour:
   _collider: {fileID: 5770366546305474077}
   _overlayMaterial: {fileID: 2100000, guid: e1272f360cc7bed43bd495b8ed9cf1ba, type: 2}
   _standardMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  _animator: {fileID: 0}
+  _attackPoint: {fileID: 150890157931490888}
+  _attackRange: 1.05
   _originalSize: {x: 0, y: 0}
   _originalOffset: {x: 0, y: 0}
 --- !u!114 &653569731864945295

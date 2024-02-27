@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
@@ -47,6 +48,8 @@ public class Player : MonoBehaviour
     private bool _canFly = false;
     public bool CanFly { get { return _canFly; } }
 
+    public int Id { get => _id; }
+    private int _id;
 
     private void Awake()
     {
@@ -55,12 +58,20 @@ public class Player : MonoBehaviour
         _playerJump = GetComponent<PlayerJump>();
         _playerLimbs = GetComponent<PlayerLimbs>();
         _inputHandler = GetComponent<PlayerInputHandler>();
+
+        _inputHandler.MeleeAttack += OnMeleeAttack;
+    }
+
+    private void OnMeleeAttack(float direction)
+    {
+        _playerLimbs.Melee(direction, _id);
     }
 
     public void Initialize(PlayerConfiguration pc)
     {
+        Debug.Log($"<color=yellow>Initializing Player {pc.PlayerIndex}<color>");
         _config = pc;
-
+        _id = pc.PlayerIndex;
         _inputHandler.InitializePlayer(_config);
         _playerLimbs.Initialize();
 
@@ -124,7 +135,10 @@ public class Player : MonoBehaviour
         }
 
         //limb melee
-
+        //if(_inputHandler.Melee > 0.5f)
+        //{
+        //    _playerLimbs.Melee(direction);
+        //}
 
         /*horizontal movement*/
 
