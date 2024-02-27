@@ -122,7 +122,8 @@ public class Player : MonoBehaviour
         {
             _canThrow = true;
         }
-        //limb attack?
+
+        //limb melee
 
 
         /*horizontal movement*/

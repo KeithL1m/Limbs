@@ -12,4 +12,6 @@ public class MouseAim : MonoBehaviour
     {
         _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
+
+
 }
