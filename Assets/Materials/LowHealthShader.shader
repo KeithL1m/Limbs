@@ -6,8 +6,10 @@ Shader "Custom/LowHealthShader"
 	{
 		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
 		_Color ("Tint", Color) = (1,1,1,1)
-		_FlashColor ("Flash Color", Color) = (1,1,1,1)
+		_FlashColor ("Flash Color", Color) = (1,0,0,1) //red flash
 		_FlashAmount ("Flash Amount",Range(0.0,1.0)) = 0.0
+		_FlashDuration ("Flash Duration",Range(0.1,10.0)) = 0.5
+		_FlashCap("Flash Cap",Range(0.0,1.0)) = 0.0
 		[MaterialToggle] PixelSnap ("Pixel snap", Float) = 0
 	}
 
@@ -53,6 +55,8 @@ Shader "Custom/LowHealthShader"
 			fixed4 _Color;
 			fixed4 _FlashColor;
 			float _FlashAmount;
+			float _FlashDuration;
+			float _FlashCap;
 
 			v2f vert(appdata_t IN)
 			{
@@ -72,13 +76,11 @@ Shader "Custom/LowHealthShader"
 			fixed4 frag(v2f IN) : COLOR
 			{
 				float time = _Time[1];
-				//define the wait time for next flash
-				//define the time for the actual flash
-				//if the wait time is 0 or less set flash amount to desired flash
-				//make the amount go down to zero in the time it takes to complete flash
 
+				_FlashAmount = _FlashCap * 0.5 * (1.0 + sin(time * (2 * 3.14159265359 / _FlashDuration)));
+				
 				fixed4 c = tex2D(_MainTex, IN.texcoord) * IN.color;
-				c.rgb = lerp(c.rgb,_FlashColor.rgb,_FlashAmount);
+				c.rgb = lerp(c.rgb, _FlashColor.rgb, _FlashAmount);
 				c.rgb *= c.a;
 			
 				return c;
