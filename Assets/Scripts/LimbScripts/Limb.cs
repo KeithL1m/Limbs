@@ -166,7 +166,6 @@ public class Limb : MonoBehaviour
     {
         FlipY(1);
         FlipX(1);
-        PickUpExtra(_attachedPlayer);
         Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
         State = LimbState.PickUp;
         _attachedPlayer = null;
@@ -301,6 +300,7 @@ public class Limb : MonoBehaviour
             {
                 LimbRB.SetRotation(0);
             }
+            PickUpExtra(_attachedPlayer);
         }
     }
 
