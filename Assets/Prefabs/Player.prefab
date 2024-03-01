@@ -359,6 +359,7 @@ MonoBehaviour:
   _rb: {fileID: 8385072269478469067}
   _aimTransform: {fileID: 6675063187238703603}
   GroundCheckTransform: {fileID: 8385072270942222214}
+  attackPointTransform: {fileID: 150890157931490888}
   _groundCheck: {fileID: 8385072270942222215}
   _impactParticles: {fileID: 6834524132188660062}
   direction: 0

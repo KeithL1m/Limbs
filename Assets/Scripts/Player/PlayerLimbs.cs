@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using static UnityEditor.Progress;
 
@@ -317,7 +318,7 @@ public class PlayerLimbs : MonoBehaviour
     //melee
     public void Melee(float direction, int attackerId)
     {
-
+        float _knockbackForce = 150;
         //_animator.SetTrigger("Melee");
 
         Collider2D[] damageRange = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange);
@@ -333,6 +334,12 @@ public class PlayerLimbs : MonoBehaviour
                     continue;
                 }
                 enemy.GetComponent<PlayerHealth>().AddDamage(5);
+                // knockback
+                Vector2 distanceVector = enemy.transform.position - transform.position;
+
+                Rigidbody2D knockback = enemy.GetComponent<Rigidbody2D>();
+                knockback.AddForce(distanceVector * _knockbackForce);
+
                 Debug.Log("You hit" + enemy.name);
             }
         }

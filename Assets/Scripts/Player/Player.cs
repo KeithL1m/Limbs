@@ -29,9 +29,11 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteRenderer _playerBody;
     [SerializeField] private SpriteRenderer _playerNum;
 
+    
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _aimTransform;
     [SerializeField] public Transform GroundCheckTransform;
+    [SerializeField] private Transform attackPointTransform;
     [SerializeField] private GroundCheck _groundCheck;
     [SerializeField] private ParticleSystem _impactParticles;
 
@@ -62,8 +64,17 @@ public class Player : MonoBehaviour
         _inputHandler.MeleeAttack += OnMeleeAttack;
     }
 
+    // melee attack
     private void OnMeleeAttack(float direction)
     {
+        if(!_playerMovement.facingRight)
+        {
+            
+        }
+        else
+        {
+            attackPointTransform.transform.position = new Vector3(0.56f, 0.38f, -0.6805403f);
+        }
         _playerLimbs.Melee(direction, _id);
     }
 
@@ -133,12 +144,6 @@ public class Player : MonoBehaviour
         {
             _canThrow = true;
         }
-
-        //limb melee
-        //if(_inputHandler.Melee > 0.5f)
-        //{
-        //    _playerLimbs.Melee(direction);
-        //}
 
         /*horizontal movement*/
 
