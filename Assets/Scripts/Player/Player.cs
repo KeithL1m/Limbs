@@ -67,14 +67,16 @@ public class Player : MonoBehaviour
     // melee attack
     private void OnMeleeAttack(float direction)
     {
-        if(!_playerMovement.facingRight)
-        {
-            
-        }
-        else
-        {
-            attackPointTransform.transform.position = new Vector3(0.56f, 0.38f, -0.6805403f);
-        }
+        // Rotating the melee attack point
+
+        //if(!_playerMovement.facingRight)
+        //{
+        //    attackPointTransform.transform.position = new Vector3(-0.56f, 0.38f, -0.6805403f);
+        //}
+        //else
+        //{
+        //    attackPointTransform.transform.position = new Vector3(0.56f, 0.38f, -0.6805403f);
+        //}
         _playerLimbs.Melee(direction, _id);
     }
 

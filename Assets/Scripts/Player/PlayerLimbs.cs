@@ -318,7 +318,7 @@ public class PlayerLimbs : MonoBehaviour
     //melee
     public void Melee(float direction, int attackerId)
     {
-        float _knockbackForce = 150;
+        float _knockbackForce = 500;
         //_animator.SetTrigger("Melee");
 
         Collider2D[] damageRange = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange);
@@ -333,7 +333,7 @@ public class PlayerLimbs : MonoBehaviour
                     // dont hit yourself
                     continue;
                 }
-                enemy.GetComponent<PlayerHealth>().AddDamage(5);
+                enemy.GetComponent<PlayerHealth>().AddDamage(2);
                 // knockback
                 Vector2 distanceVector = enemy.transform.position - transform.position;
 
