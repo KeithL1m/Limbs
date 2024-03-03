@@ -24,6 +24,7 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField] private Material _grayMaterial;
     [SerializeField] private Material _standardMaterial;
+    [SerializeField] private Material _lowHealthMaterial;
 
 
     private void Awake()
@@ -109,6 +110,11 @@ public class PlayerHealth : MonoBehaviour
         {
             // Assuming your health value ranges from 0 to _maxHealth
             healthSlider.value = _health / _maxHealth;
+        }
+
+        if (_health <= _maxHealth / 5)
+        {
+            _healthBar.SetMaterial(_lowHealthMaterial);
         }
     }
 
