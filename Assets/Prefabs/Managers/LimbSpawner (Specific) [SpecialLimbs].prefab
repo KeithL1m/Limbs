@@ -179,6 +179,8 @@ MonoBehaviour:
   - {fileID: 6727379245335464739, guid: c90382689d59db74eae2eb00c7d75ddf, type: 3}
   - {fileID: 5001288000470333368, guid: cd3edb648726be54c95099b7a36f839f, type: 3}
   - {fileID: 479936713415687806, guid: 146350379aa1dee4cac50dbf67d651cb, type: 3}
+  - {fileID: 768787119808473117, guid: f3ef69faad6d9db48b52053057d030e3, type: 3}
+  - {fileID: 8577597915325098454, guid: b86c3619877ef6942bd2676957334f35, type: 3}
   _limbLimit: 12
   _startLimbCount: 0
   _minSpawnTimer: 7
