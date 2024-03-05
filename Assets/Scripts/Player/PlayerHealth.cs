@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
     public float _health;
     [SerializeField]
     private Chain chain;
-    private DeathPosition[] deathPositions;
+    public DeathPosition[] deathPositions;
 
     public bool isDead = false;
     private bool _initialized = false;
@@ -70,18 +70,19 @@ public class PlayerHealth : MonoBehaviour
             _health = 0;
             UpdateHealthSlider();
         }
-        deathPositions = FindObjectsOfType<DeathPosition>();
-        if (deathPositions is null)
-        {
-            Debug.LogError("there are no DeathPositions in the Scene");
-            return;
-        }
 
         isDead = true;
         if (deathPositions[0].Occupied)
         {
             transform.position = deathPositions[1].transform.position;
             chain.EnableChain(deathPositions[1].transform);
+            deathPositions[1].Occupied = true;
+        }
+        else if (deathPositions[1].Occupied)
+        {
+            transform.position = deathPositions[2].transform.position;
+            chain.EnableChain(deathPositions[2].transform);
+            deathPositions[2].Occupied = true;
         }
         else
         {
@@ -95,6 +96,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void ResetHealth()
     {
+        deathPositions = FindObjectsOfType<DeathPosition>();
         _healthBar.SetMaterial(_standardMaterial);
 
         _health = _maxHealth;

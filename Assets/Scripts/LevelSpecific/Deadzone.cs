@@ -12,7 +12,11 @@ public class Deadzone : MonoBehaviour
             player = collide.GetComponent<Player>().gameObject;
             collide.GetComponent<PlayerHealth>().AddDamage(25f);
 
-            respawnLocation = collide.GetComponent<PlayerHealth>().deathPositions[Random.Range(0, 2)].transform.position;
+            var playerHealth = collide.GetComponent<PlayerHealth>();
+            int randIndex = Random.Range(0, 2);
+            Debug.Log($"Random Index: {randIndex}");
+            var deathPos = playerHealth.deathPositions[randIndex];
+            respawnLocation = deathPos.transform.position; 
             player.transform.position = respawnLocation;
         }
 
