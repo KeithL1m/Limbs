@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3727681729323054423}
   - component: {fileID: 3727681729323054421}
   - component: {fileID: 1054611623991474245}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Meatball
   m_TagString: Props
   m_Icon: {fileID: 0}
