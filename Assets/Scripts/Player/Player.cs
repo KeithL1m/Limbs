@@ -67,17 +67,6 @@ public class Player : MonoBehaviour
     // melee attack
     private void OnMeleeAttack(float variable)
     {
-        // Rotating the melee attack point
-
-        if (direction == -1)
-        {
-            attackPointTransform.localPosition = new Vector3(-0.56f, 0.38f, -0.6805403f);
-        }
-        else if(direction == 1)
-        {
-            attackPointTransform.localPosition = new Vector3(0.56f, 0.38f, -0.6805403f);
-            //attackPointTransform.transform.position = new Vector3(0.56f, 0.38f, -0.6805403f);
-        }
         _playerLimbs.Melee(_id);
     }
 
@@ -161,6 +150,16 @@ public class Player : MonoBehaviour
         if (_inputHandler.ThrowLimb == 0.0f)
         {
             _playerLimbs._canThrow = true;
+        }
+
+        //update melee point
+        if (direction == 1)
+        {
+            attackPointTransform.localPosition = new Vector3(0.56f, 0.38f, -0.6805403f);
+        }
+        else if (direction == -1)
+        {
+            attackPointTransform.localPosition = new Vector3(-0.56f, 0.38f, -0.6805403f);
         }
 
         //updating arrow
