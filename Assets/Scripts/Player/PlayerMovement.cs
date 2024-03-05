@@ -42,11 +42,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(PlayerLimbs.LimbState state)
     {
-        //if (GetComponent<PlayerHealth>().IsDead())
-        //{
-        //    _walkDustEmission.rateOverTime = 0;
-        //    return;
-        //}
+        if (GetComponent<PlayerHealth>().IsDead())
+        {
+            _walkDustEmission.rateOverTime = 0;
+            return;
+        }
         float moveSpeed = 0f;
         if (_inputHandler.Movement <= -_startMovePoint)
         {

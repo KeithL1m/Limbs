@@ -52,8 +52,8 @@ public class PlayerJump : MonoBehaviour
 
     public void Jump()
     {
-        //if (GetComponent<PlayerHealth>().IsDead())
-        //    return;
+        if (GetComponent<PlayerHealth>().IsDead())
+            return;
         NormalJump();
     }
 
