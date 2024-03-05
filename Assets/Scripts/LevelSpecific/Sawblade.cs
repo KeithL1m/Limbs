@@ -24,8 +24,6 @@ public class Sawblade : MonoBehaviour
     [SerializeField]
     private float _sawDamage;
 
-    private PlayerHealth _playerHealth;
-
     void Start()
     {
         
