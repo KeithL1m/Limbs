@@ -64,10 +64,10 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FlashAmount: 0.288
-    - _FlashCap: 0.467
+    - _FlashAmount: 0
+    - _FlashCap: 0.527
     - _FlashDelay: 3.3
-    - _FlashDuration: 0.95
+    - _FlashDuration: 0.67
     - _FlashSpeed: 0.5
     - _GlossMapScale: 1
     - _Glossiness: 0.5

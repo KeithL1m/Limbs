@@ -2238,10 +2238,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
+  m_BlockingObjects: 1
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147483647
 --- !u!114 &8567420190504578820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4864,9 +4864,10 @@ GameObject:
   - component: {fileID: 8567420189660224392}
   - component: {fileID: 8567420189660224393}
   - component: {fileID: 3062613588626194895}
-  m_Layer: 5
+  - component: {fileID: 3498996876882743112}
+  m_Layer: 6
   m_Name: HealthbarP1
-  m_TagString: Untagged
+  m_TagString: HealthBar1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4879,7 +4880,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8567420189660224395}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4947,6 +4948,32 @@ MonoBehaviour:
   _portrait: {fileID: 8567420190224428232}
   _healthBar: {fileID: 8567420189660224393}
   _healthFill: {fileID: 8567420190427027001}
+--- !u!61 &3498996876882743112
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567420189660224395}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -7.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 262.7, y: 182.12}
+  m_EdgeRadius: 0
 --- !u!1 &8567420189683973778
 GameObject:
   m_ObjectHideFlags: 0
@@ -5611,9 +5638,10 @@ GameObject:
   - component: {fileID: 8567420189922274514}
   - component: {fileID: 8567420189922274515}
   - component: {fileID: 3527961264820096792}
-  m_Layer: 5
+  - component: {fileID: 4476954835949399445}
+  m_Layer: 6
   m_Name: HealthbarP2
-  m_TagString: Untagged
+  m_TagString: HealthBar2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5626,7 +5654,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8567420189922274525}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5694,6 +5722,32 @@ MonoBehaviour:
   _portrait: {fileID: 8567420189603362292}
   _healthBar: {fileID: 8567420189922274515}
   _healthFill: {fileID: 8567420189529570016}
+--- !u!61 &4476954835949399445
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567420189922274525}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -7.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 262.7, y: 182.12}
+  m_EdgeRadius: 0
 --- !u!1 &8567420189962322312
 GameObject:
   m_ObjectHideFlags: 0
@@ -6447,6 +6501,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8567420190117144511}
+  - component: {fileID: 8101750490038323775}
   m_Layer: 5
   m_Name: MainHUD
   m_TagString: Untagged
@@ -6479,6 +6534,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -1820, y: -980}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8101750490038323775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567420190117144504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e350d8bbc69ce5479084a86a4d80d6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _alphaEdit: 0.5
+  _lastHealthBars: []
+  _currentHealthBars: []
+  _raycaster: {fileID: 8567420190504578875}
+  _eventSystem: {fileID: 8567420190715858752}
 --- !u!1 &8567420190181280892
 GameObject:
   m_ObjectHideFlags: 0
@@ -7805,9 +7877,10 @@ GameObject:
   - component: {fileID: 8567420190535492541}
   - component: {fileID: 8567420190535492542}
   - component: {fileID: 3449173020043278947}
-  m_Layer: 5
+  - component: {fileID: 6308072566164567397}
+  m_Layer: 6
   m_Name: HealthbarP3
-  m_TagString: Untagged
+  m_TagString: HealthBar3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7820,7 +7893,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8567420190535492536}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7888,6 +7961,32 @@ MonoBehaviour:
   _portrait: {fileID: 8567420189627058680}
   _healthBar: {fileID: 8567420190535492542}
   _healthFill: {fileID: 8567420190385928751}
+--- !u!61 &6308072566164567397
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567420190535492536}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -7.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 262.7, y: 182.12}
+  m_EdgeRadius: 0
 --- !u!1 &8567420190565183503
 GameObject:
   m_ObjectHideFlags: 0
@@ -8034,9 +8133,10 @@ GameObject:
   - component: {fileID: 8567420190619642561}
   - component: {fileID: 8567420190619642562}
   - component: {fileID: 6961328757565511636}
-  m_Layer: 5
+  - component: {fileID: 9187429361280521139}
+  m_Layer: 6
   m_Name: HealthbarP4
-  m_TagString: Untagged
+  m_TagString: HealthBar4
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8049,7 +8149,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8567420190619642572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8117,6 +8217,32 @@ MonoBehaviour:
   _portrait: {fileID: 8567420189366391314}
   _healthBar: {fileID: 8567420190619642562}
   _healthFill: {fileID: 8567420188985623775}
+--- !u!61 &9187429361280521139
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567420190619642572}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -7.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 262.7, y: 182.12}
+  m_EdgeRadius: 0
 --- !u!1 &8567420190715858753
 GameObject:
   m_ObjectHideFlags: 0
