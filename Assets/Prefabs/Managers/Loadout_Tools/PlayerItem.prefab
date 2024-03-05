@@ -994,7 +994,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f54c010bc3a3375499257ac512646938, type: 3}
   - {fileID: 21300000, guid: 8840b101dcecae14e8bb291f71974ccb, type: 3}
   - {fileID: 21300000, guid: 61783b8c0302890409115faa83ea2d33, type: 3}
-  - {fileID: 21300000, guid: f3e41e3f55bd61844b85664831112ae3, type: 3}
+  - {fileID: 21300000, guid: d62ab7d14fbaecb45a41fd112173dbc8, type: 3}
   _playerBody:
   - {fileID: 21300000, guid: 50d37e28a9f833442b092f8fd5021b5e, type: 3}
   - {fileID: 21300000, guid: ec6d5e3f3ec56f14496665d17c18ce38, type: 3}
@@ -1029,6 +1029,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9d4e254fc77405e47ad22f27f890c251, type: 3}
   - {fileID: 21300000, guid: 843c3b1287a58d94f8e80d0146a692ab, type: 3}
   - {fileID: 21300000, guid: f040ef3d363710641b33b86b8c794fed, type: 3}
+  - {fileID: 21300000, guid: c57fd2e880821ca4b845e62b862441d5, type: 3}
   _currentHead: {fileID: 2123343082796553539}
   _currentBody: {fileID: 2123343082812550231}
   _readyButton: {fileID: 1234717102975129290}
