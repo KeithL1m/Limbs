@@ -24,11 +24,6 @@ public class Sawblade : MonoBehaviour
 
     private PlayerHealth _playerHealth;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         if (_isMoving == true)
@@ -55,6 +50,7 @@ public class Sawblade : MonoBehaviour
         }
     }
 
+    // If we want to do moving saw
     void MovingSaw()
     {
         if (transform.position.x >= pos1.position.x)
