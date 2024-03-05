@@ -362,6 +362,7 @@ MonoBehaviour:
   attackPointTransform: {fileID: 150890157931490888}
   _groundCheck: {fileID: 8385072270942222215}
   _impactParticles: {fileID: 6834524132188660062}
+  _animator: {fileID: 573278624842582731}
   direction: 0
 --- !u!114 &8385072269478469062
 MonoBehaviour:
@@ -472,7 +473,7 @@ MonoBehaviour:
   _collider: {fileID: 5770366546305474077}
   _overlayMaterial: {fileID: 2100000, guid: e1272f360cc7bed43bd495b8ed9cf1ba, type: 2}
   _standardMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  _animator: {fileID: 0}
+  _animator: {fileID: 573278624842582731}
   _attackPoint: {fileID: 150890157931490888}
   _attackRange: 1.05
   _originalSize: {x: 0, y: 0}
@@ -783,6 +784,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7356548969640628248}
   - component: {fileID: 5973055329055816078}
+  - component: {fileID: 573278624842582731}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -857,6 +859,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &573278624842582731
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6626109593687853981}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 41bf895067bf1db42b7de5d0e1a85824, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8002863111376348889
 GameObject:
   m_ObjectHideFlags: 0

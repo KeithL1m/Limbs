@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
@@ -7,6 +8,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerLimbs))]
 public class Player : MonoBehaviour
 {
+    private const string HeadButtAnimName = "HeadButt";
+
     private GameManager _gameManager;
     public enum MovementState
     {
@@ -37,6 +40,9 @@ public class Player : MonoBehaviour
     [SerializeField] private GroundCheck _groundCheck;
     [SerializeField] private ParticleSystem _impactParticles;
 
+    //for melee
+    [SerializeField] private Animator _animator;
+
     //facing left = -1, right = 1
     public int direction;
     private bool _initialized = false;
@@ -64,10 +70,37 @@ public class Player : MonoBehaviour
         _inputHandler.MeleeAttack += OnMeleeAttack;
     }
 
+    private IEnumerator MeleeDelay(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        Debug.Log("Melee Damage Applied");
+        _playerLimbs.Melee(_id);
+    }
+
     // melee attack
     private void OnMeleeAttack(float variable)
     {
-        _playerLimbs.Melee(_id);
+        Debug.Log("Melee Anim Triggered");
+        _animator.SetTrigger(HeadButtAnimName);
+
+        float animLength = GetAnimLength(HeadButtAnimName) * 0.5f;
+        StartCoroutine(MeleeDelay(animLength));
+    }
+
+    private float GetAnimLength(string animName)
+    {
+        // Getting the animation length HASH CODE
+
+        foreach(var anim in _animator.runtimeAnimatorController.animationClips)
+        {
+            if (string.CompareOrdinal(anim.name, animName) == 0)
+            {
+                return anim.length;
+            }
+        }
+
+        Debug.LogError($"Animatin Clip Not Found: {animName}");
+        return 0f;
     }
 
     public void Initialize(PlayerConfiguration pc)
