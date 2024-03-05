@@ -316,7 +316,7 @@ public class PlayerLimbs : MonoBehaviour
     }
 
     //melee
-    public void Melee(float direction, int attackerId)
+    public void Melee(int attackerId)
     {
         float _knockbackForce = 500;
         //_animator.SetTrigger("Melee");

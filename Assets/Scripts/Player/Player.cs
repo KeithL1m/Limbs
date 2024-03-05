@@ -65,19 +65,20 @@ public class Player : MonoBehaviour
     }
 
     // melee attack
-    private void OnMeleeAttack(float direction)
+    private void OnMeleeAttack(float variable)
     {
         // Rotating the melee attack point
 
-        //if(!_playerMovement.facingRight)
-        //{
-        //    attackPointTransform.transform.position = new Vector3(-0.56f, 0.38f, -0.6805403f);
-        //}
-        //else
-        //{
-        //    attackPointTransform.transform.position = new Vector3(0.56f, 0.38f, -0.6805403f);
-        //}
-        _playerLimbs.Melee(direction, _id);
+        if (direction == -1)
+        {
+            attackPointTransform.localPosition = new Vector3(-0.56f, 0.38f, -0.6805403f);
+        }
+        else if(direction == 1)
+        {
+            attackPointTransform.localPosition = new Vector3(0.56f, 0.38f, -0.6805403f);
+            //attackPointTransform.transform.position = new Vector3(0.56f, 0.38f, -0.6805403f);
+        }
+        _playerLimbs.Melee(_id);
     }
 
     public void Initialize(PlayerConfiguration pc)
