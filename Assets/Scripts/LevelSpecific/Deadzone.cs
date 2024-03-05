@@ -9,10 +9,10 @@ public class Deadzone : MonoBehaviour
     {
         if (collide.CompareTag(("Player")))
         {
-            collide.GetComponent<PlayerHealth>().AddDamage(25f);
-            respawnLocation = collide.GetComponent<PlayerHealth>().deathPositions[Random.Range(0, 2)].transform.position;
             player = collide.GetComponent<Player>().gameObject;
+            collide.GetComponent<PlayerHealth>().AddDamage(25f);
 
+            respawnLocation = collide.GetComponent<PlayerHealth>().deathPositions[Random.Range(0, 2)].transform.position;
             player.transform.position = respawnLocation;
         }
 
