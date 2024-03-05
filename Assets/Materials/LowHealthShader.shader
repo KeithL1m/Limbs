@@ -7,7 +7,6 @@ Shader "Custom/LowHealthShader"
 		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
 		_Color ("Tint", Color) = (1,1,1,1)
 		_FlashColor ("Flash Color", Color) = (1,0,0,1) //red flash
-		_FlashAmount ("Flash Amount",Range(0.0,1.0)) = 0.0
 		_FlashDuration ("Flash Duration",Range(0.1,10.0)) = 0.5
 		_FlashCap("Flash Cap",Range(0.0,1.0)) = 0.0
 		[MaterialToggle] PixelSnap ("Pixel snap", Float) = 0

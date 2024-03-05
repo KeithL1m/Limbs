@@ -62,6 +62,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void KillPlayer()
     {
+        isDead = true;
         _healthBar.SetMaterial(_grayMaterial);
 
         if (_health > 0)
@@ -112,7 +113,7 @@ public class PlayerHealth : MonoBehaviour
             healthSlider.value = _health / _maxHealth;
         }
 
-        if (_health <= _maxHealth / 5)
+        if (_health <= _maxHealth / 5 && isDead == false)
         {
             _healthBar.SetMaterial(_lowHealthMaterial);
         }
