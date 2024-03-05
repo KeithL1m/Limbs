@@ -4867,7 +4867,7 @@ GameObject:
   - component: {fileID: 3498996876882743112}
   m_Layer: 6
   m_Name: HealthbarP1
-  m_TagString: HealthBar1
+  m_TagString: HealthBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4948,6 +4948,7 @@ MonoBehaviour:
   _portrait: {fileID: 8567420190224428232}
   _healthBar: {fileID: 8567420189660224393}
   _healthFill: {fileID: 8567420190427027001}
+  _tm: {fileID: 8567420189349858465}
 --- !u!61 &3498996876882743112
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5641,7 +5642,7 @@ GameObject:
   - component: {fileID: 4476954835949399445}
   m_Layer: 6
   m_Name: HealthbarP2
-  m_TagString: HealthBar2
+  m_TagString: HealthBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5722,6 +5723,7 @@ MonoBehaviour:
   _portrait: {fileID: 8567420189603362292}
   _healthBar: {fileID: 8567420189922274515}
   _healthFill: {fileID: 8567420189529570016}
+  _tm: {fileID: 8567420189229765307}
 --- !u!61 &4476954835949399445
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7880,7 +7882,7 @@ GameObject:
   - component: {fileID: 6308072566164567397}
   m_Layer: 6
   m_Name: HealthbarP3
-  m_TagString: HealthBar3
+  m_TagString: HealthBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7961,6 +7963,7 @@ MonoBehaviour:
   _portrait: {fileID: 8567420189627058680}
   _healthBar: {fileID: 8567420190535492542}
   _healthFill: {fileID: 8567420190385928751}
+  _tm: {fileID: 8567420189780146470}
 --- !u!61 &6308072566164567397
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8136,7 +8139,7 @@ GameObject:
   - component: {fileID: 9187429361280521139}
   m_Layer: 6
   m_Name: HealthbarP4
-  m_TagString: HealthBar4
+  m_TagString: HealthBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8217,6 +8220,7 @@ MonoBehaviour:
   _portrait: {fileID: 8567420189366391314}
   _healthBar: {fileID: 8567420190619642562}
   _healthFill: {fileID: 8567420188985623775}
+  _tm: {fileID: 8567420188986532896}
 --- !u!61 &9187429361280521139
 BoxCollider2D:
   m_ObjectHideFlags: 0

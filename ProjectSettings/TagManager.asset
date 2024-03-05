@@ -17,6 +17,7 @@ TagManager:
   - HealthBar2
   - HealthBar3
   - HealthBar4
+  - HealthBar
   layers:
   - Default
   - TransparentFX

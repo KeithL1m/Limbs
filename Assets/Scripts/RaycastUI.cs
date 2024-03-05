@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class RaycastUI : MonoBehaviour
 {
-    private List<Player> _players;
+    private List<GameObject> _players;
     [SerializeField] private float _alphaEdit;
     [SerializeField] private List<HealthBar> _lastHealthBars;
     [SerializeField] private List<HealthBar> _currentHealthBars;
@@ -22,7 +22,7 @@ public class RaycastUI : MonoBehaviour
 
     private void Initialize()
     {
-        _players = ServiceLocator.Get<PlayerManager>()._playerList;
+        _players = ServiceLocator.Get<PlayerManager>().GetPlayerObjects();
     }
 
     private void Update()
@@ -30,25 +30,24 @@ public class RaycastUI : MonoBehaviour
         for (int i = 0; i < _players.Count; i++)
         {
             var position = _players[i].transform.position;
-            position = new Vector3(position.x, position.y, -10);
+            position = new Vector3(position.x, position.y - 0.8f, -10);
 
-            var eventData = new PointerEventData(_eventSystem);
-            eventData.position = position;
+            RaycastHit2D hit = Physics2D.Raycast(position, _players[i].transform.forward, 20f);
 
-            var results = new List<RaycastResult>();
-            _raycaster.Raycast(eventData, results);
-
-            if (results.Where(r => r.gameObject.layer == 6).Count() > 0)
+            if (hit.transform.tag == "HealthBar")
             {
-                _currentHealthBars.Add(results[0].gameObject.GetComponent<HealthBar>());
+                Debug.Log("Hit a health bar");
+                _currentHealthBars.Add(hit.transform.gameObject.GetComponent<HealthBar>());
             }
         }
 
         foreach(var bar in _currentHealthBars)
         {
-            if (!_lastHealthBars.Contains(bar))
+            if (!bar.Translucent)
             {
+                Debug.Log("making translucent");
                 bar.SetColorAlpha(_alphaEdit);
+                bar.Translucent = true;
             }
         }
 
@@ -56,8 +55,14 @@ public class RaycastUI : MonoBehaviour
         {
             if (!_currentHealthBars.Contains(bar))
             {
+                Debug.Log("making opaque");
                 bar.SetColorAlpha(1.0f);
+                bar.Translucent = false;
             }
         }
+
+        _lastHealthBars.Clear();
+        _lastHealthBars.AddRange(_currentHealthBars);
+        _currentHealthBars.Clear();
     }
 }
