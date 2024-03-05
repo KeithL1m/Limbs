@@ -4863,6 +4863,7 @@ GameObject:
   - component: {fileID: 8567420189660224394}
   - component: {fileID: 8567420189660224392}
   - component: {fileID: 8567420189660224393}
+  - component: {fileID: 3062613588626194895}
   m_Layer: 5
   m_Name: HealthbarP1
   m_TagString: Untagged
@@ -4931,6 +4932,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3062613588626194895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567420189660224395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31bd8ae04b070e54e82f44f7d3ce4da4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _portrait: {fileID: 8567420190224428232}
+  _healthBar: {fileID: 8567420189660224393}
+  _healthFill: {fileID: 8567420190427027001}
 --- !u!1 &8567420189683973778
 GameObject:
   m_ObjectHideFlags: 0
@@ -5594,6 +5610,7 @@ GameObject:
   - component: {fileID: 8567420189922274524}
   - component: {fileID: 8567420189922274514}
   - component: {fileID: 8567420189922274515}
+  - component: {fileID: 3527961264820096792}
   m_Layer: 5
   m_Name: HealthbarP2
   m_TagString: Untagged
@@ -5662,6 +5679,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3527961264820096792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567420189922274525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31bd8ae04b070e54e82f44f7d3ce4da4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _portrait: {fileID: 8567420189603362292}
+  _healthBar: {fileID: 8567420189922274515}
+  _healthFill: {fileID: 8567420189529570016}
 --- !u!1 &8567420189962322312
 GameObject:
   m_ObjectHideFlags: 0
@@ -7772,6 +7804,7 @@ GameObject:
   - component: {fileID: 8567420190535492543}
   - component: {fileID: 8567420190535492541}
   - component: {fileID: 8567420190535492542}
+  - component: {fileID: 3449173020043278947}
   m_Layer: 5
   m_Name: HealthbarP3
   m_TagString: Untagged
@@ -7840,6 +7873,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3449173020043278947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567420190535492536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31bd8ae04b070e54e82f44f7d3ce4da4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _portrait: {fileID: 8567420189627058680}
+  _healthBar: {fileID: 8567420190535492542}
+  _healthFill: {fileID: 8567420190385928751}
 --- !u!1 &8567420190565183503
 GameObject:
   m_ObjectHideFlags: 0
@@ -7985,6 +8033,7 @@ GameObject:
   - component: {fileID: 8567420190619642563}
   - component: {fileID: 8567420190619642561}
   - component: {fileID: 8567420190619642562}
+  - component: {fileID: 6961328757565511636}
   m_Layer: 5
   m_Name: HealthbarP4
   m_TagString: Untagged
@@ -8053,6 +8102,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6961328757565511636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567420190619642572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31bd8ae04b070e54e82f44f7d3ce4da4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _portrait: {fileID: 8567420189366391314}
+  _healthBar: {fileID: 8567420190619642562}
+  _healthFill: {fileID: 8567420188985623775}
 --- !u!1 &8567420190715858753
 GameObject:
   m_ObjectHideFlags: 0

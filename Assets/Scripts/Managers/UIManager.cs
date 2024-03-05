@@ -98,9 +98,12 @@ public class UIManager : MonoBehaviour
 
             // Retrieve the Slider component from the instantiated health UI
             Slider healthSlider = healthUI[i].GetComponentInChildren<Slider>();
+            HealthBar healthBar = healthUI[i].GetComponent<HealthBar>();
 
             // Here, you would set the health value on the player.
+            PlayerHealth health = players[i].GetComponent<PlayerHealth>();
             players[i].GetComponent<PlayerHealth>().SetHealthSlider(healthSlider);
+            health.SetHealthBar(healthBar);
 
             // Update the health value on the slider
             PlayerHealth playerHealth = players[i].GetComponent<PlayerHealth>();
