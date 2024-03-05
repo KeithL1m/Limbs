@@ -55,8 +55,6 @@ public class Sawblade : MonoBehaviour
         }
     }
 
-   
-
     void MovingSaw()
     {
         if (transform.position.x >= pos1.position.x)
