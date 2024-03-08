@@ -157,6 +157,7 @@ public class StickyBomb : Limb
                         {
                             item.GetComponent<Destructible>().health -= 35;
                             item.GetComponent<Destructible>().CheckDeath();
+                            Debug.Log("Damaged Destructible");
                         }
                     }
 
