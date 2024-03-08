@@ -7,10 +7,10 @@ public class MapManager : Manager
     private GameManager _gm = null;
 
     public SceneFade fade;
-
-    [SerializeField] private int _mapCount;
+    
+    private int _mapCount;
     [SerializeField] private int _loadingMaps;
-    [SerializeField] private int _victoryScreen;
+    private int _victoryScreen;
     int currentMap;
 
     private void Awake()
@@ -25,6 +25,9 @@ public class MapManager : Manager
 
         _gm = ServiceLocator.Get<GameManager>();
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        _mapCount = SceneManager.sceneCountInBuildSettings - 2;
+        _victoryScreen = SceneManager.sceneCountInBuildSettings - 1;
     }
 
     public void ChangeScene()
@@ -35,7 +38,7 @@ public class MapManager : Manager
 
     public void LoadMap()
     {
-
+        
 #if LIMBS_DEBUG
         var debugSceneName = ServiceLocator.Get<DebugSettings>().NextScene;
         if (string.IsNullOrWhiteSpace(debugSceneName) == false)
@@ -44,6 +47,7 @@ public class MapManager : Manager
             return;
         }
 #endif
+        
 
         if (_gm.VictoryScreen)
         {
