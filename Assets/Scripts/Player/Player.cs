@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     private PlayerJump _playerJump;
     private PlayerLimbs _playerLimbs;
     [HideInInspector]
-    public  PlayerInputHandler _inputHandler;
+    public PlayerInputHandler _inputHandler;
     private PlayerConfiguration _config;
 
     [SerializeField] private SpriteRenderer _playerHead;
@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     [SerializeField] public Transform GroundCheckTransform;
     [SerializeField] private GroundCheck _groundCheck;
     [SerializeField] private ParticleSystem _impactParticles;
-
+    [SerializeField] private GameObject _crownGameObject;
     //facing left = -1, right = 1
     public int direction;
     private bool _initialized = false;
@@ -43,10 +43,10 @@ public class Player : MonoBehaviour
     public Vector2 LastAimed { get; private set; } = Vector2.zero;
     private Vector2 _previousVelocity1 = Vector2.zero;
     private Vector2 _previousVelocity2 = Vector2.zero;
-    
+
     private bool _canFly = false;
     public bool CanFly { get { return _canFly; } }
-
+    private bool isWinRound=false;
 
     private void Awake()
     {
@@ -73,11 +73,14 @@ public class Player : MonoBehaviour
         _initialized = true;
     }
 
+
+
+
     void Update()
     {
         if (!_initialized)
             return;
-        if (PauseManager.paused) 
+        if (PauseManager.paused)
             return;
         if (_gameManager.VictoryScreen)
             return;
@@ -89,7 +92,7 @@ public class Player : MonoBehaviour
                 if (_inputHandler.Aim.x != 0.0f && _inputHandler.Aim.y != 0.0f)
                 {
                     LastAimed = new Vector2(_inputHandler.Aim.x, _inputHandler.Aim.y);
-                }                                                        
+                }
             }
         }
 
@@ -113,7 +116,7 @@ public class Player : MonoBehaviour
         }
 
         /*throwing limbs*/
-        if (_inputHandler.ThrowLimb > 0.5f && _playerLimbs.CanThrowLimb() && _canThrow) 
+        if (_inputHandler.ThrowLimb > 0.5f && _playerLimbs.CanThrowLimb() && _canThrow)
         {
             _playerLimbs.ThrowLimb(direction);
             _canThrow = false;
@@ -128,7 +131,7 @@ public class Player : MonoBehaviour
         /*horizontal movement*/
 
         _playerLimbs.CheckLimbState();
-        
+
         _playerMovement.Move(_playerLimbs._limbState);
 
         /*vertical movement*/
@@ -203,7 +206,36 @@ public class Player : MonoBehaviour
     public void AddScore()
     {
         _config.Score++;
+        SetDisplayCrown(true);
     }
+
+    public void Death()
+    {
+        SetDisplayCrown(false);
+    }
+
+    public void SetDisplayCrown(bool value)
+    {
+        if (isWinRound)
+        {
+            if (!value)
+            {
+                isWinRound = false;
+                _crownGameObject.SetActive(false);
+                _playerNum.transform.localPosition -= transform.up.normalized * 1.2f;
+            }
+        }
+        else
+        {
+            if (value)
+            {
+                isWinRound = true;
+                _crownGameObject.SetActive(true);
+                _playerNum.transform.localPosition += transform.up.normalized * 1.2f;
+            }
+        }
+    }
+
 
     public int GetScore()
     {
