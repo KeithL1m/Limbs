@@ -83,17 +83,15 @@ public class Player : MonoBehaviour
     private void OnMeleeAttack(float variable)
     {
         Debug.Log("Melee Anim Triggered");
-        //if(checkAnimLeft)
-        //{
-        //    _animator.SetTrigger(HeadButtAnimNameLeft);
-        //}
-        //else
-        //{
-        //_animator.SetTrigger(HeadButtAnimName);
+        if (checkAnimLeft)
+        {
+            _animator.SetTrigger(HeadButtAnimNameLeft);
+        }
+        else
+        {
+            _animator.SetTrigger(HeadButtAnimName);
 
-        //}
-
-        _animator.SetTrigger(HeadButtAnimName);
+        }
 
         float animLength = GetAnimLength(HeadButtAnimName) * 0.5f;
         StartCoroutine(MeleeDelay(animLength));
