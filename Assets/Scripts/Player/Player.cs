@@ -9,6 +9,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private const string HeadButtAnimName = "HeadButt";
+    private const string HeadButtAnimNameLeft = "HeadButtLeft";
+    private bool checkAnimLeft = false;
 
     private GameManager _gameManager;
     public enum MovementState
@@ -81,6 +83,16 @@ public class Player : MonoBehaviour
     private void OnMeleeAttack(float variable)
     {
         Debug.Log("Melee Anim Triggered");
+        //if(checkAnimLeft)
+        //{
+        //    _animator.SetTrigger(HeadButtAnimNameLeft);
+        //}
+        //else
+        //{
+        //_animator.SetTrigger(HeadButtAnimName);
+
+        //}
+
         _animator.SetTrigger(HeadButtAnimName);
 
         float animLength = GetAnimLength(HeadButtAnimName) * 0.5f;
@@ -186,13 +198,16 @@ public class Player : MonoBehaviour
         }
 
         //update melee point
-        if (direction == 1)
+        if (direction == 1) // right
         {
             attackPointTransform.localPosition = new Vector3(0.56f, 0.38f, -0.6805403f);
+            checkAnimLeft = false;
+            
         }
-        else if (direction == -1)
+        else if (direction == -1) // left
         {
             attackPointTransform.localPosition = new Vector3(-0.56f, 0.38f, -0.6805403f);
+            checkAnimLeft = true;
         }
 
         //updating arrow
@@ -244,6 +259,8 @@ public class Player : MonoBehaviour
         {
             _impactParticles.Play();
         }
+
+        Debug.Log($"Check left is {checkAnimLeft.ToString()}");
 
         _wasOnGround = _groundCheck.isGrounded;
         _previousVelocity2 = _previousVelocity1;
