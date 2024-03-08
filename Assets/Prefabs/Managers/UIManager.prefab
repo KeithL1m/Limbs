@@ -8985,6 +8985,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: AmmoBar1
       objectReference: {fileID: 0}
+    - target: {fileID: 9040361437893836562, guid: 0e983eec71053c2408ec65f445eddca5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9040361437893836562, guid: 0e983eec71053c2408ec65f445eddca5, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9040361437893836562, guid: 0e983eec71053c2408ec65f445eddca5, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6603774
+      objectReference: {fileID: 0}
+    - target: {fileID: 9040361437893836562, guid: 0e983eec71053c2408ec65f445eddca5, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6603774
+      objectReference: {fileID: 0}
+    - target: {fileID: 9040361437893836562, guid: 0e983eec71053c2408ec65f445eddca5, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6603774
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e983eec71053c2408ec65f445eddca5, type: 3}
 --- !u!224 &3367093926908141733 stripped

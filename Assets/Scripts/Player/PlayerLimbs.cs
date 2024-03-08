@@ -120,7 +120,7 @@ public class PlayerLimbs : MonoBehaviour
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), true);
         _limbs[i].State = Limb.LimbState.Attached;
         _limbs[i].GetComponent<Rigidbody2D>().simulated = false;
-        _ammoBar.AddLimb(i, _limbs[i].Sprite);
+        _ammoBar?.AddLimb(i, _limbs[i].Sprite);
     }
 
     //called when picking up a leg limb
@@ -195,6 +195,7 @@ public class PlayerLimbs : MonoBehaviour
             {
                 _limbs[i].transform.SetParent(destroy);
                 _limbs[i] = null;
+                _ammoBar?.RemoveLimb(i);
             }
         }
         _groundCheck.localPosition = _groundCheckPosition;
@@ -220,7 +221,7 @@ public class PlayerLimbs : MonoBehaviour
     public virtual void ThrowLimb(int direction)
     {
         _limbs[(int)_selectedLimb].ThrowLimb(direction);
-        _ammoBar.RemoveLimb((int)_selectedLimb);
+        _ammoBar?.RemoveLimb((int)_selectedLimb);
 
         if (_limbs[(int)_selectedLimb].TripleShot)
         {
@@ -237,6 +238,7 @@ public class PlayerLimbs : MonoBehaviour
         {
             _selectedLimb += next;
             _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+            _ammoBar?.ChangeListOrder();
             return;
         }
 
@@ -245,6 +247,7 @@ public class PlayerLimbs : MonoBehaviour
         {
             _selectedLimb += next;
             _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+            _ammoBar?.ChangeListOrder();
             return;
         }
 
@@ -262,10 +265,12 @@ public class PlayerLimbs : MonoBehaviour
             {
                 _selectedLimb = limb;
                 _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+                _ammoBar?.ChangeListOrder();
                 return;
             }
         }
 
+        _ammoBar?.ChangeListOrder();
         _selectedLimb = SelectedLimb.LeftLeg;
     }
 
@@ -288,6 +293,7 @@ public class PlayerLimbs : MonoBehaviour
                 _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
                 _selectedLimb = (SelectedLimb)place;
                 _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+                _ammoBar?.ChangeListOrder();
                 return;
             }
         }
@@ -304,9 +310,11 @@ public class PlayerLimbs : MonoBehaviour
                 _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
                 _selectedLimb = (SelectedLimb)place;
                 _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+                _ammoBar?.ChangeListOrder();
                 return;
             }
         }
+        _ammoBar?.ChangeListOrder();
     }
 
     public Vector3 GetSize()
@@ -317,5 +325,29 @@ public class PlayerLimbs : MonoBehaviour
     public void SetAmmoBar(AmmoBar bar)
     {
         _ammoBar = bar;
+        _ammoBar.SetPlayerLimbs(this);
+    }
+
+    public List<int> GetLimbHierarchy()
+    {
+        List<int> limbs = new();
+
+        for (int i = (int)_selectedLimb; i < 4; i++)
+        {
+            if (_limbs[i] != null)
+            {
+                limbs.Add(i);
+            }
+        }
+
+        for (int i = 0; i < (int)_selectedLimb; i++)
+        {
+            if (_limbs[i] != null)
+            {
+                limbs.Add(i);
+            }
+        }
+
+        return limbs;
     }
 }
