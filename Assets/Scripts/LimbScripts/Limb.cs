@@ -23,6 +23,7 @@ public class Limb : MonoBehaviour
     [HideInInspector] public Rigidbody2D LimbRB { get; private set; } = null;
 
     [SerializeField] protected SpriteRenderer _sprite;
+    public Sprite Sprite { get; private set; }
 
     [HideInInspector] public LimbType Type { get; set; } //this will help most with animations
     public LimbState State; //{ get; set; }
@@ -65,6 +66,8 @@ public class Limb : MonoBehaviour
         LimbRB.SetRotation(0);
 
         Trail.SetActive(false);
+
+        Sprite = _sprite.sprite;
 
         float angle = _limbData._throwAngle * Mathf.Deg2Rad;
 

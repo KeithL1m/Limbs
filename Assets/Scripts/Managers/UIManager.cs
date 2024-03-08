@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<GameObject> healthUI = new List<GameObject>();
     [SerializeField] private List<Image> healthImage = new List<Image>();
     [SerializeField] private List<TMP_Text> winsCounter = new List<TMP_Text>();
+    [SerializeField] private List<AmmoBar> ammoBars = new List<AmmoBar>();
 
     [SerializeField] private GameObject gameOverBG;
     [SerializeField] private TMP_Text gameOverText;
@@ -102,13 +103,13 @@ public class UIManager : MonoBehaviour
 
             // Here, you would set the health value on the player.
             PlayerHealth health = players[i].GetComponent<PlayerHealth>();
-            players[i].GetComponent<PlayerHealth>().SetHealthSlider(healthSlider);
+            health.SetHealthSlider(healthSlider);
             health.SetHealthBar(healthBar);
 
-            // Update the health value on the slider
-            PlayerHealth playerHealth = players[i].GetComponent<PlayerHealth>();
-            float initialHealth = playerHealth._maxHealth;
+            float initialHealth = health._maxHealth;
             healthSlider.value = initialHealth;
+
+            players[i].GetComponent<PlayerLimbs>().SetAmmoBar(ammoBars[i]);
         }
     }
 

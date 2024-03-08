@@ -30,6 +30,7 @@ public class PlayerLimbs : MonoBehaviour
     [SerializeField] private CapsuleCollider2D _collider;
     [SerializeField] private Material _overlayMaterial;
     [SerializeField] private Material _standardMaterial;
+    private AmmoBar _ammoBar;
 
     public Vector2 _originalSize;
     public Vector2 _originalOffset;
@@ -119,6 +120,7 @@ public class PlayerLimbs : MonoBehaviour
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), true);
         _limbs[i].State = Limb.LimbState.Attached;
         _limbs[i].GetComponent<Rigidbody2D>().simulated = false;
+        _ammoBar.AddLimb(i, _limbs[i].Sprite);
     }
 
     //called when picking up a leg limb
@@ -218,6 +220,7 @@ public class PlayerLimbs : MonoBehaviour
     public virtual void ThrowLimb(int direction)
     {
         _limbs[(int)_selectedLimb].ThrowLimb(direction);
+        _ammoBar.RemoveLimb((int)_selectedLimb);
 
         if (_limbs[(int)_selectedLimb].TripleShot)
         {
@@ -309,5 +312,10 @@ public class PlayerLimbs : MonoBehaviour
     public Vector3 GetSize()
     {
         return _collider.size;
+    }
+
+    public void SetAmmoBar(AmmoBar bar)
+    {
+        _ammoBar = bar;
     }
 }
