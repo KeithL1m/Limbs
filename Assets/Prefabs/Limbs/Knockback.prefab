@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7031586765184258109}
   - component: {fileID: 7643786849370820877}
   - component: {fileID: 7031586765184258081}
-  - component: {fileID: 6748430361449457588}
+  - component: {fileID: 7517267600082765656}
   m_Layer: 0
-  m_Name: No Grav
+  m_Name: Knockback
   m_TagString: Limb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,7 +91,7 @@ CircleCollider2D:
   m_Offset: {x: -0.0000000031334504, y: 0.0065713227}
   serializedVersion: 2
   m_Radius: 0.49639127
---- !u!114 &6748430361449457588
+--- !u!114 &7517267600082765656
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 479936713415687806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cf433d4c0c262149bef2a9f981e0c12, type: 3}
+  m_Script: {fileID: 11500000, guid: c5dc2fc809c89bb4f8305d7409474619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _sprite: {fileID: 7196619701666252166}
@@ -111,7 +111,7 @@ MonoBehaviour:
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
   _specialLimbs: 0
-  _gravityScale: 0
+  _knockbackAmt: 10
 --- !u!1 &1123106515960743069
 GameObject:
   m_ObjectHideFlags: 0

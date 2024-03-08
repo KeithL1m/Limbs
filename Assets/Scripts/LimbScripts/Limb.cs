@@ -266,7 +266,6 @@ public class Limb : MonoBehaviour
 
             ReturnLimb();
         }
-
     }
 
     protected virtual void OnCollisionExi2D(Collision2D collision)
