@@ -69,8 +69,8 @@ public class PlayerHealth : MonoBehaviour
         }
 
         isDead = true;
-        if (!_gm.IsGameOver)
-            GetComponent<Player>().Death();
+        //if (!_gm.IsGameOver)
+        //    GetComponent<Player>().Death();
         if (deathPositions[0].Occupied)
         {
             transform.position = deathPositions[1].transform.position;
