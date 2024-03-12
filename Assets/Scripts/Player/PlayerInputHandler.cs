@@ -88,20 +88,6 @@ public class PlayerInputHandler : MonoBehaviour
             return;
         LimbSwitch = ctx.ReadValue<float>();
     }
-<<<<<<< Updated upstream
-=======
-
-    public void MeleeInput(InputAction.CallbackContext ctx)
-    {
-        if (ctx.action.name != "Melee")
-            return;
-
-        if (ctx.phase == InputActionPhase.Started)
-        {
-            Melee = ctx.ReadValue<float>();
-            MeleeAttack?.Invoke(Melee);
-        }
-    }
 
     public void MakeAimOpposite()
     {
@@ -112,5 +98,4 @@ public class PlayerInputHandler : MonoBehaviour
     {
         _aimConfused = false;
     }
->>>>>>> Stashed changes
 }
