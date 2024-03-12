@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 public class LimbManager : Manager
 {
@@ -13,10 +12,6 @@ public class LimbManager : Manager
             _limbs = new List<Limb>();
 
             _initialized = true;
-        }
-        else
-        {
-            _limbs.Clear();
         }
     }
 

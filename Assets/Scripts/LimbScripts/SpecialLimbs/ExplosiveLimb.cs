@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ExplosiveLimb : Limb
@@ -14,7 +13,7 @@ public class ExplosiveLimb : Limb
     [SerializeField] private float _timer = 3.0f;
     float countdown = 0.0f;
 
-    [SerializeField] float _delayTimer = 0.01f;
+    float _delayTimer = 0.001f;
 
     Collider2D[] explosionRadius = null;
     private float _explosionForce = 300;
@@ -68,6 +67,8 @@ public class ExplosiveLimb : Limb
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
 
+        _particleManager.PlayExplosionParticle(gameObject.transform.position);
+
         foreach (Collider2D item in explosionRadius)
         {
             Rigidbody2D item_rigidbody = item.GetComponent<Rigidbody2D>();
@@ -83,7 +84,12 @@ public class ExplosiveLimb : Limb
                     if(item.CompareTag("Player"))
                     {
                         item.GetComponent<PlayerHealth>().AddDamage(35);
-                        _particleManager.PlayExplosionParticle(gameObject.transform.position);
+                    }
+
+                    if (item.CompareTag("Destructible"))
+                    {
+                        item.GetComponent<Destructible>().health -= 35;
+                        item.GetComponent<Destructible>().CheckDeath();
                     }
                 }
             }
@@ -93,7 +99,13 @@ public class ExplosiveLimb : Limb
 
     private void OnDrawGizmos() // draw gizmos
     {
-        Gizmos.DrawWireSphere(transform.position, _explosionRadius);
+        Gizmos.DrawWireSphere(transform.position, _explosionRadius);    
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red; // Set the color of the gizmo
+        Gizmos.DrawWireSphere(transform.position, _explosionRadius); // Draw a wire sphere gizmo at the game object's position with the specified radius
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision)

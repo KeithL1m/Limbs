@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class MapManager : Manager
@@ -8,10 +7,11 @@ public class MapManager : Manager
     private GameManager _gm = null;
 
     public SceneFade fade;
-
-    [SerializeField] private int _mapCount;
+    
+    private int _mapCount;
     [SerializeField] private int _loadingMaps;
-    [SerializeField] private int _victoryScreen;
+    private int _victoryScreen;
+    int currentMap;
 
     private void Awake()
     {
@@ -25,6 +25,9 @@ public class MapManager : Manager
 
         _gm = ServiceLocator.Get<GameManager>();
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        _mapCount = SceneManager.sceneCountInBuildSettings - 2;
+        _victoryScreen = SceneManager.sceneCountInBuildSettings - 1;
     }
 
     public void ChangeScene()
@@ -35,7 +38,7 @@ public class MapManager : Manager
 
     public void LoadMap()
     {
-
+        
 #if LIMBS_DEBUG
         var debugSceneName = ServiceLocator.Get<DebugSettings>().NextScene;
         if (string.IsNullOrWhiteSpace(debugSceneName) == false)
@@ -44,6 +47,7 @@ public class MapManager : Manager
             return;
         }
 #endif
+        
 
         if (_gm.VictoryScreen)
         {
@@ -57,19 +61,19 @@ public class MapManager : Manager
         {
             //Check if map is repeated
             int mapNum = Random.Range(_loadingMaps, _mapCount);
-            int currentMap = mapNum;
             while (mapNum == currentMap)
             {
                 Debug.Log("MAP WAS REPEATED");
                 mapNum = Random.Range(_loadingMaps, _mapCount);
             }
+            currentMap = mapNum;
             SceneManager.LoadScene(mapNum);
         }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (_gm.startScreen)
+        if (_gm.startScreen || _gm.EarlyEnd)
             return;
         Debug.Log("New scene loaded");
         _gm.OnStart();

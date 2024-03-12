@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Manager
 {
@@ -79,6 +80,7 @@ public class GameManager : Manager
         _uiManager.UpdateLeaderBoard();
 
         ClearLimbs();
+        EarlyEnd = false;
         startScreen = false;
         _mapManager.ChangeScene();
     }
@@ -212,6 +214,8 @@ public class GameManager : Manager
 
     public void EndGame()
     {
+        _deadPlayers = 0;
+        spawnPoints.Clear();
         VictoryScreen = false;
         startScreen = true;
         for (int i = 0; i < _playerCount; i++)
@@ -219,6 +223,8 @@ public class GameManager : Manager
             Destroy(_playerConfigs[i].Input.gameObject);
             Destroy(_players[i].gameObject);
         }
+
+        ServiceLocator.Unregister<EmptyDestructibleObject>();
 
         _playerConfigs.Clear();
         _players.Clear();
@@ -232,6 +238,10 @@ public class GameManager : Manager
         _playerCount = 0;
 
         spawnPoints.Clear();
+
+        ServiceLocator.Get<LimbManager>().ClearList();
+
+        SceneManager.LoadScene(1);
     }
 
     public int GetPlayerCount()

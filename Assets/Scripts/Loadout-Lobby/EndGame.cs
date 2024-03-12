@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class EndGame : MonoBehaviour
@@ -24,6 +23,5 @@ public class EndGame : MonoBehaviour
     public void RestartGame()
     {
         _gm.EndGame();
-        SceneManager.LoadScene(1);
     }
 }

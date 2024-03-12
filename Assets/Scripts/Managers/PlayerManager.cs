@@ -22,6 +22,7 @@ public class PlayerManager : Manager
     public void AddPlayerObject(GameObject player)
     {
         _playerObjects.Add(player);
+        _playerList.Add(player.GetComponent<Player>());
     }
 
     public void AddPlayer(Player player)

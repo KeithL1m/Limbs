@@ -168,8 +168,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5001288000470333368}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.08301}
+  m_LocalScale: {x: 0.73484, y: 0.73484, z: 0.73484}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3263858158796984458}
@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sprite: {fileID: 4998451157093855561}
+  State: 0
   _limbData: {fileID: 11400000, guid: 76d2735fb647a41419933b8acfdb8866, type: 2}
   <Trail>k__BackingField: {fileID: 4386594227667272079}
   <PickUpIndicator>k__BackingField: {fileID: 5070205652253322220}
@@ -198,7 +199,6 @@ MonoBehaviour:
   TripleShot: 0
   _specialLimbs: 0
   _collider: {fileID: 7378542149016335331}
-  _ghostSprite: {fileID: 4998451157093855561}
 --- !u!70 &7378542149016335331
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

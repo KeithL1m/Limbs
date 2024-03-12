@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
@@ -24,6 +23,7 @@ public class Limb : MonoBehaviour
     [HideInInspector] public Rigidbody2D LimbRB { get; private set; } = null;
 
     [SerializeField] protected SpriteRenderer _sprite;
+    public Sprite Sprite { get; private set; }
 
     [HideInInspector] public LimbType Type { get; set; } //this will help most with animations
     public LimbState State; //{ get; set; }
@@ -66,6 +66,8 @@ public class Limb : MonoBehaviour
         LimbRB.SetRotation(0);
 
         Trail.SetActive(false);
+
+        Sprite = _sprite.sprite;
 
         float angle = _limbData._throwAngle * Mathf.Deg2Rad;
 
@@ -134,10 +136,6 @@ public class Limb : MonoBehaviour
         }
         else if (State == LimbState.Throwing || State == LimbState.Returning)
         {
-            if (!CanPickUp)
-            {
-                Debug.Log("Looping");
-            }
             if (LimbRB.velocity.magnitude < 4.0f && _specialLimbs == false)
             {
                 PickupTimer -= Time.deltaTime;
@@ -171,7 +169,6 @@ public class Limb : MonoBehaviour
     {
         FlipY(1);
         FlipX(1);
-        PickUpExtra(_attachedPlayer);
         Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
         State = LimbState.PickUp;
         _attachedPlayer = null;
@@ -225,6 +222,7 @@ public class Limb : MonoBehaviour
         {
             collision.gameObject.GetComponent<LimbInstantiateWall>().Damage();
             ReturnLimb();
+            return;
         }
         else if (collision.gameObject.CompareTag("Limb"))
         {
@@ -262,9 +260,13 @@ public class Limb : MonoBehaviour
                 }
             }
         }
-        _healthPlayer.AddDamage(_damage + _specialDamage);
+        else
+        {
+            _healthPlayer.AddDamage(_damage + _specialDamage);
 
-        ReturnLimb();
+            ReturnLimb();
+        }
+
     }
 
     protected virtual void OnCollisionExi2D(Collision2D collision)
@@ -301,6 +303,7 @@ public class Limb : MonoBehaviour
             {
                 LimbRB.SetRotation(0);
             }
+            PickUpExtra(_attachedPlayer);
         }
     }
 

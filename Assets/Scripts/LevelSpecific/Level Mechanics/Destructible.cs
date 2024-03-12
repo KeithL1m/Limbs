@@ -1,27 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Destructible : MonoBehaviour
 {
     public float health = 50;
-    public Image[] wallStates;
-
+    public Sprite[] wallStates;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Limb"))
         {
-            Debug.Log(health);
-            health -= 10;
-
-            if (health <= 0)
+            if (collision.collider.GetComponent<Limb>().State == Limb.LimbState.Throwing)
             {
-                Destroy(gameObject);
+                health -= 10;
+                switch (health)
+                {
+                    case 40:
+                    {
+                            gameObject.GetComponent<SpriteRenderer>().sprite = wallStates[0];
+                            break;
+                    }
+                    case 20:
+                        {
+                            gameObject.GetComponent<SpriteRenderer>().sprite = wallStates[1];
+                            break;
+                        }
+                }
+                Debug.Log(health);
             }
 
-        }
+            CheckDeath();
+
+        } 
     }
     
     public void CheckDeath()

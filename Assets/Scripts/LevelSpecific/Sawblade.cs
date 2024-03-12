@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Sawblade : MonoBehaviour
@@ -26,11 +24,6 @@ public class Sawblade : MonoBehaviour
 
     private PlayerHealth _playerHealth;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         if (_isMoving == true)
@@ -41,14 +34,13 @@ public class Sawblade : MonoBehaviour
         transform.Rotate(0.0f, 0.0f, _rotateSpeed * Time.deltaTime);
 
         // Check if chainsaw slows down
-        if(_sawChain.GetComponent<Rigidbody2D>().velocity.magnitude < 10.0f)
+        if(_sawChain.GetComponent<Rigidbody2D>().velocity.magnitude < 15.0f)
         {
-            _sawChain.AddForce(new Vector2(100.0f, 0.0f));
+            _sawChain.AddForce(new Vector2(200.0f, 0.0f));
         }
-
-        // Do damage to player
         
     }
+    // Do damage to player
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -58,8 +50,7 @@ public class Sawblade : MonoBehaviour
         }
     }
 
-   
-
+    // If we want to do moving saw
     void MovingSaw()
     {
         if (transform.position.x >= pos1.position.x)

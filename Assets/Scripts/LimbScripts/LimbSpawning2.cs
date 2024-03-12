@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,6 +56,8 @@ public class LimbSpawning2 : MonoBehaviour
 
     private void Update()
     {
+        _currentLimbs = _limbManager.GetLimbAmount();
+
         if (_currentLimbs < _limbLimit)
         {
             _limbTimer -= Time.deltaTime;
@@ -76,6 +77,5 @@ public class LimbSpawning2 : MonoBehaviour
         int spawnIndex = rnd.Next(_spawnPositions.Count);
         Vector3 position = _spawnPositions[spawnIndex].transform.position;
         Limb limb = Instantiate(_limbOptions[index], new Vector3(position.x, position.y, position.z), Quaternion.identity).GetComponent<Limb>();
-        _currentLimbs++;
     }
 }
