@@ -7,6 +7,8 @@ public class PlayerInputHandler : MonoBehaviour
     private PlayerConfiguration _config;
     public PlayerInput _input;
 
+    private bool _aimConfused = false;
+
     public float Movement { get; private set; }
     public float Jump { get; private set; }
     public float ThrowLimb { get; private set; }
@@ -56,7 +58,14 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (ctx.action.name != "Aim")
             return;
-        Aim = ctx.ReadValue<Vector2>();
+        if (_aimConfused)
+        {
+            Aim = -ctx.ReadValue<Vector2>();
+        }
+        else
+        {
+            Aim = ctx.ReadValue<Vector2>();
+        }
     }
 
     public void FlickAimInput(InputAction.CallbackContext ctx)
@@ -79,4 +88,29 @@ public class PlayerInputHandler : MonoBehaviour
             return;
         LimbSwitch = ctx.ReadValue<float>();
     }
+<<<<<<< Updated upstream
+=======
+
+    public void MeleeInput(InputAction.CallbackContext ctx)
+    {
+        if (ctx.action.name != "Melee")
+            return;
+
+        if (ctx.phase == InputActionPhase.Started)
+        {
+            Melee = ctx.ReadValue<float>();
+            MeleeAttack?.Invoke(Melee);
+        }
+    }
+
+    public void MakeAimOpposite()
+    {
+        _aimConfused = true;
+    }
+
+    public void MakeAimNormal()
+    {
+        _aimConfused = false;
+    }
+>>>>>>> Stashed changes
 }

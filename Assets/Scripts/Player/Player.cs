@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
     private bool _canThrow = true;
     private bool _canSwitch = true;
     private bool _wasOnGround = false;
+    private bool _aimConfused = false;
     public Vector2 LastAimed { get; private set; } = Vector2.zero;
     private Vector2 _previousVelocity1 = Vector2.zero;
     private Vector2 _previousVelocity2 = Vector2.zero;
@@ -95,11 +96,25 @@ public class Player : MonoBehaviour
 
         if (_playerMovement.facingRight)
         {
-            direction = 1;
+            if (_aimConfused)
+            {
+                direction = -1;
+            }
+            else
+            {
+                direction = 1;
+            }
         }
         else
         {
-            direction = -1;
+            if (_aimConfused)
+            {
+                direction = 1;
+            }
+            else
+            {
+                direction = -1;
+            }
         }
 
         if ((_inputHandler.LimbSwitch > 0.5f || _inputHandler.LimbSwitch < -0.5f) && _canSwitch)
@@ -230,4 +245,13 @@ public class Player : MonoBehaviour
         _playerMovement.ZeroVelocity();
     }
 
+    public void MakeAimOpposite()
+    {
+        _aimConfused = true;
+    }
+
+    public void MakeAimNormal()
+    {
+        _aimConfused = false;
+    }
 }
