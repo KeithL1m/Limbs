@@ -9,7 +9,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private const string HeadButtAnimName = "HeadButt";
-    private const string HeadButtAnimNameLeft = "HeadButtLeft";
+    private const string HeadButtAnimNameLeft = "HeadButtL";
     private bool checkAnimLeft = false;
 
     private GameManager _gameManager;
