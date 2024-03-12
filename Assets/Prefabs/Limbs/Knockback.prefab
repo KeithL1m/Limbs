@@ -105,13 +105,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sprite: {fileID: 7196619701666252166}
   State: 0
-  _limbData: {fileID: 11400000, guid: 76d2735fb647a41419933b8acfdb8866, type: 2}
+  _limbData: {fileID: 11400000, guid: 5a79f5675795dcd4a92d5372d4d92b9e, type: 2}
   <Trail>k__BackingField: {fileID: 1123106515960743069}
   <PickUpIndicator>k__BackingField: {fileID: 7254546142229159940}
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
   _specialLimbs: 0
-  _knockbackAmt: 10
 --- !u!1 &1123106515960743069
 GameObject:
   m_ObjectHideFlags: 0

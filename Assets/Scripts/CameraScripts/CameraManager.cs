@@ -20,6 +20,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float _smoothZoomOutTime = 0.7f;
     [SerializeField] private float _minHeight = 12.5f;
     private float _maxHeight;
+    private float _shakeIntensity;
+    private float _shakeDuration;
 
     public float _heightMultiplier = 1.4f;
     public float _widthMultiplier = 1.4f;
@@ -31,6 +33,7 @@ public class CameraManager : MonoBehaviour
     private Camera _camera;
     private bool _initialized = false;
     private bool _teleportThrown = false;
+    private bool _shaking = false;
 
     private Vector3 centrePoint = new Vector3();
 
@@ -89,6 +92,27 @@ public class CameraManager : MonoBehaviour
 
         MoveCamera();
         AdjustCameraSize();
+
+        if (_shaking)
+        {
+            Vector3 randomShake = Random.insideUnitSphere * _shakeIntensity;
+
+            transform.position = transform.position + randomShake;
+
+            _shakeDuration -= Time.deltaTime;
+
+            if (_shakeDuration <= 0.0f)
+            {
+                _shaking = false;
+            }
+        }
+    }
+
+    public void StartScreenShake(float intensity, float duration)
+    {
+        _shakeIntensity = intensity;
+        _shakeDuration = duration;
+        _shaking = true;
     }
 
     private void MoveCamera()
