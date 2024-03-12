@@ -161,6 +161,8 @@ public class UIManager : MonoBehaviour
         // Wait for 5 seconds
         float endTime = Time.realtimeSinceStartup + 5.0f;
 
+        ServiceLocator.Get<CameraManager>().StartScreenShake(0.1f, 5.0f);
+
         while (Time.realtimeSinceStartup < endTime)
         {
             yield return null;

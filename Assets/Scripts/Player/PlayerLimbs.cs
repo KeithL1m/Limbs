@@ -359,7 +359,6 @@ public class PlayerLimbs : MonoBehaviour
     public void Melee(int attackerId)
     {
         float _knockbackForce = 500;
-        //_animator.SetTrigger("Melee");
 
         Collider2D[] damageRange = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange);
 

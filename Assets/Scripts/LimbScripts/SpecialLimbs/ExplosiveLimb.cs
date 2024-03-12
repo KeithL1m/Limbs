@@ -62,7 +62,8 @@ public class ExplosiveLimb : Limb
     }
 
     void Explode()
-    { 
+    {
+        ServiceLocator.Get<CameraManager>().StartScreenShake(0.2f, 0.25f);
         Debug.Log("BOOOOM");
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);

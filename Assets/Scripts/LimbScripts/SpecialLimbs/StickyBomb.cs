@@ -127,6 +127,7 @@ public class StickyBomb : Limb
 
     void Explode()
     {
+        ServiceLocator.Get<CameraManager>().StartScreenShake(0.2f, 0.2f);
         Debug.Log("STICKY BOMB BOOM!!!");
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);

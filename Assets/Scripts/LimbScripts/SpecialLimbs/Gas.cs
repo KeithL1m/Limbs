@@ -43,7 +43,6 @@ public class Gas : MonoBehaviour
         {
             // Get the player script 
             player.GetComponent<PlayerHealth>().AddDamage(5);
-            // Apply gas effect
         }
     }
 
