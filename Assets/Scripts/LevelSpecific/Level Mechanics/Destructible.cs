@@ -6,6 +6,11 @@ public class Destructible : MonoBehaviour
     public float health = 50;
     public Sprite[] wallStates;
 
+    [SerializeField]
+    private int caseCheck1 = 40;
+    private int caseCheck2 = 20;
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Limb"))

@@ -10,12 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3030214178208889552}
   - component: {fileID: 3030214178208889553}
-  - component: {fileID: 3857290079802316035}
-  - component: {fileID: 2006219475093554015}
+  - component: {fileID: 3030214178208889583}
   - component: {fileID: 3030214178208889582}
   m_Layer: 3
   m_Name: Destructible_Wall
-  m_TagString: Destructible
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 518ff3449fb72ae43a57e89f59d1ca57, type: 3}
+  m_Sprite: {fileID: 893691313, guid: 05f6a87f6466f454aadcd36ab36361f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,28 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &3857290079802316035
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3030214178208889564}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
---- !u!61 &2006219475093554015
+--- !u!61 &3030214178208889583
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,18 +99,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.14293909, y: -0.035736084}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.63, y: 3.54}
+    oldSize: {x: 9.998253, y: 32.879997}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.63, y: 3.54}
+  m_Size: {x: 7.28236, y: 29.9497}
   m_EdgeRadius: 0
 --- !u!114 &3030214178208889582
 MonoBehaviour:
@@ -147,7 +125,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50
-  wallStates:
-  - {fileID: 21300000, guid: 280694959c8c4584783e6895473ad9ce, type: 3}
-  - {fileID: 21300000, guid: c5c15d2b34aefc94ca5d4b69e2529670, type: 3}
-  caseCheck1: 40
+  wallStates: []
