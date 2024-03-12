@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,9 @@ public class PlayerInputHandler : MonoBehaviour
     public Vector2 Aim { get; private set; }
     public bool FlickAiming { get; private set; } = false;
     public float LimbSwitch { get;private set; }
+    public float Melee { get; private set; }
+
+    public event Action<float> MeleeAttack;
 
     private void Awake()
     {
@@ -29,6 +33,7 @@ public class PlayerInputHandler : MonoBehaviour
         _input.onActionTriggered += AimInput;
         _input.onActionTriggered += FlickAimInput;
         _input.onActionTriggered += SwitchLimbInput;
+        _input.onActionTriggered += MeleeInput;
     }
 
     public void MoveInput(InputAction.CallbackContext ctx)
@@ -78,5 +83,17 @@ public class PlayerInputHandler : MonoBehaviour
         if (ctx.action.name != "Switch Limb")
             return;
         LimbSwitch = ctx.ReadValue<float>();
+    }
+
+    public void MeleeInput(InputAction.CallbackContext ctx)
+    {
+        if (ctx.action.name != "Melee")
+            return;
+
+        if (ctx.phase == InputActionPhase.Started)
+        {
+            Melee = ctx.ReadValue<float>();
+            MeleeAttack?.Invoke(Melee);
+        }
     }
 }

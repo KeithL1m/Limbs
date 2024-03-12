@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
@@ -6,6 +8,10 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerLimbs))]
 public class Player : MonoBehaviour
 {
+    private const string HeadButtAnimName = "HeadButt";
+    private const string HeadButtAnimNameLeft = "HeadButtL";
+    private bool checkAnimLeft = false;
+
     private GameManager _gameManager;
     public enum MovementState
     {
@@ -28,11 +34,16 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteRenderer _playerBody;
     [SerializeField] private SpriteRenderer _playerNum;
 
+    
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _aimTransform;
     [SerializeField] public Transform GroundCheckTransform;
+    [SerializeField] private Transform attackPointTransform;
     [SerializeField] private GroundCheck _groundCheck;
     [SerializeField] private ParticleSystem _impactParticles;
+
+    //for melee
+    [SerializeField] private Animator _animator;
 
     //facing left = -1, right = 1
     public int direction;
@@ -47,6 +58,8 @@ public class Player : MonoBehaviour
     private bool _canFly = false;
     public bool CanFly { get { return _canFly; } }
 
+    public int Id { get => _id; }
+    private int _id;
 
     private void Awake()
     {
@@ -55,12 +68,56 @@ public class Player : MonoBehaviour
         _playerJump = GetComponent<PlayerJump>();
         _playerLimbs = GetComponent<PlayerLimbs>();
         _inputHandler = GetComponent<PlayerInputHandler>();
+
+        _inputHandler.MeleeAttack += OnMeleeAttack;
+    }
+
+    private IEnumerator MeleeDelay(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        Debug.Log("Melee Damage Applied");
+        _playerLimbs.Melee(_id);
+    }
+
+    // melee attack
+    private void OnMeleeAttack(float variable)
+    {
+        Debug.Log("Melee Anim Triggered");
+        if (checkAnimLeft)
+        {
+            _animator.SetTrigger(HeadButtAnimNameLeft);
+        }
+        else
+        {
+            _animator.SetTrigger(HeadButtAnimName);
+
+        }
+
+        float animLength = GetAnimLength(HeadButtAnimName) * 0.5f;
+        StartCoroutine(MeleeDelay(animLength));
+    }
+
+    private float GetAnimLength(string animName)
+    {
+        // Getting the animation length HASH CODE
+
+        foreach(var anim in _animator.runtimeAnimatorController.animationClips)
+        {
+            if (string.CompareOrdinal(anim.name, animName) == 0)
+            {
+                return anim.length;
+            }
+        }
+
+        Debug.LogError($"Animatin Clip Not Found: {animName}");
+        return 0f;
     }
 
     public void Initialize(PlayerConfiguration pc)
     {
+        Debug.Log($"<color=yellow>Initializing Player {pc.PlayerIndex}<color>");
         _config = pc;
-
+        _id = pc.PlayerIndex;
         _inputHandler.InitializePlayer(_config);
         _playerLimbs.Initialize();
 
@@ -122,8 +179,6 @@ public class Player : MonoBehaviour
         {
             _canThrow = true;
         }
-        //limb attack?
-
 
         /*horizontal movement*/
 
@@ -138,6 +193,19 @@ public class Player : MonoBehaviour
         if (_inputHandler.ThrowLimb == 0.0f)
         {
             _playerLimbs._canThrow = true;
+        }
+
+        //update melee point
+        if (direction == 1) // right
+        {
+            attackPointTransform.localPosition = new Vector3(0.56f, 0.38f, -0.6805403f);
+            checkAnimLeft = false;
+            
+        }
+        else if (direction == -1) // left
+        {
+            attackPointTransform.localPosition = new Vector3(-0.56f, 0.38f, -0.6805403f);
+            checkAnimLeft = true;
         }
 
         //updating arrow
@@ -189,6 +257,8 @@ public class Player : MonoBehaviour
         {
             _impactParticles.Play();
         }
+
+        Debug.Log($"Check left is {checkAnimLeft.ToString()}");
 
         _wasOnGround = _groundCheck.isGrounded;
         _previousVelocity2 = _previousVelocity1;
