@@ -33,10 +33,10 @@ MonoBehaviour:
   - Assets/Scenes/_Playable Maps/Grocery.unity
   - Assets/Scenes/_Playable Maps/Boxes - Left 1.unity
   - Assets/Scenes/_Playable Maps/Testing/LimbTesting.unity
-  - Assets/Scenes/_Playable Maps/Cashier.unity
+  - Assets/Scenes/_Playable Maps/Testing/Cashier.unity
   - Assets/Scenes/_Playable Maps/Sausage2.unity
   - Assets/Scenes/_Playable Maps/Flat 1.unity
-  - Assets/Scenes/_Playable Maps/FlatConverter.unity
+  - Assets/Scenes/_Playable Maps/FlatConveyor.unity
   - Assets/Scenes/_Playable Maps/BombIntroduction.unity
   - Assets/Scenes/_Playable Maps/Pit.unity
   - Assets/Scenes/_Playable Maps/BoxMove 3.unity
