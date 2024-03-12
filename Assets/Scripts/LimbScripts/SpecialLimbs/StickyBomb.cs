@@ -149,6 +149,7 @@ public class StickyBomb : Limb
                     if(_collider.enabled == true)
                     {
                         if (item.CompareTag("Player"))
+
                         {
                             item.GetComponent<PlayerHealth>().AddDamage(25);
                         }
