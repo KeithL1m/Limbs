@@ -4412,6 +4412,14 @@ PrefabInstance:
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 589181752631128242, guid: 2ee9f126ae00b234982a990ff0edc5aa, type: 3}
+      propertyPath: _maxSpawnTimer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 589181752631128242, guid: 2ee9f126ae00b234982a990ff0edc5aa, type: 3}
+      propertyPath: _minSpawnTimer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 589181752631128242, guid: 2ee9f126ae00b234982a990ff0edc5aa, type: 3}
       propertyPath: _limbOptions.Array.size
       value: 1
       objectReference: {fileID: 0}
