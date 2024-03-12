@@ -15,8 +15,7 @@ MonoBehaviour:
   _throwSpeed: 40
   _throwAngle: 0.5
   _knockback: 1
-  _knockbackCounter: 0
-  _knockbackLength: 0
   _damage: 6
   _specialDamage: 0
   _returnVelocityMultiplier: 0.75
+  _weight: 5
