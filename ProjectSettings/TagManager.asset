@@ -8,15 +8,16 @@ TagManager:
   - Spawn
   - DeathLocation
   - Pinata
-  - P1Health
-  - P2Health
-  - P3Health
-  - P4Health
   - StopPosition
   - Props
   - Ground
   - Destructible
   - BreakWall
+  - HealthBar1
+  - HealthBar2
+  - HealthBar3
+  - HealthBar4
+  - HealthBar
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - RaycastUI
   - 
   - 
   - 

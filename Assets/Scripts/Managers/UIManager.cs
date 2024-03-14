@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<GameObject> healthUI = new List<GameObject>();
     [SerializeField] private List<Image> healthImage = new List<Image>();
     [SerializeField] private List<TMP_Text> winsCounter = new List<TMP_Text>();
+    [SerializeField] private List<AmmoBar> ammoBars = new List<AmmoBar>();
 
     [SerializeField] private GameObject gameOverBG;
     [SerializeField] private TMP_Text gameOverText;
@@ -98,14 +99,17 @@ public class UIManager : MonoBehaviour
 
             // Retrieve the Slider component from the instantiated health UI
             Slider healthSlider = healthUI[i].GetComponentInChildren<Slider>();
+            HealthBar healthBar = healthUI[i].GetComponent<HealthBar>();
 
             // Here, you would set the health value on the player.
-            players[i].GetComponent<PlayerHealth>().SetHealthSlider(healthSlider);
+            PlayerHealth health = players[i].GetComponent<PlayerHealth>();
+            health.SetHealthSlider(healthSlider);
+            health.SetHealthBar(healthBar);
 
-            // Update the health value on the slider
-            PlayerHealth playerHealth = players[i].GetComponent<PlayerHealth>();
-            float initialHealth = playerHealth._maxHealth;
+            float initialHealth = health._maxHealth;
             healthSlider.value = initialHealth;
+
+            players[i].GetComponent<PlayerLimbs>().SetAmmoBar(ammoBars[i]);
         }
     }
 
@@ -156,6 +160,8 @@ public class UIManager : MonoBehaviour
 
         // Wait for 5 seconds
         float endTime = Time.realtimeSinceStartup + 5.0f;
+
+        ServiceLocator.Get<CameraManager>().StartScreenShake(0.1f, 5.0f);
 
         while (Time.realtimeSinceStartup < endTime)
         {

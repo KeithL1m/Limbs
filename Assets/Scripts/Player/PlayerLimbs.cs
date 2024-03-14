@@ -30,6 +30,12 @@ public class PlayerLimbs : MonoBehaviour
     [SerializeField] private CapsuleCollider2D _collider;
     [SerializeField] private Material _overlayMaterial;
     [SerializeField] private Material _standardMaterial;
+    private AmmoBar _ammoBar;
+
+    //for melee
+    [SerializeField] private Animator _animator;
+    [SerializeField] private Transform _attackPoint;
+    [SerializeField] private float _attackRange = 0.5f;
 
     public Vector2 _originalSize;
     public Vector2 _originalOffset;
@@ -119,6 +125,7 @@ public class PlayerLimbs : MonoBehaviour
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), _limbs[i].GetComponent<Collider2D>(), true);
         _limbs[i].State = Limb.LimbState.Attached;
         _limbs[i].GetComponent<Rigidbody2D>().simulated = false;
+        _ammoBar?.AddLimb(i, _limbs[i].Sprite);
     }
 
     //called when picking up a leg limb
@@ -193,6 +200,7 @@ public class PlayerLimbs : MonoBehaviour
             {
                 _limbs[i].transform.SetParent(destroy);
                 _limbs[i] = null;
+                _ammoBar?.RemoveLimb(i);
             }
         }
         _groundCheck.localPosition = _groundCheckPosition;
@@ -218,6 +226,7 @@ public class PlayerLimbs : MonoBehaviour
     public virtual void ThrowLimb(int direction)
     {
         _limbs[(int)_selectedLimb].ThrowLimb(direction);
+        _ammoBar?.RemoveLimb((int)_selectedLimb);
 
         if (_limbs[(int)_selectedLimb].TripleShot)
         {
@@ -234,6 +243,7 @@ public class PlayerLimbs : MonoBehaviour
         {
             _selectedLimb += next;
             _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+            _ammoBar?.ChangeListOrder();
             return;
         }
 
@@ -242,6 +252,7 @@ public class PlayerLimbs : MonoBehaviour
         {
             _selectedLimb += next;
             _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+            _ammoBar?.ChangeListOrder();
             return;
         }
 
@@ -259,10 +270,12 @@ public class PlayerLimbs : MonoBehaviour
             {
                 _selectedLimb = limb;
                 _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+                _ammoBar?.ChangeListOrder();
                 return;
             }
         }
 
+        _ammoBar?.ChangeListOrder();
         _selectedLimb = SelectedLimb.LeftLeg;
     }
 
@@ -285,6 +298,7 @@ public class PlayerLimbs : MonoBehaviour
                 _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
                 _selectedLimb = (SelectedLimb)place;
                 _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+                _ammoBar?.ChangeListOrder();
                 return;
             }
         }
@@ -301,13 +315,72 @@ public class PlayerLimbs : MonoBehaviour
                 _limbs[(int)_selectedLimb].SetMaterial(_standardMaterial);
                 _selectedLimb = (SelectedLimb)place;
                 _limbs[(int)_selectedLimb].SetMaterial(_overlayMaterial);
+                _ammoBar?.ChangeListOrder();
                 return;
             }
         }
+        _ammoBar?.ChangeListOrder();
     }
 
     public Vector3 GetSize()
     {
         return _collider.size;
+    }
+
+    public void SetAmmoBar(AmmoBar bar)
+    {
+        _ammoBar = bar;
+        _ammoBar.SetPlayerLimbs(this);
+    }
+
+    public List<int> GetLimbHierarchy()
+    {
+        List<int> limbs = new();
+
+        for (int i = (int)_selectedLimb; i < 4; i++)
+        {
+            if (_limbs[i] != null)
+            {
+                limbs.Add(i);
+            }
+        }
+
+        for (int i = 0; i < (int)_selectedLimb; i++)
+        {
+            if (_limbs[i] != null)
+            {
+                limbs.Add(i);
+            }
+        }
+
+        return limbs;
+    }
+
+    public void Melee(int attackerId)
+    {
+        float _knockbackForce = 500;
+
+        Collider2D[] damageRange = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange);
+
+        foreach (Collider2D enemy in damageRange)
+        {
+            if (enemy.CompareTag("Player"))
+            {
+                var otherPlayer = enemy.GetComponent<Player>();
+                if (otherPlayer.Id == attackerId)
+                {
+                    // dont hit yourself
+                    continue;
+                }
+                enemy.GetComponent<PlayerHealth>().AddDamage(2);
+                // knockback
+                Vector2 distanceVector = enemy.transform.position - transform.position;
+
+                Rigidbody2D knockback = enemy.GetComponent<Rigidbody2D>();
+                knockback.AddForce(distanceVector * _knockbackForce);
+
+                Debug.Log("You hit" + enemy.name);
+            }
+        }
     }
 }

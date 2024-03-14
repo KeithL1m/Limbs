@@ -8,17 +8,22 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField]
     public float _maxHealth;
+    public float _health;
     [SerializeField]
     private Chain chain;
-    private DeathPosition[] deathPositions;
+    public DeathPosition[] deathPositions;
 
-    public float _health;
     public bool isDead = false;
-    private bool _initialized = false;
 
     [SerializeField]
     private Slider healthSlider;
+    private HealthBar _healthBar;
+
     [SerializeField] private DamageParticles damageParticles;
+
+    [SerializeField] private Material _grayMaterial;
+    [SerializeField] private Material _standardMaterial;
+    [SerializeField] private Material _lowHealthMaterial;
 
 
     private void Awake()
@@ -31,7 +36,6 @@ public class PlayerHealth : MonoBehaviour
     {
         _gm = ServiceLocator.Get<GameManager>();
         _health = _maxHealth;
-        _initialized = true;
     }
 
     public void AddDamage(float damage)
@@ -56,16 +60,17 @@ public class PlayerHealth : MonoBehaviour
 
     public void KillPlayer()
     {
+        if (isDead)
+        {
+            return;
+        }
+        isDead = true;
+        _healthBar.SetMaterial(_grayMaterial);
+
         if (_health > 0)
         {
             _health = 0;
             UpdateHealthSlider();
-        }
-        deathPositions = FindObjectsOfType<DeathPosition>();
-        if (deathPositions is null)
-        {
-            Debug.LogError("there are no DeathPositions in the Scene");
-            return;
         }
 
         isDead = true;
@@ -75,6 +80,13 @@ public class PlayerHealth : MonoBehaviour
         {
             transform.position = deathPositions[1].transform.position;
             chain.EnableChain(deathPositions[1].transform);
+            deathPositions[1].Occupied = true;
+        }
+        else if (deathPositions[1].Occupied)
+        {
+            transform.position = deathPositions[2].transform.position;
+            chain.EnableChain(deathPositions[2].transform);
+            deathPositions[2].Occupied = true;
         }
         else
         {
@@ -87,6 +99,9 @@ public class PlayerHealth : MonoBehaviour
 
     public void ResetHealth()
     {
+        deathPositions = FindObjectsOfType<DeathPosition>();
+        _healthBar.SetMaterial(_standardMaterial);
+
         _health = _maxHealth;
 
         // Update the health slider value when resetting health
@@ -102,11 +117,21 @@ public class PlayerHealth : MonoBehaviour
             // Assuming your health value ranges from 0 to _maxHealth
             healthSlider.value = _health / _maxHealth;
         }
+
+        if (_health <= _maxHealth / 5 && isDead == false)
+        {
+            _healthBar.SetMaterial(_lowHealthMaterial);
+        }
     }
 
     // Add this method to set the health slider
     public void SetHealthSlider(Slider slider)
     {
         healthSlider = slider;
+    }
+
+    public void SetHealthBar(HealthBar healthbar)
+    {
+        _healthBar = healthbar;
     }
 }

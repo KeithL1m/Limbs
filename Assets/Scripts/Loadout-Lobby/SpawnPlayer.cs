@@ -12,6 +12,7 @@ public class SpawnPlayer : MonoBehaviour
     public Player SpawnPlayerFirst(PlayerConfiguration pc)
     {
         _player = Instantiate(_playerPrefab);
+        _player.name = $"Player {pc.PlayerIndex}";
         Player player = _player.GetComponent<Player>();
         player.Initialize(pc);
 

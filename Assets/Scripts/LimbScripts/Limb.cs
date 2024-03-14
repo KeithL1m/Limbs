@@ -23,6 +23,7 @@ public class Limb : MonoBehaviour
     [HideInInspector] public Rigidbody2D LimbRB { get; private set; } = null;
 
     [SerializeField] protected SpriteRenderer _sprite;
+    public Sprite Sprite { get; private set; }
 
     [HideInInspector] public LimbType Type { get; set; } //this will help most with animations
     public LimbState State; //{ get; set; }
@@ -43,6 +44,8 @@ public class Limb : MonoBehaviour
     private float _specialDamage;
     protected Vector3 _returnVelocity;
     protected float _rVMultiplier;
+    protected float _knockbackAmt;
+    protected float _weight;
 
     public bool Clashing { get;private set; }
 
@@ -66,6 +69,8 @@ public class Limb : MonoBehaviour
 
         Trail.SetActive(false);
 
+        Sprite = _sprite.sprite;
+
         float angle = _limbData._throwAngle * Mathf.Deg2Rad;
 
         Size = GetComponent<CapsuleCollider2D>().bounds.size.y;
@@ -75,6 +80,8 @@ public class Limb : MonoBehaviour
         _damage = _limbData._damage;
         _specialDamage = _limbData._specialDamage;
         _rVMultiplier = _limbData._returnVelocityMultiplier;
+        _knockbackAmt = _limbData._knockback;
+        _weight = _limbData._weight;
 
         PickupTimer = 0.3f;
         CanPickUp = true;
@@ -214,14 +221,17 @@ public class Limb : MonoBehaviour
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (State != LimbState.Throwing)
+        {
             return;
-        else if (collision.gameObject.CompareTag("BreakWall"))
+        }
+
+        if (collision.gameObject.CompareTag("BreakWall"))
         {
             collision.gameObject.GetComponent<LimbInstantiateWall>().Damage();
             ReturnLimb();
             return;
         }
-        else if (collision.gameObject.CompareTag("Limb"))
+        if (collision.gameObject.CompareTag("Limb"))
         {
             Limb other = collision.gameObject.GetComponent<Limb>();
             if (other.State != LimbState.Throwing)
@@ -237,7 +247,14 @@ public class Limb : MonoBehaviour
             return;
         }
         else if (collision.gameObject.tag != "Player")
+        {
             return;
+        }
+
+        if (_weight > 0)
+        {
+            ServiceLocator.Get<CameraManager>().StartScreenShake(_weight * 0.01f, 0.1f);
+        }
 
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
 
@@ -263,7 +280,6 @@ public class Limb : MonoBehaviour
 
             ReturnLimb();
         }
-
     }
 
     protected virtual void OnCollisionExi2D(Collision2D collision)
