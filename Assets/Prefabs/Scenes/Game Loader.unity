@@ -208,6 +208,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
+--- !u!1 &902683682 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7150891192111988303, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
+  m_PrefabInstance: {fileID: 902683681}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &902683683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902683682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aaecad2f905f39439d9fe14fc5b28ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsToPool:
+  - name: GasBomb
+    prefab: {fileID: 8540868700325874929, guid: e5de6000cd7fb07468ecd4aac2969b18, type: 3}
+    poolSize: 5
+  - name: GasParticle
+    prefab: {fileID: 3535639313754706155, guid: 59aec56fdd7e846468c80fa0c05477a4, type: 3}
+    poolSize: 5
+  - name: Explosion
+    prefab: {fileID: 6256034235666780848, guid: 707a4f38868ed0440a8866927473a163, type: 3}
+    poolSize: 5
+  - name: Clash
+    prefab: {fileID: 1613047735746979956, guid: d03ee42b01cfd52459f9c0a4027b547c, type: 3}
+    poolSize: 8
 --- !u!1 &940593466
 GameObject:
   m_ObjectHideFlags: 0
