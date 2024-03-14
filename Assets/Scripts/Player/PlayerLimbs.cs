@@ -198,6 +198,7 @@ public class PlayerLimbs : MonoBehaviour
             Transform destroy = ServiceLocator.Get<EmptyDestructibleObject>().transform;
             if (_limbs[i] != null)
             {
+                _limbs[i].Clear();
                 _limbs[i].transform.SetParent(destroy);
                 _limbs[i] = null;
                 _ammoBar?.RemoveLimb(i);

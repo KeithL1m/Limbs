@@ -212,6 +212,9 @@ public class Limb : MonoBehaviour
         }
     }
 
+    public virtual void Clear() { }
+
+
     public void SetMaterial(Material material)
     {
         _sprite.material = material;

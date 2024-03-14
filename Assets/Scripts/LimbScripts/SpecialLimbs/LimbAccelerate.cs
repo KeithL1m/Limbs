@@ -15,26 +15,6 @@ public class LimbAccelerate : Limb
 
     }
 
-    //protected override void EnterPickupState() 
-    //{
-    //    FlipY(1);
-    //    FlipX(1);
-    //    PickUpExtra(_attachedPlayer);
-    //    Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
-    //    State = LimbState.PickUp;
-    //    _attachedPlayer = null;
-    //    _attachedPlayerLimbs = null;
-    //    if (Trail != null)
-    //    {
-    //        Trail.SetActive(false);
-    //    }
-    //    if (PickUpIndicator != null)
-    //    {
-    //        PickUpIndicator.SetActive(true);
-    //    }
-    //}
-
-
     private Player currentPlayer;
     private bool isAdd;
     public override void PickUpExtra(Player player)
@@ -45,6 +25,17 @@ public class LimbAccelerate : Limb
         isAdd = true;
         currentPlayer= player;
         currentPlayer.PlayerMovement.AddAccelerationLimb();
+    }
+
+    public override void Clear()
+    {
+        if (isAdd)
+        {
+            currentPlayer.PlayerMovement.RemoveAccelerationLimb();
+            currentPlayer = null;
+            isAdd = false;
+            transform.parent = null;
+        }
     }
 
 
