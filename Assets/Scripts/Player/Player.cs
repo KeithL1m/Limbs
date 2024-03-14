@@ -312,8 +312,8 @@ public class Player : MonoBehaviour
     }
 
     public void Death()
-    {
-        SetDisplayCrown(false);
+    { 
+        
     }
 
     public SpriteRenderer GetArrow()

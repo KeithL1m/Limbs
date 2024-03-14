@@ -41,10 +41,7 @@ public class PlayerHealth : MonoBehaviour
     public void AddDamage(float damage)
     {
         if (_gm.startScreen)
-        {
-            damageParticles.PlayStartSceneDamageParticle();
             return;
-        }
         else if (isDead)
             return;
 
