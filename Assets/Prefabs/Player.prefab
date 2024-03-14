@@ -1271,6 +1271,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 8668530357966387184}
     m_Modifications:
     - target: {fileID: 6250902396231978690, guid: 29d042058c4dc9b4289039d46cb0220e, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6250902396231978690, guid: 29d042058c4dc9b4289039d46cb0220e, type: 3}
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
@@ -1887,6 +1891,10 @@ PrefabInstance:
       objectReference: {fileID: 1671761714505325481}
     - target: {fileID: 4109025691695493940, guid: 34228c117a9a2c54080aee616ab47b39, type: 3}
       propertyPath: _startSceneBlood
+      value: 
+      objectReference: {fileID: 6166816153004378160}
+    - target: {fileID: 4109025691695493940, guid: 34228c117a9a2c54080aee616ab47b39, type: 3}
+      propertyPath: _startSceneDamageParticle
       value: 
       objectReference: {fileID: 6166816153004378160}
     - target: {fileID: 4541016663922128696, guid: 34228c117a9a2c54080aee616ab47b39, type: 3}

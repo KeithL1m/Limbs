@@ -157,7 +157,7 @@ PrefabInstance:
     - target: {fileID: 4379813963526838094, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
       propertyPath: _moduleComponents.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 902683686}
     - target: {fileID: 7150891192111988303, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
       propertyPath: m_Name
       value: GameLoader
@@ -206,14 +206,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
 --- !u!1 &902683682 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7150891192111988303, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
   m_PrefabInstance: {fileID: 902683681}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &902683683
+--- !u!114 &902683686
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -230,13 +231,25 @@ MonoBehaviour:
     prefab: {fileID: 8540868700325874929, guid: e5de6000cd7fb07468ecd4aac2969b18, type: 3}
     poolSize: 5
   - name: GasParticle
-    prefab: {fileID: 3535639313754706155, guid: 59aec56fdd7e846468c80fa0c05477a4, type: 3}
+    prefab: {fileID: 9044731996545471805, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
     poolSize: 5
   - name: Explosion
     prefab: {fileID: 6256034235666780848, guid: 707a4f38868ed0440a8866927473a163, type: 3}
     poolSize: 5
   - name: Clash
     prefab: {fileID: 1613047735746979956, guid: d03ee42b01cfd52459f9c0a4027b547c, type: 3}
+    poolSize: 8
+  - name: Confetti
+    prefab: {fileID: 6250902396231978716, guid: 29d042058c4dc9b4289039d46cb0220e, type: 3}
+    poolSize: 8
+  - name: RespawnSmoke
+    prefab: {fileID: 8834088008130680269, guid: c36c90bfff0be8c48bef9d82e4a66a32, type: 3}
+    poolSize: 8
+  - name: SpeedingUp
+    prefab: {fileID: 7496948502928549564, guid: 5669b990f56f5a74d860a8500ce0defc, type: 3}
+    poolSize: 8
+  - name: Teleport
+    prefab: {fileID: 7968957119848102641, guid: a781ca06f3e53c745a2dc70080682540, type: 3}
     poolSize: 8
 --- !u!1 &940593466
 GameObject:

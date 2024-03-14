@@ -273,6 +273,7 @@ public class Player : MonoBehaviour
     public void AddScore()
     {
         _config.Score++;
+        SetDisplayCrown(true);
     }
 
     public int GetScore()

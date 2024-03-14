@@ -1052,7 +1052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8567420190504578872, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8567420190504578872, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1439,7 +1439,7 @@ Transform:
   - {fileID: 258226897}
   - {fileID: 1936476586}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &666845810
 GameObject:
@@ -2194,7 +2194,7 @@ Transform:
   - {fileID: 1563882589}
   - {fileID: 1494688746}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1209994638
 GameObject:
@@ -2589,6 +2589,14 @@ PrefabInstance:
     - target: {fileID: 4379813963526838094, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
       propertyPath: _sceneIndexToLoad
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4379813963526838094, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
+      propertyPath: _moduleComponents.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4379813963526838094, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
+      propertyPath: _moduleComponents.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7150891192111988303, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
       propertyPath: m_Name
@@ -3214,7 +3222,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1602738792
 MonoBehaviour:
