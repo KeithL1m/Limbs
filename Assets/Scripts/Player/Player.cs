@@ -77,7 +77,6 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(duration);
         Debug.Log("Melee Damage Applied");
         _playerLimbs.Melee(_id);
-        yield return new WaitForSeconds(duration);
     }
 
     // melee attack
@@ -101,7 +100,6 @@ public class Player : MonoBehaviour
     private float GetAnimLength(string animName)
     {
         // Getting the animation length HASH CODE
-
         foreach (var anim in _animator.runtimeAnimatorController.animationClips)
         {
             if (string.CompareOrdinal(anim.name, animName) == 0)
