@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _noLegSpeed;
     [SerializeField] private float _hopForce;
     private float _hopTimer = 0.0f;
-    [SerializeField] float _maxHopTime;
+    [SerializeField] private float _maxHopTime;
     [SerializeField] private float _startMovePoint = 0.5f;
     [SerializeField] private float _smoothMoveSpeed = 0.06f; //the higher the number the less responsive it gets
 
