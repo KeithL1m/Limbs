@@ -17,7 +17,7 @@ public class Destructible : MonoBehaviour
         {
             if (collision.collider.GetComponent<Limb>().State == Limb.LimbState.Throwing)
             {
-                health -= 10;
+                DamageWall();
                 switch (health)
                 {
                     case 40:
@@ -39,6 +39,11 @@ public class Destructible : MonoBehaviour
         } 
     }
     
+    public void DamageWall()
+    {
+        health -= 10;
+    }
+
     public void CheckDeath()
     {
         if (health <= 0)
