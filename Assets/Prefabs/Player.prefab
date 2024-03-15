@@ -362,9 +362,9 @@ MonoBehaviour:
   attackPointTransform: {fileID: 150890157931490888}
   _groundCheck: {fileID: 8385072270942222215}
   _impactParticles: {fileID: 6834524132188660062}
-  _animator: {fileID: 573278624842582731}
   _sicknessMaterial: {fileID: 2100000, guid: b7d5c5e64b1a228489b7d93173887e5d, type: 2}
   _defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  _animator: {fileID: 573278624842582731}
   direction: 0
   _crownGameObject: {fileID: 4174948592063326648}
 --- !u!114 &8385072269478469062
@@ -439,9 +439,9 @@ MonoBehaviour:
   isDead: 0
   healthSlider: {fileID: 0}
   damageParticles: {fileID: 7195277598144823241}
-  _grayMaterial: {fileID: 0}
-  _standardMaterial: {fileID: 0}
-  _lowHealthMaterial: {fileID: 0}
+  _grayMaterial: {fileID: 2100000, guid: 40e6eb82d7757e04bb1e62a0fe1da1ff, type: 2}
+  _standardMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  _lowHealthMaterial: {fileID: 2100000, guid: 3e9a30bfdb6f2e143bb3c6b1739c3d6c, type: 2}
 --- !u!114 &6432030308765007816
 MonoBehaviour:
   m_ObjectHideFlags: 0
