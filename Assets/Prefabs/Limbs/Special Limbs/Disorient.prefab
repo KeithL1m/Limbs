@@ -130,3 +130,44 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7031586765184258110, guid: d2b3d4b3983896c40957940843227c42, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+--- !u!1 &1516082518293004695 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 479936713415687806, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+  m_PrefabInstance: {fileID: 1415017457693212649}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5996667439927381014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516082518293004695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 722e0c3bb8f27424ab289eae8e7f93ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sprite: {fileID: 8105531121579768431}
+  State: 0
+  _limbData: {fileID: 11400000, guid: 76d2735fb647a41419933b8acfdb8866, type: 2}
+  <Trail>k__BackingField: {fileID: 2032589684185758580}
+  <PickUpIndicator>k__BackingField: {fileID: 8578923699283451885}
+  <PickupTimer>k__BackingField: 0
+  TripleShot: 0
+  _specialLimbs: 0
+  _disorientLength: 10
+--- !u!1 &2032589684185758580 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1123106515960743069, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+  m_PrefabInstance: {fileID: 1415017457693212649}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &8105531121579768431 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7196619701666252166, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+  m_PrefabInstance: {fileID: 1415017457693212649}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8578923699283451885 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7254546142229159940, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+  m_PrefabInstance: {fileID: 1415017457693212649}
+  m_PrefabAsset: {fileID: 0}

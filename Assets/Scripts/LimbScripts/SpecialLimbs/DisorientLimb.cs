@@ -18,6 +18,8 @@ public class DisorientLimb : Limb
             {
                 _hitPlayer.MakeAimNormal();
                 _playerInputHandler.MakeAimNormal();
+                ServiceLocator.Get<LimbManager>().RemoveLimb(this);
+                Destroy(gameObject);
             }
         }
     }
@@ -25,6 +27,10 @@ public class DisorientLimb : Limb
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag != "Player")
+        {
+            return;
+        }
+        else if (collision.gameObject.GetComponent<Player>() == _attachedPlayer)
         {
             return;
         }

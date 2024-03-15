@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
     [SerializeField] public Transform GroundCheckTransform;
     [SerializeField] private GroundCheck _groundCheck;
     [SerializeField] private ParticleSystem _impactParticles;
+    [SerializeField] private Material _sicknessMaterial;
+    [SerializeField] private Material _defaultMaterial;
 
     //facing left = -1, right = 1
     public int direction;
@@ -161,12 +163,19 @@ public class Player : MonoBehaviour
             if (direction == 1)
             {
                 _aimTransform.eulerAngles = new Vector3(0, 0, -180);
+            }
+            else
+            {
+                _aimTransform.eulerAngles = new Vector3(0, 0, 0);
+            }
+
+            if (_playerMovement.facingRight)
+            {
                 _playerHead.flipX = false;
                 _playerBody.flipX = false;
             }
             else
             {
-                _aimTransform.eulerAngles = new Vector3(0, 0, 0);
                 _playerHead.flipX = true;
                 _playerBody.flipX = true;
             }
@@ -248,10 +257,12 @@ public class Player : MonoBehaviour
     public void MakeAimOpposite()
     {
         _aimConfused = true;
+        _playerHead.material = _sicknessMaterial;
     }
 
     public void MakeAimNormal()
     {
         _aimConfused = false;
+        _playerHead.material = _defaultMaterial;
     }
 }

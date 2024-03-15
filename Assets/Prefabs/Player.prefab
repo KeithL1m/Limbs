@@ -329,6 +329,8 @@ MonoBehaviour:
   GroundCheckTransform: {fileID: 8385072270942222214}
   _groundCheck: {fileID: 8385072270942222215}
   _impactParticles: {fileID: 6834524132188660062}
+  _sicknessMaterial: {fileID: 2100000, guid: b7d5c5e64b1a228489b7d93173887e5d, type: 2}
+  _defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   direction: 0
 --- !u!114 &8385072269478469062
 MonoBehaviour:
@@ -397,6 +399,7 @@ MonoBehaviour:
   _maxHealth: 100
   _health: 0
   chain: {fileID: 6432030308765007816}
+  deathPositions: []
   isDead: 0
   healthSlider: {fileID: 0}
   damageParticles: {fileID: 7195277598144823241}
