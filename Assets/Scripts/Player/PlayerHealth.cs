@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,7 +42,10 @@ public class PlayerHealth : MonoBehaviour
     public void AddDamage(float damage)
     {
         if (_gm.startScreen)
+        {
+            damageParticles.PlayStartSceneDamageParticle();
             return;
+        }
         else if (isDead)
             return;
 
@@ -74,6 +78,12 @@ public class PlayerHealth : MonoBehaviour
         }
 
         isDead = true;
+        if (!_gm.IsGameOver)
+        {
+            GetComponent<Player>().Death();
+        }
+        StartCoroutine(WaitCreateRespawnParticle());
+
         if (deathPositions[0].Occupied)
         {
             transform.position = deathPositions[1].transform.position;
@@ -92,8 +102,12 @@ public class PlayerHealth : MonoBehaviour
             chain.EnableChain(deathPositions[0].transform);
             deathPositions[0].Occupied = true;
         }
-
         _gm.CheckGameOver();
+    }
+    IEnumerator WaitCreateRespawnParticle() 
+    {
+        yield return new WaitForSeconds(0.5f);
+        ServiceLocator.Get<ParticleManager>().PlayRespawnParticle(transform.position);
     }
 
     public void ResetHealth()

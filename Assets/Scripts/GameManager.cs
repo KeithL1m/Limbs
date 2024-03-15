@@ -20,7 +20,7 @@ public class GameManager : Manager
     private PauseManager _pauseManager;
     private UIManager _uiManager;
     private bool isGameOver = false;
-
+    public bool IsGameOver { get { return false; } }
     private int _playerCount;
     private int _deadPlayers;
 
@@ -144,10 +144,12 @@ public class GameManager : Manager
         }
     }
 
+
     public void EndRound()
     {
         _deadPlayers = 0;
         spawnPoints.Clear();
+
         for (int j = 0; j < _players.Count; j++)
         {
             if (_players[j].GetScore() == _winsNeeded)
@@ -155,7 +157,6 @@ public class GameManager : Manager
                 EnterVictoryScreen();
             }
         }
-
         if (ServiceLocator.Get<CameraManager>() != null)
         {
             ServiceLocator.Get<CameraManager>().Unregister();
@@ -170,11 +171,22 @@ public class GameManager : Manager
 
     private void SpawnPlayer(int playerNum)
     {
+
         _players[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         _players[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         _players[playerNum].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
         _players[playerNum].GetComponent<PlayerHealth>().isDead = false;
         _players[playerNum].transform.position = spawnPoints[playerNum].transform.position;
+        if (!VictoryScreen)
+            return;
+        if (playerNum == 0)
+        {
+            _players[playerNum].SetDisplayCrown(true);
+        }
+        else
+        {
+            _players[playerNum].SetDisplayCrown(false);
+        }
     }
 
     public void ClearLimbs()
@@ -198,6 +210,7 @@ public class GameManager : Manager
         VictoryScreen = true;
 
         _players.Sort((emp2, emp1) => emp1.GetScore().CompareTo(emp2.GetScore()));
+
     }
 
     public void ResetRound()

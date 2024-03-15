@@ -7,7 +7,8 @@ public class ParticleManager
     private const string ExplosionName = "Explosion";
     private const string TeleportName = "Teleport";
     private const string ClashName = "Clash";
-    
+    private const string RespawnSmokeName = "RespawnSmoke";
+
     private ObjectPoolManager _objectPoolManager;
     
     public ParticleManager Initialize()
@@ -32,6 +33,14 @@ public class ParticleManager
         gas.transform.position = new Vector3(pos.x, pos.y, pos.z);
         gas.SetActive(true);
     }
+
+    public void PlayRespawnParticle(Vector3 pos)
+    {
+        var gas = _objectPoolManager.GetObjectFromPool(RespawnSmokeName);
+        gas.transform.position = new Vector3(pos.x, pos.y, pos.z);
+        gas.SetActive(true);
+    }
+    
 
     public void PlayTeleportParticle(Vector3 pos) 
     {

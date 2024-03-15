@@ -47,7 +47,7 @@ public class Limb : MonoBehaviour
     protected float _knockbackAmt;
     protected float _weight;
 
-    public bool Clashing { get;private set; }
+    public bool Clashing { get; private set; }
 
 
     [HideInInspector] public bool TripleShot = false;
@@ -94,7 +94,7 @@ public class Limb : MonoBehaviour
     {
         PickupTimer = 0.3f;
         CanPickUp = false;
-        _attachedPlayerLimbs.MoveBodyDown(); 
+        _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
         transform.SetParent(ServiceLocator.Get<EmptyDestructibleObject>().transform);
 
@@ -188,7 +188,7 @@ public class Limb : MonoBehaviour
     }
     public virtual void PickUpExtra(Player player) { }
 
-    public void FlipY(int i )
+    public void FlipY(int i)
     {
         if (i < 0)
         {
@@ -211,6 +211,9 @@ public class Limb : MonoBehaviour
             _sprite.flipX = false;
         }
     }
+
+    public virtual void Clear() { }
+
 
     public void SetMaterial(Material material)
     {
@@ -253,7 +256,8 @@ public class Limb : MonoBehaviour
 
         if (_weight > 0)
         {
-            ServiceLocator.Get<CameraManager>().StartScreenShake(_weight * 0.01f, 0.1f);
+            if (ServiceLocator.Get<CameraManager>() != null)
+                ServiceLocator.Get<CameraManager>().StartScreenShake(_weight * 0.01f, 0.1f);
         }
 
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
