@@ -77,6 +77,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(duration);
         Debug.Log("Melee Damage Applied");
         _playerLimbs.Melee(_id);
+        yield return new WaitForSeconds(duration);
     }
 
     // melee attack
