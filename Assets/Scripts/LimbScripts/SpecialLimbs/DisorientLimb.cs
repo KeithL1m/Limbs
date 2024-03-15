@@ -46,4 +46,13 @@ public class DisorientLimb : Limb
             transform.position = new Vector2(-100, -100);
         }
     }
+
+    private void OnDestroy()
+    {
+        if(_hitPlayer != null)
+        {
+            _hitPlayer.MakeAimNormal();
+            _playerInputHandler.MakeAimNormal();
+        }
+    }
 }
