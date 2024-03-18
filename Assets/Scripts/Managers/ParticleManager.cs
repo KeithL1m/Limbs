@@ -9,6 +9,7 @@ public class ParticleManager
     private const string ClashName = "Clash";
     private const string RespawnSmokeName = "RespawnSmoke";
     public const string ConfettiName = "Confetti";
+    public const string RedExplosionName = "RedExplosion";
 
     private ObjectPoolManager _objectPoolManager;
     
@@ -56,7 +57,12 @@ public class ParticleManager
         sword.transform.position = new Vector3(pos.x, pos.y, pos.z);
         sword.SetActive(true);
     }
-
+    public void PlayRedExplosionParticle(Vector3 pos)
+    {
+        GameObject redExplosion = _objectPoolManager.GetObjectFromPool(RedExplosionName);
+        redExplosion.transform.position = new Vector3(pos.x, pos.y, pos.z);
+        redExplosion.SetActive(true);
+    }
     public void PlayConfettiParticle(Vector3 pos) 
     {
         GameObject confetti = _objectPoolManager.GetObjectFromPool(ConfettiName);
