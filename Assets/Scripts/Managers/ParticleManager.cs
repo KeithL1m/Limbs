@@ -8,6 +8,7 @@ public class ParticleManager
     private const string TeleportName = "Teleport";
     private const string ClashName = "Clash";
     private const string RespawnSmokeName = "RespawnSmoke";
+    public const string ConfettiName = "Confetti";
 
     private ObjectPoolManager _objectPoolManager;
     
@@ -54,5 +55,12 @@ public class ParticleManager
         GameObject sword = _objectPoolManager.GetObjectFromPool(ClashName);
         sword.transform.position = new Vector3(pos.x, pos.y, pos.z);
         sword.SetActive(true);
+    }
+
+    public void PlayConfettiParticle(Vector3 pos) 
+    {
+        GameObject confetti = _objectPoolManager.GetObjectFromPool(ConfettiName);
+        confetti.transform.position = new Vector3(pos.x, pos.y, pos.z);
+        confetti.SetActive(true);
     }
 }
