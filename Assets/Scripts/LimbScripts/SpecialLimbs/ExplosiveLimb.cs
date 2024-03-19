@@ -68,7 +68,7 @@ public class ExplosiveLimb : Limb
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
 
-        _particleManager.PlayRedExplosionParticle(gameObject.transform.position);
+        _particleManager.PlayExplosionParticle(gameObject.transform.position);
 
         foreach (Collider2D item in explosionRadius)
         {

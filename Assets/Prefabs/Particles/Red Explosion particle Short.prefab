@@ -4882,6 +4882,7 @@ GameObject:
   - component: {fileID: 2934555284360724765}
   - component: {fileID: 2934555284360724754}
   - component: {fileID: 2934555284360724755}
+  - component: {fileID: 7447091998344662951}
   m_Layer: 0
   m_Name: Red Explosion particle Short
   m_TagString: Untagged
@@ -9746,6 +9747,25 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7447091998344662951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2934555284360724752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3139c6172d7bfdd4c8a350c37dceb38d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particles1: {fileID: 2934555284360724754}
+  _particles2: {fileID: 2934555284835068791}
+  _particles3: {fileID: 2934555284762017678}
+  _particles4: {fileID: 2934555284671144233}
+  _particles5: {fileID: 0}
+  _particles6: {fileID: 0}
+  _extraTime: 0
 --- !u!1 &2934555284671144236
 GameObject:
   m_ObjectHideFlags: 0
