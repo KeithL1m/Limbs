@@ -16,9 +16,9 @@ public class Deadzone : MonoBehaviour
             int randIndex = Random.Range(0, 2);
             Debug.Log($"Random Index: {randIndex}");
             var deathPos = playerHealth.deathPositions[randIndex];
-            playerHealth.Drop(deathPos.transform.position);
             respawnLocation = deathPos.transform.position; 
             player.transform.position = respawnLocation;
+            playerHealth.Drop(deathPos.transform.position);
         }
 
 
