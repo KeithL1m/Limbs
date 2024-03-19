@@ -19,6 +19,7 @@ public class DisorientLimb : Limb
                 _hitPlayer.MakeAimNormal();
                 _playerInputHandler.MakeAimNormal();
                 ServiceLocator.Get<LimbManager>().RemoveLimb(this);
+                ServiceLocator.Get<ParticleManager>().PlayRedExplosionParticle(transform.position);
                 Destroy(gameObject);
             }
         }
