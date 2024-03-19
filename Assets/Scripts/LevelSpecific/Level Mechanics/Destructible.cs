@@ -17,35 +17,30 @@ public class Destructible : MonoBehaviour
         {
             if (collision.collider.GetComponent<Limb>().State == Limb.LimbState.Throwing)
             {
-                DamageWall();
-                switch (health)
-                {
-                    case 40:
-                    {
-                            gameObject.GetComponent<SpriteRenderer>().sprite = wallStates[0];
-                            break;
-                    }
-                    case 20:
-                        {
-                            gameObject.GetComponent<SpriteRenderer>().sprite = wallStates[1];
-                            break;
-                        }
-                }
+                DamageWall(10);
                 Debug.Log(health);
             }
-
-            CheckDeath();
-
         } 
     }
     
-    public void DamageWall()
+    public void DamageWall(float damage)
     {
-        health -= 10;
-    }
+        health -= damage;
 
-    public void CheckDeath()
-    {
+        switch (health)
+        {
+            case 40:
+                {
+                    gameObject.GetComponent<SpriteRenderer>().sprite = wallStates[0];
+                    break;
+                }
+            case 20:
+                {
+                    gameObject.GetComponent<SpriteRenderer>().sprite = wallStates[1];
+                    break;
+                }
+        }
+
         if (health <= 0)
         {
             Destroy(gameObject);

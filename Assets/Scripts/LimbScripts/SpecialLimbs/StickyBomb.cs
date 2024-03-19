@@ -156,8 +156,7 @@ public class StickyBomb : Limb
 
                         if (item.CompareTag("Destructible"))
                         {
-                            item.GetComponent<Destructible>().health -= 35;
-                            item.GetComponent<Destructible>().CheckDeath();
+                            item.GetComponent<Destructible>().DamageWall(35);
                             Debug.Log("Damaged Destructible");
                         }
                     }
