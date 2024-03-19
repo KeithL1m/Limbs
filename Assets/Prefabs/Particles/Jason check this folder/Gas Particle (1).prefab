@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3459921294007719612}
   - component: {fileID: 5734049712133523214}
   m_Layer: 0
-  m_Name: Particle System Blood Trails
+  m_Name: Gas Liquid Burst Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
