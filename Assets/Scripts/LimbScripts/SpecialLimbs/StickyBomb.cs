@@ -132,7 +132,7 @@ public class StickyBomb : Limb
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
 
-        _particleManager.PlayExplosionParticle(gameObject.transform.position);
+        _particleManager.PlayRedExplosionParticle(gameObject.transform.position);
 
         foreach (Collider2D item in explosionRadius)
         {
@@ -156,8 +156,7 @@ public class StickyBomb : Limb
 
                         if (item.CompareTag("Destructible"))
                         {
-                            item.GetComponent<Destructible>().health -= 35;
-                            item.GetComponent<Destructible>().CheckDeath();
+                            item.GetComponent<Destructible>().DamageWall(35);
                             Debug.Log("Damaged Destructible");
                         }
                     }

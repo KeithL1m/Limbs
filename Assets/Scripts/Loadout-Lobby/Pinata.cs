@@ -31,7 +31,7 @@ public class Pinata : MonoBehaviour
             return;
         if(collision.gameObject.GetComponent<Limb>().State != Limb.LimbState.Throwing)
             return;
-
+        ServiceLocator.Get<ParticleManager>().PlayConfettiParticle(transform.position);
         Debug.Log("Pinata is hit");
         _health -= 10.0f;
 
