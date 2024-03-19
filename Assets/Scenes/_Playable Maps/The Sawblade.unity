@@ -193,7 +193,7 @@ PrefabInstance:
     - target: {fileID: 5815899267000728750, guid: c912c4c6e9f6cf14fbed8ff9a38bcc1e, type: 3}
       propertyPath: _sawChain
       value: 
-      objectReference: {fileID: 656037898}
+      objectReference: {fileID: 287680762}
     - target: {fileID: 7577170477252620456, guid: c912c4c6e9f6cf14fbed8ff9a38bcc1e, type: 3}
       propertyPath: m_IsActive
       value: 1
