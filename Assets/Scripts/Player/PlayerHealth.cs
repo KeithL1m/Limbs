@@ -104,6 +104,13 @@ public class PlayerHealth : MonoBehaviour
         }
         _gm.CheckGameOver();
     }
+
+    public void Drop(Vector2 pos) 
+    {
+        ServiceLocator.Get<ParticleManager>().PlayRespawnParticle(pos);
+
+    }
+
     IEnumerator WaitCreateRespawnParticle() 
     {
         yield return new WaitForSeconds(0.5f);
