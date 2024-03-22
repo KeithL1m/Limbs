@@ -10,6 +10,11 @@ public class ParticleManager
     private const string RespawnSmokeName = "RespawnSmoke";
     public const string ConfettiName = "Confetti";
     public const string RedExplosionName = "RedExplosion";
+    public const string BreakableWallName = "BreakableWall";
+    public const string DeathName = "Death";
+    public const string DrunkLiquidBubbleBurstName = "DrunkLiquidBubbleBurst";
+    public const string DrunkRisingBubbleName = "DrunkRisingBubble";
+
 
     private ObjectPoolManager _objectPoolManager;
     
@@ -68,5 +73,29 @@ public class ParticleManager
         GameObject confetti = _objectPoolManager.GetObjectFromPool(ConfettiName);
         confetti.transform.position = new Vector3(pos.x, pos.y, pos.z);
         confetti.SetActive(true);
+    }
+    public void PlayBreakableWallParticle(Vector3 pos)
+    {
+        GameObject breakableWall = _objectPoolManager.GetObjectFromPool(BreakableWallName);
+        breakableWall.transform.position = new Vector3(pos.x, pos.y, pos.z);
+        breakableWall.SetActive(true);
+    }
+    public void PlayDrunkLiquidBubbleBurstParticle(Vector3 pos)
+    {
+        GameObject drunkLiquidBubbleBurst = _objectPoolManager.GetObjectFromPool(DrunkLiquidBubbleBurstName);
+        drunkLiquidBubbleBurst.transform.position = new Vector3(pos.x, pos.y, pos.z);
+        drunkLiquidBubbleBurst.SetActive(true);
+    }
+    public void PlayDeathParticle(Vector3 pos)
+    {
+        GameObject death= _objectPoolManager.GetObjectFromPool(DeathName);
+        death.transform.position = new Vector3(pos.x, pos.y, pos.z);
+        death.SetActive(true);
+    }
+    public void PlayDrunkRisingBubbleParticle(Vector3 pos)
+    {
+        GameObject drunkRisingBubble = _objectPoolManager.GetObjectFromPool(DrunkRisingBubbleName);
+        drunkRisingBubble.transform.position = new Vector3(pos.x, pos.y, pos.z);
+        drunkRisingBubble.SetActive(true);
     }
 }
