@@ -199,6 +199,7 @@ MonoBehaviour:
   TripleShot: 0
   _specialLimbs: 0
   _collider: {fileID: 3924467205363855887}
+  _animator: {fileID: 6370475014402404606}
   _timer: 3
 --- !u!50 &936125741418059607
 Rigidbody2D:
@@ -451,7 +452,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7625087945418288736}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 5d8e60419728eb54fa96c5e26b698bd6, type: 2}
   m_CullingMode: 0
