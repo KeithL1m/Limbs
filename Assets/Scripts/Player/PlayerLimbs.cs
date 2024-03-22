@@ -382,6 +382,12 @@ public class PlayerLimbs : MonoBehaviour
 
                 Debug.Log("You hit" + enemy.name);
             }
+            else if (enemy.gameObject.CompareTag("BreakWall"))
+            {
+                enemy.gameObject.GetComponent<LimbInstantiateWall>().Damage();
+                ServiceLocator.Get<ParticleManager>().PlayBreakableWallParticle(enemy.transform.position);
+                return;
+            }
         }
     }
 }
