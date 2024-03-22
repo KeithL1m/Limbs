@@ -12,6 +12,9 @@ public class LimbInstantiateWall : MonoBehaviour
     private int maxHP;
     public int HP { get { return hp; } }
     [SerializeField] private float colorDuration = 0.2f;
+    private float damageCD = 0.1f;
+    private bool isHited;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +37,7 @@ public class LimbInstantiateWall : MonoBehaviour
         }
 
     }
-    private float damageCD = 0.1f;
+
     public void Damage()
     {
         if (damageCD > 0)
@@ -46,10 +49,10 @@ public class LimbInstantiateWall : MonoBehaviour
             Destroy(gameObject);
         }
         else
+        {
             spriteRenderer.sprite = hitedSprites[(maxHP - hp)];
+        }
     }
-    private bool isHited;
-
 }
 
 

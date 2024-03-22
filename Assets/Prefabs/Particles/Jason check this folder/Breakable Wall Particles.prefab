@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6642210983383843123}
   - component: {fileID: 6642210983383843122}
   - component: {fileID: 6642210983383843121}
+  - component: {fileID: 2877871077846354994}
   m_Layer: 0
   m_Name: Breakable Wall Particles
   m_TagString: Untagged
@@ -4896,3 +4897,22 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &2877871077846354994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6642210983383843120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3139c6172d7bfdd4c8a350c37dceb38d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particles1: {fileID: 6642210983383843122}
+  _particles2: {fileID: 0}
+  _particles3: {fileID: 0}
+  _particles4: {fileID: 0}
+  _particles5: {fileID: 0}
+  _particles6: {fileID: 0}
+  _extraTime: 0
