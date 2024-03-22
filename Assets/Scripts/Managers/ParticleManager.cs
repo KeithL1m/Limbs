@@ -14,7 +14,7 @@ public class ParticleManager
     public const string DeathName = "Death";
     public const string DrunkLiquidBubbleBurstName = "DrunkLiquidBubbleBurst";
     public const string DrunkRisingBubbleName = "DrunkRisingBubble";
-    public const string StickBombName = "StickBomb";
+    public const string StickBombName = "StikyExplosion";
 
 
     private ObjectPoolManager _objectPoolManager;

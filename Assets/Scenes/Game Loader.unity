@@ -266,6 +266,9 @@ MonoBehaviour:
   - name: DrunkRisingBubble
     prefab: {fileID: 8373274344114635434, guid: 5f4737646ea65ed42ae2e286d856058d, type: 3}
     poolSize: 8
+  - name: StikyExplosion
+    prefab: {fileID: 4456231009394609338, guid: b011c723598e40846989bfe12d9cf26a, type: 3}
+    poolSize: 8
 --- !u!1 &940593466
 GameObject:
   m_ObjectHideFlags: 0
