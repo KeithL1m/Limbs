@@ -254,6 +254,21 @@ MonoBehaviour:
   - name: RedExplosion
     prefab: {fileID: 4955992884805386378, guid: d4eb34e6dc80ea4489ffdd0c40871510, type: 3}
     poolSize: 8
+  - name: BreakableWall
+    prefab: {fileID: 6642210983383843120, guid: 58cb16fcc3be0cf48bd1481a69135aa0, type: 3}
+    poolSize: 8
+  - name: Death
+    prefab: {fileID: 4168015522254820252, guid: a5b735aa94da4064e861449aa0e1de16, type: 3}
+    poolSize: 8
+  - name: DrunkLiquidBubbleBurst
+    prefab: {fileID: 4905721473353955614, guid: 09d324df759c80e46a67a4745af3f142, type: 3}
+    poolSize: 8
+  - name: DrunkRisingBubble
+    prefab: {fileID: 8373274344114635434, guid: 5f4737646ea65ed42ae2e286d856058d, type: 3}
+    poolSize: 8
+  - name: StikyExplosion
+    prefab: {fileID: 4456231009394609338, guid: b011c723598e40846989bfe12d9cf26a, type: 3}
+    poolSize: 8
 --- !u!1 &940593466
 GameObject:
   m_ObjectHideFlags: 0
