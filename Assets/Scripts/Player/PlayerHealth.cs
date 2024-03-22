@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -70,7 +71,7 @@ public class PlayerHealth : MonoBehaviour
         }
         isDead = true;
         _healthBar.SetMaterial(_grayMaterial);
-
+        ServiceLocator.Get<ParticleManager>().PlayDeathParticle(transform.position-transform.up.normalized*0.5f);
         if (_health > 0)
         {
             _health = 0;
@@ -104,6 +105,8 @@ public class PlayerHealth : MonoBehaviour
         }
         _gm.CheckGameOver();
     }
+
+   
 
     public void Drop(Vector2 pos) 
     {
