@@ -5,6 +5,7 @@ using UnityEngine;
 public class ExplosiveLimb : Limb
 {
     [SerializeField] Collider2D _collider;
+    [SerializeField] private Animator _animator;
 
     //Particle
     private ParticleManager _particleManager;
@@ -43,6 +44,7 @@ public class ExplosiveLimb : Limb
     {
         _collider.enabled = false;
         yield return new WaitForSeconds(_delayTimer);
+        _animator.enabled = true;
         _collider.enabled = true;
         yield break;
     }

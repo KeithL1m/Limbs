@@ -380,6 +380,7 @@ public class PlayerLimbs : MonoBehaviour
                     // dont hit yourself
                     continue;
                 }
+
                 enemy.GetComponent<PlayerHealth>().AddDamage(2);
                 // knockback
                 Vector2 distanceVector = enemy.transform.position - transform.position;
@@ -393,6 +394,12 @@ public class PlayerLimbs : MonoBehaviour
             {
                 enemy.gameObject.GetComponent<LimbInstantiateWall>().Damage();
                 ServiceLocator.Get<ParticleManager>().PlayBreakableWallParticle(enemy.transform.position);
+                return;
+            }
+
+            else if (enemy.gameObject.CompareTag("Destructible"))
+            {
+                enemy.gameObject.GetComponent<Destructible>().DamageWall(1);
                 return;
             }
         }
