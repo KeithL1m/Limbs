@@ -20,9 +20,10 @@ public class GameManager : Manager
     private PauseManager _pauseManager;
     private UIManager _uiManager;
     private bool isGameOver = false;
-    public bool IsGameOver { get { return false; } }
+    public bool IsGameOver { get { return isGameOver; } }
     private int _playerCount;
     private int _deadPlayers;
+    private Player _winningPlayer;
 
     public bool startScreen { get; set; } = true;
     public bool VictoryScreen { get; private set; } = false;
@@ -114,7 +115,7 @@ public class GameManager : Manager
     public void CheckGameOver()
     {
         PlayerConfiguration winningConfig = null;
-        Player winningPlayer = null;
+        _winningPlayer = null;
         for (int i = 0; i < _playerCount; i++)
         {
             if (_players[i].GetComponent<PlayerHealth>().IsDead())
@@ -124,7 +125,7 @@ public class GameManager : Manager
             else
             {
                 winningConfig = _playerConfigs[i];
-                winningPlayer = _players[i];
+                _winningPlayer = _players[i];
             }
         }
 
@@ -133,7 +134,7 @@ public class GameManager : Manager
             if (!isGameOver) // Check if game over is not already triggered
             {
                 isGameOver = true;
-                winningPlayer.AddScore();
+                _winningPlayer.AddScore();
                 StartCoroutine(_uiManager.ShowGameOverScreen(winningConfig));
             }
         }
@@ -265,5 +266,10 @@ public class GameManager : Manager
     public List<PlayerConfiguration> GetPlayerConfigs()
     {
         return _playerConfigs;
+    }
+
+    public Player GetWinningPlayer()
+    {
+        return _winningPlayer;
     }
 }

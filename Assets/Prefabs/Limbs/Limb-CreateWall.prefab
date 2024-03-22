@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4518471586269112581}
   - component: {fileID: 4518471586269112578}
   - component: {fileID: 4518471586269112579}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Limb-CreateWall
   m_TagString: BreakWall
   m_Icon: {fileID: 0}

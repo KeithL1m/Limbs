@@ -108,7 +108,6 @@ public class PlayerHealth : MonoBehaviour
     public void Drop(Vector2 pos) 
     {
         ServiceLocator.Get<ParticleManager>().PlayRespawnParticle(pos);
-
     }
 
     IEnumerator WaitCreateRespawnParticle() 

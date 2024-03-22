@@ -15,10 +15,13 @@ public class CameraManager : MonoBehaviour
     private float _currentDistance = 0;
 
     [SerializeField] private Vector3 _offset = new Vector3(0, -1, -10);
+    [SerializeField] private Vector3 _endOffset = new Vector3(0, 1.0f, -10);
     [SerializeField] private float _smoothTime = 0.3f;
     [SerializeField] private float _smoothZoomInTime = 2f;
     [SerializeField] private float _smoothZoomOutTime = 0.7f;
     [SerializeField] private float _minHeight = 12.5f;
+    [SerializeField] private float _endZoomDistance = 3.6f;
+    [SerializeField] private float _endZoomTime = 0.7f;
     private float _maxHeight;
     private float _shakeIntensity;
     private float _shakeDuration;
@@ -31,6 +34,7 @@ public class CameraManager : MonoBehaviour
     private GameLoader _gameLoader = null;
     private PlayerManager _playerManager = null;
     private Camera _camera;
+    private GameManager _gameManager;
     private bool _initialized = false;
     private bool _teleportThrown = false;
     private bool _shaking = false;
@@ -48,6 +52,7 @@ public class CameraManager : MonoBehaviour
         Debug.Log("Camera Manager Initializing");
 
         ServiceLocator.Register<CameraManager>(this);
+        _gameManager = ServiceLocator.Get<GameManager>();
 
         //get the max extents of the camera
         _camera = GetComponent<Camera>();
@@ -91,7 +96,15 @@ public class CameraManager : MonoBehaviour
         }
 
         MoveCamera();
-        AdjustCameraSize();
+
+        if (_gameManager.IsGameOver)
+        {
+            EndZoom();
+        }
+        else
+        {
+            AdjustCameraSize();
+        }
 
         if (_shaking)
         {
@@ -119,14 +132,22 @@ public class CameraManager : MonoBehaviour
     {
         centrePoint = CalculateCentrePoint();
 
-        Vector3 newPos = centrePoint + _offset;
+        Vector3 newPos = new Vector3();
+
+        if (_gameManager.IsGameOver)
+        {
+            newPos = centrePoint + _endOffset;
+        }
+        else
+        {
+            newPos = centrePoint + _offset;
+        }
 
         transform.position = Vector3.SmoothDamp(transform.position, newPos, ref _velocity, _smoothTime);
     }
 
     private void AdjustCameraSize()
     {
-
         float distanceX = _playerBounds.size.x * _widthMultiplier;
         float distanceY = _playerBounds.size.y * _heightMultiplier;
 
@@ -170,18 +191,32 @@ public class CameraManager : MonoBehaviour
 
     private Vector3 CalculateCentrePoint()
     {
-        _playerBounds = new Bounds(_players[0].transform.position, Vector3.zero);
-        for (int i = 1; i < _players.Count; i++)
+        if (_gameManager.IsGameOver)
         {
-            if (_players[i] != null)
+            _playerBounds = new Bounds(_gameManager.GetWinningPlayer().transform.position, Vector3.zero);
+
+        }
+        else
+        {
+            _playerBounds = new Bounds(_players[0].transform.position, Vector3.zero);
+            for (int i = 1; i < _players.Count; i++)
             {
-                _playerBounds.Encapsulate(_players[i].transform.position);
+                if (_players[i] != null)
+                {
+                    _playerBounds.Encapsulate(_players[i].transform.position);
+                }
             }
         }
 
         //make sure camera doesn't move too far 
 
         return _playerBounds.center;
+    }
+
+    // Zoom to winning player
+    private void EndZoom()
+    { 
+        _camera.orthographicSize = Mathf.SmoothDamp(_camera.orthographicSize, _endZoomDistance, ref _zoomVelocity, _endZoomTime);
     }
 
     public void AddTeleport(GameObject player)

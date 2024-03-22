@@ -13,7 +13,7 @@ public class ExplosiveLimb : Limb
     [SerializeField] private float _timer = 3.0f;
     float countdown = 0.0f;
 
-    float _delayTimer = 0.001f;
+    float _delayTimer = 0.1f;
 
     Collider2D[] explosionRadius = null;
     private float _explosionForce = 300;
@@ -68,7 +68,7 @@ public class ExplosiveLimb : Limb
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
 
-        _particleManager.PlayRedExplosionParticle(gameObject.transform.position);
+        _particleManager.PlayExplosionParticle(gameObject.transform.position);
 
         foreach (Collider2D item in explosionRadius)
         {
@@ -89,8 +89,7 @@ public class ExplosiveLimb : Limb
 
                     if (item.CompareTag("Destructible"))
                     {
-                        item.GetComponent<Destructible>().health -= 35;
-                        item.GetComponent<Destructible>().CheckDeath();
+                        item.GetComponent<Destructible>().DamageWall(35);
                     }
                 }
             }
