@@ -46,6 +46,8 @@ public class Player : MonoBehaviour
 
     //for melee
     [SerializeField] private Animator _animator;
+    private float _meleeCooldown = 0.8f;
+    float lastMelee;
 
     //facing left = -1, right = 1
     public int direction;
@@ -261,6 +263,11 @@ public class Player : MonoBehaviour
     // melee attack
     private void OnMeleeAttack(float variable)
     {
+        if (Time.time - lastMelee < _meleeCooldown)
+        {
+            return;
+        }
+        lastMelee = Time.time;
         Debug.Log("Melee Anim Triggered");
         if (checkAnimLeft)
         {
