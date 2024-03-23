@@ -36,7 +36,7 @@ public class Sawblade : MonoBehaviour
         // Check if chainsaw slows down
         if(_sawChain.GetComponent<Rigidbody2D>().velocity.magnitude < 15.0f)
         {
-            _sawChain.AddForce(new Vector2(800.0f, 0.0f));
+            _sawChain.AddForce(new Vector2(-600.0f, 0.0f));
         }
         
     }
