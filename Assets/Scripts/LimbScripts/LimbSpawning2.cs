@@ -58,10 +58,10 @@ public class LimbSpawning2 : MonoBehaviour
     {
         _currentLimbs = _limbManager.GetLimbAmount();
 
-        if (_currentLimbs < _limbLimit)
-        {
-            _limbTimer -= Time.deltaTime;
-        }
+        if (_currentLimbs >= _limbLimit)
+            return;
+
+        _limbTimer -= Time.deltaTime;
 
         if (_limbTimer <= 0.0f)
         {

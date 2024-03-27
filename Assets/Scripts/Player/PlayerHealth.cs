@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,10 +12,9 @@ public class PlayerHealth : MonoBehaviour
     public float _health;
     [SerializeField]
     private Chain chain;
-    private DeathPosition[] deathPositions;
+    public DeathPosition[] deathPositions;
 
     public bool isDead = false;
-    private bool _initialized = false;
 
     [SerializeField]
     private Slider healthSlider;
@@ -37,13 +37,15 @@ public class PlayerHealth : MonoBehaviour
     {
         _gm = ServiceLocator.Get<GameManager>();
         _health = _maxHealth;
-        _initialized = true;
     }
 
     public void AddDamage(float damage)
     {
         if (_gm.startScreen)
+        {
+            //damageParticles.PlayStartSceneDamageParticle();
             return;
+        }
         else if (isDead)
             return;
 
@@ -62,6 +64,10 @@ public class PlayerHealth : MonoBehaviour
 
     public void KillPlayer()
     {
+        if (isDead)
+        {
+            return;
+        }
         isDead = true;
         _healthBar.SetMaterial(_grayMaterial);
 
@@ -70,18 +76,25 @@ public class PlayerHealth : MonoBehaviour
             _health = 0;
             UpdateHealthSlider();
         }
-        deathPositions = FindObjectsOfType<DeathPosition>();
-        if (deathPositions is null)
-        {
-            Debug.LogError("there are no DeathPositions in the Scene");
-            return;
-        }
 
         isDead = true;
+        if (!_gm.IsGameOver)
+        {
+            GetComponent<Player>().Death();
+        }
+        StartCoroutine(WaitCreateRespawnParticle());
+
         if (deathPositions[0].Occupied)
         {
             transform.position = deathPositions[1].transform.position;
             chain.EnableChain(deathPositions[1].transform);
+            deathPositions[1].Occupied = true;
+        }
+        else if (deathPositions[1].Occupied)
+        {
+            transform.position = deathPositions[2].transform.position;
+            chain.EnableChain(deathPositions[2].transform);
+            deathPositions[2].Occupied = true;
         }
         else
         {
@@ -89,12 +102,23 @@ public class PlayerHealth : MonoBehaviour
             chain.EnableChain(deathPositions[0].transform);
             deathPositions[0].Occupied = true;
         }
-
         _gm.CheckGameOver();
+    }
+
+    public void Drop(Vector2 pos) 
+    {
+        ServiceLocator.Get<ParticleManager>().PlayRespawnParticle(pos);
+    }
+
+    IEnumerator WaitCreateRespawnParticle() 
+    {
+        yield return new WaitForSeconds(0.5f);
+        ServiceLocator.Get<ParticleManager>().PlayRespawnParticle(transform.position);
     }
 
     public void ResetHealth()
     {
+        deathPositions = FindObjectsOfType<DeathPosition>();
         _healthBar.SetMaterial(_standardMaterial);
 
         _health = _maxHealth;

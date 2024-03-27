@@ -193,7 +193,7 @@ PrefabInstance:
     - target: {fileID: 5815899267000728750, guid: c912c4c6e9f6cf14fbed8ff9a38bcc1e, type: 3}
       propertyPath: _sawChain
       value: 
-      objectReference: {fileID: 656037898}
+      objectReference: {fileID: 287680762}
     - target: {fileID: 7577170477252620456, guid: c912c4c6e9f6cf14fbed8ff9a38bcc1e, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -211,13 +211,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathLocations
       objectReference: {fileID: 0}
+    - target: {fileID: 2645848161239143669, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 21.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2645848161239143669, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.73
+      objectReference: {fileID: 0}
     - target: {fileID: 4799732122992004047, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.8
+      value: -23.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799732122992004047, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.4
       objectReference: {fileID: 0}
     - target: {fileID: 4799732124840465401, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.8
+      value: -0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799732124840465401, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.06
       objectReference: {fileID: 0}
     - target: {fileID: 9088968178397644748, guid: b461c9a66eedfd444922250f6274bd85, type: 3}
       propertyPath: m_RootOrder
@@ -917,16 +933,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _players: []
-  _maxBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  _lastDistance: 0
-  _currentDistance: 0
+  _offset: {x: 0, y: -1, z: -10}
   _smoothTime: 0.3
   _smoothZoomInTime: 0.7
   _smoothZoomOutTime: 0.5
   _minHeight: 12.5
-  _maxHeight: 0
   _heightMultiplier: 1.4
   _widthMultiplier: 1.4
   _zoomLimiter: 0
@@ -8195,7 +8206,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

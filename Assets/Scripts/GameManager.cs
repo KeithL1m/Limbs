@@ -20,9 +20,10 @@ public class GameManager : Manager
     private PauseManager _pauseManager;
     private UIManager _uiManager;
     private bool isGameOver = false;
-
+    public bool IsGameOver { get { return isGameOver; } }
     private int _playerCount;
     private int _deadPlayers;
+    private Player _winningPlayer;
 
     public bool startScreen { get; set; } = true;
     public bool VictoryScreen { get; private set; } = false;
@@ -105,7 +106,7 @@ public class GameManager : Manager
 
         for (int i = 0; i < _playerCount; i++)
         {
-            Debug.Log("player is being spawned");
+            Debug.Log($"<color=lime>Player {i} is being spawned</color>");
             _players[i].GetComponent<PlayerHealth>().ResetHealth();
             SpawnPlayer(i);
         }
@@ -114,7 +115,7 @@ public class GameManager : Manager
     public void CheckGameOver()
     {
         PlayerConfiguration winningConfig = null;
-        Player winningPlayer = null;
+        _winningPlayer = null;
         for (int i = 0; i < _playerCount; i++)
         {
             if (_players[i].GetComponent<PlayerHealth>().IsDead())
@@ -124,7 +125,7 @@ public class GameManager : Manager
             else
             {
                 winningConfig = _playerConfigs[i];
-                winningPlayer = _players[i];
+                _winningPlayer = _players[i];
             }
         }
 
@@ -133,7 +134,7 @@ public class GameManager : Manager
             if (!isGameOver) // Check if game over is not already triggered
             {
                 isGameOver = true;
-                winningPlayer.AddScore();
+                _winningPlayer.AddScore();
                 StartCoroutine(_uiManager.ShowGameOverScreen(winningConfig));
             }
         }
@@ -144,10 +145,12 @@ public class GameManager : Manager
         }
     }
 
+
     public void EndRound()
     {
         _deadPlayers = 0;
         spawnPoints.Clear();
+
         for (int j = 0; j < _players.Count; j++)
         {
             if (_players[j].GetScore() == _winsNeeded)
@@ -155,7 +158,6 @@ public class GameManager : Manager
                 EnterVictoryScreen();
             }
         }
-
         if (ServiceLocator.Get<CameraManager>() != null)
         {
             ServiceLocator.Get<CameraManager>().Unregister();
@@ -170,11 +172,22 @@ public class GameManager : Manager
 
     private void SpawnPlayer(int playerNum)
     {
+
         _players[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         _players[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         _players[playerNum].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
         _players[playerNum].GetComponent<PlayerHealth>().isDead = false;
         _players[playerNum].transform.position = spawnPoints[playerNum].transform.position;
+        if (!VictoryScreen)
+            return;
+        if (playerNum == 0)
+        {
+            _players[playerNum].SetDisplayCrown(true);
+        }
+        else
+        {
+            _players[playerNum].SetDisplayCrown(false);
+        }
     }
 
     public void ClearLimbs()
@@ -198,6 +211,7 @@ public class GameManager : Manager
         VictoryScreen = true;
 
         _players.Sort((emp2, emp1) => emp1.GetScore().CompareTo(emp2.GetScore()));
+
     }
 
     public void ResetRound()
@@ -252,5 +266,10 @@ public class GameManager : Manager
     public List<PlayerConfiguration> GetPlayerConfigs()
     {
         return _playerConfigs;
+    }
+
+    public Player GetWinningPlayer()
+    {
+        return _winningPlayer;
     }
 }

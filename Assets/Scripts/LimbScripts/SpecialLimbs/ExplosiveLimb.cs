@@ -62,12 +62,13 @@ public class ExplosiveLimb : Limb
     }
 
     void Explode()
-    { 
+    {
+        ServiceLocator.Get<CameraManager>().StartScreenShake(0.2f, 0.25f);
         Debug.Log("BOOOOM");
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
 
-        _particleManager.PlayExplosionParticle(gameObject.transform.position);
+        _particleManager.PlayRedExplosionParticle(gameObject.transform.position);
 
         foreach (Collider2D item in explosionRadius)
         {
@@ -88,8 +89,7 @@ public class ExplosiveLimb : Limb
 
                     if (item.CompareTag("Destructible"))
                     {
-                        item.GetComponent<Destructible>().health -= 35;
-                        item.GetComponent<Destructible>().CheckDeath();
+                        item.GetComponent<Destructible>().DamageWall(35);
                     }
                 }
             }

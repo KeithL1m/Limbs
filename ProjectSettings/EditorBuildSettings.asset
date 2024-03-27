@@ -54,13 +54,13 @@ EditorBuildSettings:
     path: Assets/Scenes/_Playable Maps/The Sawblade.unity
     guid: 1807d8fcbe9fe9049982560da7f089ca
   - enabled: 0
-    path: Assets/Scenes/_Playable Maps/Icefall.unity
-    guid: e1b52b6c7854f844a8d764ea0f91a66e
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: Assets/Scenes/_Playable Maps/Testing/LimbTesting.unity
     guid: 99e5ed3875860ff4183871e9f4280436
   - enabled: 1
-    path: Assets/Scenes/_Playable Maps/Cashier.unity
+    path: Assets/Scenes/_Playable Maps/Testing/Cashier.unity
     guid: aa9d6eee50796174bb1ecb802f3772a3
   - enabled: 1
     path: Assets/Scenes/_Playable Maps/Fridge.unity
@@ -68,9 +68,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/_Playable Maps/Grocery.unity
     guid: a8b9f0a0c230db74dbfba20933759907
-  - enabled: 1
-    path: Assets/Scenes/_Playable Maps/Melt 1.unity
-    guid: 2e7ef92daea50084897cbaf5a9bb7065
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/_Playable Maps/Boxes - Left 1.unity
     guid: c8d4a203872c87f4d9cfb141da2921d1
@@ -98,12 +98,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/_Playable Maps/Testing/Flat.unity
     guid: 743ef5776aeedc840892e22ff7fcc897
+  - enabled: 0
+    path: Assets/Scenes/_Playable Maps/Testing/_PrototypeRoom.unity
+    guid: 88ea66465a6023645ad87a72316a77ef
   - enabled: 1
-    path: Assets/Scenes/_Playable Maps/FlatConverter.unity
+    path: Assets/Scenes/_Playable Maps/FlatConveyor.unity
     guid: 0b4d5dfabdccd8d44a15c0d9cdd2f887
   - enabled: 1
     path: Assets/Scenes/_Playable Maps/Z 5.unity
     guid: 07c75e32b070b3a4db7aaf926f399408
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/Pickle Showdown.unity
+    guid: 37865fa8ffae7f04ab12cbe34383ee6a
   - enabled: 1
     path: Assets/Scenes/VictoryMap.unity
     guid: c6f88a4fbefe2f84294a71ba5213eba4

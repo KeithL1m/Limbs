@@ -4,7 +4,11 @@ using UnityEngine.UI;
 public class Destructible : MonoBehaviour
 {
     public float health = 50;
-    public Image[] wallStates;
+    public Sprite[] wallStates;
+
+    [SerializeField]
+    private int caseCheck1 = 40;
+    private int caseCheck2 = 20;
 
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -13,17 +17,30 @@ public class Destructible : MonoBehaviour
         {
             if (collision.collider.GetComponent<Limb>().State == Limb.LimbState.Throwing)
             {
-                health -= 10;
+                DamageWall(10);
                 Debug.Log(health);
             }
-
-            CheckDeath();
-
-        }
+        } 
     }
     
-    public void CheckDeath()
+    public void DamageWall(float damage)
     {
+        health -= damage;
+
+        switch (health)
+        {
+            case 40:
+                {
+                    gameObject.GetComponent<SpriteRenderer>().sprite = wallStates[0];
+                    break;
+                }
+            case 20:
+                {
+                    gameObject.GetComponent<SpriteRenderer>().sprite = wallStates[1];
+                    break;
+                }
+        }
+
         if (health <= 0)
         {
             Destroy(gameObject);

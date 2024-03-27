@@ -7,7 +7,10 @@ public class ParticleManager
     private const string ExplosionName = "Explosion";
     private const string TeleportName = "Teleport";
     private const string ClashName = "Clash";
-    
+    private const string RespawnSmokeName = "RespawnSmoke";
+    public const string ConfettiName = "Confetti";
+    public const string RedExplosionName = "RedExplosion";
+
     private ObjectPoolManager _objectPoolManager;
     
     public ParticleManager Initialize()
@@ -33,6 +36,14 @@ public class ParticleManager
         gas.SetActive(true);
     }
 
+    public void PlayRespawnParticle(Vector3 pos)
+    {
+        var gas = _objectPoolManager.GetObjectFromPool(RespawnSmokeName);
+        gas.transform.position = new Vector3(pos.x, pos.y, pos.z);
+        gas.SetActive(true);
+    }
+    
+
     public void PlayTeleportParticle(Vector3 pos) 
     {
         var gas = _objectPoolManager.GetObjectFromPool(TeleportName);
@@ -45,5 +56,17 @@ public class ParticleManager
         GameObject sword = _objectPoolManager.GetObjectFromPool(ClashName);
         sword.transform.position = new Vector3(pos.x, pos.y, pos.z);
         sword.SetActive(true);
+    }
+    public void PlayRedExplosionParticle(Vector3 pos)
+    {
+        GameObject redExplosion = _objectPoolManager.GetObjectFromPool(RedExplosionName);
+        redExplosion.transform.position = new Vector3(pos.x, pos.y, pos.z);
+        redExplosion.SetActive(true);
+    }
+    public void PlayConfettiParticle(Vector3 pos) 
+    {
+        GameObject confetti = _objectPoolManager.GetObjectFromPool(ConfettiName);
+        confetti.transform.position = new Vector3(pos.x, pos.y, pos.z);
+        confetti.SetActive(true);
     }
 }

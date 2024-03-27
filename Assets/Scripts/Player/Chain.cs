@@ -21,14 +21,14 @@ public class Chain : MonoBehaviour
     private void Update()
     {
         if (line.enabled == true)
-            line.SetPosition(0, new Vector3(linePosition.position.x, linePosition.position.y, -9));
+            line.SetPosition(0, new Vector3(linePosition.position.x, linePosition.position.y, -3.9f));
     }
 
     public void EnableChain(Transform deathLocation)
     {
         spring.connectedAnchor = deathLocation.position;
         line.enabled = true;
-        line.SetPosition(1, new Vector3(deathLocation.position.x, deathLocation.position.y, -9));
+        line.SetPosition(1, new Vector3(deathLocation.position.x, deathLocation.position.y, -3.9f));
         spring.enabled = true;
     }
     

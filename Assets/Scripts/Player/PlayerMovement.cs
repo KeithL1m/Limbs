@@ -5,10 +5,14 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rb;
     private PlayerJump _playerJump;
     private PlayerInputHandler _inputHandler;
+    private PlayerHealth _pHealth;
 
     [SerializeField] private GroundCheck _groundCheck;
     [SerializeField] private ParticleSystem _walkDust;
     private ParticleSystem.EmissionModule _walkDustEmission;
+    [SerializeField] private ParticleSystem _speedUpDust;
+    private ParticleSystem.EmissionModule _speedUpEmission;
+
     [SerializeField] private Animator anchorsAnim;
 
     [Header("Customizable")]
@@ -20,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _noLegSpeed;
     [SerializeField] private float _hopForce;
     private float _hopTimer = 0.0f;
-    [SerializeField] float _maxHopTime;
+    [SerializeField] private float _maxHopTime;
     [SerializeField] private float _startMovePoint = 0.5f;
     [SerializeField] private float _smoothMoveSpeed = 0.06f; //the higher the number the less responsive it gets
 
@@ -31,22 +35,19 @@ public class PlayerMovement : MonoBehaviour
 
     public bool facingRight;
     private bool _dust;
-    
+
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _playerJump = GetComponent<PlayerJump>();
         _inputHandler = GetComponent<PlayerInputHandler>();
+        _pHealth = GetComponent<PlayerHealth>();
         _walkDustEmission = _walkDust.emission;
+        _speedUpEmission = _speedUpDust.emission;
     }
 
     public void Move(PlayerLimbs.LimbState state)
     {
-        //if (GetComponent<PlayerHealth>().IsDead())
-        //{
-        //    _walkDustEmission.rateOverTime = 0;
-        //    return;
-        //}
         float moveSpeed = 0f;
         if (_inputHandler.Movement <= -_startMovePoint)
         {
@@ -95,12 +96,14 @@ public class PlayerMovement : MonoBehaviour
             _dust = false;
         }
 
-        if (_dust && _groundCheck.isGrounded)
+        if (_dust && _groundCheck.isGrounded && !_pHealth.IsDead())
         {
             _walkDustEmission.rateOverTime = 50;
+            _speedUpEmission.rateOverTime = 50;
         }
         else
         {
+            _speedUpEmission.rateOverTime = 0;
             _walkDustEmission.rateOverTime = 0;
         }
     }
@@ -117,11 +120,17 @@ public class PlayerMovement : MonoBehaviour
     public void AddAccelerationLimb()
     {
         currentAccelerationLimbNumber++;
+        _speedUpDust.Play();
     }
 
     public void RemoveAccelerationLimb()
     {
         currentAccelerationLimbNumber--;
+        if (currentAccelerationLimbNumber <= 0)
+        {
+            currentAccelerationLimbNumber = 0;
+            _speedUpDust.Stop();
+        }
     }
 
     public void ZeroVelocity()
