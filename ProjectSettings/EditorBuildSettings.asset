@@ -60,9 +60,6 @@ EditorBuildSettings:
     path: Assets/Scenes/_Playable Maps/Testing/LimbTesting.unity
     guid: 99e5ed3875860ff4183871e9f4280436
   - enabled: 1
-    path: Assets/Scenes/_Playable Maps/Testing/Cashier.unity
-    guid: aa9d6eee50796174bb1ecb802f3772a3
-  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Fridge.unity
     guid: cef4aafcba2ebf3429a06b57bf300403
   - enabled: 1

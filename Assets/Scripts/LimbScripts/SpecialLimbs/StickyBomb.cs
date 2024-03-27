@@ -56,7 +56,7 @@ public class StickyBomb : Limb
         yield break;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
         if (State != LimbState.Throwing)
             return;
@@ -132,7 +132,7 @@ public class StickyBomb : Limb
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
 
-        _particleManager.PlayRedExplosionParticle(gameObject.transform.position);
+        _particleManager.PlayStickBombParticle(gameObject.transform.position);
 
         foreach (Collider2D item in explosionRadius)
         {

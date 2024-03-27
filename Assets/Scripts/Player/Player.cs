@@ -46,6 +46,8 @@ public class Player : MonoBehaviour
 
     //for melee
     [SerializeField] private Animator _animator;
+    private float _meleeCooldown = 0.8f;
+    float lastMelee;
 
     //facing left = -1, right = 1
     public int direction;
@@ -64,6 +66,9 @@ public class Player : MonoBehaviour
     public int Id { get => _id; }
     private int _id;
 
+    private bool isWinRound;
+    [SerializeField] private GameObject _crownGameObject;
+
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -73,46 +78,6 @@ public class Player : MonoBehaviour
         _inputHandler = GetComponent<PlayerInputHandler>();
 
         _inputHandler.MeleeAttack += OnMeleeAttack;
-    }
-
-    private IEnumerator MeleeDelay(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        Debug.Log("Melee Damage Applied");
-        _playerLimbs.Melee(_id);
-    }
-
-    // melee attack
-    private void OnMeleeAttack(float variable)
-    {
-        Debug.Log("Melee Anim Triggered");
-        if (checkAnimLeft)
-        {
-            _animator.SetTrigger(HeadButtAnimNameLeft);
-        }
-        else
-        {
-            _animator.SetTrigger(HeadButtAnimName);
-
-        }
-
-        float animLength = GetAnimLength(HeadButtAnimName) * 0.5f;
-        StartCoroutine(MeleeDelay(animLength));
-    }
-
-    private float GetAnimLength(string animName)
-    {
-        // Getting the animation length HASH CODE
-        foreach (var anim in _animator.runtimeAnimatorController.animationClips)
-        {
-            if (string.CompareOrdinal(anim.name, animName) == 0)
-            {
-                return anim.length;
-            }
-        }
-
-        Debug.LogError($"Animatin Clip Not Found: {animName}");
-        return 0f;
     }
 
     public void Initialize(PlayerConfiguration pc)
@@ -288,6 +253,50 @@ public class Player : MonoBehaviour
         _previousVelocity1 = _rb.velocity;
     }
 
+    private IEnumerator MeleeDelay(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        Debug.Log("Melee Damage Applied");
+        _playerLimbs.Melee(_id);
+    }
+
+    // melee attack
+    private void OnMeleeAttack(float variable)
+    {
+        if (Time.time - lastMelee < _meleeCooldown)
+        {
+            return;
+        }
+        lastMelee = Time.time;
+        Debug.Log("Melee Anim Triggered");
+        if (checkAnimLeft)
+        {
+            _animator.SetTrigger(HeadButtAnimNameLeft);
+        }
+        else
+        {
+            _animator.SetTrigger(HeadButtAnimName);
+        }
+
+        float animLength = GetAnimLength(HeadButtAnimName) * 0.5f;
+        StartCoroutine(MeleeDelay(animLength));
+    }
+
+    private float GetAnimLength(string animName)
+    {
+        // Getting the animation length HASH CODE
+        foreach (var anim in _animator.runtimeAnimatorController.animationClips)
+        {
+            if (string.CompareOrdinal(anim.name, animName) == 0)
+            {
+                return anim.length;
+            }
+        }
+
+        Debug.LogError($"Animatin Clip Not Found: {animName}");
+        return 0f;
+    }
+
     public void SetCanFly(bool isCan)
     {
         _canFly = isCan;
@@ -308,8 +317,7 @@ public class Player : MonoBehaviour
     {
         return _config.Name;
     }
-    private bool isWinRound;
-    [SerializeField] private GameObject _crownGameObject;
+
     public void SetDisplayCrown(bool value)
     {
         if (isWinRound)

@@ -234,7 +234,7 @@ MonoBehaviour:
     prefab: {fileID: 9044731996545471805, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
     poolSize: 5
   - name: Explosion
-    prefab: {fileID: 6256034235666780848, guid: 707a4f38868ed0440a8866927473a163, type: 3}
+    prefab: {fileID: 784846007247805133, guid: 6c9e5be5f66252c4aa0189e9799df4a0, type: 3}
     poolSize: 5
   - name: Clash
     prefab: {fileID: 1613047735746979956, guid: d03ee42b01cfd52459f9c0a4027b547c, type: 3}
@@ -253,6 +253,21 @@ MonoBehaviour:
     poolSize: 8
   - name: RedExplosion
     prefab: {fileID: 4955992884805386378, guid: d4eb34e6dc80ea4489ffdd0c40871510, type: 3}
+    poolSize: 8
+  - name: BreakableWall
+    prefab: {fileID: 6642210983383843120, guid: 58cb16fcc3be0cf48bd1481a69135aa0, type: 3}
+    poolSize: 8
+  - name: Death
+    prefab: {fileID: 4168015522254820252, guid: a5b735aa94da4064e861449aa0e1de16, type: 3}
+    poolSize: 8
+  - name: DrunkLiquidBubbleBurst
+    prefab: {fileID: 4905721473353955614, guid: 09d324df759c80e46a67a4745af3f142, type: 3}
+    poolSize: 8
+  - name: DrunkRisingBubble
+    prefab: {fileID: 8373274344114635434, guid: 5f4737646ea65ed42ae2e286d856058d, type: 3}
+    poolSize: 8
+  - name: StikyExplosion
+    prefab: {fileID: 4456231009394609338, guid: b011c723598e40846989bfe12d9cf26a, type: 3}
     poolSize: 8
 --- !u!1 &940593466
 GameObject:

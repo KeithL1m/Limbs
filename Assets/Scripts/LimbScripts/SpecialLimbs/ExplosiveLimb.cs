@@ -5,6 +5,7 @@ using UnityEngine;
 public class ExplosiveLimb : Limb
 {
     [SerializeField] Collider2D _collider;
+    [SerializeField] private Animator _animator;
 
     //Particle
     private ParticleManager _particleManager;
@@ -13,7 +14,7 @@ public class ExplosiveLimb : Limb
     [SerializeField] private float _timer = 3.0f;
     float countdown = 0.0f;
 
-    float _delayTimer = 0.001f;
+    float _delayTimer = 0.1f;
 
     Collider2D[] explosionRadius = null;
     private float _explosionForce = 300;
@@ -43,6 +44,7 @@ public class ExplosiveLimb : Limb
     {
         _collider.enabled = false;
         yield return new WaitForSeconds(_delayTimer);
+        _animator.enabled = true;
         _collider.enabled = true;
         yield break;
     }
@@ -68,7 +70,7 @@ public class ExplosiveLimb : Limb
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
 
-        _particleManager.PlayRedExplosionParticle(gameObject.transform.position);
+        _particleManager.PlayExplosionParticle(gameObject.transform.position);
 
         foreach (Collider2D item in explosionRadius)
         {

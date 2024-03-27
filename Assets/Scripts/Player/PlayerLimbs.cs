@@ -36,6 +36,8 @@ public class PlayerLimbs : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private float _attackRange = 0.5f;
+    private float _meleeCooldown = 0.8f;
+    float lastMelee;
 
     public Vector2 _originalSize;
     public Vector2 _originalOffset;
@@ -362,7 +364,12 @@ public class PlayerLimbs : MonoBehaviour
         float _knockbackForce = 500;
 
         Collider2D[] damageRange = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange);
-
+        
+        if(Time.time - lastMelee < _meleeCooldown)
+        {
+            return;
+        }
+        lastMelee = Time.time;
         foreach (Collider2D enemy in damageRange)
         {
             if (enemy.CompareTag("Player"))
@@ -373,6 +380,7 @@ public class PlayerLimbs : MonoBehaviour
                     // dont hit yourself
                     continue;
                 }
+
                 enemy.GetComponent<PlayerHealth>().AddDamage(2);
                 // knockback
                 Vector2 distanceVector = enemy.transform.position - transform.position;
@@ -381,6 +389,18 @@ public class PlayerLimbs : MonoBehaviour
                 knockback.AddForce(distanceVector * _knockbackForce);
 
                 Debug.Log("You hit" + enemy.name);
+            }
+            else if (enemy.gameObject.CompareTag("BreakWall"))
+            {
+                enemy.gameObject.GetComponent<LimbInstantiateWall>().Damage();
+                ServiceLocator.Get<ParticleManager>().PlayBreakableWallParticle(enemy.transform.position);
+                return;
+            }
+
+            else if (enemy.gameObject.CompareTag("Destructible"))
+            {
+                enemy.gameObject.GetComponent<Destructible>().DamageWall(1);
+                return;
             }
         }
     }

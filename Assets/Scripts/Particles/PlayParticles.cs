@@ -6,6 +6,8 @@ public class PlayParticles : MonoBehaviour
     [SerializeField] private ParticleSystem _particles2;
     [SerializeField] private ParticleSystem _particles3;
     [SerializeField] private ParticleSystem _particles4;
+    [SerializeField] private ParticleSystem _particles5;
+    [SerializeField] private ParticleSystem _particles6;
 
     [SerializeField] private float _extraTime;
 
@@ -28,6 +30,14 @@ public class PlayParticles : MonoBehaviour
         {
             _particles4.Play();
         }
+        if (_particles5 != null)
+        {
+            _particles5.Play();
+        }
+        if (_particles6 != null)
+        {
+            _particles6.Play();
+        }
 
         _active = true;
         _currentTime = _particles1.main.duration + _extraTime;
@@ -47,6 +57,14 @@ public class PlayParticles : MonoBehaviour
         if (_particles4 != null)
         {
             _particles4.Stop();
+        }
+        if (_particles5 != null)
+        {
+            _particles5.Stop();
+        }
+        if (_particles6 != null)
+        {
+            _particles6.Stop();
         }
     }
 

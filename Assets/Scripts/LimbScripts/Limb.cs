@@ -231,6 +231,8 @@ public class Limb : MonoBehaviour
         if (collision.gameObject.CompareTag("BreakWall"))
         {
             collision.gameObject.GetComponent<LimbInstantiateWall>().Damage();
+            ContactPoint2D contactPoint = collision.GetContact(0);
+            ServiceLocator.Get<ParticleManager>().PlayBreakableWallParticle(contactPoint.point);
             ReturnLimb();
             return;
         }

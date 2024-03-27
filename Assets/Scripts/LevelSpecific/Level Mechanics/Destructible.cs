@@ -13,6 +13,7 @@ public class Destructible : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
         if (collision.collider.CompareTag("Limb"))
         {
             if (collision.collider.GetComponent<Limb>().State == Limb.LimbState.Throwing)
@@ -20,7 +21,13 @@ public class Destructible : MonoBehaviour
                 DamageWall(10);
                 Debug.Log(health);
             }
-        } 
+
+            else
+            {
+                Debug.Log("Null");
+            }
+        }
+
     }
     
     public void DamageWall(float damage)
