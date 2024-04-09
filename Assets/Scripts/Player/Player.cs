@@ -69,6 +69,8 @@ public class Player : MonoBehaviour
     private bool isWinRound;
     [SerializeField] private GameObject _crownGameObject;
 
+    public Action OnLanded;
+
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -243,6 +245,7 @@ public class Player : MonoBehaviour
 
         if (!_wasOnGround && _groundCheck.isGrounded && _previousVelocity2.y < -5.0f)
         {
+            OnLanded?.Invoke();
             _impactParticles.Play();
         }
 
