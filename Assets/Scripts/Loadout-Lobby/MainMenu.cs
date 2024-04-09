@@ -7,13 +7,19 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
 
-    [SerializeField] GameObject mainMenu;
-    [SerializeField] GameObject arsenalMenu;
-    [SerializeField] GameObject settingsMenu;
-    [SerializeField] GameObject creditsMenu;
+    [SerializeField] 
+    private GameObject mainMenu;
+    [SerializeField] 
+    private GameObject arsenalMenu;
+    [SerializeField] 
+    private GameObject settingsMenu;
+    [SerializeField] 
+    private GameObject creditsMenu;
 
-
-    public GameObject SelectedButton;
+    [SerializeField]
+    private GameObject selectedButtonMainMenu;
+    [SerializeField]
+    private GameObject selectedButtonArsenalMenu;
 
     private GameLoader _loader;
     private ConfigurationManager _configManager;
@@ -28,7 +34,7 @@ public class MainMenu : MonoBehaviour
     private void Initialize()
     {
         _configManager = ServiceLocator.Get<ConfigurationManager>();
-        EventSystem.current.SetSelectedGameObject(SelectedButton);
+        EventSystem.current.SetSelectedGameObject(selectedButtonMainMenu);
     }
 
     public void HideMainMenu(GameObject panelToShow)
@@ -46,6 +52,7 @@ public class MainMenu : MonoBehaviour
     public void ArsenalMenu()
     {
         HideMainMenu(arsenalMenu);
+        EventSystem.current.SetSelectedGameObject(selectedButtonArsenalMenu);
     }
 
     public void BackButton()
@@ -54,7 +61,7 @@ public class MainMenu : MonoBehaviour
         arsenalMenu.SetActive(false);
         settingsMenu.SetActive(false);
         creditsMenu.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(SelectedButton);
+        EventSystem.current.SetSelectedGameObject(selectedButtonMainMenu);
     }
 
     public void ExitGame()

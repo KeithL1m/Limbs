@@ -1472,7 +1472,8 @@ MonoBehaviour:
   arsenalMenu: {fileID: 1475428682}
   settingsMenu: {fileID: 1766641095}
   creditsMenu: {fileID: 1847538479}
-  SelectedButton: {fileID: 1571401617}
+  selectedButtonMainMenu: {fileID: 1571401617}
+  selectedButtonArsenalMenu: {fileID: 1755379254}
 --- !u!1 &1211446152
 GameObject:
   m_ObjectHideFlags: 0
