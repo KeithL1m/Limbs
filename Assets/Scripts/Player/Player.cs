@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerJump))]
@@ -249,11 +250,12 @@ public class Player : MonoBehaviour
             }
         }
 
-        ////mouse aiming
-        //_mousePosition = _camera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        //mouse aiming
+        //Mouse mouse = Mouse.current;
+        //_mousePosition = _camera.ScreenToWorldPoint(mouse.position.ReadValue()) - transform.position;
         //float angle = Mathf.Atan2(-_mousePosition.y, -_mousePosition.x) * Mathf.Rad2Deg;
 
-        //_aimTransform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
+        _aimTransform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
     }
 
     private IEnumerator MeleeDelay(float duration)
