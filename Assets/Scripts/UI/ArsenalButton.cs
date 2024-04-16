@@ -13,7 +13,7 @@ public class ArsenalButton : MonoBehaviour
     [SerializeField] private Color _selectColor = Color.white;
     [SerializeField] private Color _unselectColor = Color.white;
 
-    [SerializeField] private Limb _connectedLimb;
+    [SerializeField] private GameObject _connectedLimb;
 
     private LimbManager _limbManager;
     private bool _selected = true;

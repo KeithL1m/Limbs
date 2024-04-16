@@ -217,4 +217,4 @@ MonoBehaviour:
   _unselectMaterial: {fileID: 2100000, guid: 40e6eb82d7757e04bb1e62a0fe1da1ff, type: 2}
   _selectColor: {r: 0.6313726, g: 0.3529412, b: 0.36078432, a: 1}
   _unselectColor: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 1}
-  _limbName: 
+  _connectedLimb: {fileID: 479936713415687806, guid: d2b3d4b3983896c40957940843227c42, type: 3}

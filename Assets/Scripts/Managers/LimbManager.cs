@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class LimbManager : Manager
 {
-    [SerializeField] private List<Limb> _limbOptions;
+    [SerializeField] private List<GameObject> _limbOptions;
 
     private List<Limb> _limbs;
     private bool _initialized = false;
 
     public Action ChangeChosenLimbs;
 
-    public void SetLimbOptions(List<Limb> limbs)
+    public void SetLimbOptions(List<GameObject> limbs)
     {
         _limbOptions = limbs;
     }
@@ -60,18 +60,23 @@ public class LimbManager : Manager
         return _limbs.Count;
     }
 
-    public List<Limb> GetLimbList()
+    public List<GameObject> GetLimbList()
     {
         return _limbOptions;
     }
 
-    public void RemoveFromChosen(Limb connectedLimb)
+    public void RemoveFromChosen(GameObject connectedLimb)
     {
         _limbOptions.Remove(connectedLimb);
+        ChangeChosenLimbs?.Invoke();
     }
 
-    public void AddToChosen(Limb connectedLimb)
+    public void AddToChosen(GameObject connectedLimb)
     {
-        _limbOptions.Add(connectedLimb);
+        if (!_limbOptions.Contains(connectedLimb))
+        {
+            _limbOptions.Add(connectedLimb);
+            ChangeChosenLimbs?.Invoke();
+        }
     }
 }

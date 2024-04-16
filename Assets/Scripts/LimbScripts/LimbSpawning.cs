@@ -17,7 +17,7 @@ public class LimbSpawning : MonoBehaviour
     private LimbManager _limbManager;
 
     [Header("Customizable")]
-    [SerializeField] private List<Limb> _limbOptions;
+    [SerializeField] private List<GameObject> _limbOptions;
     
     [SerializeField] private int _limbLimit;
     [SerializeField] private int _startLimbCount;
