@@ -290,6 +290,7 @@ GameObject:
   - component: {fileID: 938100858}
   - component: {fileID: 938100857}
   - component: {fileID: 938100861}
+  - component: {fileID: 938100862}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -396,6 +397,37 @@ MonoBehaviour:
   SelectedButton: {fileID: 1766101337}
   _textureToSave: {fileID: 2800000, guid: d06d8ad3841f4874795133aa047f7881, type: 3}
   nextScene: 2
+--- !u!114 &938100862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938100856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f91bb2271924d14e92361ab22db9f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbList:
+  - {fileID: 479936713415687806, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+  - {fileID: 768787119808473117, guid: a8ce0af062f424e4ba5831494e9b891a, type: 3}
+  - {fileID: 479936713415687806, guid: c03c82a65be504449a435743e7c5f146, type: 3}
+  - {fileID: 479936713415687806, guid: 0bf08378448df494688ea48549dad877, type: 3}
+  - {fileID: 479936713415687806, guid: b0b0128e0a0866f4385242c0958f005c, type: 3}
+  - {fileID: 479936713415687806, guid: d427c6244b1903d489251300a2e76870, type: 3}
+  - {fileID: 151183199818788937, guid: d1610338201e0dd4e9d055b3b0b23182, type: 3}
+  - {fileID: 479936713415687806, guid: a83eed0ac907c47489b802a99cf9434e, type: 3}
+  - {fileID: 5690755066905293737, guid: 016feb9387a047543adc6828975d9bd1, type: 3}
+  - {fileID: 1516082518293004695, guid: b1a3da60bf150e9419cc2cfddbd6d2e8, type: 3}
+  - {fileID: 3037854002031635674, guid: d45016cf3e7e2e543b3c582a6f172afe, type: 3}
+  - {fileID: 5001288000470333368, guid: cd3edb648726be54c95099b7a36f839f, type: 3}
+  - {fileID: 768787119808473117, guid: f3ef69faad6d9db48b52053057d030e3, type: 3}
+  - {fileID: 8577597915325098454, guid: b86c3619877ef6942bd2676957334f35, type: 3}
+  - {fileID: 479936713415687806, guid: 146350379aa1dee4cac50dbf67d651cb, type: 3}
+  - {fileID: 6727379245335464739, guid: c90382689d59db74eae2eb00c7d75ddf, type: 3}
+  - {fileID: 479936713415687806, guid: ceffc63aa63769f43bdb2e94d9ea3429, type: 3}
+  - {fileID: 479936713415687806, guid: 37529f15fa0ca03468bd8d075186cc97, type: 3}
 --- !u!1 &1453451309
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,6 +849,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 938100862}
+        m_TargetAssemblyTypeName: Arsenal, Assembly-CSharp
+        m_MethodName: Setup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 938100861}
         m_TargetAssemblyTypeName: StartGame, Assembly-CSharp
         m_MethodName: LoadGame

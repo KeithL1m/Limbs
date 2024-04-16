@@ -6,7 +6,7 @@ public class Arsenal : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _limbList;
 
-    private void Awake()
+    public void Setup()
     {
         var limbManager = ServiceLocator.Get<LimbManager>();
         limbManager.SetLimbOptions(_limbList);

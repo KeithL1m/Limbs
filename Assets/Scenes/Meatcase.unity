@@ -998,6 +998,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8567420190504578820, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
+      propertyPath: _arsenalFirstButton
+      value: 
+      objectReference: {fileID: 1086927909}
     - target: {fileID: 8567420190504578821, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
       propertyPath: _margin
       value: 190
@@ -2150,6 +2154,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1086927909 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8567420189962322312, guid: 9ead1e61db5a27e40b873700a8db4856, type: 3}
+  m_PrefabInstance: {fileID: 603618958}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1205286151
 GameObject:
   m_ObjectHideFlags: 0
