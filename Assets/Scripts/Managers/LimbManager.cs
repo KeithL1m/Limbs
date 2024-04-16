@@ -1,9 +1,21 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class LimbManager : Manager
 {
+    [SerializeField] private List<Limb> _limbOptions;
+    [SerializeField] private List<Limb> _chosenLimbs;
+
     private List<Limb> _limbs;
     private bool _initialized = false;
+
+    public Action ChangeChosenLimbs;
+
+    public void SetLimbOptions(List<Limb> limbs)
+    {
+        _limbOptions = limbs;
+    }
 
     public void Initialize()
     {
@@ -47,5 +59,10 @@ public class LimbManager : Manager
     public int GetLimbAmount()
     {
         return _limbs.Count;
+    }
+
+    public List<Limb> GetLimbList()
+    {
+        return _chosenLimbs;
     }
 }
