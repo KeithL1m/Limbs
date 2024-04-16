@@ -69,6 +69,8 @@ public class Player : MonoBehaviour
     private bool _canFly = false;
     public bool CanFly { get { return _canFly; } }
 
+    public Action OnLanded;
+
     public int Id { get => _id; }
     private int _id;
 
