@@ -213,8 +213,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _background: {fileID: 3424398387915001081}
   _limb: {fileID: 5700144368032257377}
-  _selectMaterial: {fileID: 0}
-  _unselectMaterial: {fileID: 0}
-  _selectColor: {r: 1, g: 1, b: 1, a: 1}
-  _unselectColor: {r: 1, g: 1, b: 1, a: 1}
+  _selectMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  _unselectMaterial: {fileID: 2100000, guid: 40e6eb82d7757e04bb1e62a0fe1da1ff, type: 2}
+  _selectColor: {r: 0.6313726, g: 0.3529412, b: 0.36078432, a: 1}
+  _unselectColor: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 1}
   _limbName: 

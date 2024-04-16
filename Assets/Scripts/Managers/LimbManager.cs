@@ -5,7 +5,6 @@ using UnityEngine;
 public class LimbManager : Manager
 {
     [SerializeField] private List<Limb> _limbOptions;
-    [SerializeField] private List<Limb> _chosenLimbs;
 
     private List<Limb> _limbs;
     private bool _initialized = false;
@@ -63,6 +62,16 @@ public class LimbManager : Manager
 
     public List<Limb> GetLimbList()
     {
-        return _chosenLimbs;
+        return _limbOptions;
+    }
+
+    public void RemoveFromChosen(Limb connectedLimb)
+    {
+        _limbOptions.Remove(connectedLimb);
+    }
+
+    public void AddToChosen(Limb connectedLimb)
+    {
+        _limbOptions.Add(connectedLimb);
     }
 }
