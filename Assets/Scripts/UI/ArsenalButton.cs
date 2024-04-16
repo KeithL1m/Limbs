@@ -13,7 +13,7 @@ public class ArsenalButton : MonoBehaviour
     [SerializeField] private Color _selectColor = Color.white;
     [SerializeField] private Color _unselectColor = Color.white;
 
-    [SerializeField] private string _limbName;
+    [SerializeField] private Limb _connectedLimb;
 
     private LimbManager _limbManager;
     private bool _selected = true;
@@ -47,11 +47,11 @@ public class ArsenalButton : MonoBehaviour
 
     private void RemoveLimb()
     {
-
+        _limbManager.RemoveFromChosen(_connectedLimb);
     }
 
     private void AddLimb()
     {
-
+        _limbManager.AddToChosen(_connectedLimb);
     }
 }
