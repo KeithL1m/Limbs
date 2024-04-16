@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-
+    [Header("Panel References")]
     [SerializeField] 
     private GameObject mainMenu;
     [SerializeField] 
@@ -16,10 +16,15 @@ public class MainMenu : MonoBehaviour
     [SerializeField] 
     private GameObject creditsMenu;
 
+    [Header("Menu Selected Buttons")]
     [SerializeField]
     private GameObject selectedButtonMainMenu;
     [SerializeField]
     private GameObject selectedButtonArsenalMenu;
+    [SerializeField]
+    private GameObject selectedButtonSettingsMenu;
+    [SerializeField]
+    private GameObject selectedButtonCreditsMenu;
 
     private GameLoader _loader;
     private ConfigurationManager _configManager;
@@ -37,7 +42,7 @@ public class MainMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(selectedButtonMainMenu);
     }
 
-    public void HideMainMenu(GameObject panelToShow)
+    public void ShowMenu(GameObject panelToShow)
     {
         mainMenu.SetActive(false);
         panelToShow.SetActive(true);
@@ -49,10 +54,21 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(sceneToLoad);
     }
 
-    public void ArsenalMenu()
+    public void LoadArsenalMenu()
     {
-        HideMainMenu(arsenalMenu);
+        ShowMenu(arsenalMenu);
         EventSystem.current.SetSelectedGameObject(selectedButtonArsenalMenu);
+    }
+    public void LoadSettingsMenu()
+    {
+        ShowMenu(settingsMenu);
+        EventSystem.current.SetSelectedGameObject(selectedButtonSettingsMenu);
+    }
+
+    public void LoadCreditsMenu()
+    {
+        ShowMenu(creditsMenu);
+        EventSystem.current.SetSelectedGameObject(selectedButtonCreditsMenu);
     }
 
     public void BackButton()
