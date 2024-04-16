@@ -3,43 +3,29 @@ using UnityEngine;
 
 public class LimbSpawning : MonoBehaviour
 {
-    public enum SpawningType
-    { 
-        Random,
-        Specific
-    }
-    /*
-     * SPAWN LIMBS IN A RANGE
-     */
-    GameLoader _loader;
-    GameManager _gm;
+    private GameLoader _loader;
+    private GameManager _gm;
 
     public int playerCount;
 
-    [SerializeField]
-    private Transform _leftLimit;
+    [SerializeField] private Transform _leftLimit;
+    [SerializeField] private Transform _rightLimit;
+
     private float _left;
-    [SerializeField]
-    private Transform _rightLimit;
     private float _right;
 
     private LimbManager _limbManager;
 
     [Header("Customizable")]
-    [SerializeField]
-    private List<GameObject> _limbOptions;
-    [SerializeField]
-    private int _limbLimit;
-    [SerializeField]
-    private int _startLimbCount;
+    [SerializeField] private List<Limb> _limbOptions;
+    
+    [SerializeField] private int _limbLimit;
+    [SerializeField] private int _startLimbCount;
 
-    [SerializeField]
-    private double _minSpawnTimer;
-    [SerializeField]
-    private double _maxSpawnTimer;
+    [SerializeField] private double _minSpawnTimer;
+    [SerializeField] private double _maxSpawnTimer;
 
-    [SerializeField]
-    private float _maxAngularVelocity;
+    [SerializeField] private float _maxAngularVelocity;
 
     private int _currentLimbs;
     private float _limbTimer;
@@ -63,6 +49,8 @@ public class LimbSpawning : MonoBehaviour
         _limbManager = ServiceLocator.Get<LimbManager>();
 
         _limbManager.Initialize();
+        _limbOptions = _limbManager.GetLimbList();
+        _limbManager.ChangeChosenLimbs += ChangeLimbOptions;
 
         _left = _leftLimit.position.x;
         _right = _rightLimit.position.x;
@@ -117,5 +105,10 @@ public class LimbSpawning : MonoBehaviour
         _spawnPosX = (float)val;
         Limb limb = Instantiate(_limbOptions[index], new Vector3(_spawnPosX, _spawnPosY, 0), Quaternion.identity).GetComponent<Limb>();
         limb.GetComponent<Rigidbody2D>().angularVelocity = (float)val2;
+    }
+
+    private void ChangeLimbOptions()
+    {
+        _limbOptions = _limbManager.GetLimbList();
     }
 }
