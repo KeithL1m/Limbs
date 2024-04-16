@@ -34,11 +34,18 @@ public class Sawblade : MonoBehaviour
         transform.Rotate(0.0f, 0.0f, _rotateSpeed * Time.deltaTime);
 
         // Check if chainsaw slows down
-        if(_sawChain.GetComponent<Rigidbody2D>().velocity.magnitude < 15.0f)
+        Vector2 vel = _sawChain.GetComponent<Rigidbody2D>().velocity;
+        if (vel.magnitude < 15.0f)
         {
-            _sawChain.AddForce(new Vector2(200.0f, 0.0f));
+            if (vel.magnitude > 0.0f)
+            {
+                _sawChain.AddForce(vel.normalized * 600.0f);
+            }
+            else
+            {
+                _sawChain.AddForce(new Vector2(-600.0f, 0.0f));
+            }
         }
-        
     }
     // Do damage to player
     private void OnTriggerEnter2D(Collider2D collision)

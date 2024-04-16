@@ -4882,7 +4882,6 @@ GameObject:
   - component: {fileID: 5338748081318693880}
   - component: {fileID: 5338748081318693883}
   - component: {fileID: 5338748081318693882}
-  - component: {fileID: 4964250209344558831}
   m_Layer: 0
   m_Name: Explosion particle system
   m_TagString: Untagged
@@ -9744,22 +9743,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &4964250209344558831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5338748081318693885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3139c6172d7bfdd4c8a350c37dceb38d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _particles1: {fileID: 5338748081318693883}
-  _particles2: {fileID: 5338748082688992406}
-  _particles3: {fileID: 5338748081109990337}
-  _particles4: {fileID: 0}
 --- !u!1 &5338748082688992411
 GameObject:
   m_ObjectHideFlags: 0

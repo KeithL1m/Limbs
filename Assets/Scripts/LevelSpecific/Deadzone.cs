@@ -18,6 +18,7 @@ public class Deadzone : MonoBehaviour
             var deathPos = playerHealth.deathPositions[randIndex];
             respawnLocation = deathPos.transform.position; 
             player.transform.position = respawnLocation;
+            playerHealth.Drop(deathPos.transform.position);
         }
 
 

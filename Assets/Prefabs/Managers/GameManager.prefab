@@ -122,9 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fade: {fileID: 0}
-  _mapCount: 28
   _loadingMaps: 4
-  _victoryScreen: 29
 --- !u!114 &5952273605013709200
 MonoBehaviour:
   m_ObjectHideFlags: 0

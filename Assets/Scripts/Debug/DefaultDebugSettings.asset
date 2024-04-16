@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c3c2d3cbf7a3a4cb306a0b2f016e7a, type: 3}
   m_Name: DefaultDebugSettings
   m_EditorClassIdentifier: 
-  _sceneToLoad: Assets/Scenes/_Playable Maps/Testing/_PrototypeRoom.unity
+  _sceneToLoad: 
   _allScenes:
   - Assets/Scenes/_Playable Maps/Sausage3.unity
   - Assets/Scenes/_Playable Maps/Testing/Avalanche 1.unity
@@ -27,16 +27,17 @@ MonoBehaviour:
   - Assets/Scenes/_Playable Maps/Boxes - LR.unity
   - Assets/Scenes/_Playable Maps/Flat Ground 2.unity
   - Assets/Scenes/_Playable Maps/Z 5.unity
+  - Assets/Scenes/_Playable Maps/Pickle Showdown.unity
   - Assets/Scenes/_Playable Maps/The Sawblade.unity
   - Assets/Scenes/_Playable Maps/RedMeat1.unity
   - Assets/Scenes/_Playable Maps/Testing/_PrototypeRoom.unity
   - Assets/Scenes/_Playable Maps/Grocery.unity
   - Assets/Scenes/_Playable Maps/Boxes - Left 1.unity
   - Assets/Scenes/_Playable Maps/Testing/LimbTesting.unity
-  - Assets/Scenes/_Playable Maps/Cashier.unity
+  - Assets/Scenes/_Playable Maps/Testing/Cashier.unity
   - Assets/Scenes/_Playable Maps/Sausage2.unity
   - Assets/Scenes/_Playable Maps/Flat 1.unity
-  - Assets/Scenes/_Playable Maps/FlatConverter.unity
+  - Assets/Scenes/_Playable Maps/FlatConveyor.unity
   - Assets/Scenes/_Playable Maps/BombIntroduction.unity
   - Assets/Scenes/_Playable Maps/Pit.unity
   - Assets/Scenes/_Playable Maps/BoxMove 3.unity

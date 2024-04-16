@@ -8,6 +8,8 @@ public class ShotGunLimb : Limb
 
     public override void ThrowLimb(int direction)
     {
+        ServiceLocator.Get<CameraManager>().StartScreenShake(0.14f, 0.15f);
+
         _animation.SetBool("isBeingPicked", false);
 
         base.ThrowLimb(direction);

@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
@@ -6,6 +8,10 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerLimbs))]
 public class Player : MonoBehaviour
 {
+    private const string HeadButtAnimName = "HeadButt";
+    private const string HeadButtAnimNameLeft = "HeadButtL";
+    private bool checkAnimLeft = false;
+
     private GameManager _gameManager;
     public enum MovementState
     {
@@ -21,18 +27,27 @@ public class Player : MonoBehaviour
     private PlayerJump _playerJump;
     private PlayerLimbs _playerLimbs;
     [HideInInspector]
-    public  PlayerInputHandler _inputHandler;
+    public PlayerInputHandler _inputHandler;
     private PlayerConfiguration _config;
 
     [SerializeField] private SpriteRenderer _playerHead;
     [SerializeField] private SpriteRenderer _playerBody;
     [SerializeField] private SpriteRenderer _playerNum;
 
+
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _aimTransform;
     [SerializeField] public Transform GroundCheckTransform;
+    [SerializeField] private Transform attackPointTransform;
     [SerializeField] private GroundCheck _groundCheck;
     [SerializeField] private ParticleSystem _impactParticles;
+    [SerializeField] private Material _sicknessMaterial;
+    [SerializeField] private Material _defaultMaterial;
+
+    //for melee
+    [SerializeField] private Animator _animator;
+    private float _meleeCooldown = 0.8f;
+    float lastMelee;
 
     //facing left = -1, right = 1
     public int direction;
@@ -40,13 +55,21 @@ public class Player : MonoBehaviour
     private bool _canThrow = true;
     private bool _canSwitch = true;
     private bool _wasOnGround = false;
+    private bool _aimConfused = false;
     public Vector2 LastAimed { get; private set; } = Vector2.zero;
     private Vector2 _previousVelocity1 = Vector2.zero;
     private Vector2 _previousVelocity2 = Vector2.zero;
-    
+
     private bool _canFly = false;
     public bool CanFly { get { return _canFly; } }
 
+    public int Id { get => _id; }
+    private int _id;
+
+    private bool isWinRound;
+    [SerializeField] private GameObject _crownGameObject;
+
+    public Action OnLanded;
 
     private void Awake()
     {
@@ -55,12 +78,15 @@ public class Player : MonoBehaviour
         _playerJump = GetComponent<PlayerJump>();
         _playerLimbs = GetComponent<PlayerLimbs>();
         _inputHandler = GetComponent<PlayerInputHandler>();
+
+        _inputHandler.MeleeAttack += OnMeleeAttack;
     }
 
     public void Initialize(PlayerConfiguration pc)
     {
+        Debug.Log($"<color=yellow>Initializing Player {pc.PlayerIndex}<color>");
         _config = pc;
-
+        _id = pc.PlayerIndex;
         _inputHandler.InitializePlayer(_config);
         _playerLimbs.Initialize();
 
@@ -77,7 +103,7 @@ public class Player : MonoBehaviour
     {
         if (!_initialized)
             return;
-        if (PauseManager.paused) 
+        if (PauseManager.paused)
             return;
         if (_gameManager.VictoryScreen)
             return;
@@ -89,17 +115,31 @@ public class Player : MonoBehaviour
                 if (_inputHandler.Aim.x != 0.0f && _inputHandler.Aim.y != 0.0f)
                 {
                     LastAimed = new Vector2(_inputHandler.Aim.x, _inputHandler.Aim.y);
-                }                                                        
+                }
             }
         }
 
         if (_playerMovement.facingRight)
         {
-            direction = 1;
+            if (_aimConfused)
+            {
+                direction = -1;
+            }
+            else
+            {
+                direction = 1;
+            }
         }
         else
         {
-            direction = -1;
+            if (_aimConfused)
+            {
+                direction = 1;
+            }
+            else
+            {
+                direction = -1;
+            }
         }
 
         if ((_inputHandler.LimbSwitch > 0.5f || _inputHandler.LimbSwitch < -0.5f) && _canSwitch)
@@ -113,7 +153,7 @@ public class Player : MonoBehaviour
         }
 
         /*throwing limbs*/
-        if (_inputHandler.ThrowLimb > 0.5f && _playerLimbs.CanThrowLimb() && _canThrow) 
+        if (_inputHandler.ThrowLimb > 0.5f && _playerLimbs.CanThrowLimb() && _canThrow)
         {
             _playerLimbs.ThrowLimb(direction);
             _canThrow = false;
@@ -122,13 +162,11 @@ public class Player : MonoBehaviour
         {
             _canThrow = true;
         }
-        //limb attack?
-
 
         /*horizontal movement*/
 
         _playerLimbs.CheckLimbState();
-        
+
         _playerMovement.Move(_playerLimbs._limbState);
 
         /*vertical movement*/
@@ -140,18 +178,38 @@ public class Player : MonoBehaviour
             _playerLimbs._canThrow = true;
         }
 
+        //update melee point
+        if (direction == 1) // right
+        {
+            attackPointTransform.localPosition = new Vector3(0.56f, 0.38f, -0.6805403f);
+            checkAnimLeft = false;
+
+        }
+        else if (direction == -1) // left
+        {
+            attackPointTransform.localPosition = new Vector3(-0.56f, 0.38f, -0.6805403f);
+            checkAnimLeft = true;
+        }
+
         //updating arrow
         if (_inputHandler.Aim.x == 0.0f && _inputHandler.Aim.y == 0.0f && !_inputHandler.FlickAiming)
         {
             if (direction == 1)
             {
                 _aimTransform.eulerAngles = new Vector3(0, 0, -180);
+            }
+            else
+            {
+                _aimTransform.eulerAngles = new Vector3(0, 0, 0);
+            }
+
+            if (_playerMovement.facingRight)
+            {
                 _playerHead.flipX = false;
                 _playerBody.flipX = false;
             }
             else
             {
-                _aimTransform.eulerAngles = new Vector3(0, 0, 0);
                 _playerHead.flipX = true;
                 _playerBody.flipX = true;
             }
@@ -187,12 +245,59 @@ public class Player : MonoBehaviour
 
         if (!_wasOnGround && _groundCheck.isGrounded && _previousVelocity2.y < -5.0f)
         {
+            OnLanded?.Invoke();
             _impactParticles.Play();
         }
+
+        Debug.Log($"Check left is {checkAnimLeft.ToString()}");
 
         _wasOnGround = _groundCheck.isGrounded;
         _previousVelocity2 = _previousVelocity1;
         _previousVelocity1 = _rb.velocity;
+    }
+
+    private IEnumerator MeleeDelay(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        Debug.Log("Melee Damage Applied");
+        _playerLimbs.Melee(_id);
+    }
+
+    // melee attack
+    private void OnMeleeAttack(float variable)
+    {
+        if (Time.time - lastMelee < _meleeCooldown)
+        {
+            return;
+        }
+        lastMelee = Time.time;
+        Debug.Log("Melee Anim Triggered");
+        if (checkAnimLeft)
+        {
+            _animator.SetTrigger(HeadButtAnimNameLeft);
+        }
+        else
+        {
+            _animator.SetTrigger(HeadButtAnimName);
+        }
+
+        float animLength = GetAnimLength(HeadButtAnimName) * 0.5f;
+        StartCoroutine(MeleeDelay(animLength));
+    }
+
+    private float GetAnimLength(string animName)
+    {
+        // Getting the animation length HASH CODE
+        foreach (var anim in _animator.runtimeAnimatorController.animationClips)
+        {
+            if (string.CompareOrdinal(anim.name, animName) == 0)
+            {
+                return anim.length;
+            }
+        }
+
+        Debug.LogError($"Animatin Clip Not Found: {animName}");
+        return 0f;
     }
 
     public void SetCanFly(bool isCan)
@@ -203,6 +308,7 @@ public class Player : MonoBehaviour
     public void AddScore()
     {
         _config.Score++;
+        SetDisplayCrown(true);
     }
 
     public int GetScore()
@@ -213,6 +319,36 @@ public class Player : MonoBehaviour
     public string GetName()
     {
         return _config.Name;
+    }
+
+    public void SetDisplayCrown(bool value)
+    {
+        if (isWinRound)
+        {
+            if (!value)
+            {
+                isWinRound = false;
+                _crownGameObject.SetActive(false);
+                _playerNum.transform.localPosition -= transform.up.normalized * 1.2f;
+
+            }
+        }
+        else
+        {
+            if (value)
+            {
+
+                isWinRound = true;
+                _crownGameObject.SetActive(true);
+                _playerNum.transform.localPosition += transform.up.normalized * 1.2f;
+
+            }
+        }
+    }
+
+    public void Death()
+    {
+        SetDisplayCrown(false);
     }
 
     public SpriteRenderer GetArrow()
@@ -230,4 +366,15 @@ public class Player : MonoBehaviour
         _playerMovement.ZeroVelocity();
     }
 
+    public void MakeAimOpposite()
+    {
+        _aimConfused = true;
+        _playerHead.material = _sicknessMaterial;
+    }
+
+    public void MakeAimNormal()
+    {
+        _aimConfused = false;
+        _playerHead.material = _defaultMaterial;
+    }
 }

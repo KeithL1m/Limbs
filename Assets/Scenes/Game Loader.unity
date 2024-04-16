@@ -157,7 +157,7 @@ PrefabInstance:
     - target: {fileID: 4379813963526838094, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
       propertyPath: _moduleComponents.Array.data[0]
       value: 
-      objectReference: {fileID: 902683683}
+      objectReference: {fileID: 902683686}
     - target: {fileID: 7150891192111988303, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
       propertyPath: m_Name
       value: GameLoader
@@ -206,14 +206,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
 --- !u!1 &902683682 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7150891192111988303, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
   m_PrefabInstance: {fileID: 902683681}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &902683683
+--- !u!114 &902683686
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -233,10 +234,40 @@ MonoBehaviour:
     prefab: {fileID: 9044731996545471805, guid: 110996a09da5b1540aba32812cd91deb, type: 3}
     poolSize: 5
   - name: Explosion
-    prefab: {fileID: 6256034235666780848, guid: 707a4f38868ed0440a8866927473a163, type: 3}
+    prefab: {fileID: 784846007247805133, guid: 6c9e5be5f66252c4aa0189e9799df4a0, type: 3}
     poolSize: 5
   - name: Clash
     prefab: {fileID: 1613047735746979956, guid: d03ee42b01cfd52459f9c0a4027b547c, type: 3}
+    poolSize: 8
+  - name: Confetti
+    prefab: {fileID: 6250902396231978716, guid: 29d042058c4dc9b4289039d46cb0220e, type: 3}
+    poolSize: 8
+  - name: RespawnSmoke
+    prefab: {fileID: 8834088008130680269, guid: c36c90bfff0be8c48bef9d82e4a66a32, type: 3}
+    poolSize: 8
+  - name: SpeedingUp
+    prefab: {fileID: 7496948502928549564, guid: 5669b990f56f5a74d860a8500ce0defc, type: 3}
+    poolSize: 8
+  - name: Teleport
+    prefab: {fileID: 7968957119848102641, guid: a781ca06f3e53c745a2dc70080682540, type: 3}
+    poolSize: 8
+  - name: RedExplosion
+    prefab: {fileID: 4955992884805386378, guid: d4eb34e6dc80ea4489ffdd0c40871510, type: 3}
+    poolSize: 8
+  - name: BreakableWall
+    prefab: {fileID: 6642210983383843120, guid: 58cb16fcc3be0cf48bd1481a69135aa0, type: 3}
+    poolSize: 8
+  - name: Death
+    prefab: {fileID: 4168015522254820252, guid: a5b735aa94da4064e861449aa0e1de16, type: 3}
+    poolSize: 8
+  - name: DrunkLiquidBubbleBurst
+    prefab: {fileID: 4905721473353955614, guid: 09d324df759c80e46a67a4745af3f142, type: 3}
+    poolSize: 8
+  - name: DrunkRisingBubble
+    prefab: {fileID: 8373274344114635434, guid: 5f4737646ea65ed42ae2e286d856058d, type: 3}
+    poolSize: 8
+  - name: StikyExplosion
+    prefab: {fileID: 4456231009394609338, guid: b011c723598e40846989bfe12d9cf26a, type: 3}
     poolSize: 8
 --- !u!1 &940593466
 GameObject:

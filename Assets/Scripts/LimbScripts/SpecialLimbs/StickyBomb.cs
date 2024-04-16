@@ -56,7 +56,7 @@ public class StickyBomb : Limb
         yield break;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
         if (State != LimbState.Throwing)
             return;
@@ -127,11 +127,12 @@ public class StickyBomb : Limb
 
     void Explode()
     {
+        ServiceLocator.Get<CameraManager>().StartScreenShake(0.2f, 0.2f);
         Debug.Log("STICKY BOMB BOOM!!!");
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
 
-        _particleManager.PlayExplosionParticle(gameObject.transform.position);
+        _particleManager.PlayStickBombParticle(gameObject.transform.position);
 
         foreach (Collider2D item in explosionRadius)
         {
@@ -149,15 +150,13 @@ public class StickyBomb : Limb
                     if(_collider.enabled == true)
                     {
                         if (item.CompareTag("Player"))
-
                         {
                             item.GetComponent<PlayerHealth>().AddDamage(25);
                         }
 
                         if (item.CompareTag("Destructible"))
                         {
-                            item.GetComponent<Destructible>().health -= 35;
-                            item.GetComponent<Destructible>().CheckDeath();
+                            item.GetComponent<Destructible>().DamageWall(35);
                             Debug.Log("Damaged Destructible");
                         }
                     }

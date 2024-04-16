@@ -20,6 +20,7 @@ public class ServiceLocator : MonoBehaviour
         return (T)target;
     }
 
+
     static public T Get<T>()
     {
         object registered = null;
@@ -27,6 +28,7 @@ public class ServiceLocator : MonoBehaviour
         if (registered == null)
         {
             Debug.Log(" [ " + (typeof(T)) + " ] can not be found as a registered system");
+            return default(T);
         }
         return (T)registered;
     }

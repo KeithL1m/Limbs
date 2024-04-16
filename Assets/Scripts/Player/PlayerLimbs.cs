@@ -32,6 +32,13 @@ public class PlayerLimbs : MonoBehaviour
     [SerializeField] private Material _standardMaterial;
     private AmmoBar _ammoBar;
 
+    //for melee
+    [SerializeField] private Animator _animator;
+    [SerializeField] private Transform _attackPoint;
+    [SerializeField] private float _attackRange = 0.5f;
+    private float _meleeCooldown = 0.8f;
+    float lastMelee;
+
     public Vector2 _originalSize;
     public Vector2 _originalOffset;
     private float limbOffest=0.4f;
@@ -193,6 +200,7 @@ public class PlayerLimbs : MonoBehaviour
             Transform destroy = ServiceLocator.Get<EmptyDestructibleObject>().transform;
             if (_limbs[i] != null)
             {
+                _limbs[i].Clear();
                 _limbs[i].transform.SetParent(destroy);
                 _limbs[i] = null;
                 _ammoBar?.RemoveLimb(i);
@@ -349,5 +357,51 @@ public class PlayerLimbs : MonoBehaviour
         }
 
         return limbs;
+    }
+
+    public void Melee(int attackerId)
+    {
+        float _knockbackForce = 500;
+
+        Collider2D[] damageRange = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange);
+        
+        if(Time.time - lastMelee < _meleeCooldown)
+        {
+            return;
+        }
+        lastMelee = Time.time;
+        foreach (Collider2D enemy in damageRange)
+        {
+            if (enemy.CompareTag("Player"))
+            {
+                var otherPlayer = enemy.GetComponent<Player>();
+                if (otherPlayer.Id == attackerId)
+                {
+                    // dont hit yourself
+                    continue;
+                }
+
+                enemy.GetComponent<PlayerHealth>().AddDamage(2);
+                // knockback
+                Vector2 distanceVector = enemy.transform.position - transform.position;
+
+                Rigidbody2D knockback = enemy.GetComponent<Rigidbody2D>();
+                knockback.AddForce(distanceVector * _knockbackForce);
+
+                Debug.Log("You hit" + enemy.name);
+            }
+            else if (enemy.gameObject.CompareTag("BreakWall"))
+            {
+                enemy.gameObject.GetComponent<LimbInstantiateWall>().Damage();
+                ServiceLocator.Get<ParticleManager>().PlayBreakableWallParticle(enemy.transform.position);
+                return;
+            }
+
+            else if (enemy.gameObject.CompareTag("Destructible"))
+            {
+                enemy.gameObject.GetComponent<Destructible>().DamageWall(1);
+                return;
+            }
+        }
     }
 }

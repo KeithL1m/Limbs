@@ -3,18 +3,22 @@ using UnityEngine;
 public class Teleport : Limb
 {
     private bool _teleport = false;
+    private ParticleManager _particleManager;
 
     private Vector3 _teleportPosition = new();
     private float _timer = 0f;
 
     Player _teleportedPlayer;
-
+    protected override void Initialize()
+    { 
+        base.Initialize();
+        _particleManager = ServiceLocator.Get<ParticleManager>();
+    }
     public override void ThrowLimb(int direction)
     {
         base.ThrowLimb(direction);
 
         ServiceLocator.Get<CameraManager>().AddTeleport(gameObject);
-
         _teleport = true;
         _teleportedPlayer = _attachedPlayer;
     }
@@ -67,6 +71,7 @@ public class Teleport : Limb
         _teleportPosition += transform.position;
 
         LimbRB.constraints = RigidbodyConstraints2D.FreezeAll;
+        _particleManager.PlayTeleportParticle(gameObject.transform.position);
 
         _teleportedPlayer.ZeroVelocity();
         _teleportedPlayer.transform.position = _teleportPosition;

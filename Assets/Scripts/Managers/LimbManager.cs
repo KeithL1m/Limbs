@@ -1,9 +1,20 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class LimbManager : Manager
 {
+    [SerializeField] private List<Limb> _limbOptions;
+
     private List<Limb> _limbs;
     private bool _initialized = false;
+
+    public Action ChangeChosenLimbs;
+
+    public void SetLimbOptions(List<Limb> limbs)
+    {
+        _limbOptions = limbs;
+    }
 
     public void Initialize()
     {
@@ -47,5 +58,20 @@ public class LimbManager : Manager
     public int GetLimbAmount()
     {
         return _limbs.Count;
+    }
+
+    public List<Limb> GetLimbList()
+    {
+        return _limbOptions;
+    }
+
+    public void RemoveFromChosen(Limb connectedLimb)
+    {
+        _limbOptions.Remove(connectedLimb);
+    }
+
+    public void AddToChosen(Limb connectedLimb)
+    {
+        _limbOptions.Add(connectedLimb);
     }
 }
