@@ -26,6 +26,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private GameObject selectedButtonCreditsMenu;
 
+    [SerializeField]
+    private string[] buttonDescriptions;
+
     private GameLoader _loader;
     private ConfigurationManager _configManager;
 
@@ -79,6 +82,7 @@ public class MainMenu : MonoBehaviour
         creditsMenu.SetActive(false);
         EventSystem.current.SetSelectedGameObject(selectedButtonMainMenu);
     }
+
 
     public void ExitGame()
     {
