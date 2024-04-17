@@ -50,6 +50,8 @@ public class LimbSpawning : MonoBehaviour
 
         _limbManager.Initialize();
         _limbOptions = _limbManager.GetLimbList();
+        _minSpawnTimer = _limbManager.GetMinSpawnTime();
+        _maxSpawnTimer = _limbManager.GetMaxSpawnTime();
         _limbManager.ChangeChosenLimbs += ChangeLimbOptions;
 
         _left = _leftLimit.position.x;
@@ -110,5 +112,7 @@ public class LimbSpawning : MonoBehaviour
     private void ChangeLimbOptions()
     {
         _limbOptions = _limbManager.GetLimbList();
+        _minSpawnTimer = _limbManager.GetMinSpawnTime();
+        _maxSpawnTimer = _limbManager.GetMaxSpawnTime();
     }
 }

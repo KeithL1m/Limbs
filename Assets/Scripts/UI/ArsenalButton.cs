@@ -42,24 +42,26 @@ public class ArsenalButton : MonoBehaviour, ISelectHandler
         if (_selected)
         {
             RemoveLimb();
-            _limb.material = _unselectMaterial;
-            _background.color = _unselectColor;
         }
         else
         {
             AddLimb();
-            _limb.material = _selectMaterial;
-            _background.color = _selectColor;
         }
     }
 
     private void RemoveLimb()
     {
         _limbManager.RemoveFromChosen(_connectedLimb);
+        _limb.material = _unselectMaterial;
+        _background.color = _unselectColor;
+        _selected = false;
     }
 
     private void AddLimb()
     {
         _limbManager.AddToChosen(_connectedLimb);
+        _limb.material = _selectMaterial;
+        _background.color = _selectColor;
+        _selected = true;
     }
 }

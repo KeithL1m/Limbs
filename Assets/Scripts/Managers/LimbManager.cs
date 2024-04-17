@@ -5,6 +5,9 @@ using UnityEngine;
 public class LimbManager : Manager
 {
     [SerializeField] private List<GameObject> _limbOptions;
+    [SerializeField] private double _maxTime;
+    [SerializeField] private double _minTime;
+    private double _currentTime;
 
     private List<Limb> _limbs;
     private bool _initialized = false;
@@ -78,5 +81,24 @@ public class LimbManager : Manager
             _limbOptions.Add(connectedLimb);
             ChangeChosenLimbs?.Invoke();
         }
+    }
+    public void SetMinSpawnTime(double time)
+    {
+        _minTime = time;
+    }
+
+    public void SetMaxSpawnTime(double time)
+    {
+        _maxTime = time;
+    }
+
+    public double GetMinSpawnTime()
+    {
+        return _currentTime - 1.5;
+    }
+
+    public double GetMaxSpawnTime()
+    {
+        return _currentTime + 1.5;
     }
 }
