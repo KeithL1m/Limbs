@@ -198,6 +198,7 @@ MonoBehaviour:
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
   _specialLimbs: 0
+  shakeScreenPercent: 0
   _collider: {fileID: 7378542149016335331}
 --- !u!70 &7378542149016335331
 CapsuleCollider2D:

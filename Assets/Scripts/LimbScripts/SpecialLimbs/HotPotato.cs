@@ -87,6 +87,8 @@ public class HotPotato : Limb
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
         Gizmos.DrawWireSphere(transform.position, _explosionRadius);
+        if (ServiceLocator.Get<CameraManager>() != null)
+            ServiceLocator.Get<CameraManager>().StartScreenShake(screenShakePower * screenShakePercent, screenShakePower * screenShakePercent);
         foreach (Collider2D item in explosionRadius)
         {
             Rigidbody2D item_rigidbody = item.GetComponent<Rigidbody2D>();

@@ -300,6 +300,7 @@ MonoBehaviour:
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
   _specialLimbs: 0
+  shakeScreenPercent: 0.4
   changeTime: 1
   wall: {fileID: 4518471586269112576, guid: db6b231ae5a81014cbed5df2213ecb29, type: 3}
 --- !u!1 &9094666861867324213
