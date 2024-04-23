@@ -167,4 +167,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _limbOptions: []
-  _timeRange: 2
+  _timeRange: 1
+  _limbLimit: 20

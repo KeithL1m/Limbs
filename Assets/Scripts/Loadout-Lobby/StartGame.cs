@@ -48,7 +48,6 @@ public class StartGame : MonoBehaviour
 
     public void LoadGame()
     {
-        _configManager.InLoadout = true;
         SceneManager.LoadScene(nextScene);
     }
 }
