@@ -197,8 +197,7 @@ MonoBehaviour:
   <PickUpIndicator>k__BackingField: {fileID: 5070205652253322220}
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
-  _bombLimb: 0
-  IsSpecial: 1
+  _specialLimbs: 0
   _collider: {fileID: 7378542149016335331}
 --- !u!70 &7378542149016335331
 CapsuleCollider2D:
