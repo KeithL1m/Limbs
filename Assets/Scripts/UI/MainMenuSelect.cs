@@ -12,9 +12,13 @@ public class MainMenuSelect : MonoBehaviour, ISelectHandler, IDeselectHandler
     [SerializeField]
     private string _descriptionToDisplay;
 
+    [SerializeField]
+    private Animator _animator;
+
     public void OnSelect(BaseEventData eventData)
     {
         _descriptionText.text = _descriptionToDisplay;
+        _animator.SetTrigger("ButtonWobble");
     }
     public void OnDeselect(BaseEventData eventData)
     {
