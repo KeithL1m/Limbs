@@ -7,8 +7,6 @@ public class LimbSpawning : MonoBehaviour
     private GameLoader _loader;
     private GameManager _gm;
 
-    public int playerCount;
-
     [SerializeField] private Transform _leftLimit;
     [SerializeField] private Transform _rightLimit;
 
@@ -99,12 +97,6 @@ public class LimbSpawning : MonoBehaviour
 
     private void SpawnLimbRandom()
     {
-        if (playerCount <= 1)
-        {
-            playerCount = _gm.GetPlayerCount();
-            return;
-        }
-        
         int index = rnd.Next(_limbOptions.Count);
         double val = rnd.NextDouble() * (_right - _left) + _left;
         double val2 = rnd.NextDouble() * _maxAngularVelocity;
