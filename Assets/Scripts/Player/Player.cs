@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerJump))]
@@ -37,6 +39,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _aimTransform;
+    private Vector3 _mousePosition;
+    private Camera _camera;
+
+
     [SerializeField] public Transform GroundCheckTransform;
     [SerializeField] private Transform attackPointTransform;
     [SerializeField] private GroundCheck _groundCheck;
@@ -63,6 +69,8 @@ public class Player : MonoBehaviour
     private bool _canFly = false;
     public bool CanFly { get { return _canFly; } }
 
+    public Action OnLanded;
+
     public int Id { get => _id; }
     private int _id;
 
@@ -78,6 +86,8 @@ public class Player : MonoBehaviour
         _inputHandler = GetComponent<PlayerInputHandler>();
 
         _inputHandler.MeleeAttack += OnMeleeAttack;
+
+        _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     public void Initialize(PlayerConfiguration pc)
@@ -190,6 +200,7 @@ public class Player : MonoBehaviour
         }
 
         //updating arrow
+
         if (_inputHandler.Aim.x == 0.0f && _inputHandler.Aim.y == 0.0f && !_inputHandler.FlickAiming)
         {
             if (direction == 1)
@@ -241,16 +252,12 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (!_wasOnGround && _groundCheck.isGrounded && _previousVelocity2.y < -5.0f)
-        {
-            _impactParticles.Play();
-        }
+        //mouse aiming
+        //Mouse mouse = Mouse.current;
+        //_mousePosition = _camera.ScreenToWorldPoint(mouse.position.ReadValue()) - transform.position;
+        //float angle = Mathf.Atan2(-_mousePosition.y, -_mousePosition.x) * Mathf.Rad2Deg;
 
-        Debug.Log($"Check left is {checkAnimLeft.ToString()}");
-
-        _wasOnGround = _groundCheck.isGrounded;
-        _previousVelocity2 = _previousVelocity1;
-        _previousVelocity1 = _rb.velocity;
+        //_aimTransform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
     }
 
     private IEnumerator MeleeDelay(float duration)
