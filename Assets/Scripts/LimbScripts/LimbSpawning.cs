@@ -23,6 +23,7 @@ public class LimbSpawning : MonoBehaviour
 
     [SerializeField] private double _minSpawnTimer;
     [SerializeField] private double _maxSpawnTimer;
+    [SerializeField] private float _specialSpawnerMultipler = 5;
 
     [SerializeField] private float _maxAngularVelocity;
 
@@ -80,7 +81,7 @@ public class LimbSpawning : MonoBehaviour
             return;
         }
 
-        _currentLimbs = _limbManager.GetLimbAmount();
+        _currentLimbs = _limbManager.GetLimbAmount(_specialSpawner);
 
         if (_currentLimbs >= _limbLimit)
             return;
@@ -131,8 +132,8 @@ public class LimbSpawning : MonoBehaviour
 
         if (_specialSpawner)
         {
-            _minSpawnTimer *= 5f;
-            _maxSpawnTimer *= 5f;
+            _minSpawnTimer *= _specialSpawnerMultipler;
+            _maxSpawnTimer *= _specialSpawnerMultipler;
         }
     }
 
@@ -142,7 +143,7 @@ public class LimbSpawning : MonoBehaviour
 
         if (_specialSpawner)
         {
-            _limbLimit /= 4;
+            _limbLimit /= 2;
         }
     }
 }

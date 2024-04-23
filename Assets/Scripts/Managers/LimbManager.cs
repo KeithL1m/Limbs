@@ -60,9 +60,21 @@ public class LimbManager : Manager
         _limbs.Clear();
     }
 
-    public int GetLimbAmount()
+    public int GetLimbAmount(bool special)
     {
-        return _limbs.Count;
+        int limbs = 0;
+        for (int i = 0; i < _limbs.Count; i++)
+        {
+            if (special)
+            {
+                limbs += _limbs[i].IsSpecial ? 1 : 0;
+            }
+            else
+            {
+                limbs += _limbs[i].IsSpecial ? 0 : 1;
+            }
+        }
+        return limbs;
     }
 
     public List<GameObject> GetLimbList()

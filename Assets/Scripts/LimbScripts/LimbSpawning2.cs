@@ -8,11 +8,12 @@ public class LimbSpawning2 : MonoBehaviour
 
     [Header("Customizable")]
     [SerializeField] private List<GameObject> _limbOptions;
-    [SerializeField]  private int _limbLimit;
+    [SerializeField] private int _limbLimit;
     [SerializeField] private int _startLimbCount;
 
-    [SerializeField]  private double _minSpawnTimer;
+    [SerializeField] private double _minSpawnTimer;
     [SerializeField] private double _maxSpawnTimer;
+    [SerializeField] private float _specialSpawnerMultipler = 5;
 
     [SerializeField] private float _maxAngularVelocity;
 
@@ -52,7 +53,7 @@ public class LimbSpawning2 : MonoBehaviour
 
     private void Update()
     {
-        _currentLimbs = _limbManager.GetLimbAmount();
+        _currentLimbs = _limbManager.GetLimbAmount(_specialSpawner);
 
         if (_currentLimbs >= _limbLimit)
             return;
@@ -103,8 +104,8 @@ public class LimbSpawning2 : MonoBehaviour
 
         if (_specialSpawner)
         {
-            _minSpawnTimer *= 5f;
-            _maxSpawnTimer *= 5f;
+            _minSpawnTimer *= _specialSpawnerMultipler;
+            _maxSpawnTimer *= _specialSpawnerMultipler;
         }
     }
 
