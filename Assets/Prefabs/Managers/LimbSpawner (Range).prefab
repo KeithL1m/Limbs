@@ -72,6 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9113931338938001847}
   - component: {fileID: 6819372074900375388}
+  - component: {fileID: 5438498394344502029}
   m_Layer: 0
   m_Name: LimbSpawner (Range)
   m_TagString: Untagged
@@ -125,3 +126,34 @@ MonoBehaviour:
   _minSpawnTimer: 3
   _maxSpawnTimer: 10
   _maxAngularVelocity: 0
+  _specialSpawner: 0
+--- !u!114 &5438498394344502029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9039460043306164927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0af89e14ad281499c6ed5c20ea39f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCount: 0
+  _leftLimit: {fileID: 6819372075964717750}
+  _rightLimit: {fileID: 6819372074869276752}
+  _limbOptions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _limbLimit: 20
+  _startLimbCount: 0
+  _minSpawnTimer: 3
+  _maxSpawnTimer: 10
+  _maxAngularVelocity: 0
+  _specialSpawner: 1

@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class LimbManager : Manager
 {
-    [SerializeField] private List<Limb> _limbOptions;
+    [SerializeField] private List<GameObject> _limbOptions;
+    [SerializeField] private double _timeRange;
+    [SerializeField] private int _limbLimit;
+    [ShowOnly] private float _currentTime;
 
     private List<Limb> _limbs;
     private bool _initialized = false;
 
     public Action ChangeChosenLimbs;
+    public Action UpdateTime;
+    public Action UpdateAmount;
 
-    public void SetLimbOptions(List<Limb> limbs)
+    public void SetLimbOptions(List<GameObject> limbs)
     {
         _limbOptions = limbs;
     }
@@ -60,18 +65,51 @@ public class LimbManager : Manager
         return _limbs.Count;
     }
 
-    public List<Limb> GetLimbList()
+    public List<GameObject> GetLimbList()
     {
         return _limbOptions;
     }
 
-    public void RemoveFromChosen(Limb connectedLimb)
+    public void RemoveFromChosen(GameObject connectedLimb)
     {
         _limbOptions.Remove(connectedLimb);
+        ChangeChosenLimbs?.Invoke();
     }
 
-    public void AddToChosen(Limb connectedLimb)
+    public void AddToChosen(GameObject connectedLimb)
     {
-        _limbOptions.Add(connectedLimb);
+        if (!_limbOptions.Contains(connectedLimb))
+        {
+            _limbOptions.Add(connectedLimb);
+            ChangeChosenLimbs?.Invoke();
+        }
+    }
+
+    public void SetMaxAmount(int amount)
+    {
+        _limbLimit = amount;
+        UpdateAmount?.Invoke();
+    }
+
+    public int GetLimbLimit()
+    {
+        return _limbLimit;
+    }
+
+    public void SetSpawnTime(float time, double range)
+    {
+        _timeRange = range;
+        _currentTime = time;
+        UpdateTime?.Invoke();
+    }
+
+    public double GetMinSpawnTime()
+    {
+        return _currentTime - _timeRange;
+    }
+
+    public double GetMaxSpawnTime()
+    {
+        return _currentTime + _timeRange;
     }
 }
