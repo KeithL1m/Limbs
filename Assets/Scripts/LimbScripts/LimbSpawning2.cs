@@ -81,15 +81,17 @@ public class LimbSpawning2 : MonoBehaviour
     {
         _limbOptions = _limbManager.GetLimbList();
 
-        foreach (var item in _limbOptions)
+        for (int i = _limbOptions.Count - 1; i >= 0; i--)
         {
-            Limb limb = item.GetComponent<Limb>();
+            Limb limb = _limbOptions[i].GetComponent<Limb>();
 
-            bool remove = limb.IsSpecial && !_specialSpawner || !limb.IsSpecial && _specialSpawner;
+            bool removeSpecial = limb.IsSpecial && !_specialSpawner;
+            bool removeNormal = !limb.IsSpecial && _specialSpawner;
 
-            if (remove)
+            if (removeNormal || removeSpecial)
             {
-                _limbOptions.Remove(item);
+                _limbOptions.Remove(_limbOptions[i]);
+                Debug.Log("removed item");
             }
         }
     }

@@ -7,7 +7,7 @@ public class LimbManager : Manager
     [SerializeField] private List<GameObject> _limbOptions;
     [SerializeField] private double _timeRange;
     [SerializeField] private int _limbLimit;
-    [ShowOnly] private float _currentTime;
+    [ShowOnly] public float _currentTime = 3;
 
     private List<Limb> _limbs;
     private bool _initialized = false;
