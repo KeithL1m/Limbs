@@ -4,10 +4,10 @@ public class Damagable : MonoBehaviour
 {
     [Header("General Settings")]
     [SerializeField] private float damageOutput;
-    [SerializeField] private float _knockbackForce;
-    [SerializeField] private float _airKnockbackForce;
+    [SerializeField] private float _knockbackForce = 1000f;
+    [SerializeField] private float _airKnockbackForce = 1000f;
 
-    [Header("Bool Settings")]
+    [Header("Spike Settings")]
     [SerializeField] private bool applyKnockback;
     [SerializeField] private bool destroyOnTouch;
 
