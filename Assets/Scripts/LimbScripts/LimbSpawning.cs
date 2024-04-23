@@ -139,5 +139,10 @@ public class LimbSpawning : MonoBehaviour
     private void UpdateLimit()
     {
         _limbLimit = _limbManager.GetLimbLimit();
+
+        if (_specialSpawner)
+        {
+            _limbLimit /= 4;
+        }
     }
 }
