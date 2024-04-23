@@ -5,14 +5,16 @@ using UnityEngine;
 public class LimbManager : Manager
 {
     [SerializeField] private List<GameObject> _limbOptions;
-    [SerializeField] private double _maxTime;
-    [SerializeField] private double _minTime;
-    private double _currentTime;
+    [SerializeField] private double _timeRange;
+    [SerializeField] private int _limbLimit;
+    [ShowOnly] public float _currentTime = 3;
 
     private List<Limb> _limbs;
     private bool _initialized = false;
 
     public Action ChangeChosenLimbs;
+    public Action UpdateTime;
+    public Action UpdateAmount;
 
     public void SetLimbOptions(List<GameObject> limbs)
     {
@@ -82,23 +84,32 @@ public class LimbManager : Manager
             ChangeChosenLimbs?.Invoke();
         }
     }
-    public void SetMinSpawnTime(double time)
+
+    public void SetMaxAmount(int amount)
     {
-        _minTime = time;
+        _limbLimit = amount;
+        UpdateAmount?.Invoke();
     }
 
-    public void SetMaxSpawnTime(double time)
+    public int GetLimbLimit()
     {
-        _maxTime = time;
+        return _limbLimit;
+    }
+
+    public void SetSpawnTime(float time, double range)
+    {
+        _timeRange = range;
+        _currentTime = time;
+        UpdateTime?.Invoke();
     }
 
     public double GetMinSpawnTime()
     {
-        return _currentTime - 1.5;
+        return _currentTime - _timeRange;
     }
 
     public double GetMaxSpawnTime()
     {
-        return _currentTime + 1.5;
+        return _currentTime + _timeRange;
     }
 }

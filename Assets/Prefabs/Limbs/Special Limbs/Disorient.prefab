@@ -154,7 +154,8 @@ MonoBehaviour:
   <PickUpIndicator>k__BackingField: {fileID: 8578923699283451885}
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
-  _specialLimbs: 0
+  _bombLimb: 0
+  IsSpecial: 1
   _disorientLength: 10
 --- !u!1 &2032589684185758580 stripped
 GameObject:

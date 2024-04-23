@@ -15,7 +15,7 @@ public class GhostLimb : Limb
     protected override void Initialize()
     {
         base.Initialize();
-        _specialLimbs = false;
+        _bombLimb = false;
     }
 
     public override void ThrowLimb(int direction)
