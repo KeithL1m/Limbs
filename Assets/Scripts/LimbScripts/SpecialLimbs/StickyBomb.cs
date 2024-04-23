@@ -37,7 +37,7 @@ public class StickyBomb : Limb
         base.Initialize();
 
         _particleManager = ServiceLocator.Get<ParticleManager>();
-        _specialLimbs = true;
+        _bombLimb = true;
         countdown = _timer;
     }
 
