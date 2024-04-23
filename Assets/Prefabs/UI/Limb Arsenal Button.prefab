@@ -179,7 +179,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -198,7 +198,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3424398387915001081}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2449883941040738120}
+        m_TargetAssemblyTypeName: ArsenalButton, Assembly-CSharp
+        m_MethodName: ArsenalClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2449883941040738120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,4 +229,5 @@ MonoBehaviour:
   _unselectMaterial: {fileID: 2100000, guid: 40e6eb82d7757e04bb1e62a0fe1da1ff, type: 2}
   _selectColor: {r: 0.6313726, g: 0.3529412, b: 0.36078432, a: 1}
   _unselectColor: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 1}
-  _limbName: 
+  _connectedLimb: {fileID: 479936713415687806, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+  _button: {fileID: 0}

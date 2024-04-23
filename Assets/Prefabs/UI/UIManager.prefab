@@ -2261,8 +2261,8 @@ MonoBehaviour:
   _exitPopupMenu: {fileID: 3980183634648225078}
   _eventSystem: {fileID: 8567420190715858752}
   _pauseFirstButton: {fileID: 8567420190486687868}
-  _arsenalFirstButton: {fileID: 0}
-  _optionsFirstButton: {fileID: 8567420189962322312}
+  _arsenalFirstButton: {fileID: 8567420189962322312}
+  _optionsFirstButton: {fileID: 8567420189683973778}
   _popupFirstButton: {fileID: 8567420190883136200}
   _exitPopupFirstButton: {fileID: 7594664035400025356}
   _canvas: {fileID: 8567420190504578873}
@@ -7998,26 +7998,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Options Menu
       objectReference: {fileID: 0}
-    - target: {fileID: 459387093452160649, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 887283292637855225, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1172662556126091082, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1552846470016888442, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3275660504505238887, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3402035025147914652, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8110,27 +8090,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8567420190504578820}
-    - target: {fileID: 7076474423527199445, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7235809925536810394, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8762738246550318319, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9034506252015014218, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
 --- !u!1 &6896121198383502714 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 459387093452160649, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+  m_PrefabInstance: {fileID: 6472767305434393587}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8567420189683973778 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3402035025723692385, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
   m_PrefabInstance: {fileID: 6472767305434393587}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &8567420190114775663 stripped

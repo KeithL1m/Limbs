@@ -3,7 +3,11 @@ using UnityEngine;
 
 public class LimbSpawning2 : MonoBehaviour
 {
-    private GameLoader _loader;
+    /*
+     * SPAWN LIMBS USING SPAWN POINTS 
+     */
+    GameLoader _loader;
+
     private LimbManager _limbManager;
 
     [Header("Customizable")]
@@ -14,15 +18,13 @@ public class LimbSpawning2 : MonoBehaviour
     [SerializeField]  private double _minSpawnTimer;
     [SerializeField] private double _maxSpawnTimer;
 
-    [SerializeField] private float _maxAngularVelocity;
-
     private int _currentLimbs;
     private float _limbTimer;
 
     [SerializeField] private List<GameObject> _spawnPositions;
-    [SerializeField] private bool _specialSpawner;
 
     private static System.Random rnd = new System.Random();
+
 
     private void Awake()
     {
@@ -35,11 +37,10 @@ public class LimbSpawning2 : MonoBehaviour
         _limbManager = ServiceLocator.Get<LimbManager>();
 
         _limbManager.Initialize();
-        ChangeLimbOptions();
-        UpdateTimer();
-        UpdateLimit();
+        _limbOptions = _limbManager.GetLimbList();
+        _minSpawnTimer = _limbManager.GetMinSpawnTime();
+        _maxSpawnTimer = _limbManager.GetMaxSpawnTime();
         _limbManager.ChangeChosenLimbs += ChangeLimbOptions;
-        _limbManager.UpdateTime += UpdateTimer;
 
         for (int i = 0; i < _startLimbCount; i++)
         {
@@ -59,7 +60,7 @@ public class LimbSpawning2 : MonoBehaviour
 
         _limbTimer -= Time.deltaTime;
 
-        if (_limbTimer <= 0.0f && _limbOptions.Count > 0)
+        if (_limbTimer <= 0.0f)
         {
             SpawnLimbSpecific();
             double time = rnd.NextDouble() * (_maxSpawnTimer - _minSpawnTimer) + _minSpawnTimer;
@@ -72,44 +73,12 @@ public class LimbSpawning2 : MonoBehaviour
         int index = rnd.Next(_limbOptions.Count);
         int spawnIndex = rnd.Next(_spawnPositions.Count);
         Vector3 position = _spawnPositions[spawnIndex].transform.position;
-        double val2 = rnd.NextDouble() * _maxAngularVelocity;
-        Rigidbody2D limb = Instantiate(_limbOptions[index], new Vector3(position.x, position.y, position.z), Quaternion.identity).GetComponent<Rigidbody2D>();
-        limb.angularVelocity = (float)val2;
+        Limb limb = Instantiate(_limbOptions[index], new Vector3(position.x, position.y, position.z), Quaternion.identity).GetComponent<Limb>();
     }
-
     private void ChangeLimbOptions()
     {
         _limbOptions = _limbManager.GetLimbList();
-
-        for (int i = _limbOptions.Count - 1; i >= 0; i--)
-        {
-            Limb limb = _limbOptions[i].GetComponent<Limb>();
-
-            bool removeSpecial = limb.IsSpecial && !_specialSpawner;
-            bool removeNormal = !limb.IsSpecial && _specialSpawner;
-
-            if (removeNormal || removeSpecial)
-            {
-                _limbOptions.Remove(_limbOptions[i]);
-                Debug.Log("removed item");
-            }
-        }
-    }
-
-    private void UpdateTimer()
-    {
         _minSpawnTimer = _limbManager.GetMinSpawnTime();
         _maxSpawnTimer = _limbManager.GetMaxSpawnTime();
-
-        if (_specialSpawner)
-        {
-            _minSpawnTimer *= 5f;
-            _maxSpawnTimer *= 5f;
-        }
-    }
-
-    private void UpdateLimit()
-    {
-        _limbLimit = _limbManager.GetLimbLimit();
     }
 }

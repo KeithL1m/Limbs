@@ -51,10 +51,8 @@ public class Limb : MonoBehaviour
 
 
     [HideInInspector] public bool TripleShot = false;
-    [HideInInspector] public bool _bombLimb = false;
+    public bool _specialLimbs = false;
     private bool _initialized = false;
-    
-    public bool IsSpecial = false;
 
     protected virtual void Awake()
     {
@@ -88,7 +86,7 @@ public class Limb : MonoBehaviour
         PickupTimer = 0.3f;
         CanPickUp = true;
 
-        _bombLimb = false;
+        _specialLimbs = false;
         _initialized = true;
     }
 
@@ -142,7 +140,7 @@ public class Limb : MonoBehaviour
         }
         else if (State == LimbState.Throwing || State == LimbState.Returning)
         {
-            if (LimbRB.velocity.magnitude < 4.0f && _bombLimb == false)
+            if (LimbRB.velocity.magnitude < 4.0f && _specialLimbs == false)
             {
                 PickupTimer -= Time.deltaTime;
             }

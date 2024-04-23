@@ -51,15 +51,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sprite: {fileID: 2960563530189716602}
-  State: 0
   _limbData: {fileID: 11400000, guid: 76d2735fb647a41419933b8acfdb8866, type: 2}
   <Trail>k__BackingField: {fileID: 5540534422284720917}
   <PickUpIndicator>k__BackingField: {fileID: 8940071924156930077}
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
-  _bombLimb: 0
-  IsSpecial: 1
+  _specialLimbs: 0
   _collider: {fileID: 8460407155734473735}
+  _delayTimer: 0.2
 --- !u!50 &545256134410961637
 Rigidbody2D:
   serializedVersion: 4
