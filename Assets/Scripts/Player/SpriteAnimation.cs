@@ -30,6 +30,8 @@ public class SpriteAnimation : MonoBehaviour
     private bool _isSquashing = false;
     private float _maxSpeed;
 
+    private float _rotationSpeed;
+
     private void Awake()
     {
         ServiceLocator.Get<GameLoader>().CallOnComplete(Initialize);
@@ -50,7 +52,9 @@ public class SpriteAnimation : MonoBehaviour
 
         float currentRotation = (speed / _maxSpeed) * _maxRotation;
 
-        Quaternion rotation = Quaternion.Euler(0f, 0f, currentRotation);
+        float smoothRotate = Mathf.SmoothDamp(_headRotation.rotation.z, currentRotation, ref _rotationSpeed, 0.001f);
+
+        Quaternion rotation = Quaternion.Euler(0f, 0f, smoothRotate);
         _headRotation.rotation = rotation;
     }
 

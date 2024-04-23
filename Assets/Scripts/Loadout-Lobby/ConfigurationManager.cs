@@ -41,7 +41,7 @@ public class ConfigurationManager : MonoBehaviour
 
         if (_playerConfigs.All(p => p.IsReady == true) && _playerNum > 1)
         {
-          SceneManager.LoadScene(4);
+          SceneManager.LoadScene(3);
         }
     }
 
