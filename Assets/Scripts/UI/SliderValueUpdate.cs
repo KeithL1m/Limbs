@@ -11,8 +11,7 @@ public class SliderValueUpdate : MonoBehaviour
 
     void Awake()
     {
-        _slider = GetComponentInParent<Slider>();
-        _sliderText = GetComponent<TMP_Text>();
+
     }
 
     void Start()

@@ -166,6 +166,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e8b47242a9ed84a9a573ba9ae2010b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _limbOptions: []
-  _timeRange: 1
-  _limbLimit: 20

@@ -12,7 +12,7 @@ public class GasLimb : Limb
     {
         base.Initialize();
         _particleManager = ServiceLocator.Get<ParticleManager>();
-        _bombLimb = true;
+        _specialLimbs = true;
     }
 
     public override void ThrowLimb(int direction)

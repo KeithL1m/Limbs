@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ArsenalButton : MonoBehaviour
+public class ArsenalButton : MonoBehaviour, ISelectHandler
 {
     [SerializeField] private Image _background;
     [SerializeField] private Image _limb;
@@ -13,7 +14,9 @@ public class ArsenalButton : MonoBehaviour
     [SerializeField] private Color _selectColor = Color.white;
     [SerializeField] private Color _unselectColor = Color.white;
 
-    [SerializeField] private Limb _connectedLimb;
+    [SerializeField] private GameObject _connectedLimb;
+
+    [SerializeField] private Button _button;
 
     private LimbManager _limbManager;
     private bool _selected = true;
@@ -29,29 +32,36 @@ public class ArsenalButton : MonoBehaviour
         _limbManager = ServiceLocator.Get<LimbManager>();
     }
 
+    public void OnSelect(BaseEventData eventData)
+    {
+
+    }
+
     public void ArsenalClicked()
     {
         if (_selected)
         {
             RemoveLimb();
-            _limb.material = _unselectMaterial;
-            _background.color = _unselectColor;
         }
         else
         {
             AddLimb();
-            _limb.material = _selectMaterial;
-            _background.color = _selectColor;
         }
     }
 
     private void RemoveLimb()
     {
         _limbManager.RemoveFromChosen(_connectedLimb);
+        _limb.material = _unselectMaterial;
+        _background.color = _unselectColor;
+        _selected = false;
     }
 
     private void AddLimb()
     {
         _limbManager.AddToChosen(_connectedLimb);
+        _limb.material = _selectMaterial;
+        _background.color = _selectColor;
+        _selected = true;
     }
 }
