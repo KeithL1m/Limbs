@@ -3,13 +3,13 @@ using UnityEngine;
 public class Damagable : MonoBehaviour
 {
     [Header("General Settings")]
-    [SerializeField] private float damageOutput;
+    [SerializeField] private float _damageOutput;
     [SerializeField] private float _knockbackForce = 1000f;
     [SerializeField] private float _airKnockbackForce = 1000f;
 
     [Header("Spike Settings")]
     [SerializeField] private bool applyKnockback;
-    [SerializeField] private bool destroyOnTouch;
+    [SerializeField] private bool _destroyOnTouch;
 
     private float _knockbackDir;
 
@@ -38,10 +38,10 @@ public class Damagable : MonoBehaviour
                 collider.attachedRigidbody.AddForce(new Vector2(_knockbackDir * _knockbackForce, _airKnockbackForce));
             }
 
-            collision.collider.GetComponent<PlayerHealth>().AddDamage(damageOutput);
+            collision.collider.GetComponent<PlayerHealth>().AddDamage(_damageOutput);
         }
 
-        else if (destroyOnTouch == true)
+        else if (_destroyOnTouch == true)
         {
             Destroy(gameObject);
         }
