@@ -42,7 +42,7 @@ public class GasLimb : Limb
     {
         Debug.Log("FART");
         if (ServiceLocator.Get<CameraManager>() != null)
-            ServiceLocator.Get<CameraManager>().StartScreenShake(screenShakePower * screenShakePercent, screenShakePower * screenShakePercent);
+            ServiceLocator.Get<CameraManager>().StartScreenShake(screenShakePower * screenShakePercent, screenShakeTime);
         _particleManager.PlayGas(transform.position);
         ServiceLocator.Get<LimbManager>().RemoveLimb(this);
         Destroy(gameObject);

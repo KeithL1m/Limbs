@@ -111,7 +111,8 @@ MonoBehaviour:
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
   _specialLimbs: 0
-  shakeScreenPercent: 0.4
+  screenShakePercent: 0.4
+  screenShakeTime: 0.5
   _bullet: {fileID: 7321386805834542928, guid: 6cbf4cb540f6b7e418e41e0645578ee9, type: 3}
   _shotsLeft: 3
   _launcherTwo: {fileID: 21300000, guid: f736f036af4042c4988dd87745964a1c, type: 3}

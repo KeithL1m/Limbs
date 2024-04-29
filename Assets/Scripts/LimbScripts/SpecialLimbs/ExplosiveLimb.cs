@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ExplosiveLimb : Limb
@@ -65,7 +66,7 @@ public class ExplosiveLimb : Limb
 
     void Explode()
     {
-        ServiceLocator.Get<CameraManager>().StartScreenShake(screenShakePower*screenShakePercent, screenShakePower * screenShakePercent);
+        ServiceLocator.Get<CameraManager>().StartScreenShake(screenShakePower*screenShakePercent, screenShakeTime);
         Debug.Log("BOOOOM");
 
         explosionRadius = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);

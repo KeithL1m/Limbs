@@ -55,6 +55,7 @@ public class Limb : MonoBehaviour
     private bool _initialized = false;
     protected float screenShakePower = 2;
     [SerializeField] protected float screenShakePercent = 1;
+    [SerializeField] protected float screenShakeTime = 0.5f;
     protected virtual void Awake()
     {
         GameLoader loader = ServiceLocator.Get<GameLoader>();
@@ -235,7 +236,7 @@ public class Limb : MonoBehaviour
             ContactPoint2D contactPoint = collision.GetContact(0);
             ServiceLocator.Get<ParticleManager>().PlayBreakableWallParticle(contactPoint.point);
             if (ServiceLocator.Get<CameraManager>() != null)
-                ServiceLocator.Get<CameraManager>().StartScreenShake(screenShakePower*screenShakePercent, screenShakePower * screenShakePercent);
+                ServiceLocator.Get<CameraManager>().StartScreenShake(screenShakePower*screenShakePercent, screenShakeTime);
             ReturnLimb();
             return;
         }

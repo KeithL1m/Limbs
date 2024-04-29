@@ -240,12 +240,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sprite: {fileID: 3847259994333258755}
+  State: 0
   _limbData: {fileID: 11400000, guid: 76d2735fb647a41419933b8acfdb8866, type: 2}
   <Trail>k__BackingField: {fileID: 6718465839082960848}
   <PickUpIndicator>k__BackingField: {fileID: 3700086008489854450}
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
   _specialLimbs: 0
+  screenShakePercent: 0.6
+  screenShakeTime: 0.5
   _explodeCounter: 5
   _potatoSprite: {fileID: 0}
 --- !u!50 &3672172557956614342

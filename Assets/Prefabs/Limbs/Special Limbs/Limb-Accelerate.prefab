@@ -251,7 +251,8 @@ MonoBehaviour:
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
   _specialLimbs: 0
-  shakeScreenPercent: 0.4
+  screenShakePercent: 0.4
+  screenShakeTime: 0.5
 --- !u!1 &6788928248598725729
 GameObject:
   m_ObjectHideFlags: 0

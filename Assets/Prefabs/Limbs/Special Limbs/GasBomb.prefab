@@ -58,7 +58,8 @@ MonoBehaviour:
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
   _specialLimbs: 0
-  shakeScreenPercent: 0.2
+  screenShakePercent: 0.2
+  screenShakeTime: 0.5
   _collider: {fileID: 8460407155734473735}
 --- !u!50 &545256134410961637
 Rigidbody2D:
