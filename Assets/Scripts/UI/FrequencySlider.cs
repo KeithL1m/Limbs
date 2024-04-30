@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class FrequencySlider : MonoBehaviour
 {
     [SerializeField] private Slider _slider;
-    [SerializeField] private LimbManager _lm;
+    private LimbManager _lm;
 
     [SerializeField] private float _defaultTime = 3f;
     [SerializeField] private float _range = 1f;

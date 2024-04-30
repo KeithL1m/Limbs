@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class AmountSlider : MonoBehaviour
 {
     [SerializeField] private Slider _slider;
-    [SerializeField] private LimbManager _lm;
+    private LimbManager _lm;
 
     [SerializeField] private float _amount;
     private float _amountScale;
