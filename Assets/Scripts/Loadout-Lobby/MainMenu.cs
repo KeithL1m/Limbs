@@ -64,6 +64,7 @@ public class MainMenu : MonoBehaviour
         //change music
         ServiceLocator.Get<AudioManager>().MeatcaseMusic(_meatcaseMusic);
         _configManager.InLoadout = true;
+
         SceneManager.LoadScene(sceneToLoad);
     }
 
