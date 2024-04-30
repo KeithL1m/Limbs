@@ -4,6 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+[System.Serializable]
+public class ScreenType
+{
+    public string screenTypes;
+}
+
+[System.Serializable]
+public class Frames
+{
+    public string frames;
+}
+
 public class OptionsScreen : MonoBehaviour
 {
     // Sliders
@@ -135,14 +147,3 @@ public class OptionsScreen : MonoBehaviour
     }
 }
 
-[System.Serializable]
-public class ScreenType
-{
-    public string screenTypes;
-}
-
-[System.Serializable]
-public class Frames
-{
-    public string frames;
-}
