@@ -243,7 +243,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slider: {fileID: 7849149060135414257}
-  _defaultTime: 3
+  _defaultTime: 3.2
+  _range: 1
 --- !u!1 &7052095783774981282
 GameObject:
   m_ObjectHideFlags: 0

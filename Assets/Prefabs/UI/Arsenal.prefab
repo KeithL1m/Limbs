@@ -1721,6 +1721,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Frequency Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 6490618319139888057, guid: 00512fc4db9fc864cb0d2b1ef09312b6, type: 3}
+      propertyPath: _defaultTime
+      value: 3.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6712488583774152324, guid: 00512fc4db9fc864cb0d2b1ef09312b6, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
