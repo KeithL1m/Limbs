@@ -54,6 +54,7 @@ public class MainMenu : MonoBehaviour
     public void StartGame(int sceneToLoad)
     {
         _configManager.InLoadout = true;
+
         SceneManager.LoadScene(sceneToLoad);
     }
 
