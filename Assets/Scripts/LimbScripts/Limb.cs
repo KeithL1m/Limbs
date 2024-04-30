@@ -96,9 +96,10 @@ public class Limb : MonoBehaviour
     {
         PickupTimer = 0.3f;
         CanPickUp = false;
+        transform.SetParent(ServiceLocator.Get<EmptyDestructibleObject>().transform);
+        transform.localScale = Vector3.one;
         _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
-        transform.SetParent(ServiceLocator.Get<EmptyDestructibleObject>().transform);
 
         State = LimbState.Throwing;
 

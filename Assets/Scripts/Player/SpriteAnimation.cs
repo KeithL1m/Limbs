@@ -6,6 +6,7 @@ public class SpriteAnimation : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private PlayerMovement _playerMovement;
+    [SerializeField] private PlayerLimbs _playerLimbs;
     [SerializeField] private PlayerJump _playerJump;
     [SerializeField] private Player _player;
     [SerializeField] private Rigidbody2D _rb;
@@ -112,6 +113,22 @@ public class SpriteAnimation : MonoBehaviour
             float stretchY = Mathf.Lerp(1f, _maxStretchY, velocityY);
 
             _body.transform.localScale = new Vector3(stretchX, stretchY, 1f);
+        }
+
+        if (_body.localScale == Vector3.one)
+        {
+            foreach (var limb in _playerLimbs._limbs)
+            {
+                if (!limb)
+                {
+                    continue;
+                }
+
+                if(limb.transform.localScale.x != 1 || limb.transform.localScale.y != 1)
+                {
+                    limb.transform.localScale = Vector3.one;
+                }
+            }
         }
     }
 
