@@ -6,6 +6,11 @@ using TMPro;
 
 public class OptionsScreen : MonoBehaviour
 {
+    // Sliders
+    [SerializeField] private Slider _masterVolume;
+    [SerializeField] private Slider _musicVolume;
+    [SerializeField] private Slider _sfxVolume;
+    [SerializeField] private Slider _announcerVolume;
     // Screen types
     [SerializeField] private List<ScreenType> screenDisplayTypes = new List<ScreenType>();
     [SerializeField] private TMP_Text screenLabel;
@@ -33,7 +38,12 @@ public class OptionsScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(QualitySettings.vSyncCount == 0)
+        _masterVolume.value = _masterVolume.maxValue;
+        _musicVolume.value = _musicVolume.maxValue;
+        _sfxVolume.value = _sfxVolume.maxValue;
+        _announcerVolume.value = _announcerVolume.maxValue;
+
+        if (QualitySettings.vSyncCount == 0)
         {
             _vsyncToggle.isOn = false;
         }

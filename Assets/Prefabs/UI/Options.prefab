@@ -1076,6 +1076,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 234ffb68da99cef4a9e049a40c336715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _masterVolume: {fileID: 947564964637943969}
+  _musicVolume: {fileID: 1485703810948865637}
+  _sfxVolume: {fileID: 7829935961591236891}
+  _announcerVolume: {fileID: 7185010969090492879}
   screenDisplayTypes:
   - screenTypes: Full Screen
   - screenTypes: Windowed Screen
