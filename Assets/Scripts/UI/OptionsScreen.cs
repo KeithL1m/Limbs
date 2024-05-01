@@ -36,10 +36,10 @@ public class OptionsScreen : MonoBehaviour
     //frames
     private enum frameLimits
     {
-        noLimit = 0,
+        fps120 = 120,
         fps30 = 30,
         fps60 = 60,
-        fps120 = 120
+        noLimit = 0
     }
 
     [SerializeField] private List<Frames> frameDisplay = new List<Frames>();
