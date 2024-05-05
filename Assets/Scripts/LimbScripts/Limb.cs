@@ -53,7 +53,7 @@ public class Limb : MonoBehaviour
     [HideInInspector] public bool TripleShot = false;
     public bool _specialLimbs = false;
     private bool _initialized = false;
-    protected float screenShakePower = 2;
+    protected float screenShakePower = 1.2f;
     [SerializeField] protected float screenShakePercent = 1;
     [SerializeField] protected float screenShakeTime = 0.5f;
     protected virtual void Awake()
