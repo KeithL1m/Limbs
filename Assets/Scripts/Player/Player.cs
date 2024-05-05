@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
     [SerializeField] private ParticleSystem _impactParticles;
     [SerializeField] private Material _sicknessMaterial;
     [SerializeField] private Material _defaultMaterial;
-
+    [SerializeField] private GameObject _drunkRisingBubbleParticles;
     //for melee
     [SerializeField] private Animator _animator;
     private float _meleeCooldown = 0.8f;
@@ -374,11 +374,14 @@ public class Player : MonoBehaviour
     {
         _aimConfused = true;
         _playerHead.material = _sicknessMaterial;
+        _drunkRisingBubbleParticles.SetActive(true);
     }
 
     public void MakeAimNormal()
     {
         _aimConfused = false;
         _playerHead.material = _defaultMaterial;
+        _drunkRisingBubbleParticles.SetActive(false);
+
     }
 }
