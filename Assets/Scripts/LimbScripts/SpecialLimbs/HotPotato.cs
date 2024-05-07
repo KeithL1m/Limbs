@@ -22,7 +22,7 @@ public class HotPotato : Limb
     {
         base.Initialize();
 
-        _bombLimb = true;
+        _specialLimbs = true;
         _explodeCounter = 5;
         
     }

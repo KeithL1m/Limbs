@@ -28,7 +28,7 @@ public class ExplosiveLimb : Limb
     protected override void Initialize()
     {
         base.Initialize();
-        _bombLimb = true;
+        _specialLimbs = true;
         _particleManager = ServiceLocator.Get<ParticleManager>();
         countdown = _timer;
     }

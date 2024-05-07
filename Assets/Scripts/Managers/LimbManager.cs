@@ -5,16 +5,14 @@ using UnityEngine;
 public class LimbManager : Manager
 {
     [SerializeField] private List<GameObject> _limbOptions;
-    [SerializeField] private double _timeRange;
-    [SerializeField] private int _limbLimit;
-    [ShowOnly] public float _currentTime = 3;
+    [SerializeField] private double _maxTime;
+    [SerializeField] private double _minTime;
+    private double _currentTime;
 
     private List<Limb> _limbs;
     private bool _initialized = false;
 
     public Action ChangeChosenLimbs;
-    public Action UpdateTime;
-    public Action UpdateAmount;
 
     public void SetLimbOptions(List<GameObject> limbs)
     {
@@ -60,21 +58,9 @@ public class LimbManager : Manager
         _limbs.Clear();
     }
 
-    public int GetLimbAmount(bool special)
+    public int GetLimbAmount()
     {
-        int limbs = 0;
-        for (int i = 0; i < _limbs.Count; i++)
-        {
-            if (special)
-            {
-                limbs += _limbs[i].IsSpecial ? 1 : 0;
-            }
-            else
-            {
-                limbs += _limbs[i].IsSpecial ? 0 : 1;
-            }
-        }
-        return limbs;
+        return _limbs.Count;
     }
 
     public List<GameObject> GetLimbList()
@@ -96,32 +82,23 @@ public class LimbManager : Manager
             ChangeChosenLimbs?.Invoke();
         }
     }
-
-    public void SetMaxAmount(int amount)
+    public void SetMinSpawnTime(double time)
     {
-        _limbLimit = amount;
-        UpdateAmount?.Invoke();
+        _minTime = time;
     }
 
-    public int GetLimbLimit()
+    public void SetMaxSpawnTime(double time)
     {
-        return _limbLimit;
-    }
-
-    public void SetSpawnTime(float time, double range)
-    {
-        _timeRange = range;
-        _currentTime = time;
-        UpdateTime?.Invoke();
+        _maxTime = time;
     }
 
     public double GetMinSpawnTime()
     {
-        return _currentTime - _timeRange;
+        return _currentTime - 1.5;
     }
 
     public double GetMaxSpawnTime()
     {
-        return _currentTime + _timeRange;
+        return _currentTime + 1.5;
     }
 }
