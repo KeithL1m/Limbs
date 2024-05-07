@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
@@ -49,6 +50,10 @@ public class Player : MonoBehaviour
     private float _meleeCooldown = 0.8f;
     float lastMelee;
 
+    [Header("Sounds")]
+    [SerializeField] private List<AudioClip> _throwSounds;
+    private AudioManager _audioManager;
+
     //facing left = -1, right = 1
     public int direction;
     private bool _initialized = false;
@@ -95,6 +100,7 @@ public class Player : MonoBehaviour
         _playerNum.sprite = _config.Num;
 
         _gameManager = ServiceLocator.Get<GameManager>();
+        _audioManager = ServiceLocator.Get<AudioManager>();
 
         _initialized = true;
     }
@@ -155,6 +161,10 @@ public class Player : MonoBehaviour
         /*throwing limbs*/
         if (_inputHandler.ThrowLimb > 0.5f && _playerLimbs.CanThrowLimb() && _canThrow)
         {
+            int numSound = UnityEngine.Random.Range(0, _throwSounds.Count);
+            Debug.Log(numSound);
+            _audioManager.PlaySound(_throwSounds[numSound], transform.position, SoundType.SFX);
+
             _playerLimbs.ThrowLimb(direction);
             _canThrow = false;
         }

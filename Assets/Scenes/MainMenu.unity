@@ -1665,7 +1665,7 @@ MonoBehaviour:
   selectedButtonSettingsMenu: {fileID: 522789282}
   selectedButtonCreditsMenu: {fileID: 1322326461}
   buttonDescriptions: []
-  _backButtonSound: {fileID: 8300000, guid: 5d429089dba9b3348884dfba1c167625, type: 3}
+  _backButtonSound: {fileID: 8300000, guid: 18340cc5389c8834c973380605b48d46, type: 3}
   _enterButtonSound: {fileID: 8300000, guid: cd7bd2f28512caf49805b492460c2aff, type: 3}
 --- !u!1 &1226764181
 GameObject:

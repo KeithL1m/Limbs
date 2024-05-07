@@ -366,6 +366,10 @@ MonoBehaviour:
   _sicknessMaterial: {fileID: 2100000, guid: b7d5c5e64b1a228489b7d93173887e5d, type: 2}
   _defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   _animator: {fileID: 573278624842582731}
+  _throwSounds:
+  - {fileID: 8300000, guid: cb52b700efd3b90439ee867aeddb48fa, type: 3}
+  - {fileID: 8300000, guid: 0c472539139006d4c81062a8a8a44edc, type: 3}
+  - {fileID: 8300000, guid: 3298e862cbe71cd41b087d06be7a3fda, type: 3}
   direction: 0
   _crownGameObject: {fileID: 4174948592063326648}
 --- !u!114 &8385072269478469062
@@ -419,6 +423,8 @@ MonoBehaviour:
   _maxCoyoteTime: 0.33
   _jumpParticles: {fileID: 4441690515183075440}
   _dJumpParticles: {fileID: 6600310443534833781}
+  _jumpSound: {fileID: 8300000, guid: b17c4d90aa64c3b4383f8e5a59594bd0, type: 3}
+  _doubleJumpSound: {fileID: 8300000, guid: b17c4d90aa64c3b4383f8e5a59594bd0, type: 3}
 --- !u!114 &1550446190603291940
 MonoBehaviour:
   m_ObjectHideFlags: 0
