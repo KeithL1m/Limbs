@@ -72,7 +72,7 @@ public class OptionsScreen : MonoBehaviour
     {
         if(_selectedScreenType == 0)
         {
-            Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, FullScreenMode.MaximizedWindow);
+            Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, FullScreenMode.ExclusiveFullScreen);
         }
         else if(_selectedScreenType == 1)
         {
