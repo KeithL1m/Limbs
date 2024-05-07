@@ -117,6 +117,7 @@ public class AudioManager : MonoBehaviour
     public void SetMasterVolume(float volume)
     {
         _audioMixer.SetFloat("Master Volume", Mathf.Log10(volume) * 20f);
+        Debug.Log(Mathf.Log10(volume) * 20f);
     }
 
     public void SetMusicVolume(float volume)
