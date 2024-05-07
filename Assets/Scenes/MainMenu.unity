@@ -1855,6 +1855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _descriptionText: {fileID: 87437782}
   _descriptionToDisplay: 'Tweak the game settings for your device. '
+  _audioClip: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
   _animator: {fileID: 0}
 --- !u!1 &1322326461
 GameObject:
@@ -2214,6 +2215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _descriptionText: {fileID: 87437782}
   _descriptionToDisplay: DON'T LEAVE MEEEEE!
+  _audioClip: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
   _animator: {fileID: 0}
 --- !u!1 &1475428682
 GameObject:
@@ -2442,6 +2444,7 @@ MonoBehaviour:
   _descriptionText: {fileID: 87437782}
   _descriptionToDisplay: 'Chop, slice and pry your way to the top in a brutal Limbs
     tournament. '
+  _audioClip: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
   _animator: {fileID: 1571401623}
 --- !u!95 &1571401623
 Animator:
@@ -2612,6 +2615,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _descriptionText: {fileID: 87437782}
   _descriptionToDisplay: Customize your setup, limbs, win count and more!
+  _audioClip: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
   _animator: {fileID: 1615982520}
 --- !u!95 &1615982520
 Animator:
@@ -3280,6 +3284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _descriptionText: {fileID: 87437782}
   _descriptionToDisplay: Check out the meatheads that made this game.
+  _audioClip: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
   _animator: {fileID: 0}
 --- !u!1 &2110856234
 GameObject:

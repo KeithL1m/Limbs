@@ -23,6 +23,7 @@ public class AudioManager : MonoBehaviour
     public float SoundFXVolume;
 
     [SerializeField] private List<AudioSource> _sources = new();
+    [SerializeField] private int _numSources;
 
     private GameManager _gm;
 
@@ -37,6 +38,12 @@ public class AudioManager : MonoBehaviour
         _audioMixer.GetFloat("Music Volume", out MusicVolume);
         _audioMixer.GetFloat("SFX Volume", out SoundFXVolume);
         _gm = ServiceLocator.Get<GameManager>();
+
+        for (int i = 0; i < _numSources; i++)
+        {
+            AudioSource newSource = Instantiate(_basicAudioSource, _gm.transform).GetComponent<AudioSource>();
+            _sources.Add(newSource);
+        }
     }
 
     //make function for random sound?
@@ -71,6 +78,7 @@ public class AudioManager : MonoBehaviour
         source.Play();
     }
 
+    //Volume must be in between 0 and 1
     public void PlaySound(AudioClip audio, Vector3 position, SoundType type, float volume = 1f)
     {
         //move source to position if not already playing sound
@@ -80,6 +88,7 @@ public class AudioManager : MonoBehaviour
             if (!_sources[i].isPlaying)
             {
                 source = _sources[i];
+                break;
             }
             else if (i + 1 == _sources.Count)
             {
@@ -109,7 +118,7 @@ public class AudioManager : MonoBehaviour
 
         source.clip = audio;
 
-        source.volume = Mathf.Log10(volume) * 20f;
+        source.volume = volume;
 
         source.Play();
     }
@@ -117,7 +126,6 @@ public class AudioManager : MonoBehaviour
     public void SetMasterVolume(float volume)
     {
         _audioMixer.SetFloat("Master Volume", Mathf.Log10(volume) * 20f);
-        Debug.Log(Mathf.Log10(volume) * 20f);
     }
 
     public void SetMusicVolume(float volume)

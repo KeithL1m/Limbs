@@ -110,6 +110,7 @@ MonoBehaviour:
   spawnPoints: []
   _players: []
   _empyObj: {fileID: 661398525459741840, guid: bc6f31650622bab4097afe3b93a01146, type: 3}
+  limits: 0
 --- !u!114 &8822850745060225480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +188,8 @@ MonoBehaviour:
   _masterGroup: {fileID: 24300002, guid: 61ec076982677cf48b802b1580874cee, type: 2}
   _sfxGroup: {fileID: -5128350582944866033, guid: 61ec076982677cf48b802b1580874cee, type: 2}
   _musicGroup: {fileID: 8461961741792114851, guid: 61ec076982677cf48b802b1580874cee, type: 2}
+  _basicAudioSource: {fileID: 4500707515501513600, guid: 36a745b1ec6d9c44d860760a183dce82, type: 3}
   MusicVolume: 0
   SoundFXVolume: 0
   _sources: []
+  _numSources: 8
