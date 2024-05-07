@@ -15,6 +15,8 @@ public class MainMenu : MonoBehaviour
     private GameObject settingsMenu;
     [SerializeField] 
     private GameObject creditsMenu;
+    [SerializeField]
+    private GameObject gateTransition;
 
     [Header("Menu Selected Buttons")]
     [SerializeField]
@@ -51,11 +53,12 @@ public class MainMenu : MonoBehaviour
         panelToShow.SetActive(true);
     }
 
-    public void StartGame(int sceneToLoad)
+    public void StartGame()
     {
         _configManager.InLoadout = true;
 
-        SceneManager.LoadScene(sceneToLoad);
+        gateTransition.SetActive(true);
+        StartCoroutine(Delay(3));
     }
 
     public void LoadArsenalMenu()
@@ -90,5 +93,15 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Quitting game...");
         Application.Quit();
        
+    }
+
+    IEnumerator Delay(int sceneToLoad)
+    {
+        Debug.Log("Set gate active");
+        // Wait for 3 seconds
+        yield return new WaitForSeconds(1.45f);
+
+        Debug.Log("After Delay");
+        SceneManager.LoadScene(sceneToLoad);
     }
 }
