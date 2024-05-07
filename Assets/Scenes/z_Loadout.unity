@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3493083084003878286, guid: 95c4533b3b50ad24db2e2b4f2ee454d2, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3493083084003878286, guid: 95c4533b3b50ad24db2e2b4f2ee454d2, type: 3}
       propertyPath: m_AnchorMax.x
@@ -172,15 +172,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3493083084003878286, guid: 95c4533b3b50ad24db2e2b4f2ee454d2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.9312554
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3493083084003878286, guid: 95c4533b3b50ad24db2e2b4f2ee454d2, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.9312554
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3493083084003878286, guid: 95c4533b3b50ad24db2e2b4f2ee454d2, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.9312554
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3493083084003878286, guid: 95c4533b3b50ad24db2e2b4f2ee454d2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -192,7 +192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3493083084003878286, guid: 95c4533b3b50ad24db2e2b4f2ee454d2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9720
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3493083084003878286, guid: 95c4533b3b50ad24db2e2b4f2ee454d2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -212,11 +212,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3493083084003878286, guid: 95c4533b3b50ad24db2e2b4f2ee454d2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1338.9
+      value: -1460
       objectReference: {fileID: 0}
     - target: {fileID: 3493083084003878286, guid: 95c4533b3b50ad24db2e2b4f2ee454d2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3493083084003878286, guid: 95c4533b3b50ad24db2e2b4f2ee454d2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -457,7 +457,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: bf3e05dd2432016428b791f6bbfb3b54, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -728,7 +728,7 @@ RectTransform:
   m_Children:
   - {fileID: 1868502761}
   m_Father: {fileID: 1870734375}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1205,8 +1205,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 981716627}
   - {fileID: 937061563}
+  - {fileID: 981716627}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
