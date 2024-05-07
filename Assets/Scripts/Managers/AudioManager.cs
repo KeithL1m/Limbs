@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using System.Collections.Generic;
+using UnityEngine.Timeline;
 
 public enum SoundType
 {
@@ -16,10 +17,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioMixerGroup _sfxGroup;
     [SerializeField] private AudioMixerGroup _musicGroup;
 
+    [SerializeField] private GameObject _basicAudioSource;
+
     public float MusicVolume;
     public float SoundFXVolume;
 
     [SerializeField] private List<AudioSource> _sources = new();
+
+    private GameManager _gm;
 
     private void Awake()
     {
@@ -29,7 +34,9 @@ public class AudioManager : MonoBehaviour
 
     private void Initialize()
     {
-        
+        _audioMixer.GetFloat("Music Volume", out MusicVolume);
+        _audioMixer.GetFloat("SFX Volume", out SoundFXVolume);
+        _gm = ServiceLocator.Get<GameManager>();
     }
 
     //make function for random sound?
@@ -46,7 +53,7 @@ public class AudioManager : MonoBehaviour
             }
             else if (i + 1 == _sources.Count)
             {
-                AudioSource newSource = new AudioSource();
+                AudioSource newSource = Instantiate(_basicAudioSource, _gm.transform).GetComponent<AudioSource>();
                 _sources.Add(newSource);
                 source = newSource;
                 break;
@@ -76,7 +83,7 @@ public class AudioManager : MonoBehaviour
             }
             else if (i + 1 == _sources.Count)
             {
-                AudioSource newSource = new AudioSource();
+                AudioSource newSource = Instantiate(_basicAudioSource, _gm.transform).GetComponent<AudioSource>();
                 _sources.Add(newSource);
                 source = newSource;
                 break;
