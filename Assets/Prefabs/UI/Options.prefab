@@ -1094,6 +1094,7 @@ MonoBehaviour:
   - frames: 120 FPS
   - frames: NO LIMIT
   framesLabel: {fileID: 5980878427670230643}
+  limits: 120
 --- !u!1 &494841529617942822
 GameObject:
   m_ObjectHideFlags: 0

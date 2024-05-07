@@ -34,7 +34,7 @@ public class OptionsScreen : MonoBehaviour
     [SerializeField] private Toggle _screenshakeToggle;
 
     //frames
-    private enum frameLimits
+    public enum frameLimits
     {
         fps120 = 120,
         fps30 = 30,
@@ -43,9 +43,9 @@ public class OptionsScreen : MonoBehaviour
     }
 
     [SerializeField] private List<Frames> frameDisplay = new List<Frames>();
-    private int _selectedLimitDisplay;
     private int _selectedFPS;
     [SerializeField] private TMP_Text framesLabel;
+    private frameLimits _limits;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +54,8 @@ public class OptionsScreen : MonoBehaviour
         _musicVolume.value = _musicVolume.maxValue;
         _sfxVolume.value = _sfxVolume.maxValue;
         _announcerVolume.value = _announcerVolume.maxValue;
+
+        //Application.targetFrameRate = (int)limits;
 
         if (QualitySettings.vSyncCount == 0)
         {
@@ -64,6 +66,7 @@ public class OptionsScreen : MonoBehaviour
             _vsyncToggle.isOn = true;
         }
     }
+
 
     public void UpdateGraphics()
     {
@@ -89,7 +92,24 @@ public class OptionsScreen : MonoBehaviour
             QualitySettings.vSyncCount = 0;
         }
 
-        //Application.targetFrameRate = frameDisplay[_selectedLimit].frameLimits;
+        if(_selectedFPS == 0)
+        {
+            _limits = frameLimits.fps30;
+        }
+        else if(_selectedFPS == 1)
+        {
+            _limits = frameLimits.fps60;
+        }
+        else if (_selectedFPS == 2)
+        {
+            _limits = frameLimits.fps120;
+        }
+        else if (_selectedFPS == 3)
+        {
+            _limits = frameLimits.noLimit;
+        }
+
+        Application.targetFrameRate = (int)_limits;
     }
 
     public void ResButtonLeft()
@@ -116,10 +136,10 @@ public class OptionsScreen : MonoBehaviour
 
     public void FramesButtonLeft()
     {
-        _selectedLimitDisplay--;
-        if(_selectedLimitDisplay < 0)
+        _selectedFPS--;
+        if(_selectedFPS < 0)
         {
-            _selectedLimitDisplay = 0;
+            _selectedFPS = 0;
         }
 
         FramesLabelChange();
@@ -127,10 +147,10 @@ public class OptionsScreen : MonoBehaviour
 
     public void FramesButtonRight()
     {
-        _selectedLimitDisplay++;
-        if (_selectedLimitDisplay > frameDisplay.Count - 1)
+        _selectedFPS++;
+        if (_selectedFPS > frameDisplay.Count - 1)
         {
-            _selectedLimitDisplay = frameDisplay.Count - 1;
+            _selectedFPS = frameDisplay.Count - 1;
         }
 
         FramesLabelChange();
@@ -143,7 +163,7 @@ public class OptionsScreen : MonoBehaviour
 
     public void FramesLabelChange()
     {
-        framesLabel.text = frameDisplay[_selectedLimitDisplay].frames;
+        framesLabel.text = frameDisplay[_selectedFPS].frames;
     }
 }
 
