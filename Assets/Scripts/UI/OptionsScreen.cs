@@ -70,6 +70,7 @@ public class OptionsScreen : MonoBehaviour
 
     public void UpdateGraphics()
     {
+        // Screen type
         if(_selectedScreenType == 0)
         {
             Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, FullScreenMode.ExclusiveFullScreen);
@@ -82,7 +83,8 @@ public class OptionsScreen : MonoBehaviour
         {
             Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, FullScreenMode.FullScreenWindow);
         }
-
+        
+        // Vsync
         if (_vsyncToggle.isOn)
         {
             QualitySettings.vSyncCount = 1;
@@ -92,6 +94,7 @@ public class OptionsScreen : MonoBehaviour
             QualitySettings.vSyncCount = 0;
         }
 
+        // Frames
         if(_selectedFPS == 0)
         {
             _limits = frameLimits.fps30;
@@ -109,6 +112,7 @@ public class OptionsScreen : MonoBehaviour
             _limits = frameLimits.noLimit;
         }
 
+        //Update frames
         Application.targetFrameRate = (int)_limits;
     }
 
