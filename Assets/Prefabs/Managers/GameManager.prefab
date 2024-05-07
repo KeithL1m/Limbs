@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 5952273605013709200}
   - component: {fileID: -2330629437284295947}
   - component: {fileID: 7777048602717406665}
-  - component: {fileID: 7891435827142567032}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -167,26 +166,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e8b47242a9ed84a9a573ba9ae2010b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _limbOptions: []
-  _timeRange: 1
-  _limbLimit: 20
-  _currentTime: 3
---- !u!114 &7891435827142567032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2200296758692526866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52448c377f9d61b4292e40629c8cf829, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _audioMixer: {fileID: 24100000, guid: 61ec076982677cf48b802b1580874cee, type: 2}
-  _masterGroup: {fileID: 24300002, guid: 61ec076982677cf48b802b1580874cee, type: 2}
-  _sfxGroup: {fileID: -5128350582944866033, guid: 61ec076982677cf48b802b1580874cee, type: 2}
-  _musicGroup: {fileID: 8461961741792114851, guid: 61ec076982677cf48b802b1580874cee, type: 2}
-  MusicVolume: 0
-  SoundFXVolume: 0
-  _sources: []

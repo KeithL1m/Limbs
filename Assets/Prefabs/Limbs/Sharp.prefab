@@ -110,8 +110,7 @@ MonoBehaviour:
   <PickUpIndicator>k__BackingField: {fileID: 7254546142229159940}
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
-  _bombLimb: 0
-  IsSpecial: 0
+  _specialLimbs: 0
   _gravityScale: 3
 --- !u!1 &1123106515960743069
 GameObject:
@@ -279,7 +278,7 @@ Transform:
   m_GameObject: {fileID: 5923722728741573122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.006, y: 0, z: 0.4999999}
-  m_LocalScale: {x: 0.1400746, y: 0.14007461, z: 0.53154}
+  m_LocalScale: {x: 0.09842749, y: 0.14007461, z: 0.53154}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8952520609378391584}
