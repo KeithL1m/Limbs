@@ -846,6 +846,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1172662556126091082, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.00090009003
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172662556126091082, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
@@ -866,8 +870,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1552846470016888442, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.00090009003
+      objectReference: {fileID: 0}
+    - target: {fileID: 1552846470016888442, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1552846470016888442, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.00090009003
+      objectReference: {fileID: 0}
+    - target: {fileID: 3275660504505238887, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.00090009003
       objectReference: {fileID: 0}
     - target: {fileID: 3275660504505238887, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1026,16 +1042,36 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7235809925536810394, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.00090009003
+      objectReference: {fileID: 0}
+    - target: {fileID: 7235809925536810394, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7235809925536810394, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.00090009003
       objectReference: {fileID: 0}
     - target: {fileID: 7829935961591236891, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
       propertyPath: m_Navigation.m_SelectOnLeft
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8762738246550318319, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.00090009003
+      objectReference: {fileID: 0}
+    - target: {fileID: 8762738246550318319, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8762738246550318319, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.00090009003
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034506252015014218, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.00090009003
       objectReference: {fileID: 0}
     - target: {fileID: 9034506252015014218, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1629,6 +1665,8 @@ MonoBehaviour:
   selectedButtonSettingsMenu: {fileID: 522789282}
   selectedButtonCreditsMenu: {fileID: 1322326461}
   buttonDescriptions: []
+  _backButtonSound: {fileID: 8300000, guid: 5d429089dba9b3348884dfba1c167625, type: 3}
+  _enterButtonSound: {fileID: 8300000, guid: cd7bd2f28512caf49805b492460c2aff, type: 3}
 --- !u!1 &1226764181
 GameObject:
   m_ObjectHideFlags: 0
