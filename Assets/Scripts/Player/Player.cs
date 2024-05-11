@@ -378,6 +378,5 @@ public class Player : MonoBehaviour
         _aimConfused = false;
         _playerHead.material = _defaultMaterial;
         _drunkRisingBubbleParticles.SetActive(false);
-
     }
 }
