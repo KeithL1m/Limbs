@@ -128,10 +128,10 @@ public class CameraManager : MonoBehaviour
         _shakeIntensity = intensity;
         _shakeDuration = duration;
         _shaking = true;
-        if (_optionsScreen.screenShakeOptions == false)
-        {
-            _shaking = false;
-        }
+        //if (_optionsScreen.screenShakeOptions == false)
+        //{
+        //    _shaking = false;
+        //}
     }
 
     private void MoveCamera()
