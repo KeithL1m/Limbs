@@ -248,6 +248,8 @@ MonoBehaviour:
   TripleShot: 0
   _bombLimb: 0
   IsSpecial: 1
+  screenShakePercent: 0.6
+  screenShakeTime: 0.5
   _explodeCounter: 5
   _potatoSprite: {fileID: 0}
 --- !u!50 &3672172557956614342

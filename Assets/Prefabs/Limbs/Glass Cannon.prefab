@@ -112,6 +112,8 @@ MonoBehaviour:
   TripleShot: 0
   _bombLimb: 0
   IsSpecial: 0
+  screenShakePercent: 0.4
+  screenShakeTime: 0.5
 --- !u!1 &1123106515960743069
 GameObject:
   m_ObjectHideFlags: 0
