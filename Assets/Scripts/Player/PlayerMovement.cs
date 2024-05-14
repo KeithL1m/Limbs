@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
 
         anchorsAnim.SetFloat("speed", moveSpeed);
 
-        if (_playerJump.IsGrounded() && _rb.velocity.x > 1 && state != PlayerLimbs.LimbState.NoLimb)
+        if (_playerJump.IsGrounded() && _rb.velocity.magnitude > 1 && state != PlayerLimbs.LimbState.NoLimb)
         {
             _footsteps.StartWalking();
         }
