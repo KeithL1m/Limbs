@@ -10,7 +10,6 @@ public class StartGame : MonoBehaviour
     public GameObject SelectedButton;
 
     [SerializeField] private Texture2D _textureToSave;
-    [SerializeField] private AudioClip _audioClip;
     private string _filePath;
 
     public int nextScene;
@@ -49,7 +48,6 @@ public class StartGame : MonoBehaviour
 
     public void LoadGame()
     {
-        ServiceLocator.Get<AudioManager>().PlaySound(_audioClip, transform.position, SoundType.SFX);
         SceneManager.LoadScene(nextScene);
     }
 }

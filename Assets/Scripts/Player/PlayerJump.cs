@@ -27,11 +27,6 @@ public class PlayerJump : MonoBehaviour
     [SerializeField]
     private ParticleSystem _dJumpParticles;
 
-    [Header("Sounds")]
-    [SerializeField] private AudioClip _jumpSound;
-    [SerializeField] private AudioClip _doubleJumpSound;
-    private AudioManager _audioManager;
-
     private float flyPower;
 
     private float _gravityScaleFactor;
@@ -51,7 +46,6 @@ public class PlayerJump : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _player = GetComponent<Player>();
         _inputhandler = GetComponent<PlayerInputHandler>();
-        _audioManager = ServiceLocator.Get<AudioManager>();
 
         _jumpGravity = -2 * _jumpHeight / Mathf.Pow(_jumpTime, 2);
         _gravityScaleFactor = _jumpGravity / Physics2D.gravity.y;
@@ -123,7 +117,6 @@ public class PlayerJump : MonoBehaviour
 
         if (_canDoubleJump)
         {
-            _audioManager.PlaySound(_doubleJumpSound, transform.position, SoundType.SFX);
             _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed * 0.6f, ForceMode2D.Impulse);
             _canDoubleJump = false;
             _isDoubleJumping = true;
@@ -133,7 +126,6 @@ public class PlayerJump : MonoBehaviour
         {
             if (!_player.CanFly)
             {
-                _audioManager.PlaySound(_jumpSound, transform.position, SoundType.SFX);
                 _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed, ForceMode2D.Impulse);
                 _jumpParticles.Play();
             }

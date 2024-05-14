@@ -11,15 +11,12 @@ public class MainMenuSelect : MonoBehaviour, ISelectHandler, IDeselectHandler
     private TMP_Text _descriptionText;
     [SerializeField]
     private string _descriptionToDisplay;
-    [SerializeField] 
-    private AudioClip _audioClip;
 
     [SerializeField]
     private Animator _animator;
 
     public void OnSelect(BaseEventData eventData)
     {
-        ServiceLocator.Get<AudioManager>().PlaySound(_audioClip, transform.position, SoundType.SFX);
         _descriptionText.text = _descriptionToDisplay;
         _animator.SetTrigger("ButtonWobble");
     }
