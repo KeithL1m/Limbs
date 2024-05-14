@@ -329,7 +329,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 938100860}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &577582812
 Animator:
@@ -498,9 +498,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 140560033}
-  - {fileID: 1013509232}
   - {fileID: 577582811}
   - {fileID: 1766101338}
+  - {fileID: 1013509232}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -834,7 +834,7 @@ RectTransform:
   m_Children:
   - {fileID: 1453451310}
   m_Father: {fileID: 938100860}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -958,9 +958,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: FadeWipe
       objectReference: {fileID: 0}
+    - target: {fileID: 7784799356692082731, guid: 16b09235642241541b8edf9513b54052, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7784799356692082740, guid: 16b09235642241541b8edf9513b54052, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7784799356692082740, guid: 16b09235642241541b8edf9513b54052, type: 3}
       propertyPath: m_LocalPosition.x
