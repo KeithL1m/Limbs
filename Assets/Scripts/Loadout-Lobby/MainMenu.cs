@@ -17,6 +17,8 @@ public class MainMenu : MonoBehaviour
     private GameObject creditsMenu;
     [SerializeField]
     private GameObject gateTransition;
+    [SerializeField]
+    private GameObject fadeWipeTransition;
 
     [Header("Menu Selected Buttons")]
     [SerializeField]
@@ -44,6 +46,7 @@ public class MainMenu : MonoBehaviour
     private void Initialize()
     {
         _configManager = ServiceLocator.Get<ConfigurationManager>();
+        fadeWipeTransition.SetActive(true);
         EventSystem.current.SetSelectedGameObject(selectedButtonMainMenu);
     }
 
@@ -99,7 +102,7 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Set gate active");
         // Wait for 3 seconds
-        yield return new WaitForSeconds(1.45f);
+        yield return new WaitForSeconds(1f);
 
         Debug.Log("After Delay");
         SceneManager.LoadScene(sceneToLoad);
