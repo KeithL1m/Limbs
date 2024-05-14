@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &626585417
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 902683688}
+    m_Modifications:
+    - target: {fileID: 2729224177906451431, guid: 64ec16e76ebebb44a9ad6973761b179b, type: 3}
+      propertyPath: m_Name
+      value: BACKStray Floating Dust Particles
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729224177906451434, guid: 64ec16e76ebebb44a9ad6973761b179b, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729224177906451434, guid: 64ec16e76ebebb44a9ad6973761b179b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729224177906451434, guid: 64ec16e76ebebb44a9ad6973761b179b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729224177906451434, guid: 64ec16e76ebebb44a9ad6973761b179b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729224177906451434, guid: 64ec16e76ebebb44a9ad6973761b179b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729224177906451434, guid: 64ec16e76ebebb44a9ad6973761b179b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729224177906451434, guid: 64ec16e76ebebb44a9ad6973761b179b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729224177906451434, guid: 64ec16e76ebebb44a9ad6973761b179b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729224177906451434, guid: 64ec16e76ebebb44a9ad6973761b179b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729224177906451434, guid: 64ec16e76ebebb44a9ad6973761b179b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729224177906451434, guid: 64ec16e76ebebb44a9ad6973761b179b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 64ec16e76ebebb44a9ad6973761b179b, type: 3}
 --- !u!1001 &902683681
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -269,6 +326,11 @@ MonoBehaviour:
   - name: StikyExplosion
     prefab: {fileID: 4456231009394609338, guid: b011c723598e40846989bfe12d9cf26a, type: 3}
     poolSize: 8
+--- !u!4 &902683688 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8747344750502419574, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
+  m_PrefabInstance: {fileID: 902683681}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &940593466
 GameObject:
   m_ObjectHideFlags: 0
