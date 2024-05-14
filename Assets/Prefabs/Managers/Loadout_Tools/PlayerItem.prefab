@@ -1057,7 +1057,7 @@ MonoBehaviour:
   _currentHead: {fileID: 2123343082796553539}
   _currentBody: {fileID: 2123343082812550231}
   _readyButton: {fileID: 1234717102975129290}
-  _readySprite: {fileID: 21300000, guid: c23b97c18cfbf1d47900f51b4dd86d5a, type: 3}
+  _readySprite: {fileID: 21300000, guid: 188045a28504fd9469d63564f1976b85, type: 3}
 --- !u!1 &7317022679244436451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,7 +1230,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.5471698, g: 0.5445888, b: 0.5445888, a: 1}
@@ -1242,7 +1242,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 21300000, guid: 4f4a73b4c99a5dd4a831491c34eb3d2e, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
