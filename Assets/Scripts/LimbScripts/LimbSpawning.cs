@@ -46,7 +46,6 @@ public class LimbSpawning : MonoBehaviour
 
     private void Initialize()
     {
-        _gm = ServiceLocator.Get<GameManager>();
         _limbManager = ServiceLocator.Get<LimbManager>();
 
         _limbManager.Initialize();

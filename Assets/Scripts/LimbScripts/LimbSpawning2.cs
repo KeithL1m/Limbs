@@ -41,6 +41,7 @@ public class LimbSpawning2 : MonoBehaviour
         UpdateLimit();
         _limbManager.ChangeChosenLimbs += ChangeLimbOptions;
         _limbManager.UpdateTime += UpdateTimer;
+        _limbManager.UpdateAmount += UpdateLimit;
 
         for (int i = 0; i < _startLimbCount; i++)
         {
@@ -80,7 +81,7 @@ public class LimbSpawning2 : MonoBehaviour
 
     private void ChangeLimbOptions()
     {
-        _limbOptions = _limbManager.GetLimbList();
+        _limbOptions = new List<GameObject>(_limbManager.GetLimbList());
 
         for (int i = _limbOptions.Count - 1; i >= 0; i--)
         {
@@ -112,5 +113,10 @@ public class LimbSpawning2 : MonoBehaviour
     private void UpdateLimit()
     {
         _limbLimit = _limbManager.GetLimbLimit();
+
+        if (_specialSpawner)
+        {
+            _limbLimit /= 2;
+        }
     }
 }
