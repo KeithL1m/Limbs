@@ -38,8 +38,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _aimTransform;
-    private Vector3 _mousePosition;
-    private Camera _camera;
 
 
     [SerializeField] public Transform GroundCheckTransform;
@@ -89,8 +87,6 @@ public class Player : MonoBehaviour
         _inputHandler = GetComponent<PlayerInputHandler>();
 
         _inputHandler.MeleeAttack += OnMeleeAttack;
-
-        _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     public void Initialize(PlayerConfiguration pc)
@@ -266,7 +262,9 @@ public class Player : MonoBehaviour
             _impactParticles.Play();
         }
 
-        //_aimTransform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
+        _wasOnGround = _groundCheck.isGrounded;
+        _previousVelocity2 = _previousVelocity1;
+        _previousVelocity1 = _rb.velocity;
     }
 
     private IEnumerator MeleeDelay(float duration)
