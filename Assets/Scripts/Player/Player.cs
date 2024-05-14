@@ -1,8 +1,7 @@
 using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerJump))]
@@ -39,10 +38,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _aimTransform;
-    private Vector3 _mousePosition;
-    private Camera _camera;
-
-
     [SerializeField] public Transform GroundCheckTransform;
     [SerializeField] private Transform attackPointTransform;
     [SerializeField] private GroundCheck _groundCheck;
@@ -54,6 +49,10 @@ public class Player : MonoBehaviour
     [SerializeField] private Animator _animator;
     private float _meleeCooldown = 0.8f;
     float lastMelee;
+
+    [Header("Sounds")]
+    [SerializeField] private List<AudioClip> _throwSounds;
+    private AudioManager _audioManager;
 
     //facing left = -1, right = 1
     public int direction;
@@ -69,13 +68,13 @@ public class Player : MonoBehaviour
     private bool _canFly = false;
     public bool CanFly { get { return _canFly; } }
 
-    public Action OnLanded;
-
     public int Id { get => _id; }
     private int _id;
 
     private bool isWinRound;
     [SerializeField] private GameObject _crownGameObject;
+
+    public Action OnLanded;
 
     private void Awake()
     {
@@ -86,8 +85,6 @@ public class Player : MonoBehaviour
         _inputHandler = GetComponent<PlayerInputHandler>();
 
         _inputHandler.MeleeAttack += OnMeleeAttack;
-
-        _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     public void Initialize(PlayerConfiguration pc)
@@ -103,6 +100,7 @@ public class Player : MonoBehaviour
         _playerNum.sprite = _config.Num;
 
         _gameManager = ServiceLocator.Get<GameManager>();
+        _audioManager = ServiceLocator.Get<AudioManager>();
 
         _initialized = true;
     }
@@ -163,6 +161,10 @@ public class Player : MonoBehaviour
         /*throwing limbs*/
         if (_inputHandler.ThrowLimb > 0.5f && _playerLimbs.CanThrowLimb() && _canThrow)
         {
+            int numSound = UnityEngine.Random.Range(0, _throwSounds.Count);
+            Debug.Log(numSound);
+            _audioManager.PlaySound(_throwSounds[numSound], transform.position, SoundType.SFX);
+
             _playerLimbs.ThrowLimb(direction);
             _canThrow = false;
         }
@@ -200,7 +202,6 @@ public class Player : MonoBehaviour
         }
 
         //updating arrow
-
         if (_inputHandler.Aim.x == 0.0f && _inputHandler.Aim.y == 0.0f && !_inputHandler.FlickAiming)
         {
             if (direction == 1)
@@ -252,12 +253,17 @@ public class Player : MonoBehaviour
             }
         }
 
-        //mouse aiming
-        //Mouse mouse = Mouse.current;
-        //_mousePosition = _camera.ScreenToWorldPoint(mouse.position.ReadValue()) - transform.position;
-        //float angle = Mathf.Atan2(-_mousePosition.y, -_mousePosition.x) * Mathf.Rad2Deg;
+        if (!_wasOnGround && _groundCheck.isGrounded && _previousVelocity2.y < -5.0f)
+        {
+            OnLanded?.Invoke();
+            _impactParticles.Play();
+        }
 
-        //_aimTransform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
+        Debug.Log($"Check left is {checkAnimLeft.ToString()}");
+
+        _wasOnGround = _groundCheck.isGrounded;
+        _previousVelocity2 = _previousVelocity1;
+        _previousVelocity1 = _rb.velocity;
     }
 
     private IEnumerator MeleeDelay(float duration)
