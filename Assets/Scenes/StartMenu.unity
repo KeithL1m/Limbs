@@ -523,6 +523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectedButton: {fileID: 1766101337}
   _textureToSave: {fileID: 2800000, guid: d06d8ad3841f4874795133aa047f7881, type: 3}
+  fadeTransition: {fileID: 7784799356220791877}
   nextScene: 2
 --- !u!114 &938100862
 MonoBehaviour:
@@ -1003,3 +1004,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16b09235642241541b8edf9513b54052, type: 3}
+--- !u!1 &7784799356220791877 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7784799356692082731, guid: 16b09235642241541b8edf9513b54052, type: 3}
+  m_PrefabInstance: {fileID: 7784799356220791876}
+  m_PrefabAsset: {fileID: 0}
