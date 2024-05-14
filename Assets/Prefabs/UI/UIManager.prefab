@@ -2262,7 +2262,7 @@ MonoBehaviour:
   _eventSystem: {fileID: 8567420190715858752}
   _pauseFirstButton: {fileID: 8567420190486687868}
   _arsenalFirstButton: {fileID: 8567420189962322312}
-  _optionsFirstButton: {fileID: 8567420189683973778}
+  _optionsFirstButton: {fileID: 8567420189556240504}
   _popupFirstButton: {fileID: 8567420190883136200}
   _exitPopupFirstButton: {fileID: 7594664035400025356}
   _canvas: {fileID: 8567420190504578873}
@@ -8086,6 +8086,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8567420190504578820}
+    - target: {fileID: 3402035025664777100, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadPauseMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402035025664777100, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3402035025723692386, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -8097,9 +8105,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 459387093452160649, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
   m_PrefabInstance: {fileID: 6472767305434393587}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8567420189683973778 stripped
+--- !u!1 &8567420189556240504 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 3402035025723692385, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3402035025664777099, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
   m_PrefabInstance: {fileID: 6472767305434393587}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &8567420190114775663 stripped
