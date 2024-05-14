@@ -11,6 +11,7 @@ public class StartGame : MonoBehaviour
 
     [SerializeField] private Texture2D _textureToSave;
     [SerializeField] private AudioClip _audioClip;
+    [SerializeField] private AudioClip _titleMusic;
     private string _filePath;
 
     public int nextScene;
@@ -50,6 +51,7 @@ public class StartGame : MonoBehaviour
     public void LoadGame()
     {
         ServiceLocator.Get<AudioManager>().PlaySound(_audioClip, transform.position, SoundType.SFX);
+        ServiceLocator.Get<AudioManager>().StartTitleMusic(_titleMusic);
         SceneManager.LoadScene(nextScene);
     }
 }

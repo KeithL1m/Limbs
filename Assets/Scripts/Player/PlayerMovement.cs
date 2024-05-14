@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInputHandler _inputHandler;
     private PlayerHealth _pHealth;
 
+    [SerializeField] private FootstepController _footsteps;
     [SerializeField] private GroundCheck _groundCheck;
     [SerializeField] private ParticleSystem _walkDust;
     private ParticleSystem.EmissionModule _walkDustEmission;
@@ -77,6 +78,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
         anchorsAnim.SetFloat("speed", moveSpeed);
+
+        if (_playerJump.IsGrounded() && _rb.velocity.x > 1 && state != PlayerLimbs.LimbState.NoLimb)
+        {
+            _footsteps.StartWalking();
+        }
+        else
+        {
+            _footsteps.StopWalking();
+        }
 
         Vector3 targetVelocity = new Vector2(moveSpeed, _rb.velocity.y);
         _rb.velocity = Vector3.SmoothDamp(_rb.velocity, targetVelocity, ref zeroVector, _smoothMoveSpeed);

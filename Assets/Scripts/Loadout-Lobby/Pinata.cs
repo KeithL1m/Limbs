@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Pinata : MonoBehaviour
 {
     private GameLoader _loader = null;
     private GameManager _gm = null;
+
+    [SerializeField] private List<AudioClip> _clips = null;
 
     [SerializeField]
     private float _maxHealth;
@@ -43,6 +46,7 @@ public class Pinata : MonoBehaviour
 
     private void PinataDestroyed()
     {
+        ServiceLocator.Get<AudioManager>().GameMusic(_clips.ToArray());
         _gm.StartGame();
     }
 }

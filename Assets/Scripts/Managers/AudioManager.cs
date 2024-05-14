@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.Audio;
 using System.Collections.Generic;
 using UnityEngine.Timeline;
+using System.Threading.Tasks;
+using Microsoft.Cci;
 
 public enum SoundType
 {
@@ -23,9 +25,14 @@ public class AudioManager : MonoBehaviour
     public float SoundFXVolume;
 
     [SerializeField] private List<AudioSource> _sources = new();
+    private AudioSource _currentMusic;
     [SerializeField] private int _numSources;
 
     private GameManager _gm;
+
+    private bool _inTitle;
+    private bool _inMeatcase;
+    private bool _inGame;
 
     private void Awake()
     {
@@ -104,6 +111,7 @@ public class AudioManager : MonoBehaviour
             case (SoundType.Music):
                 {
                     source.outputAudioMixerGroup = _musicGroup;
+                    _currentMusic = source;
                     break;
                 }
             case (SoundType.SFX):
@@ -123,6 +131,12 @@ public class AudioManager : MonoBehaviour
         source.Play();
     }
 
+    public void PlayRandomSound(AudioClip[] audio, Vector3 position, SoundType type, float volume = 1f)
+    {
+        int clip = Random.Range(0, audio.Length);
+        PlaySound(audio[clip], position, type, volume);
+    }
+
     public void SetMasterVolume(float volume)
     {
         _audioMixer.SetFloat("Master Volume", Mathf.Log10(volume) * 20f);
@@ -136,5 +150,63 @@ public class AudioManager : MonoBehaviour
     public void SetSFXVolume(float volume)
     {
         _audioMixer.SetFloat("SFX Volume", Mathf.Log10(volume) * 20f);
+    }
+
+    public async void StartTitleMusic(AudioClip audio)
+    {
+        _inTitle = true;
+
+        PlaySound(audio, Vector3.zero, SoundType.Music);
+        float duration = audio.length;
+        duration *= 1000;
+
+        await SongDuration((int)duration);
+
+        if (_inTitle)
+        {
+            StartTitleMusic(audio);
+        }
+    }
+
+    public async void MeatcaseMusic(AudioClip audio)
+    {
+        _currentMusic.Stop();
+
+        _inTitle = false;
+        _inMeatcase = true;
+        PlaySound(audio, Vector3.zero, SoundType.Music);
+        float duration = audio.length;
+        duration *= 1000;
+
+        await SongDuration((int)duration);
+
+        if (_inMeatcase)
+        {
+            MeatcaseMusic(audio);
+        }
+    }
+
+    public async void GameMusic(AudioClip[] clips)
+    {
+        _currentMusic.Stop();
+
+        _inMeatcase = false;
+        _inGame = true;
+        int num = Random.Range(0, clips.Length);
+        PlaySound(clips[num], Vector3.zero, SoundType.Music);
+        float duration = clips[num].length;
+        duration *= 1000;
+
+        await SongDuration((int)duration);
+
+        if (_inGame)
+        {
+            GameMusic(clips);
+        }
+    }
+
+    async Task SongDuration(int duration)
+    {
+        await Task.Delay(duration);
     }
 }

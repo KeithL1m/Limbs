@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 5939033532829745049}
   - component: {fileID: 653569731864945295}
   - component: {fileID: 1108161687376808326}
+  - component: {fileID: 483126475264411804}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -384,6 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d94216eac7ce8ad489e4b3202e570f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _footsteps: {fileID: 483126475264411804}
   _groundCheck: {fileID: 8385072270942222215}
   _walkDust: {fileID: 4964803188951795551}
   _speedUpDust: {fileID: 23118719255553302}
@@ -447,6 +449,10 @@ MonoBehaviour:
   _grayMaterial: {fileID: 2100000, guid: 40e6eb82d7757e04bb1e62a0fe1da1ff, type: 2}
   _standardMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   _lowHealthMaterial: {fileID: 2100000, guid: 3e9a30bfdb6f2e143bb3c6b1739c3d6c, type: 2}
+  _hurtEffects:
+  - {fileID: 8300000, guid: d341a7db2589fea479e1ffe5193828ab, type: 3}
+  - {fileID: 8300000, guid: 37dd75f925629aa4db777d1acdbb0a35, type: 3}
+  - {fileID: 8300000, guid: 6d4c453919be026449a918f58b2adac0, type: 3}
 --- !u!114 &6432030308765007816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,6 +537,26 @@ MonoBehaviour:
   _maxSquashTime: 0.15
   _maxSquashX: 1.25
   _maxSquashY: 0.8
+--- !u!114 &483126475264411804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3732604927039312203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6718f66affe4584a810b6c0dfcf8ee2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _footstepSounds:
+  - {fileID: 8300000, guid: 4c39572bf0583934296c44729db3cf85, type: 3}
+  - {fileID: 8300000, guid: a30376e28e01a364db90f682275859f1, type: 3}
+  - {fileID: 8300000, guid: ebcb3c51b3c0cfd4297559ed2d667bf6, type: 3}
+  - {fileID: 8300000, guid: c9231d7c6a9143041af3eb2f6ca34afe, type: 3}
+  - {fileID: 8300000, guid: 0916092644ac1de4c92e03e01862d1d8, type: 3}
+  _minTimeBetweenFootsteps: 0.3
+  _maxTimeBetweenFootsteps: 0.6
 --- !u!1 &4174948592063326648
 GameObject:
   m_ObjectHideFlags: 0
