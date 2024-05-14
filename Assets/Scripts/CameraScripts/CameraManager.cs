@@ -35,6 +35,7 @@ public class CameraManager : MonoBehaviour
     private PlayerManager _playerManager = null;
     private Camera _camera;
     private GameManager _gameManager;
+    private OptionsScreen _optionsScreen;
     private bool _initialized = false;
     private bool _teleportThrown = false;
     private bool _shaking = false;
@@ -45,6 +46,7 @@ public class CameraManager : MonoBehaviour
     {
         _gameLoader = ServiceLocator.Get<GameLoader>();
         _gameLoader.CallOnComplete(Initialize);
+        _optionsScreen = ServiceLocator.Get<OptionsScreen>();
     }
 
     private void Initialize()
@@ -126,6 +128,10 @@ public class CameraManager : MonoBehaviour
         _shakeIntensity = intensity;
         _shakeDuration = duration;
         _shaking = true;
+        if (_optionsScreen.screenShakeOptions == false)
+        {
+            _shaking = false;
+        }
     }
 
     private void MoveCamera()

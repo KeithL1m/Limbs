@@ -32,6 +32,7 @@ public class OptionsScreen : MonoBehaviour
     [SerializeField] private Toggle _vsyncToggle;
     [SerializeField] private Toggle _particleToggle;
     [SerializeField] private Toggle _screenshakeToggle;
+    public bool screenShakeOptions;
 
     //frames
     public enum frameLimits
@@ -47,8 +48,7 @@ public class OptionsScreen : MonoBehaviour
     [SerializeField] private TMP_Text framesLabel;
     private frameLimits _limits;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _masterVolume.value = _masterVolume.maxValue;
         _musicVolume.value = _musicVolume.maxValue;
@@ -64,6 +64,18 @@ public class OptionsScreen : MonoBehaviour
         else
         {
             _vsyncToggle.isOn = true;
+        }
+    }
+
+    void Update()
+    {
+        if (!_screenshakeToggle.isOn) 
+        {
+            screenShakeOptions = false;
+        }
+        else
+        {
+            screenShakeOptions = true;
         }
     }
 

@@ -817,6 +817,7 @@ MonoBehaviour:
   _vsyncToggle: {fileID: 6550736062988871608}
   _particleToggle: {fileID: 3591206726375441688}
   _screenshakeToggle: {fileID: 3844098761507038369}
+  screenShakeOptions: 0
   frameDisplay:
   - frames: 30 FPS
   - frames: 60 FPS
