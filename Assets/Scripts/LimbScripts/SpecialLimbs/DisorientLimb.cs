@@ -7,6 +7,13 @@ public class DisorientLimb : Limb
     [SerializeField] private float _disorientLength;
     private Player _hitPlayer = null;
     private PlayerInputHandler _playerInputHandler = null;
+    private ParticleManager _particleManager;
+
+    protected override void Initialize()
+    {
+        base.Initialize();
+        _particleManager = ServiceLocator.Get<ParticleManager>();
+    }
 
     private void Update()
     {
@@ -41,6 +48,7 @@ public class DisorientLimb : Limb
             _playerInputHandler = collision.gameObject.GetComponent<PlayerInputHandler>();
             _hitPlayer.MakeAimOpposite();
             _playerInputHandler.MakeAimOpposite();
+            _particleManager.PlayDrunkLiquidBubbleBurstParticle(gameObject.transform.position);
 
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             _sprite.color = new Color(0, 0, 0, 0);

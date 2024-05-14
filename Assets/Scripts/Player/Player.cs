@@ -38,13 +38,17 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _aimTransform;
+    private Vector3 _mousePosition;
+    private Camera _camera;
+
+
     [SerializeField] public Transform GroundCheckTransform;
     [SerializeField] private Transform attackPointTransform;
     [SerializeField] private GroundCheck _groundCheck;
     [SerializeField] private ParticleSystem _impactParticles;
     [SerializeField] private Material _sicknessMaterial;
     [SerializeField] private Material _defaultMaterial;
-
+    [SerializeField] private GameObject _drunkRisingBubbleParticles;
     //for melee
     [SerializeField] private Animator _animator;
     private float _meleeCooldown = 0.8f;
@@ -85,6 +89,8 @@ public class Player : MonoBehaviour
         _inputHandler = GetComponent<PlayerInputHandler>();
 
         _inputHandler.MeleeAttack += OnMeleeAttack;
+
+        _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     public void Initialize(PlayerConfiguration pc)
@@ -202,6 +208,7 @@ public class Player : MonoBehaviour
         }
 
         //updating arrow
+
         if (_inputHandler.Aim.x == 0.0f && _inputHandler.Aim.y == 0.0f && !_inputHandler.FlickAiming)
         {
             if (direction == 1)
@@ -259,11 +266,7 @@ public class Player : MonoBehaviour
             _impactParticles.Play();
         }
 
-        Debug.Log($"Check left is {checkAnimLeft.ToString()}");
-
-        _wasOnGround = _groundCheck.isGrounded;
-        _previousVelocity2 = _previousVelocity1;
-        _previousVelocity1 = _rb.velocity;
+        //_aimTransform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
     }
 
     private IEnumerator MeleeDelay(float duration)
@@ -380,11 +383,13 @@ public class Player : MonoBehaviour
     {
         _aimConfused = true;
         _playerHead.material = _sicknessMaterial;
+        _drunkRisingBubbleParticles.SetActive(true);
     }
 
     public void MakeAimNormal()
     {
         _aimConfused = false;
         _playerHead.material = _defaultMaterial;
+        _drunkRisingBubbleParticles.SetActive(false);
     }
 }

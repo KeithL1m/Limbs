@@ -55,6 +55,9 @@ public class Limb : MonoBehaviour
     private bool _initialized = false;
     
     public bool IsSpecial = false;
+    protected float screenShakePower = 1.2f;
+    [SerializeField] protected float screenShakePercent = 1;
+    [SerializeField] protected float screenShakeTime = 0.5f;
 
     protected virtual void Awake()
     {
@@ -230,12 +233,14 @@ public class Limb : MonoBehaviour
         {
             return;
         }
-
+        
         if (collision.gameObject.CompareTag("BreakWall"))
         {
             collision.gameObject.GetComponent<LimbInstantiateWall>().Damage();
             ContactPoint2D contactPoint = collision.GetContact(0);
             ServiceLocator.Get<ParticleManager>().PlayBreakableWallParticle(contactPoint.point);
+            if (ServiceLocator.Get<CameraManager>() != null)
+                ServiceLocator.Get<CameraManager>().StartScreenShake(screenShakePower*screenShakePercent, screenShakeTime);
             ReturnLimb();
             return;
         }
@@ -256,6 +261,7 @@ public class Limb : MonoBehaviour
         }
         else if (collision.gameObject.tag != "Player")
         {
+            
             return;
         }
 
@@ -286,7 +292,8 @@ public class Limb : MonoBehaviour
         else
         {
             _healthPlayer.AddDamage(_damage + _specialDamage);
-
+            if (ServiceLocator.Get<CameraManager>() != null)
+                ServiceLocator.Get<CameraManager>().StartScreenShake(0.2f, 0.2f);
             ReturnLimb();
         }
     }
@@ -329,7 +336,7 @@ public class Limb : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    protected virtual void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag != "Player")
             return;
