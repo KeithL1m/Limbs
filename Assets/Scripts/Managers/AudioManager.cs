@@ -170,7 +170,7 @@ public class AudioManager : MonoBehaviour
 
     public async void MeatcaseMusic(AudioClip audio)
     {
-        _currentMusic.Stop();
+        _currentMusic?.Stop();
 
         _inTitle = false;
         _inMeatcase = true;
@@ -188,7 +188,7 @@ public class AudioManager : MonoBehaviour
 
     public async void GameMusic(AudioClip[] clips)
     {
-        _currentMusic.Stop();
+        _currentMusic?.Stop();
 
         _inMeatcase = false;
         _inGame = true;

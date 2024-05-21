@@ -7,6 +7,7 @@ public class Pinata : MonoBehaviour
     private GameManager _gm = null;
 
     [SerializeField] private List<AudioClip> _clips = null;
+    [SerializeField] private AudioClip _pinataDestroy;
 
     [SerializeField]
     private float _maxHealth;
@@ -34,6 +35,7 @@ public class Pinata : MonoBehaviour
             return;
         if(collision.gameObject.GetComponent<Limb>().State != Limb.LimbState.Throwing)
             return;
+        ServiceLocator.Get<AudioManager>().PlaySound(_pinataDestroy, transform.position, SoundType.SFX);
         ServiceLocator.Get<ParticleManager>().PlayConfettiParticle(transform.position);
         Debug.Log("Pinata is hit");
         _health -= 10.0f;

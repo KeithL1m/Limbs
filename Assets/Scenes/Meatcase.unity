@@ -244,9 +244,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clips:
-  - {fileID: 8300000, guid: cc7fc576b88124e4b8c23a290ea7b7c2, type: 3}
-  - {fileID: 8300000, guid: a240be4164bc74c49a0a1ae5388f9ef3, type: 3}
-  - {fileID: 8300000, guid: 8d11a99c5d33d2d45977cabbad529591, type: 3}
+  - {fileID: 8300000, guid: f3a600beb3ff03d40b4c81bc766eb54d, type: 3}
+  - {fileID: 8300000, guid: a48451337db65ec4fa7ac0caa085d9b0, type: 3}
+  - {fileID: 8300000, guid: 1697fefaf735bd6408e4df1ee2a85201, type: 3}
+  _pinataDestroy: {fileID: 8300000, guid: 89d52fda2e8acb44799a8e3afdae1cfa, type: 3}
   _maxHealth: 10
 --- !u!60 &258226902
 PolygonCollider2D:
