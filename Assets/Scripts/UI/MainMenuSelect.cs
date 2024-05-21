@@ -18,7 +18,7 @@ public class MainMenuSelect : MonoBehaviour, ISelectHandler, IDeselectHandler
     public void OnSelect(BaseEventData eventData)
     {
         _descriptionText.text = _descriptionToDisplay;
-        _animator.SetTrigger("ButtonWobble");
+        //_animator.SetTrigger("ButtonWobble");
     }
     public void OnDeselect(BaseEventData eventData)
     {
