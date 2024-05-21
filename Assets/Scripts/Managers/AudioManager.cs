@@ -156,7 +156,7 @@ public class AudioManager : MonoBehaviour
     {
         _inTitle = true;
 
-        PlaySound(audio, Vector3.zero, SoundType.Music);
+        PlaySound(audio, Vector3.zero, SoundType.Music, 0.3f);
         float duration = audio.length;
         duration *= 1000;
 
@@ -174,7 +174,7 @@ public class AudioManager : MonoBehaviour
 
         _inTitle = false;
         _inMeatcase = true;
-        PlaySound(audio, Vector3.zero, SoundType.Music);
+        PlaySound(audio, Vector3.zero, SoundType.Music, 0.3f);
         float duration = audio.length;
         duration *= 1000;
 
@@ -193,7 +193,7 @@ public class AudioManager : MonoBehaviour
         _inMeatcase = false;
         _inGame = true;
         int num = Random.Range(0, clips.Length);
-        PlaySound(clips[num], Vector3.zero, SoundType.Music);
+        PlaySound(clips[num], Vector3.zero, SoundType.Music, 0.3f);
         float duration = clips[num].length;
         duration *= 1000;
 

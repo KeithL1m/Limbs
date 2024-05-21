@@ -515,6 +515,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectedButton: {fileID: 1766101337}
   _textureToSave: {fileID: 2800000, guid: d06d8ad3841f4874795133aa047f7881, type: 3}
+  _buttonSound: {fileID: 8300000, guid: 3efad56707598644b894a7c52f10f0ec, type: 3}
+  _titleMusic: {fileID: 8300000, guid: 2e26449123104fe48b53f39aff135d94, type: 3}
   fadeTransition: {fileID: 7784799356220791877}
   nextScene: 2
 --- !u!114 &938100862
@@ -548,6 +550,9 @@ MonoBehaviour:
   - {fileID: 6727379245335464739, guid: c90382689d59db74eae2eb00c7d75ddf, type: 3}
   - {fileID: 479936713415687806, guid: ceffc63aa63769f43bdb2e94d9ea3429, type: 3}
   - {fileID: 479936713415687806, guid: 37529f15fa0ca03468bd8d075186cc97, type: 3}
+  _maxAmount: 0
+  _spawnTime: 3
+  _spawnTimeRange: 1
 --- !u!4 &1013509232 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7784799356692082740, guid: 16b09235642241541b8edf9513b54052, type: 3}
