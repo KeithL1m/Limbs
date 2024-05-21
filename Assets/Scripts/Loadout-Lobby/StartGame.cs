@@ -53,10 +53,9 @@ public class StartGame : MonoBehaviour
 
     public void LoadGame()
     {
+        fadeTransition.SetActive(true);
         ServiceLocator.Get<AudioManager>().PlaySound(_buttonSound, transform.position, SoundType.SFX);
         ServiceLocator.Get<AudioManager>().StartTitleMusic(_titleMusic);
-        SceneManager.LoadScene(nextScene);
-        fadeTransition.SetActive(true);
         StartCoroutine(Delay(nextScene));
     }
 
