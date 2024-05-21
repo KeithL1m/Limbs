@@ -99,6 +99,7 @@ public class LimbManager : Manager
 
     public void SetMaxAmount(int amount)
     {
+        Debug.Log("Limit was changed");
         _limbLimit = amount;
         UpdateAmount?.Invoke();
     }
