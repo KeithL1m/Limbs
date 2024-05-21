@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerJump))]
@@ -48,7 +49,7 @@ public class Player : MonoBehaviour
     [SerializeField] private ParticleSystem _impactParticles;
     [SerializeField] private Material _sicknessMaterial;
     [SerializeField] private Material _defaultMaterial;
-
+    [SerializeField] private GameObject _drunkRisingBubbleParticles;
     //for melee
     [SerializeField] private Animator _animator;
     private float _meleeCooldown = 0.8f;
@@ -67,6 +68,8 @@ public class Player : MonoBehaviour
 
     private bool _canFly = false;
     public bool CanFly { get { return _canFly; } }
+
+    public Action OnLanded;
 
     public int Id { get => _id; }
     private int _id;
@@ -249,8 +252,9 @@ public class Player : MonoBehaviour
             }
         }
 
-        ////mouse aiming
-        //_mousePosition = _camera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        //mouse aiming
+        //Mouse mouse = Mouse.current;
+        //_mousePosition = _camera.ScreenToWorldPoint(mouse.position.ReadValue()) - transform.position;
         //float angle = Mathf.Atan2(-_mousePosition.y, -_mousePosition.x) * Mathf.Rad2Deg;
 
         //_aimTransform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
@@ -370,11 +374,14 @@ public class Player : MonoBehaviour
     {
         _aimConfused = true;
         _playerHead.material = _sicknessMaterial;
+        _drunkRisingBubbleParticles.SetActive(true);
     }
 
     public void MakeAimNormal()
     {
         _aimConfused = false;
         _playerHead.material = _defaultMaterial;
+        _drunkRisingBubbleParticles.SetActive(false);
+
     }
 }

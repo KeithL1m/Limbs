@@ -11,24 +11,17 @@ public class LimbSpawning2 : MonoBehaviour
     private LimbManager _limbManager;
 
     [Header("Customizable")]
-    [SerializeField]
-    private List<GameObject> _limbOptions;
-    [SerializeField]
-    private int _limbLimit;
-    [SerializeField]
-    private int _startLimbCount;
+    [SerializeField] private List<GameObject> _limbOptions;
+    [SerializeField]  private int _limbLimit;
+    [SerializeField] private int _startLimbCount;
 
-    [SerializeField]
-    private double _minSpawnTimer;
-    [SerializeField]
-    private double _maxSpawnTimer;
+    [SerializeField]  private double _minSpawnTimer;
+    [SerializeField] private double _maxSpawnTimer;
 
     private int _currentLimbs;
     private float _limbTimer;
 
-    [SerializeField]
-    private List<GameObject> _spawnPositions;
-
+    [SerializeField] private List<GameObject> _spawnPositions;
 
     private static System.Random rnd = new System.Random();
 
@@ -44,6 +37,10 @@ public class LimbSpawning2 : MonoBehaviour
         _limbManager = ServiceLocator.Get<LimbManager>();
 
         _limbManager.Initialize();
+        _limbOptions = _limbManager.GetLimbList();
+        _minSpawnTimer = _limbManager.GetMinSpawnTime();
+        _maxSpawnTimer = _limbManager.GetMaxSpawnTime();
+        _limbManager.ChangeChosenLimbs += ChangeLimbOptions;
 
         for (int i = 0; i < _startLimbCount; i++)
         {
@@ -77,5 +74,11 @@ public class LimbSpawning2 : MonoBehaviour
         int spawnIndex = rnd.Next(_spawnPositions.Count);
         Vector3 position = _spawnPositions[spawnIndex].transform.position;
         Limb limb = Instantiate(_limbOptions[index], new Vector3(position.x, position.y, position.z), Quaternion.identity).GetComponent<Limb>();
+    }
+    private void ChangeLimbOptions()
+    {
+        _limbOptions = _limbManager.GetLimbList();
+        _minSpawnTimer = _limbManager.GetMinSpawnTime();
+        _maxSpawnTimer = _limbManager.GetMaxSpawnTime();
     }
 }

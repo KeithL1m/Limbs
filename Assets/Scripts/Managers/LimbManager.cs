@@ -1,9 +1,23 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class LimbManager : Manager
 {
+    [SerializeField] private List<GameObject> _limbOptions;
+    [SerializeField] private double _maxTime;
+    [SerializeField] private double _minTime;
+    private double _currentTime;
+
     private List<Limb> _limbs;
     private bool _initialized = false;
+
+    public Action ChangeChosenLimbs;
+
+    public void SetLimbOptions(List<GameObject> limbs)
+    {
+        _limbOptions = limbs;
+    }
 
     public void Initialize()
     {
@@ -47,5 +61,44 @@ public class LimbManager : Manager
     public int GetLimbAmount()
     {
         return _limbs.Count;
+    }
+
+    public List<GameObject> GetLimbList()
+    {
+        return _limbOptions;
+    }
+
+    public void RemoveFromChosen(GameObject connectedLimb)
+    {
+        _limbOptions.Remove(connectedLimb);
+        ChangeChosenLimbs?.Invoke();
+    }
+
+    public void AddToChosen(GameObject connectedLimb)
+    {
+        if (!_limbOptions.Contains(connectedLimb))
+        {
+            _limbOptions.Add(connectedLimb);
+            ChangeChosenLimbs?.Invoke();
+        }
+    }
+    public void SetMinSpawnTime(double time)
+    {
+        _minTime = time;
+    }
+
+    public void SetMaxSpawnTime(double time)
+    {
+        _maxTime = time;
+    }
+
+    public double GetMinSpawnTime()
+    {
+        return _currentTime - 1.5;
+    }
+
+    public double GetMaxSpawnTime()
+    {
+        return _currentTime + 1.5;
     }
 }

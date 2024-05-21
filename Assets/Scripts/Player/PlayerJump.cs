@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerJump : MonoBehaviour
@@ -37,6 +38,8 @@ public class PlayerJump : MonoBehaviour
     private bool _canJump;
     private bool _canDoubleJump;
     private bool _isDoubleJumping;
+
+    public Action OnStartJump;
 
     private void Awake()
     {
@@ -106,6 +109,7 @@ public class PlayerJump : MonoBehaviour
 
     private void StartJump()
     {
+        OnStartJump?.Invoke();
         _canJump = false;
         _rb.velocity = new Vector3(_rb.velocity.x, 0f, 0f);
         _rb.gravityScale = _gravityScaleFactor;
@@ -146,7 +150,6 @@ public class PlayerJump : MonoBehaviour
         {
             _rb.gravityScale = _gravityScaleFactor;
         }
-
 
         if (IsGrounded() && _rb.velocity.y <= 0.0f)
         {
