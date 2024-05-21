@@ -21,7 +21,7 @@ public class MainMenuSelect : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
         ServiceLocator.Get<AudioManager>().PlaySound(_audioClip, transform.position, SoundType.SFX);
         _descriptionText.text = _descriptionToDisplay;
-        _animator.SetTrigger("ButtonWobble");
+        //_animator.SetTrigger("ButtonWobble");
     }
     public void OnDeselect(BaseEventData eventData)
     {
