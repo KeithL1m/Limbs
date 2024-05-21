@@ -960,6 +960,7 @@ MonoBehaviour:
   _titleText: {fileID: 2123343083227079328}
   _readyPanel: {fileID: 7317022679244436451}
   _name: {fileID: 0}
+  _readyButton: {fileID: 7376604053995762886}
   _playerHead:
   - {fileID: 21300000, guid: c92d7bee7e1a28f4db3a743dc2ab6d45, type: 3}
   - {fileID: 21300000, guid: 25a06290798e53b4097ca186daf05169, type: 3}
@@ -1056,7 +1057,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fa72b38c7eae9a94985341be58a06499, type: 3}
   _currentHead: {fileID: 2123343082796553539}
   _currentBody: {fileID: 2123343082812550231}
-  _readyButton: {fileID: 1234717102975129290}
+  _readyButtonImage: {fileID: 1234717102975129290}
   _readySprite: {fileID: 21300000, guid: 188045a28504fd9469d63564f1976b85, type: 3}
 --- !u!1 &7317022679244436451
 GameObject:
