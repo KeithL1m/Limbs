@@ -26,6 +26,7 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private List<AudioSource> _sources = new();
     private AudioSource _currentMusic;
+    private AudioClip[] _gameMusic;
     [SerializeField] private int _numSources;
 
     private GameManager _gm;
@@ -33,6 +34,8 @@ public class AudioManager : MonoBehaviour
     private bool _inTitle;
     private bool _inMeatcase;
     private bool _inGame;
+
+    private float _songTime;
 
     private void Awake()
     {
@@ -53,7 +56,36 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    //make function for random sound?
+    private void Update()
+    {
+        if (_inTitle)
+        {
+            _songTime -= Time.deltaTime;
+            if (_songTime <= 0.0f)
+            {
+                StartTitleMusic(_currentMusic.clip);
+            }
+            
+        }
+        else if (_inMeatcase)
+        {
+            _songTime -= Time.deltaTime;
+
+            if (_songTime <= 0.0f)
+            {
+                MeatcaseMusic(_currentMusic.clip);
+            }
+        }
+        else if (_inGame)
+        {
+            _songTime -= Time.deltaTime;
+
+            if (_songTime <= 0.0f)
+            {
+                GameMusic(_gameMusic);
+            }
+        }
+    }
 
     public void PlaySound(AudioClip audio, Vector3 position, float volume = 1f)
     {
@@ -152,24 +184,17 @@ public class AudioManager : MonoBehaviour
         _audioMixer.SetFloat("SFX Volume", Mathf.Log10(volume) * 20f);
     }
 
-    public async void StartTitleMusic(AudioClip audio)
+    public void StartTitleMusic(AudioClip audio)
     {
         _currentMusic?.Stop();
         _inTitle = true;
 
         PlaySound(audio, Vector3.zero, SoundType.Music, 0.3f);
         float duration = audio.length;
-        duration *= 1000;
-
-        await SongDuration((int)duration);
-
-        if (_inTitle)
-        {
-            StartTitleMusic(audio);
-        }
+        _songTime = duration ;
     }
 
-    public async void MeatcaseMusic(AudioClip audio)
+    public void MeatcaseMusic(AudioClip audio)
     {
         _currentMusic?.Stop();
 
@@ -177,42 +202,28 @@ public class AudioManager : MonoBehaviour
         _inMeatcase = true;
         PlaySound(audio, Vector3.zero, SoundType.Music, 0.3f);
         float duration = audio.length;
-        duration *= 1000;
-
-        await SongDuration((int)duration);
-
-        if (_inMeatcase)
-        {
-            MeatcaseMusic(audio);
-        }
+        _songTime = duration;
     }
 
-    public async void GameMusic(AudioClip[] clips)
+    public void GameMusic(AudioClip[] clips)
     {
         _currentMusic?.Stop();
 
         _inMeatcase = false;
         _inGame = true;
-        int num = Random.Range(0, clips.Length);
+        if (_gameMusic == null)
+        {
+            _gameMusic = clips;
+        }
+        int num = Random.Range(0, _gameMusic.Length);
         PlaySound(clips[num], Vector3.zero, SoundType.Music, 0.3f);
         float duration = clips[num].length;
-        duration *= 1000;
-
-        await SongDuration((int)duration);
-
-        if (_inGame)
-        {
-            GameMusic(clips);
-        }
+        _songTime = duration;
     }
 
     public void StopMusic()
     {
         _currentMusic?.Stop();
-    }
-
-    async Task SongDuration(int duration)
-    {
-        await Task.Delay(duration);
+        _inGame = false;
     }
 }
