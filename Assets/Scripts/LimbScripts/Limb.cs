@@ -239,8 +239,6 @@ public class Limb : MonoBehaviour
             collision.gameObject.GetComponent<LimbInstantiateWall>().Damage();
             ContactPoint2D contactPoint = collision.GetContact(0);
             ServiceLocator.Get<ParticleManager>().PlayBreakableWallParticle(contactPoint.point);
-            if (ServiceLocator.Get<CameraManager>() != null)
-                ServiceLocator.Get<CameraManager>().StartScreenShake(screenShakePower*screenShakePercent, screenShakeTime);
             ReturnLimb();
             return;
         }
@@ -261,19 +259,40 @@ public class Limb : MonoBehaviour
         }
         else if (collision.gameObject.tag != "Player")
         {
-            
             return;
         }
 
         if (_weight > 0)
         {
+            //CHANGE THIS LATER
+            //
+            //
+            //
+            ///
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            ///
+            //
+            ///
+            //
+            //
+            //
+            //\/
             if (ServiceLocator.Get<CameraManager>() != null)
                 ServiceLocator.Get<CameraManager>().StartScreenShake(_weight * 0.01f, 0.1f);
         }
 
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
+        /*Player player = collision.gameObject.GetComponent<Player>();
 
-        if (_healthPlayer.IsDead())
+        if (_healthPlayer.IsDead() && player != _attachedPlayer)
         {
             if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
             {
@@ -288,12 +307,10 @@ public class Limb : MonoBehaviour
                     LimbRB.SetRotation(0);
                 }
             }
-        }
-        else
+        }*/
+        //else
         {
             _healthPlayer.AddDamage(_damage + _specialDamage);
-            if (ServiceLocator.Get<CameraManager>() != null)
-                ServiceLocator.Get<CameraManager>().StartScreenShake(0.2f, 0.2f);
             ReturnLimb();
         }
     }

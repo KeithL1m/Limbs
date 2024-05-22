@@ -200,7 +200,6 @@ public class CameraManager : MonoBehaviour
         if (_gameManager.IsGameOver)
         {
             _playerBounds = new Bounds(_gameManager.GetWinningPlayer().transform.position, Vector3.zero);
-
         }
         else
         {

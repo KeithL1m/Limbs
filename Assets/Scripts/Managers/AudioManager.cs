@@ -154,6 +154,7 @@ public class AudioManager : MonoBehaviour
 
     public async void StartTitleMusic(AudioClip audio)
     {
+        _currentMusic?.Stop();
         _inTitle = true;
 
         PlaySound(audio, Vector3.zero, SoundType.Music, 0.3f);
@@ -203,6 +204,11 @@ public class AudioManager : MonoBehaviour
         {
             GameMusic(clips);
         }
+    }
+
+    public void StopMusic()
+    {
+        _currentMusic?.Stop();
     }
 
     async Task SongDuration(int duration)

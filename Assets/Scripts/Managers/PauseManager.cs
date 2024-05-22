@@ -178,6 +178,8 @@ public class PauseManager : MonoBehaviour
         gm.EarlyEnd = true;
         Time.timeScale = 1.0f;
         paused = false;
+        AudioManager am = ServiceLocator.Get<AudioManager>();
+        am.StopMusic();
         gm.EndGame();
     }
 
