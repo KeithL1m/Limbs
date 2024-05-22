@@ -264,35 +264,13 @@ public class Limb : MonoBehaviour
 
         if (_weight > 0)
         {
-            //CHANGE THIS LATER
-            //
-            //
-            //
-            ///
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            ///
-            //
-            ///
-            //
-            //
-            //
-            //\/
             if (ServiceLocator.Get<CameraManager>() != null)
-                ServiceLocator.Get<CameraManager>().StartScreenShake(_weight * 0.01f, 0.1f);
+                ServiceLocator.Get<CameraManager>().StartScreenShake(_weight * 0.1f, 0.1f);
         }
 
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
-        /*Player player = collision.gameObject.GetComponent<Player>();
 
-        if (_healthPlayer.IsDead() && player != _attachedPlayer)
+        if (_healthPlayer.IsDead())
         {
             if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
             {
@@ -307,8 +285,8 @@ public class Limb : MonoBehaviour
                     LimbRB.SetRotation(0);
                 }
             }
-        }*/
-        //else
+        }
+        else
         {
             _healthPlayer.AddDamage(_damage + _specialDamage);
             ReturnLimb();
@@ -328,6 +306,8 @@ public class Limb : MonoBehaviour
         else if (State == LimbState.Attached)
             return;
         else if (State == LimbState.Returning && collision.gameObject.GetComponent<Player>() != _attachedPlayer)
+            return;
+        else if (collision.GetComponent<PlayerHealth>().isDead)
             return;
 
         if (State == LimbState.Throwing)
@@ -360,6 +340,8 @@ public class Limb : MonoBehaviour
         else if (State == LimbState.Attached)
             return;
         else if (State == LimbState.Returning && collision.gameObject.GetComponent<Player>() != _attachedPlayer)
+            return;
+        else if (collision.GetComponent<PlayerHealth>().isDead)
             return;
 
         if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))
