@@ -39,7 +39,7 @@ public class MainMenu : MonoBehaviour
     [Header("Sounds")]
     [SerializeField] private AudioClip _backButtonSound;
     [SerializeField] private AudioClip _enterButtonSound;
-    [SerializeField] private AudioClip _meatcaseMusic;
+   // [SerializeField] private AudioClip _meatcaseMusic;
     private AudioManager _audioManager;
 
 
@@ -67,7 +67,7 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         //change music
-        ServiceLocator.Get<AudioManager>().MeatcaseMusic(_meatcaseMusic);
+        //ServiceLocator.Get<AudioManager>().MeatcaseMusic(_meatcaseMusic);
         _configManager.InLoadout = true;
 
         gateTransition.SetActive(true);

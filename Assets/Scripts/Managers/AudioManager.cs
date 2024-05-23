@@ -31,9 +31,9 @@ public class AudioManager : MonoBehaviour
 
     private GameManager _gm;
 
-    private bool _inTitle;
-    private bool _inMeatcase;
-    private bool _inGame;
+    private bool _inTitle = false;
+    private bool _inMeatcase = false;
+    private bool _inGame = false;
 
     private float _songTime;
 

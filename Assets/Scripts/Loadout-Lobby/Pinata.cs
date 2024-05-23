@@ -6,7 +6,7 @@ public class Pinata : MonoBehaviour
     private GameLoader _loader = null;
     private GameManager _gm = null;
 
-    [SerializeField] private List<AudioClip> _clips = null;
+   // [SerializeField] private List<AudioClip> _clips = null;
     [SerializeField] private AudioClip _pinataDestroy;
 
     [SerializeField]
@@ -48,7 +48,7 @@ public class Pinata : MonoBehaviour
 
     private void PinataDestroyed()
     {
-        ServiceLocator.Get<AudioManager>().GameMusic(_clips.ToArray());
+       // ServiceLocator.Get<AudioManager>().GameMusic(_clips.ToArray());
         _gm.StartGame();
     }
 }
