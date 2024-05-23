@@ -179,7 +179,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &525002248
 GameObject:
@@ -11171,7 +11171,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &793208334
 MonoBehaviour:
@@ -11197,54 +11197,6 @@ MonoBehaviour:
   _heightMultiplier: 1.7
   _widthMultiplier: 1.3
   _zoomLimiter: 0
---- !u!1 &861608717
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 861608719}
-  - component: {fileID: 861608718}
-  m_Layer: 0
-  m_Name: LimbManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &861608718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861608717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09e8b47242a9ed84a9a573ba9ae2010b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _limbOptions: []
-  _timeRange: 0
-  _limbLimit: 0
-  _currentTime: 3
---- !u!4 &861608719
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861608717}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6478032, y: 5.02529, z: -0.12773223}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1265550819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11267,7 +11219,7 @@ PrefabInstance:
     - target: {fileID: 6819372074900375388, guid: f006804b92770d248bca2198b577cd39, type: 3}
       propertyPath: _limbManager
       value: 
-      objectReference: {fileID: 861608718}
+      objectReference: {fileID: 0}
     - target: {fileID: 6819372074900375388, guid: f006804b92770d248bca2198b577cd39, type: 3}
       propertyPath: _maxSpawnTimer
       value: 4
