@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(ShowOnly))]
 public class ShowOnlyDrawer : PropertyDrawer
 {
@@ -54,3 +55,4 @@ public class ShowOnlyDrawer : PropertyDrawer
         }
     }
 };
+#endif

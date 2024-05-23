@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(ResizeLimb))]
 public class ObjectBuilderEditor : Editor
 {
@@ -15,3 +16,4 @@ public class ObjectBuilderEditor : Editor
         }
     }
 }
+#endif
