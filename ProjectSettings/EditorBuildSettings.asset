@@ -107,8 +107,8 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/_Playable Maps/Z 5.unity
     guid: 07c75e32b070b3a4db7aaf926f399408
-  - enabled: 1
-    path: Assets/Scenes/_Playable Maps/Pickle Showdown.unity
+  - enabled: 0
+    path: Assets/Scenes/_Playable Maps/Testing/Pickle Showdown.unity
     guid: 37865fa8ffae7f04ab12cbe34383ee6a
   - enabled: 1
     path: Assets/Scenes/_Playable Maps/_ 3.unity
