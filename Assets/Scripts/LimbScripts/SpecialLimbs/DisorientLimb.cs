@@ -34,6 +34,10 @@ public class DisorientLimb : Limb
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
+        if (State != LimbState.Throwing)
+        {
+            return;
+        }
         if (collision.gameObject.tag != "Player")
         {
             return;
