@@ -226,6 +226,17 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""ad4d9bdb-3bc2-4dde-82d3-1cc5506fc5b9"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""fb1cecea-354d-4a72-b755-30cb44e0cd4e"",
                     ""path"": ""<Gamepad>/rightStickPress"",
                     ""interactions"": """",

@@ -15,14 +15,14 @@ public class PlayerInputHandler : MonoBehaviour
     public float ThrowLimb { get; private set; }
     public Vector2 Aim { get; private set; }
     public bool FlickAiming { get; private set; } = false;
-    public float LimbSwitch { get;private set; }
+    public float LimbSwitch { get; private set; }
     public float Melee { get; private set; }
 
     public event Action<float> MeleeAttack;
 
     private void Awake()
     {
-       _actions = new PlayerActions();
+        _actions = new PlayerActions();
     }
 
     public void InitializePlayer(PlayerConfiguration pc)
@@ -63,14 +63,41 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (ctx.action.name != "Aim")
             return;
-        if (_aimConfused)
-        {
-            Aim = -ctx.ReadValue<Vector2>();
-        }
+        if (ctx.control.path.Contains("Mouse"))
+            Aim = GetNormalizedMousePosition();
         else
         {
-            Aim = ctx.ReadValue<Vector2>();
+            if (_aimConfused)
+            {
+                Aim = -ctx.ReadValue<Vector2>();
+                //Aim = GetNormalizedMousePosition();
+            }
+            else
+            {
+                Aim = ctx.ReadValue<Vector2>();
+                //Aim = GetNormalizedMousePosition();
+            }
         }
+    }
+
+    Vector2 GetNormalizedMousePosition()
+    {
+        Vector3 mouseScreenPosition = Input.mousePosition;
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+        Vector3 playerPosition = transform.position;
+
+        Vector2 relativeMousePosition = new Vector2(mouseWorldPosition.x - playerPosition.x, mouseWorldPosition.y - playerPosition.y);
+
+        float maxDistance = Mathf.Max(Mathf.Abs(relativeMousePosition.x), Mathf.Abs(relativeMousePosition.y));
+        if (maxDistance > 1)
+        {
+            relativeMousePosition /= maxDistance;
+        }
+
+        relativeMousePosition.x = Mathf.Clamp(relativeMousePosition.x, -1f, 1f);
+        relativeMousePosition.y = Mathf.Clamp(relativeMousePosition.y, -1f, 1f);
+
+        return relativeMousePosition;
     }
 
     public void FlickAimInput(InputAction.CallbackContext ctx)
@@ -105,7 +132,7 @@ public class PlayerInputHandler : MonoBehaviour
             MeleeAttack?.Invoke(Melee);
         }
     }
-    
+
     public void MakeAimOpposite()
     {
         _aimConfused = true;
