@@ -39,6 +39,7 @@ public class Pinata : MonoBehaviour
             return;
         if (_hit)
             return;
+        _hit = true;
         ServiceLocator.Get<AudioManager>().PlaySound(_pinataDestroy, transform.position, SoundType.SFX);
         ServiceLocator.Get<ParticleManager>().PlayConfettiParticle(transform.position);
         Debug.Log("Pinata is hit");
