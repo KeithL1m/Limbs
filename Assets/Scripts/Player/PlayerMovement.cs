@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private ParticleSystem.EmissionModule _walkDustEmission;
     [SerializeField] private ParticleSystem _speedUpDust;
     private ParticleSystem.EmissionModule _speedUpEmission;
+    private AudioManager _audioManager;
 
     [SerializeField] private Animator anchorsAnim;
 
@@ -30,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _startMovePoint = 0.5f;
     [SerializeField] private float _smoothMoveSpeed = 0.06f; //the higher the number the less responsive it get
 
+    [SerializeField] private AudioClip _hopSound;
+
     Vector3 zeroVector = Vector3.zero;
 
     public bool facingRight;
@@ -45,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
         _pHealth = GetComponent<PlayerHealth>();
         _walkDustEmission = _walkDust.emission;
         _speedUpEmission = _speedUpDust.emission;
+        _audioManager = ServiceLocator.Get<AudioManager>();
     }
 
     public void Move(PlayerLimbs.LimbState state)
@@ -71,7 +75,10 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case PlayerLimbs.LimbState.NoLimb:
                 _hopTimer -= Time.deltaTime;
-                Hop(moveSpeed);
+                if (_hopTimer <= 0.0f && Mathf.Abs(moveSpeed) > 0.1f)
+                {
+                    Hop(moveSpeed);
+                }
                 moveSpeed *= _noLegSpeed;
                 break;
             default: break;
@@ -116,8 +123,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Hop(float moveSpeed)
     {
-        if (_playerJump.IsGrounded() && _hopTimer <= 0.0f)
+        if (_playerJump.IsGrounded())
         {
+            _audioManager.PlaySound(_hopSound, transform.position, SoundType.SFX, 0.2f);
             _hopTimer = _maxHopTime;
             _rb.AddForce(_rb.mass * Vector2.up * _hopForce * Mathf.Abs(moveSpeed), ForceMode2D.Impulse);
         }

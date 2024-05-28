@@ -30,6 +30,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Material _lowHealthMaterial;
 
     [SerializeField] private List<AudioClip> _hurtEffects;
+    [SerializeField] private AudioClip _deathSound;
 
 
     private void Awake()
@@ -76,6 +77,7 @@ public class PlayerHealth : MonoBehaviour
         {
             return;
         }
+        _audioManager.PlaySound(_deathSound, transform.position, SoundType.SFX);
         isDead = true;
         _healthBar.SetMaterial(_grayMaterial);
         ServiceLocator.Get<ParticleManager>().PlayDeathParticle(transform.position-transform.up.normalized*0.5f);

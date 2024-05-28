@@ -404,6 +404,7 @@ MonoBehaviour:
   _maxHopTime: 0.3
   _startMovePoint: 0.5
   _smoothMoveSpeed: 0.15
+  _hopSound: {fileID: 8300000, guid: 6254e446dc6d4b64bbd7b2d53e52fa85, type: 3}
   facingRight: 0
 --- !u!114 &8385072269478469063
 MonoBehaviour:
@@ -454,6 +455,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d341a7db2589fea479e1ffe5193828ab, type: 3}
   - {fileID: 8300000, guid: 37dd75f925629aa4db777d1acdbb0a35, type: 3}
   - {fileID: 8300000, guid: 6d4c453919be026449a918f58b2adac0, type: 3}
+  _deathSound: {fileID: 8300000, guid: 924d9047e207b49498c7f38176a5eb93, type: 3}
 --- !u!114 &6432030308765007816
 MonoBehaviour:
   m_ObjectHideFlags: 0
