@@ -13,6 +13,8 @@ public class Pinata : MonoBehaviour
     private float _maxHealth;
     private float _health;
 
+    private bool _hit = false;
+
 
     private void Awake()
     {
@@ -34,6 +36,8 @@ public class Pinata : MonoBehaviour
         if (collision.gameObject.tag != "Limb")
             return;
         if(collision.gameObject.GetComponent<Limb>().State != Limb.LimbState.Throwing)
+            return;
+        if (_hit)
             return;
         ServiceLocator.Get<AudioManager>().PlaySound(_pinataDestroy, transform.position, SoundType.SFX);
         ServiceLocator.Get<ParticleManager>().PlayConfettiParticle(transform.position);
