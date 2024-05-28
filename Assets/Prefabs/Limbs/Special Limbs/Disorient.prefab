@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 186158996586743775, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 186158996586743775, guid: d2b3d4b3983896c40957940843227c42, type: 3}
       propertyPath: m_Color.b
       value: 0.015686275
       objectReference: {fileID: 0}
@@ -19,21 +23,29 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.95000005
       objectReference: {fileID: 0}
+    - target: {fileID: 186158996586743775, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 479936713415687806, guid: d2b3d4b3983896c40957940843227c42, type: 3}
       propertyPath: m_Name
       value: Disorient
       objectReference: {fileID: 0}
     - target: {fileID: 613239286358201552, guid: d2b3d4b3983896c40957940843227c42, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.18581595
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 613239286358201552, guid: d2b3d4b3983896c40957940843227c42, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.18581595
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 613239286358201552, guid: d2b3d4b3983896c40957940843227c42, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.18581595
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 613239286358201552, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2238277895590105160, guid: d2b3d4b3983896c40957940843227c42, type: 3}
       propertyPath: m_LocalScale.x
@@ -67,6 +79,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 6f75113d1f3361d4d91ab08b9572da3e, type: 3}
+    - target: {fileID: 7196619701666252166, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7643786849370820877, guid: d2b3d4b3983896c40957940843227c42, type: 3}
       propertyPath: m_Size.x
       value: 0.45718968
@@ -156,6 +172,8 @@ MonoBehaviour:
   TripleShot: 0
   _bombLimb: 0
   IsSpecial: 1
+  screenShakePercent: 1
+  screenShakeTime: 0.5
   _disorientLength: 10
 --- !u!1 &2032589684185758580 stripped
 GameObject:
