@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -31,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _startMovePoint = 0.5f;
     [SerializeField] private float _smoothMoveSpeed = 0.06f; //the higher the number the less responsive it get
 
-    [SerializeField] private AudioClip _hopSound;
+    [SerializeField] private List<AudioClip> _hopSound;
 
     Vector3 zeroVector = Vector3.zero;
 
@@ -125,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_playerJump.IsGrounded())
         {
-            _audioManager.PlaySound(_hopSound, transform.position, SoundType.SFX, 0.2f);
+            _audioManager.PlayRandomSound(_hopSound.ToArray(), transform.position, SoundType.SFX);
             _hopTimer = _maxHopTime;
             _rb.AddForce(_rb.mass * Vector2.up * _hopForce * Mathf.Abs(moveSpeed), ForceMode2D.Impulse);
         }

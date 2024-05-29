@@ -50,7 +50,6 @@ public class PlayerHealth : MonoBehaviour
     {
         if (_gm.startScreen)
         {
-            //damageParticles.PlayStartSceneDamageParticle();
             return;
         }
         else if (isDead)
@@ -77,7 +76,7 @@ public class PlayerHealth : MonoBehaviour
         {
             return;
         }
-        _audioManager.PlaySound(_deathSound, transform.position, SoundType.SFX);
+        _audioManager.PlaySound(_deathSound, transform.position, SoundType.SFX, 0.6f);
         isDead = true;
         _healthBar.SetMaterial(_grayMaterial);
         ServiceLocator.Get<ParticleManager>().PlayDeathParticle(transform.position-transform.up.normalized*0.5f);

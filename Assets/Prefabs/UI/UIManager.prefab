@@ -2267,6 +2267,8 @@ MonoBehaviour:
   _exitPopupFirstButton: {fileID: 7594664035400025356}
   _canvas: {fileID: 8567420190504578873}
   _uiManager: {fileID: 8567420190504578821}
+  _pauseSound: {fileID: 8300000, guid: 806dcc459c27db24dbfa3041f43b6041, type: 3}
+  _pauseMusic: {fileID: 8300000, guid: 037f0388e50913c43bcaa506457b85e9, type: 3}
 --- !u!114 &8567420190504578821
 MonoBehaviour:
   m_ObjectHideFlags: 0
