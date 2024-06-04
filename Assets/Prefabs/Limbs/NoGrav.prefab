@@ -111,6 +111,8 @@ MonoBehaviour:
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
   _specialLimbs: 0
+  screenShakePercent: 0
+  screenShakeTime: 0
   _gravityScale: 0
 --- !u!1 &803361303413361322 stripped
 GameObject:

@@ -299,7 +299,10 @@ MonoBehaviour:
   <PickUpIndicator>k__BackingField: {fileID: 8382880522118475522}
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
-  _specialLimbs: 0
+  _bombLimb: 0
+  IsSpecial: 1
+  screenShakePercent: 0
+  screenShakeTime: 0
   changeTime: 1
   wall: {fileID: 4518471586269112576, guid: db6b231ae5a81014cbed5df2213ecb29, type: 3}
 --- !u!1 &9094666861867324213

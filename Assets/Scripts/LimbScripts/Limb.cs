@@ -51,8 +51,13 @@ public class Limb : MonoBehaviour
 
 
     [HideInInspector] public bool TripleShot = false;
-    public bool _specialLimbs = false;
+    [HideInInspector] public bool _bombLimb = false;
     private bool _initialized = false;
+    
+    public bool IsSpecial = false;
+    protected float screenShakePower = 1.2f;
+    [SerializeField] protected float screenShakePercent = 1;
+    [SerializeField] protected float screenShakeTime = 0.5f;
 
     protected virtual void Awake()
     {
@@ -86,7 +91,7 @@ public class Limb : MonoBehaviour
         PickupTimer = 0.3f;
         CanPickUp = true;
 
-        _specialLimbs = false;
+        _bombLimb = false;
         _initialized = true;
     }
 
@@ -94,9 +99,10 @@ public class Limb : MonoBehaviour
     {
         PickupTimer = 0.3f;
         CanPickUp = false;
+        transform.SetParent(ServiceLocator.Get<EmptyDestructibleObject>().transform);
+        transform.localScale = Vector3.one;
         _attachedPlayerLimbs.MoveBodyDown();
         LimbRB.simulated = true;
-        transform.SetParent(ServiceLocator.Get<EmptyDestructibleObject>().transform);
 
         State = LimbState.Throwing;
 
@@ -140,7 +146,7 @@ public class Limb : MonoBehaviour
         }
         else if (State == LimbState.Throwing || State == LimbState.Returning)
         {
-            if (LimbRB.velocity.magnitude < 4.0f && _specialLimbs == false)
+            if (LimbRB.velocity.magnitude < 4.0f && _bombLimb == false)
             {
                 PickupTimer -= Time.deltaTime;
             }
@@ -227,7 +233,7 @@ public class Limb : MonoBehaviour
         {
             return;
         }
-
+        
         if (collision.gameObject.CompareTag("BreakWall"))
         {
             collision.gameObject.GetComponent<LimbInstantiateWall>().Damage();
@@ -259,7 +265,7 @@ public class Limb : MonoBehaviour
         if (_weight > 0)
         {
             if (ServiceLocator.Get<CameraManager>() != null)
-                ServiceLocator.Get<CameraManager>().StartScreenShake(_weight * 0.01f, 0.1f);
+                ServiceLocator.Get<CameraManager>().StartScreenShake(_weight * 0.1f, 0.1f);
         }
 
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
@@ -283,7 +289,6 @@ public class Limb : MonoBehaviour
         else
         {
             _healthPlayer.AddDamage(_damage + _specialDamage);
-
             ReturnLimb();
         }
     }
@@ -301,6 +306,8 @@ public class Limb : MonoBehaviour
         else if (State == LimbState.Attached)
             return;
         else if (State == LimbState.Returning && collision.gameObject.GetComponent<Player>() != _attachedPlayer)
+            return;
+        else if (collision.GetComponent<PlayerHealth>().isDead)
             return;
 
         if (State == LimbState.Throwing)
@@ -326,13 +333,15 @@ public class Limb : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    protected virtual void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag != "Player")
             return;
         else if (State == LimbState.Attached)
             return;
         else if (State == LimbState.Returning && collision.gameObject.GetComponent<Player>() != _attachedPlayer)
+            return;
+        else if (collision.GetComponent<PlayerHealth>().isDead)
             return;
 
         if (collision.gameObject.GetComponent<PlayerLimbs>().CanPickUpLimb(this))

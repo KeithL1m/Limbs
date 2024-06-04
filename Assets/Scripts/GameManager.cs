@@ -237,6 +237,8 @@ public class GameManager : Manager
         spawnPoints.Clear();
         VictoryScreen = false;
         startScreen = true;
+
+        ServiceLocator.Get<AudioManager>().StopMusic();
         for (int i = 0; i < _playerCount; i++)
         {
             Destroy(_playerConfigs[i].Input.gameObject);

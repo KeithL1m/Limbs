@@ -72,7 +72,6 @@ public class Teleport : Limb
 
         LimbRB.constraints = RigidbodyConstraints2D.FreezeAll;
         _particleManager.PlayTeleportParticle(gameObject.transform.position);
-
         _teleportedPlayer.ZeroVelocity();
         _teleportedPlayer.transform.position = _teleportPosition;
         ServiceLocator.Get<LimbManager>().RemoveLimb(this);

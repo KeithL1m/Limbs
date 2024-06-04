@@ -1,11 +1,14 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
     GameLoader _loader = null;
     GameManager _gm = null;
+    AudioManager _audioManager;
 
     [SerializeField]
     public float _maxHealth;
@@ -26,6 +29,9 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Material _standardMaterial;
     [SerializeField] private Material _lowHealthMaterial;
 
+    [SerializeField] private List<AudioClip> _hurtEffects;
+    [SerializeField] private AudioClip _deathSound;
+
 
     private void Awake()
     {
@@ -36,6 +42,7 @@ public class PlayerHealth : MonoBehaviour
     private void Initialize()
     {
         _gm = ServiceLocator.Get<GameManager>();
+        _audioManager = ServiceLocator.Get<AudioManager>();
         _health = _maxHealth;
     }
 
@@ -43,11 +50,12 @@ public class PlayerHealth : MonoBehaviour
     {
         if (_gm.startScreen)
         {
-            //damageParticles.PlayStartSceneDamageParticle();
             return;
         }
         else if (isDead)
             return;
+
+        _audioManager.PlayRandomSound(_hurtEffects.ToArray(), transform.position, SoundType.SFX);
 
         _health -= damage;
         damageParticles.PlayDamageParticle();
@@ -68,6 +76,7 @@ public class PlayerHealth : MonoBehaviour
         {
             return;
         }
+        _audioManager.PlaySound(_deathSound, transform.position, SoundType.SFX, 0.6f);
         isDead = true;
         _healthBar.SetMaterial(_grayMaterial);
         ServiceLocator.Get<ParticleManager>().PlayDeathParticle(transform.position-transform.up.normalized*0.5f);

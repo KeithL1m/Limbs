@@ -36,6 +36,13 @@ public class MainMenu : MonoBehaviour
     private GameLoader _loader;
     private ConfigurationManager _configManager;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip _backButtonSound;
+    [SerializeField] private AudioClip _enterButtonSound;
+    [SerializeField] private AudioClip _meatcaseMusic;
+    private AudioManager _audioManager;
+
+
 
     private void Awake()
     {
@@ -46,6 +53,7 @@ public class MainMenu : MonoBehaviour
     private void Initialize()
     {
         _configManager = ServiceLocator.Get<ConfigurationManager>();
+        _audioManager = ServiceLocator.Get<AudioManager>();
         fadeWipeTransition.SetActive(true);
         EventSystem.current.SetSelectedGameObject(selectedButtonMainMenu);
     }
@@ -58,6 +66,8 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
+        //change music
+        ServiceLocator.Get<AudioManager>().MeatcaseMusic(_meatcaseMusic);
         _configManager.InLoadout = true;
 
         gateTransition.SetActive(true);
@@ -66,23 +76,27 @@ public class MainMenu : MonoBehaviour
 
     public void LoadArsenalMenu()
     {
+        _audioManager.PlaySound(_enterButtonSound, transform.position, SoundType.SFX);
         ShowMenu(arsenalMenu);
         EventSystem.current.SetSelectedGameObject(selectedButtonArsenalMenu);
     }
     public void LoadSettingsMenu()
     {
+        _audioManager.PlaySound(_enterButtonSound, transform.position, SoundType.SFX);
         ShowMenu(settingsMenu);
         EventSystem.current.SetSelectedGameObject(selectedButtonSettingsMenu);
     }
 
     public void LoadCreditsMenu()
     {
+        _audioManager.PlaySound(_enterButtonSound, transform.position, SoundType.SFX);
         ShowMenu(creditsMenu);
         EventSystem.current.SetSelectedGameObject(selectedButtonCreditsMenu);
     }
 
     public void BackButton()
     {
+        _audioManager.PlaySound(_backButtonSound, transform.position, SoundType.SFX, 0.5f);
         mainMenu.SetActive(true);
         arsenalMenu.SetActive(false);
         settingsMenu.SetActive(false);
@@ -95,7 +109,6 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Quitting game...");
         Application.Quit();
-       
     }
 
     IEnumerator Delay(int sceneToLoad)

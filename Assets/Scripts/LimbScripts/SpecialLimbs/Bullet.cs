@@ -7,7 +7,9 @@ public class Bullet : MonoBehaviour
 
     private Vector2 _direction;
     private Rigidbody2D _rb2d;
-
+    protected float screenShakePower = 1.2f;
+    [SerializeField] protected float screenShakePercent = 1;
+    [SerializeField] protected float screenShakeTime = 0.5f;
     private void Update()
     {
         if (_direction == null)
@@ -32,6 +34,8 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        if (ServiceLocator.Get<CameraManager>() != null)
+            ServiceLocator.Get<CameraManager>().StartScreenShake(screenShakePower * screenShakePercent, screenShakeTime);
 
         PlayerHealth _healthPlayer = collision.gameObject.GetComponent<PlayerHealth>();
         _healthPlayer.AddDamage(_damage);

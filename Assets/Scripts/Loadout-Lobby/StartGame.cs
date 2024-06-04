@@ -12,6 +12,8 @@ public class StartGame : MonoBehaviour
     public GameObject SelectedButton;
 
     [SerializeField] private Texture2D _textureToSave;
+    [SerializeField] private AudioClip _buttonSound;
+    [SerializeField] private AudioClip _titleMusic;
     [SerializeField] private GameObject fadeTransition;
     private string _filePath;
 
@@ -52,6 +54,8 @@ public class StartGame : MonoBehaviour
     public void LoadGame()
     {
         fadeTransition.SetActive(true);
+        ServiceLocator.Get<AudioManager>().PlaySound(_buttonSound, transform.position, SoundType.SFX);
+        ServiceLocator.Get<AudioManager>().StartTitleMusic(_titleMusic);
         StartCoroutine(Delay(nextScene));
     }
 

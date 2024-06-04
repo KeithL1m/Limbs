@@ -965,6 +965,62 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingsMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 459387093452160649, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 887283292637855225, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 947564964637943969, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_Value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 947564964637943969, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_WholeNumbers
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 947564964637943969, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172662556126091082, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172662556126091082, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485703810948865637, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_Value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485703810948865637, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_WholeNumbers
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1552846470016888442, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1552846470016888442, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1552846470016888442, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3275660504505238887, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3275660504505238887, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3402035025147914652, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1053,6 +1109,54 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1192442351}
+    - target: {fileID: 4592389122977386605, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7076474423527199445, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7235809925536810394, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7235809925536810394, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7235809925536810394, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829935961591236891, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_Value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829935961591236891, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_WholeNumbers
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8762738246550318319, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8762738246550318319, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8762738246550318319, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034506252015014218, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034506252015014218, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c8792ffca61df0408610298b4d0fd5c, type: 3}
 --- !u!1 &522789282 stripped
@@ -1628,6 +1732,9 @@ MonoBehaviour:
   selectedButtonSettingsMenu: {fileID: 522789282}
   selectedButtonCreditsMenu: {fileID: 1322326461}
   buttonDescriptions: []
+  _backButtonSound: {fileID: 8300000, guid: 18340cc5389c8834c973380605b48d46, type: 3}
+  _enterButtonSound: {fileID: 8300000, guid: cd7bd2f28512caf49805b492460c2aff, type: 3}
+  _meatcaseMusic: {fileID: 8300000, guid: eea850591564f23479f82fc1c7a739e2, type: 3}
 --- !u!1 &1226764181
 GameObject:
   m_ObjectHideFlags: 0
@@ -1854,6 +1961,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _descriptionText: {fileID: 87437782}
   _descriptionToDisplay: 'Tweak the game settings for your device. '
+  _audioClip: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
   _animator: {fileID: 0}
 --- !u!1 &1322326461
 GameObject:
@@ -2213,6 +2321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _descriptionText: {fileID: 87437782}
   _descriptionToDisplay: DON'T LEAVE MEEEEE!
+  _audioClip: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
   _animator: {fileID: 0}
 --- !u!1 &1475428682
 GameObject:
@@ -3022,6 +3131,7 @@ MonoBehaviour:
   _descriptionText: {fileID: 87437782}
   _descriptionToDisplay: 'Chop, slice and pry your way to the top in a brutal Limbs
     tournament. '
+  _audioClip: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
   _animator: {fileID: 1571401623}
 --- !u!95 &1571401623
 Animator:
@@ -3192,6 +3302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _descriptionText: {fileID: 87437782}
   _descriptionToDisplay: Customize your setup, limbs, win count and more!
+  _audioClip: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
   _animator: {fileID: 1615982520}
 --- !u!95 &1615982520
 Animator:
@@ -3596,6 +3707,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _descriptionText: {fileID: 87437782}
   _descriptionToDisplay: Check out the meatheads that made this game.
+  _audioClip: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
   _animator: {fileID: 0}
 --- !u!1 &2110856234
 GameObject:

@@ -243,6 +243,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c6745665c07b54e96c9ebd3f6cff98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _clips:
+  - {fileID: 8300000, guid: f3a600beb3ff03d40b4c81bc766eb54d, type: 3}
+  - {fileID: 8300000, guid: a48451337db65ec4fa7ac0caa085d9b0, type: 3}
+  - {fileID: 8300000, guid: 1697fefaf735bd6408e4df1ee2a85201, type: 3}
+  _pinataDestroy: {fileID: 8300000, guid: 89d52fda2e8acb44799a8e3afdae1cfa, type: 3}
   _maxHealth: 10
 --- !u!60 &258226902
 PolygonCollider2D:
@@ -3424,6 +3429,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2220418197981392323, guid: f006804b92770d248bca2198b577cd39, type: 3}
+      propertyPath: _limbLimit
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6819372074869276752, guid: f006804b92770d248bca2198b577cd39, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.65
@@ -3434,7 +3443,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6819372074900375388, guid: f006804b92770d248bca2198b577cd39, type: 3}
       propertyPath: _limbLimit
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6819372074900375388, guid: f006804b92770d248bca2198b577cd39, type: 3}
       propertyPath: _limbManager
@@ -3459,6 +3468,10 @@ PrefabInstance:
     - target: {fileID: 6819372075964717750, guid: f006804b92770d248bca2198b577cd39, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759219534528308244, guid: f006804b92770d248bca2198b577cd39, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9039460043306164927, guid: f006804b92770d248bca2198b577cd39, type: 3}
       propertyPath: m_Name

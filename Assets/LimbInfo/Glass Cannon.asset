@@ -18,4 +18,4 @@ MonoBehaviour:
   _damage: 6
   _specialDamage: 0
   _returnVelocityMultiplier: 0.75
-  _weight: 5
+  _weight: 3

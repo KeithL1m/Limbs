@@ -1085,6 +1085,8 @@ MonoBehaviour:
   _currentBody: {fileID: 2123343082812550231}
   _readyButtonImage: {fileID: 1234717102975129290}
   _readySprite: {fileID: 21300000, guid: 188045a28504fd9469d63564f1976b85, type: 3}
+  _selectSound: {fileID: 8300000, guid: cd7bd2f28512caf49805b492460c2aff, type: 3}
+  _readySound: {fileID: 8300000, guid: 36c4fffb3523b724999d23ba5365cb61, type: 3}
 --- !u!1 &7317022679244436451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,7 +1113,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7317022679244436451}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Pinata : MonoBehaviour
@@ -5,9 +6,14 @@ public class Pinata : MonoBehaviour
     private GameLoader _loader = null;
     private GameManager _gm = null;
 
+    [SerializeField] private List<AudioClip> _clips = null;
+    [SerializeField] private AudioClip _pinataDestroy;
+
     [SerializeField]
     private float _maxHealth;
     private float _health;
+
+    private bool _hit = false;
 
 
     private void Awake()
@@ -31,6 +37,10 @@ public class Pinata : MonoBehaviour
             return;
         if(collision.gameObject.GetComponent<Limb>().State != Limb.LimbState.Throwing)
             return;
+        if (_hit)
+            return;
+        _hit = true;
+        ServiceLocator.Get<AudioManager>().PlaySound(_pinataDestroy, transform.position, SoundType.SFX);
         ServiceLocator.Get<ParticleManager>().PlayConfettiParticle(transform.position);
         Debug.Log("Pinata is hit");
         _health -= 10.0f;
@@ -43,6 +53,7 @@ public class Pinata : MonoBehaviour
 
     private void PinataDestroyed()
     {
+        ServiceLocator.Get<AudioManager>().GameMusic(_clips.ToArray());
         _gm.StartGame();
     }
 }

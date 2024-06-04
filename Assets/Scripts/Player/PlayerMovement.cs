@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -8,11 +9,13 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInputHandler _inputHandler;
     private PlayerHealth _pHealth;
 
+    [SerializeField] private FootstepController _footsteps;
     [SerializeField] private GroundCheck _groundCheck;
     [SerializeField] private ParticleSystem _walkDust;
     private ParticleSystem.EmissionModule _walkDustEmission;
     [SerializeField] private ParticleSystem _speedUpDust;
     private ParticleSystem.EmissionModule _speedUpEmission;
+    private AudioManager _audioManager;
 
     [SerializeField] private Animator anchorsAnim;
 
@@ -29,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _startMovePoint = 0.5f;
     [SerializeField] private float _smoothMoveSpeed = 0.06f; //the higher the number the less responsive it get
 
+    [SerializeField] private List<AudioClip> _hopSound;
+
     Vector3 zeroVector = Vector3.zero;
 
     public bool facingRight;
@@ -44,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         _pHealth = GetComponent<PlayerHealth>();
         _walkDustEmission = _walkDust.emission;
         _speedUpEmission = _speedUpDust.emission;
+        _audioManager = ServiceLocator.Get<AudioManager>();
     }
 
     public void Move(PlayerLimbs.LimbState state)
@@ -70,13 +76,25 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case PlayerLimbs.LimbState.NoLimb:
                 _hopTimer -= Time.deltaTime;
-                Hop(moveSpeed);
+                if (_hopTimer <= 0.0f && Mathf.Abs(moveSpeed) > 0.1f)
+                {
+                    Hop(moveSpeed);
+                }
                 moveSpeed *= _noLegSpeed;
                 break;
             default: break;
         }
 
         anchorsAnim.SetFloat("speed", moveSpeed);
+
+        if (_playerJump.IsGrounded() && _rb.velocity.magnitude > 1 && state != PlayerLimbs.LimbState.NoLimb)
+        {
+            _footsteps.StartWalking();
+        }
+        else
+        {
+            _footsteps.StopWalking();
+        }
 
         Vector3 targetVelocity = new Vector2(moveSpeed, _rb.velocity.y);
         _rb.velocity = Vector3.SmoothDamp(_rb.velocity, targetVelocity, ref zeroVector, _smoothMoveSpeed);
@@ -106,8 +124,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Hop(float moveSpeed)
     {
-        if (_playerJump.IsGrounded() && _hopTimer <= 0.0f)
+        if (_playerJump.IsGrounded())
         {
+            _audioManager.PlayRandomSound(_hopSound.ToArray(), transform.position, SoundType.SFX);
             _hopTimer = _maxHopTime;
             _rb.AddForce(_rb.mass * Vector2.up * _hopForce * Mathf.Abs(moveSpeed), ForceMode2D.Impulse);
         }
