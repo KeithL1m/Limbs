@@ -5,16 +5,27 @@ public class ShotGunLimb : Limb
     [Header("Special Info")]
     [SerializeField, Range(0, 100)] float _forceAmt = 0;
     [SerializeField] private Animator _animation;
+    [SerializeField] private AudioClip _shootSound;
+    [SerializeField] private AudioClip _specialPickUpSound;
 
     public override void ThrowLimb(int direction)
     {
         ServiceLocator.Get<CameraManager>()?.StartScreenShake(0.14f, 0.15f);
-
+        _audioManager.PlaySound(_shootSound, transform.position, SoundType.SFX);
         _animation.SetBool("isBeingPicked", false);
 
         base.ThrowLimb(direction);
 
-        _attachedPlayer.GetComponent<Rigidbody2D>().AddForce(LimbRB.velocity.normalized * (-_forceAmt), ForceMode2D.Impulse);
+        float gravScale = _attachedPlayer.GetRBGravity();
+
+        if (gravScale < 5f)
+        {
+            _attachedPlayer.GetComponent<Rigidbody2D>().AddForce(LimbRB.velocity.normalized * (-_forceAmt * 0.55f), ForceMode2D.Impulse);
+        }
+        else
+        {
+            _attachedPlayer.GetComponent<Rigidbody2D>().AddForce(LimbRB.velocity.normalized * (-_forceAmt), ForceMode2D.Impulse);
+        }
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
@@ -46,6 +57,7 @@ public class ShotGunLimb : Limb
             {
                 LimbRB.SetRotation(0);
             }
+            _audioManager.PlaySound(_specialPickUpSound, transform.position, SoundType.SFX);
         }
     }
 }

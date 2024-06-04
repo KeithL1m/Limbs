@@ -7,7 +7,7 @@ public class LimbInstantiateWall : MonoBehaviour
     private bool isStop;
     private Color initColor;
     [SerializeField] private Sprite[] hitedSprites;
-    private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private int hp = 5;
     private int maxHP;
     public int HP { get { return hp; } }
@@ -19,7 +19,6 @@ public class LimbInstantiateWall : MonoBehaviour
     void Start()
     {
         maxHP = hp;
-        spriteRenderer = GetComponent<SpriteRenderer>();
         initColor = spriteRenderer.color;
     }
 

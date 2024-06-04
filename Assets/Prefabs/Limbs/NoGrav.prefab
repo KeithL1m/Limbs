@@ -110,9 +110,11 @@ MonoBehaviour:
   <PickUpIndicator>k__BackingField: {fileID: 6925794004651224627}
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
-  _specialLimbs: 0
+  _bombLimb: 0
+  IsSpecial: 0
   screenShakePercent: 0
   screenShakeTime: 0
+  _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
   _gravityScale: 0
 --- !u!1 &803361303413361322 stripped
 GameObject:

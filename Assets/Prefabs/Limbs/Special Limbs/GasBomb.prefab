@@ -61,6 +61,7 @@ MonoBehaviour:
   IsSpecial: 1
   screenShakePercent: 0.2
   screenShakeTime: 0.5
+  _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
   _collider: {fileID: 8460407155734473735}
 --- !u!50 &545256134410961637
 Rigidbody2D:

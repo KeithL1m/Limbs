@@ -8,6 +8,7 @@ public class DisorientLimb : Limb
     private Player _hitPlayer = null;
     private PlayerInputHandler _playerInputHandler = null;
     private ParticleManager _particleManager;
+    [SerializeField] private AudioClip _collideSound;
 
     protected override void Initialize()
     {
@@ -34,6 +35,10 @@ public class DisorientLimb : Limb
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
+        if (_returnVelocity.magnitude > 4.0f || LimbRB.velocity.magnitude > 4.0f)
+        {
+            _audioManager.PlaySound(_collideSound, transform.position, SoundType.SFX, 0.3f);
+        }
         if (State != LimbState.Throwing)
         {
             return;

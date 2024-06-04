@@ -303,6 +303,7 @@ MonoBehaviour:
   IsSpecial: 1
   screenShakePercent: 0
   screenShakeTime: 0
+  _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
   changeTime: 1
   wall: {fileID: 4518471586269112576, guid: db6b231ae5a81014cbed5df2213ecb29, type: 3}
 --- !u!1 &9094666861867324213
