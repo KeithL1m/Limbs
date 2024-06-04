@@ -30,9 +30,6 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private GameObject selectedButtonCreditsMenu;
 
-    [SerializeField]
-    private string[] buttonDescriptions;
-
     private GameLoader _loader;
     private ConfigurationManager _configManager;
 
@@ -71,7 +68,7 @@ public class MainMenu : MonoBehaviour
         _configManager.InLoadout = true;
 
         gateTransition.SetActive(true);
-        StartCoroutine(Delay(3));
+        StartCoroutine(Delay(4));
     }
 
     public void LoadArsenalMenu()
@@ -109,6 +106,12 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Quitting game...");
         Application.Quit();
+    }
+
+    public void FocusUI()
+    {
+        Debug.Log("Refocusing UI");
+        EventSystem.current.SetSelectedGameObject(selectedButtonMainMenu);
     }
 
     IEnumerator Delay(int sceneToLoad)

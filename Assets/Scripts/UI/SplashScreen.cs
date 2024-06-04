@@ -7,7 +7,7 @@ public class SplashScreen : MonoBehaviour
 {
     private void Awake()
     {
-        StartCoroutine(Delay(1));
+        StartCoroutine(Delay(2));
     }
 
     IEnumerator Delay(int sceneToLoad)
