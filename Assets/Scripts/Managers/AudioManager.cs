@@ -96,7 +96,7 @@ public class AudioManager : MonoBehaviour
         AudioSource source = new();
         for (int i = 0; i < _sources.Count; i++)
         {
-            if (!_sources[i].isPlaying)
+            if (!_sources[i].isPlaying && _sources[i] != _currentMusic)
             {
                 source = _sources[i];
             }
@@ -127,7 +127,7 @@ public class AudioManager : MonoBehaviour
         AudioSource source = new();
         for (int i = 0; i < _sources.Count; i++)
         {
-            if (!_sources[i].isPlaying)
+            if (!_sources[i].isPlaying && _sources[i] != _currentMusic)
             {
                 source = _sources[i];
                 break;
