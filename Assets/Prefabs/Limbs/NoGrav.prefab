@@ -7,6 +7,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 357135077063087861, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+      propertyPath: _limbName
+      value: Shuriken
+      objectReference: {fileID: 0}
+    - target: {fileID: 357135077063087861, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+      propertyPath: _limbDescription
+      value: HIYAAAAAAAH!! The ninja star is a nimble blade capable of moderate straight-shot
+        damage to any unsuspecting meatheads nearby.
+      objectReference: {fileID: 0}
     - target: {fileID: 479936713415687806, guid: d2b3d4b3983896c40957940843227c42, type: 3}
       propertyPath: m_Name
       value: NoGrav

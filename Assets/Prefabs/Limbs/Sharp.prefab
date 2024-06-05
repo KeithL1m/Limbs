@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7643786849370820877}
   - component: {fileID: 7031586765184258081}
   - component: {fileID: 6748430361449457588}
+  - component: {fileID: 2484527497433710049}
   m_Layer: 0
   m_Name: Sharp
   m_TagString: Limb
@@ -116,6 +117,21 @@ MonoBehaviour:
   screenShakeTime: 0.5
   _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
   _gravityScale: 3
+--- !u!114 &2484527497433710049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479936713415687806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb1f903c1901234b911169eb4a5418a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbName: Sharpk
+  _limbDescription: "This shark-shaped shank has a unique arched trajectory and deals
+    a great amount of damage to enemies unfortunate enough to be hit by it. \r"
 --- !u!1 &1123106515960743069
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 545256134410961637}
   - component: {fileID: 8460407155734473735}
   - component: {fileID: 9013129385462799717}
+  - component: {fileID: 8585219079115519015}
   m_Layer: 0
   m_Name: GasBomb
   m_TagString: Limb
@@ -118,6 +119,23 @@ CircleCollider2D:
   m_Offset: {x: 0.0048399577, y: -0.003660821}
   serializedVersion: 2
   m_Radius: 0.90323544
+--- !u!114 &8585219079115519015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3037854002031635674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb1f903c1901234b911169eb4a5418a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbName: Poison in a Bottle
+  _limbDescription: Filled to the brim with deadly noxious gas, this gas bomb is
+    great for making your enemies regret ever having messed with you. Throw this
+    on the ground near your enemies to create a dangerous cloud of poisonous smoke
+    that'll last for only a limited time.
 --- !u!1 &4689326520470003246
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7643786849370820877}
   - component: {fileID: 7031586765184258081}
   - component: {fileID: 7031586765184258110}
+  - component: {fileID: 357135077063087861}
   m_Layer: 0
   m_Name: Limbs
   m_TagString: Limb
@@ -115,6 +116,22 @@ MonoBehaviour:
   screenShakePercent: 0
   screenShakeTime: 0
   _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
+--- !u!114 &357135077063087861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479936713415687806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb1f903c1901234b911169eb4a5418a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbName: Ol' Reliable
+  _limbDescription: This little arm was the pioneer of it all. Dealing moderate damage
+    and travelling moderate distances, 'Ol' Reliable' is a normal limb that useful
+    for almost any situation.
 --- !u!1 &1123106515960743069
 GameObject:
   m_ObjectHideFlags: 0

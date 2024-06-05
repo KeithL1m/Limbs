@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 7356202891211163502}
   - component: {fileID: 7896889058725348930}
   - component: {fileID: 4162293150042601226}
+  - component: {fileID: 8947733417559843188}
   m_Layer: 0
   m_Name: Limb-Accelerate
   m_TagString: Limb
@@ -255,6 +256,21 @@ MonoBehaviour:
   screenShakePercent: 0.4
   screenShakeTime: 0.5
   _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
+--- !u!114 &8947733417559843188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768787119808473117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb1f903c1901234b911169eb4a5418a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbName: Zoom Zoom
+  _limbDescription: We Zoomin. This limb multiply your speed when you pick it up.
+    The more you pick up, the faster you can run
 --- !u!1 &6788928248598725729
 GameObject:
   m_ObjectHideFlags: 0

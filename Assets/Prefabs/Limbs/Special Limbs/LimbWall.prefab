@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 1996365233678370469}
   - component: {fileID: 1168009923208890249}
   - component: {fileID: 856660414963385232}
+  - component: {fileID: 977915185697616331}
   m_Layer: 0
   m_Name: LimbWall
   m_TagString: Limb
@@ -306,6 +307,22 @@ MonoBehaviour:
   _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
   changeTime: 1
   wall: {fileID: 4518471586269112576, guid: db6b231ae5a81014cbed5df2213ecb29, type: 3}
+--- !u!114 &977915185697616331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8577597915325098454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb1f903c1901234b911169eb4a5418a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbName: Bacon Wall
+  _limbDescription: Raise up flesh from the ashes... The Bacon Wall is the ultimate
+    defense limb that creates a shield breakable only by hitting it 3 times. Use
+    this limb to block off pathways, prevent people from moving, and much more...
 --- !u!1 &9094666861867324213
 GameObject:
   m_ObjectHideFlags: 0

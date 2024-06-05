@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 936125741418059607}
   - component: {fileID: 606036843119901962}
   - component: {fileID: 3924467205363855887}
+  - component: {fileID: 6217706036698095119}
   m_Layer: 0
   m_Name: Bomb
   m_TagString: Limb
@@ -258,6 +259,22 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.49432686, y: 1.4897894}
   m_Direction: 0
+--- !u!114 &6217706036698095119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5690755066905293737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb1f903c1901234b911169eb4a5418a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbName: Pepperoni Boom Stick
+  _limbDescription: 'BOW BOW BOW! The pepperoni boom stick is a bombastic choice
+    for any situation in which you might want your friends to scatter in fear. It''s
+    a bomb: I have nothing else to say.'
 --- !u!1 &6755828673308929763
 GameObject:
   m_ObjectHideFlags: 0

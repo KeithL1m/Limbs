@@ -27,6 +27,16 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 357135077063087861, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+      propertyPath: _limbName
+      value: Meat Beer
+      objectReference: {fileID: 0}
+    - target: {fileID: 357135077063087861, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+      propertyPath: _limbDescription
+      value: Woah... I don't feel so good... Meat Beer is our unique brand of Limbs
+        Liquor (tm) that'll be sure to disorient your foes... Throw this innocent
+        "XXX" branded can onto your enemies to temporarily invert their controls.
+      objectReference: {fileID: 0}
     - target: {fileID: 479936713415687806, guid: d2b3d4b3983896c40957940843227c42, type: 3}
       propertyPath: m_Name
       value: Disorient

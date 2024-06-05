@@ -11,6 +11,15 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.627451
       objectReference: {fileID: 0}
+    - target: {fileID: 357135077063087861, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+      propertyPath: _limbName
+      value: The Bone
+      objectReference: {fileID: 0}
+    - target: {fileID: 357135077063087861, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+      propertyPath: _limbDescription
+      value: The even OLDER Ol' Reliable, 'The Bone' is a basic, multi-use limb that
+        goes ever so slightly longer than it's other normal counterparts.
+      objectReference: {fileID: 0}
     - target: {fileID: 479936713415687806, guid: d2b3d4b3983896c40957940843227c42, type: 3}
       propertyPath: m_Name
       value: LongLimb
