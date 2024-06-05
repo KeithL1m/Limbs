@@ -18414,6 +18414,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 68159463213849438, guid: a1242c6ad2e267943944242c80806f02, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.9599997
+      objectReference: {fileID: 0}
+    - target: {fileID: 981888638574397215, guid: a1242c6ad2e267943944242c80806f02, type: 3}
+      propertyPath: m_FlipY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427167016933034744, guid: a1242c6ad2e267943944242c80806f02, type: 3}
+      propertyPath: m_FlipY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427167016933034745, guid: a1242c6ad2e267943944242c80806f02, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.9599997
+      objectReference: {fileID: 0}
     - target: {fileID: 1613843266988014960, guid: a1242c6ad2e267943944242c80806f02, type: 3}
       propertyPath: m_Name
       value: Stove
@@ -18440,7 +18456,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3204647801838548132, guid: a1242c6ad2e267943944242c80806f02, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.01
+      value: -5.56
       objectReference: {fileID: 0}
     - target: {fileID: 3204647801838548132, guid: a1242c6ad2e267943944242c80806f02, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18473,6 +18489,14 @@ PrefabInstance:
     - target: {fileID: 3204647801838548132, guid: a1242c6ad2e267943944242c80806f02, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080153880888505879, guid: a1242c6ad2e267943944242c80806f02, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598292655394937975, guid: a1242c6ad2e267943944242c80806f02, type: 3}
+      propertyPath: m_FlipY
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1242c6ad2e267943944242c80806f02, type: 3}
