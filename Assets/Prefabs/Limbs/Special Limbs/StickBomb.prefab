@@ -342,6 +342,7 @@ GameObject:
   - component: {fileID: 7031974623823099388}
   - component: {fileID: 1332441338902969101}
   - component: {fileID: 7682079628322840279}
+  - component: {fileID: 1776827232995283258}
   m_Layer: 0
   m_Name: StickBomb
   m_TagString: Limb
@@ -445,3 +446,20 @@ CircleCollider2D:
   m_Offset: {x: 0.0014046637, y: -0.01820126}
   serializedVersion: 2
   m_Radius: 1.033015
+--- !u!114 &1776827232995283258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6727379245335464739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb1f903c1901234b911169eb4a5418a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbName: Honey Bomb
+  _limbDescription: Unique to this adhesive artillery, the honey bomb is a prime
+    option when it comes to sticking deadly explosives to the heads of your unsuspecting
+    friends. But beware of honey bombs not stuck to players... If you run overtop
+    of one that isn't attached to anything, it'll become attached to you.

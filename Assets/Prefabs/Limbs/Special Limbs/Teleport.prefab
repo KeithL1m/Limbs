@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7643786849370820877}
   - component: {fileID: 7031586765184258081}
   - component: {fileID: 22963141734421551}
+  - component: {fileID: 5890179115962093938}
   m_Layer: 0
   m_Name: Teleport
   m_TagString: Limb
@@ -114,6 +115,22 @@ MonoBehaviour:
   IsSpecial: 1
   screenShakePercent: 0
   screenShakeTime: 0
+--- !u!114 &5890179115962093938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479936713415687806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb1f903c1901234b911169eb4a5418a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbName: 8 Ball
+  _limbDescription: The 8 Ball is a wonder in meathead transportation. Stand in one
+    spot and throw it to another, and before you know if you'll be zipping between
+    locations like it's nobody's business.
 --- !u!1 &1123106515960743069
 GameObject:
   m_ObjectHideFlags: 0

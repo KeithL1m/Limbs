@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7643786849370820877}
   - component: {fileID: 7031586765184258081}
   - component: {fileID: 6611122400568246507}
+  - component: {fileID: 3975772605864171954}
   m_Layer: 0
   m_Name: Shot Gun - Limbs
   m_TagString: Limb
@@ -116,6 +117,24 @@ MonoBehaviour:
   screenShakeTime: 0.5
   _forceAmt: 50
   _animation: {fileID: 6758525524837623812}
+--- !u!114 &3975772605864171954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479936713415687806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb1f903c1901234b911169eb4a5418a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbName: POW Glove
+  _limbDescription: 'The POW Glove is a spring-loaded fist that is sure to send you
+    AND your fellow meatheads flying. Shoot this limb in any direction for an immediate
+    burst of momentum, but remember that it''ll boost you in the opposite direction
+    too... Authors note: Aiming downward when using this limb will give the user
+    an explosive one-time-use ''rocket jump''.'
 --- !u!1 &1123106515960743069
 GameObject:
   m_ObjectHideFlags: 0
