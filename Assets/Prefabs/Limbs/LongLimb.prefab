@@ -67,6 +67,10 @@ PrefabInstance:
       propertyPath: _limbData
       value: 
       objectReference: {fileID: 11400000, guid: 7db5ad02bfa64c444910bd9ec06de21c, type: 2}
+    - target: {fileID: 7031586765184258110, guid: d2b3d4b3983896c40957940843227c42, type: 3}
+      propertyPath: _pickupSound
+      value: 
+      objectReference: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
     - target: {fileID: 7196619701666252166, guid: d2b3d4b3983896c40957940843227c42, type: 3}
       propertyPath: m_Sprite
       value: 

@@ -49,7 +49,6 @@ public class Gas : MonoBehaviour
     // when players are in the gas
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.CompareTag("Player"))
         {
             _playersInCloud.Add(collision.gameObject);

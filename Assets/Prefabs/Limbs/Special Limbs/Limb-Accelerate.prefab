@@ -254,6 +254,7 @@ MonoBehaviour:
   IsSpecial: 1
   screenShakePercent: 0.4
   screenShakeTime: 0.5
+  _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
 --- !u!1 &6788928248598725729
 GameObject:
   m_ObjectHideFlags: 0

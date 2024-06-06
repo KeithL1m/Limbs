@@ -6,6 +6,7 @@ public class LimbWall : Limb
 {
     [SerializeField] private float changeTime = 1f;
     [SerializeField] private GameObject wall;
+    [SerializeField] private AudioClip _collideSound;
 
     public override void ThrowLimb(int direction)
     {
@@ -47,11 +48,23 @@ public class LimbWall : Limb
     public IEnumerator CreateWall()
     {
         yield return new WaitForSeconds(changeTime);
+        _audioManager.PlaySound(_collideSound, transform.position, SoundType.SFX);
         GameObject wall = Instantiate(this.wall, transform.position, transform.rotation);
         wall.transform.eulerAngles = new Vector3(0, 0, 0);
         ServiceLocator.Get<LimbManager>().RemoveLimb(this);
         Destroy(gameObject);
     }
+
+    protected override void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (LimbRB.velocity.magnitude > 3.0f)
+        {
+            _audioManager.PlaySound(_collideSound, transform.position, SoundType.SFX);
+        }
+        base.OnCollisionEnter2D(collision);
+    }
+
+
     bool isThrow;
     protected override void OnTriggerEnter2D(Collider2D collision)
     {

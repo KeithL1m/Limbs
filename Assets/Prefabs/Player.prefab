@@ -372,6 +372,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cb52b700efd3b90439ee867aeddb48fa, type: 3}
   - {fileID: 8300000, guid: 0c472539139006d4c81062a8a8a44edc, type: 3}
   - {fileID: 8300000, guid: 3298e862cbe71cd41b087d06be7a3fda, type: 3}
+  _landSound: {fileID: 8300000, guid: 9424d303912cc434d99172d621360ce5, type: 3}
   direction: 0
   _crownGameObject: {fileID: 4174948592063326648}
 --- !u!114 &8385072269478469062

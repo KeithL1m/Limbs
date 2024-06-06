@@ -117,6 +117,8 @@ public class AudioManager : MonoBehaviour
 
         source.volume = Mathf.Log10(volume) * 20f;
 
+        source.time = 0;
+
         source.Play();
     }
 
@@ -162,6 +164,8 @@ public class AudioManager : MonoBehaviour
         source.clip = audio;
 
         source.volume = volume;
+
+        source.time = 0;
 
         source.Play();
     }
