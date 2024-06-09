@@ -60,11 +60,11 @@ public class MapManager : Manager
         else
         {
             //Check if map is repeated
-            int mapNum = Random.Range(_loadingMaps, _mapCount);
+            int mapNum = Random.Range(_loadingMaps + 1, _mapCount);
             while (mapNum == currentMap)
             {
                 Debug.Log("MAP WAS REPEATED");
-                mapNum = Random.Range(_loadingMaps, _mapCount);
+                mapNum = Random.Range(_loadingMaps + 1, _mapCount);
             }
             currentMap = mapNum;
             SceneManager.LoadScene(mapNum);

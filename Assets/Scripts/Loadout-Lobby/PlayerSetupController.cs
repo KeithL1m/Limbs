@@ -10,6 +10,7 @@ public class PlayerSetupController : MonoBehaviour
     private int _playerIndex;
 
     private ConfigurationManager _configManager;
+    private AudioManager _audioManager;
 
     [SerializeField]
     private TextMeshProUGUI _titleText;
@@ -17,6 +18,8 @@ public class PlayerSetupController : MonoBehaviour
     private GameObject _readyPanel;
     [SerializeField]
     private Button _name;
+    [SerializeField]
+    private Button _readyButton;
     [SerializeField]
     private List<Sprite> _playerHead;
     [SerializeField]
@@ -26,9 +29,13 @@ public class PlayerSetupController : MonoBehaviour
     [SerializeField]
     private Image _currentBody;
     [SerializeField]
-    private Image _readyButton;
+    private Image _readyButtonImage;
     [SerializeField]
     private Sprite _readySprite;
+    [SerializeField]
+    private AudioClip _selectSound;
+    [SerializeField]
+    private AudioClip _readySound;
 
     private int _headIndex;
     private int _bodyIndex;
@@ -42,6 +49,7 @@ public class PlayerSetupController : MonoBehaviour
     private void Initialize()
     {
         _configManager = ServiceLocator.Get<ConfigurationManager>();
+        _audioManager = ServiceLocator.Get<AudioManager>();
     }
 
     public void SetPlayerIndex(int pi)
@@ -57,7 +65,10 @@ public class PlayerSetupController : MonoBehaviour
         _configManager.ReadyPlayer(_playerIndex);
         _configManager.SetPlayerHead(_playerIndex, _playerHead[_headIndex]);
         _configManager.SetPlayerBody(_playerIndex, _playerBody[_bodyIndex]);
-        _readyButton.sprite = _readySprite;
+        _readyButtonImage.sprite = _readySprite;
+        _readyButton.enabled = false;
+
+        _audioManager.PlaySound(_readySound, transform.position, SoundType.SFX);
     }
 
     public void ChangeCurrentHeadLeft()
@@ -72,6 +83,7 @@ public class PlayerSetupController : MonoBehaviour
         }
 
         _currentHead.sprite = _playerHead[_headIndex];
+        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
     }
 
     public void ChangeCurrentHeadRight()
@@ -86,6 +98,7 @@ public class PlayerSetupController : MonoBehaviour
         }
 
         _currentHead.sprite = _playerHead[_headIndex];
+        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
     }
 
     public void ChangeCurrentBodyLeft()
@@ -100,6 +113,7 @@ public class PlayerSetupController : MonoBehaviour
         }
 
         _currentBody.sprite = _playerBody[_bodyIndex];
+        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
     }
 
     public void ChangeCurrentBodyRight()
@@ -114,6 +128,7 @@ public class PlayerSetupController : MonoBehaviour
         }
 
         _currentBody.sprite = _playerBody[_bodyIndex];
+        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
     }
 
 }

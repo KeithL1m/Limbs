@@ -23,6 +23,7 @@ public class PlayerLimbs : MonoBehaviour
     public LimbState _limbState;
     public bool _canThrow;
 
+    [SerializeField] private Transform _body;
     private Transform _groundCheck;
     private Vector3 _groundCheckPosition = new();
     [SerializeField] private List<Transform> _limbAnchors;
@@ -104,6 +105,7 @@ public class PlayerLimbs : MonoBehaviour
                 }
                 _limbs[i].FlipX(-1);
             }
+
             _limbs[i].transform.SetParent(_limbAnchors[i]);
             _limbs[i].transform.localEulerAngles = new Vector3(0, 0, 0);
             _limbs[i].transform.localPosition = new Vector3(0, -_limbs[i].Size * 0.5f, 0);

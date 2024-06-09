@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -10,6 +12,9 @@ public class StartGame : MonoBehaviour
     public GameObject SelectedButton;
 
     [SerializeField] private Texture2D _textureToSave;
+    [SerializeField] private AudioClip _buttonSound;
+    [SerializeField] private AudioClip _titleMusic;
+    [SerializeField] private GameObject fadeTransition;
     private string _filePath;
 
     public int nextScene;
@@ -48,7 +53,19 @@ public class StartGame : MonoBehaviour
 
     public void LoadGame()
     {
-        _configManager.InLoadout = true;
-        SceneManager.LoadScene(nextScene);
+        fadeTransition.SetActive(true);
+        ServiceLocator.Get<AudioManager>().PlaySound(_buttonSound, transform.position, SoundType.SFX);
+        ServiceLocator.Get<AudioManager>().StartTitleMusic(_titleMusic);
+        StartCoroutine(Delay(nextScene));
+    }
+
+    IEnumerator Delay(int sceneToLoad)
+    {
+        Debug.Log("Set transition active");
+        // Wait for 3 seconds
+        yield return new WaitForSeconds(1.45f);
+
+        Debug.Log("After Delay");
+        SceneManager.LoadScene(sceneToLoad);
     }
 }

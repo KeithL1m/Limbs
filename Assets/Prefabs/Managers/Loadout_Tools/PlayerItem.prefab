@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 2123343082477732258}
   - component: {fileID: 2123343082477732257}
   - component: {fileID: 1869446067142161045}
+  - component: {fileID: 937537102996689664}
   m_Layer: 5
   m_Name: Right Button (1)
   m_TagString: Untagged
@@ -212,6 +213,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &937537102996689664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123343082477732263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b51c315009b35a4b8d2c89d57052b53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _browseSound: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
 --- !u!1 &2123343082728547096
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +238,7 @@ GameObject:
   - component: {fileID: 2123343082728547099}
   - component: {fileID: 2123343082728547098}
   - component: {fileID: 9017944817917584950}
+  - component: {fileID: 1273874691085635867}
   m_Layer: 5
   m_Name: Right Button
   m_TagString: Untagged
@@ -345,6 +360,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1273874691085635867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123343082728547096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b51c315009b35a4b8d2c89d57052b53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _browseSound: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
 --- !u!1 &2123343082796553537
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,6 +676,7 @@ GameObject:
   - component: {fileID: 2123343083442610913}
   - component: {fileID: 2123343083442610912}
   - component: {fileID: 754208733343752832}
+  - component: {fileID: 3553018019917291000}
   m_Layer: 5
   m_Name: Left Button
   m_TagString: Untagged
@@ -769,6 +798,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3553018019917291000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123343083442610918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b51c315009b35a4b8d2c89d57052b53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _browseSound: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
 --- !u!1 &2123343083841272590
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,6 +823,7 @@ GameObject:
   - component: {fileID: 2123343083841272585}
   - component: {fileID: 2123343083841272584}
   - component: {fileID: 2837933147739233511}
+  - component: {fileID: 2064893572120227509}
   m_Layer: 5
   m_Name: Left Button (1)
   m_TagString: Untagged
@@ -902,6 +945,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2064893572120227509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123343083841272590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b51c315009b35a4b8d2c89d57052b53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _browseSound: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
 --- !u!1 &3341446640998491032
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,6 +1016,7 @@ MonoBehaviour:
   _titleText: {fileID: 2123343083227079328}
   _readyPanel: {fileID: 7317022679244436451}
   _name: {fileID: 0}
+  _readyButton: {fileID: 7376604053995762886}
   _playerHead:
   - {fileID: 21300000, guid: c92d7bee7e1a28f4db3a743dc2ab6d45, type: 3}
   - {fileID: 21300000, guid: 25a06290798e53b4097ca186daf05169, type: 3}
@@ -1007,6 +1064,19 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 41f2372b6513d52478cde1af04007d85, type: 3}
   - {fileID: 21300000, guid: 218d18bc9be64374599cbc02ad762309, type: 3}
   - {fileID: 21300000, guid: c5614a4f7afc35c4d85d57551c6b686b, type: 3}
+  - {fileID: 21300000, guid: b8a83140ec1795f4f9c03a3628bb2fcc, type: 3}
+  - {fileID: 21300000, guid: 51b0c5ed567a9f444818f7e8a69f079d, type: 3}
+  - {fileID: 21300000, guid: 03544f13f7a664d46a21956ee1a63a76, type: 3}
+  - {fileID: 21300000, guid: 99d89418b13c1bf4a885d62d2e0ffadd, type: 3}
+  - {fileID: 21300000, guid: 0eb9535a474bc5c4a9c3498f5e658a49, type: 3}
+  - {fileID: 21300000, guid: 694d638c01411cd4c96a5f17402559ec, type: 3}
+  - {fileID: 21300000, guid: 53d4c83c27b05a9418ce7cd6e69a4f7e, type: 3}
+  - {fileID: 21300000, guid: fe2b79679959c76429ce131e1f47d60c, type: 3}
+  - {fileID: 21300000, guid: 633f907d21651ab408a9087c4ffcfe12, type: 3}
+  - {fileID: 21300000, guid: 4dda5651f0699e84487edda1f4af9a2b, type: 3}
+  - {fileID: 21300000, guid: 451b1bd3af07ab34f94b8744f54c875c, type: 3}
+  - {fileID: 21300000, guid: ba1a478a0bc782644a7b219f34d5bfe8, type: 3}
+  - {fileID: 21300000, guid: ba212bdfcbbc60149bb4878d4a8661d3, type: 3}
   _playerBody:
   - {fileID: 21300000, guid: 50d37e28a9f833442b092f8fd5021b5e, type: 3}
   - {fileID: 21300000, guid: ec6d5e3f3ec56f14496665d17c18ce38, type: 3}
@@ -1054,10 +1124,25 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 01db237e3d62a8d479e3f2e55027db54, type: 3}
   - {fileID: 21300000, guid: 96d8b5a806cd0424da6e289cbaa18e72, type: 3}
   - {fileID: 21300000, guid: fa72b38c7eae9a94985341be58a06499, type: 3}
+  - {fileID: 21300000, guid: d1a2393134c6ab0498e6947eabf1929c, type: 3}
+  - {fileID: 21300000, guid: 83185adfdc0185f44b91f9002306aca3, type: 3}
+  - {fileID: 21300000, guid: e36c2f13d45f1e847bbd79cb8ac18031, type: 3}
+  - {fileID: 21300000, guid: f2c8db7e78999634793bf9d5134e0d1a, type: 3}
+  - {fileID: 21300000, guid: 6b2673a7670d54f4d99cb58c2fccfc51, type: 3}
+  - {fileID: 21300000, guid: 8596bc842d096ff419831fa81941a3e7, type: 3}
+  - {fileID: 21300000, guid: 0498350422261964b9c35dc0e3d98266, type: 3}
+  - {fileID: 21300000, guid: eb60333fa20ce67409389d9f7217cf8b, type: 3}
+  - {fileID: 21300000, guid: 9e7df3a94ae6281468172b16becad3b5, type: 3}
+  - {fileID: 21300000, guid: ff3db70426552ed44a7d546fa7e94049, type: 3}
+  - {fileID: 21300000, guid: a199199d8100b4143911b692d318b50e, type: 3}
+  - {fileID: 21300000, guid: fd13eb907070be2498193fe3a99efb78, type: 3}
+  - {fileID: 21300000, guid: a4cb32594fc5dc148bc28022ec7b0238, type: 3}
   _currentHead: {fileID: 2123343082796553539}
   _currentBody: {fileID: 2123343082812550231}
-  _readyButton: {fileID: 1234717102975129290}
-  _readySprite: {fileID: 21300000, guid: c23b97c18cfbf1d47900f51b4dd86d5a, type: 3}
+  _readyButtonImage: {fileID: 1234717102975129290}
+  _readySprite: {fileID: 21300000, guid: 188045a28504fd9469d63564f1976b85, type: 3}
+  _selectSound: {fileID: 8300000, guid: cd7bd2f28512caf49805b492460c2aff, type: 3}
+  _readySound: {fileID: 8300000, guid: 36c4fffb3523b724999d23ba5365cb61, type: 3}
 --- !u!1 &7317022679244436451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,7 +1169,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7317022679244436451}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1230,19 +1315,19 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.5471698, g: 0.5445888, b: 0.5445888, a: 1}
-    m_PressedColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
-    m_SelectedColor: {r: 0.25490198, g: 0.25490198, b: 0.25490198, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 21300000, guid: 4f4a73b4c99a5dd4a831491c34eb3d2e, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal

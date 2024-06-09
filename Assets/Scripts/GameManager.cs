@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static OptionsScreen;
 
 public class GameManager : Manager
 {
@@ -31,10 +32,14 @@ public class GameManager : Manager
 
     [SerializeField] private EmptyDestructibleObject _empyObj;
 
+    public frameLimits limits;
+
     private void Awake()
     {
         _loader = ServiceLocator.Get<GameLoader>();
         _loader.CallOnComplete(Initialize);
+        limits = frameLimits.fps60;
+        Application.targetFrameRate = (int)limits;
     }
 
     private void Initialize()
@@ -232,6 +237,8 @@ public class GameManager : Manager
         spawnPoints.Clear();
         VictoryScreen = false;
         startScreen = true;
+
+        ServiceLocator.Get<AudioManager>().StopMusic();
         for (int i = 0; i < _playerCount; i++)
         {
             Destroy(_playerConfigs[i].Input.gameObject);

@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/StartMenu.unity
     guid: ab8098102b9ecda45ad1e2aa8d0b2032
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 74f79c08660d78749bff27af8929fbed
+  - enabled: 1
     path: Assets/Scenes/z_Loadout.unity
     guid: eab9c93ff65f43341945a607ca3b194b
   - enabled: 1
@@ -101,12 +104,42 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/_Playable Maps/FlatConveyor.unity
     guid: 0b4d5dfabdccd8d44a15c0d9cdd2f887
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/_Playable Maps/Z 5.unity
     guid: 07c75e32b070b3a4db7aaf926f399408
-  - enabled: 1
-    path: Assets/Scenes/_Playable Maps/Pickle Showdown.unity
+  - enabled: 0
+    path: Assets/Scenes/_Playable Maps/Testing/Pickle Showdown.unity
     guid: 37865fa8ffae7f04ab12cbe34383ee6a
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/_ 3.unity
+    guid: 547b3dc72667c2d4e89032dfd0c32a0d
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/_ 4.unity
+    guid: 3b46f3fdc04e8d34988993625c09975a
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/_ 5.unity
+    guid: e9f9fd4e360f97f458e8553df4a382ac
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/_ 6.unity
+    guid: 74ba21cfe5b8d6446ac153ac244902e3
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/_ 7.unity
+    guid: e8c2b936f256133468664ed7ad959121
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/_ 8.unity
+    guid: cf4fd2bf4a6500c47b5ae57359f7dbbe
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/_ 9.unity
+    guid: 2e7726a2fd9537148b4d17bc184a5380
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/_ 11.unity
+    guid: 882dfa79b9134ad419aa107cdf859f7b
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/_ 13.unity
+    guid: 650a9ae772158fd49a87395aa94f8260
+  - enabled: 1
+    path: Assets/Scenes/_Playable Maps/_ 16.unity
+    guid: 2b1acc692b8991b4c908e3ce1bfa6158
   - enabled: 1
     path: Assets/Scenes/VictoryMap.unity
     guid: c6f88a4fbefe2f84294a71ba5213eba4

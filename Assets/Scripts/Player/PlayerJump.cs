@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerJump : MonoBehaviour
@@ -26,6 +27,11 @@ public class PlayerJump : MonoBehaviour
     [SerializeField]
     private ParticleSystem _dJumpParticles;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip _jumpSound;
+    [SerializeField] private AudioClip _doubleJumpSound;
+    private AudioManager _audioManager;
+
     private float flyPower;
 
     private float _gravityScaleFactor;
@@ -38,11 +44,14 @@ public class PlayerJump : MonoBehaviour
     private bool _canDoubleJump;
     private bool _isDoubleJumping;
 
+    public Action OnStartJump;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _player = GetComponent<Player>();
         _inputhandler = GetComponent<PlayerInputHandler>();
+        _audioManager = ServiceLocator.Get<AudioManager>();
 
         _jumpGravity = -2 * _jumpHeight / Mathf.Pow(_jumpTime, 2);
         _gravityScaleFactor = _jumpGravity / Physics2D.gravity.y;
@@ -106,6 +115,7 @@ public class PlayerJump : MonoBehaviour
 
     private void StartJump()
     {
+        OnStartJump?.Invoke();
         _canJump = false;
         _rb.velocity = new Vector3(_rb.velocity.x, 0f, 0f);
         _rb.gravityScale = _gravityScaleFactor;
@@ -113,6 +123,7 @@ public class PlayerJump : MonoBehaviour
 
         if (_canDoubleJump)
         {
+            _audioManager.PlaySound(_doubleJumpSound, transform.position, SoundType.SFX);
             _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed * 0.6f, ForceMode2D.Impulse);
             _canDoubleJump = false;
             _isDoubleJumping = true;
@@ -122,6 +133,7 @@ public class PlayerJump : MonoBehaviour
         {
             if (!_player.CanFly)
             {
+                _audioManager.PlaySound(_jumpSound, transform.position, SoundType.SFX);
                 _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed, ForceMode2D.Impulse);
                 _jumpParticles.Play();
             }
@@ -146,7 +158,6 @@ public class PlayerJump : MonoBehaviour
         {
             _rb.gravityScale = _gravityScaleFactor;
         }
-
 
         if (IsGrounded() && _rb.velocity.y <= 0.0f)
         {

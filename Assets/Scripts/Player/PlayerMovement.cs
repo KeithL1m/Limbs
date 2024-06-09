@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -7,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInputHandler _inputHandler;
     private PlayerHealth _pHealth;
 
+    [SerializeField] private FootstepController _footsteps;
     [SerializeField] private GroundCheck _groundCheck;
     [SerializeField] private ParticleSystem _walkDust;
     private ParticleSystem.EmissionModule _walkDustEmission;
@@ -26,15 +28,14 @@ public class PlayerMovement : MonoBehaviour
     private float _hopTimer = 0.0f;
     [SerializeField] private float _maxHopTime;
     [SerializeField] private float _startMovePoint = 0.5f;
-    [SerializeField] private float _smoothMoveSpeed = 0.06f; //the higher the number the less responsive it gets
-
-    [SerializeField] private Transform _headRotation;
-    [SerializeField] private float _maxRotation = 33.5f;
+    [SerializeField] private float _smoothMoveSpeed = 0.06f; //the higher the number the less responsive it get
 
     Vector3 zeroVector = Vector3.zero;
 
     public bool facingRight;
     private bool _dust;
+
+    public Action OnMove;
 
     void Awake()
     {
@@ -78,14 +79,19 @@ public class PlayerMovement : MonoBehaviour
 
         anchorsAnim.SetFloat("speed", moveSpeed);
 
+        if (_playerJump.IsGrounded() && _rb.velocity.magnitude > 1 && state != PlayerLimbs.LimbState.NoLimb)
+        {
+            _footsteps.StartWalking();
+        }
+        else
+        {
+            _footsteps.StopWalking();
+        }
+
         Vector3 targetVelocity = new Vector2(moveSpeed, _rb.velocity.y);
         _rb.velocity = Vector3.SmoothDamp(_rb.velocity, targetVelocity, ref zeroVector, _smoothMoveSpeed);
 
-        float speed = _rb.velocity.x;
-        float currentRotation = (speed / _2LegMoveSpeed) * _maxRotation;
-
-        Quaternion rotation = Quaternion.Euler(0f, 0f, currentRotation);
-        _headRotation.rotation = rotation;
+        OnMove?.Invoke();
 
         if (_rb.velocity.magnitude > 4.0f)
         {
@@ -136,5 +142,10 @@ public class PlayerMovement : MonoBehaviour
     public void ZeroVelocity()
     {
         _rb.velocity = Vector3.zero;
+    }
+
+    public float GetMaxSpeed()
+    {
+        return _2LegMoveSpeed;
     }
 }
