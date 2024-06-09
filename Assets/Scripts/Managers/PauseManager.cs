@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
@@ -41,6 +42,9 @@ public class PauseManager : MonoBehaviour
     [SerializeField]
     private UIManager _uiManager;
 
+    [Header("New ExitGame Button")]
+    [SerializeField] private Button _exitGameButton;
+    [SerializeField] private GameObject _exitGameUIPlane;
     private void Awake()
     {
         _loader = ServiceLocator.Get<GameLoader>();
@@ -62,6 +66,7 @@ public class PauseManager : MonoBehaviour
     private void OnEnable()
     {
         action?.Enable();
+        _exitGameButton.onClick.AddListener(NewExitGame);
     }
 
     private void OnDisable()
@@ -183,6 +188,10 @@ public class PauseManager : MonoBehaviour
         gm.EndGame();
     }
 
+    private void NewExitGame() 
+    {
+        Instantiate(_exitGameUIPlane, _pauseMenu.transform);
+    }
     public void SetCamera(Camera camera)
     {
         _canvas.worldCamera = camera;

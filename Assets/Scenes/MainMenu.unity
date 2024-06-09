@@ -1735,6 +1735,8 @@ MonoBehaviour:
   _backButtonSound: {fileID: 8300000, guid: 18340cc5389c8834c973380605b48d46, type: 3}
   _enterButtonSound: {fileID: 8300000, guid: cd7bd2f28512caf49805b492460c2aff, type: 3}
   _meatcaseMusic: {fileID: 8300000, guid: eea850591564f23479f82fc1c7a739e2, type: 3}
+  _exitButton: {fileID: 1456114010}
+  _exitMenu: {fileID: 1012175397420786692, guid: 241e8a669581c5342b80ac3c38fa3bad, type: 3}
 --- !u!1 &1226764181
 GameObject:
   m_ObjectHideFlags: 0

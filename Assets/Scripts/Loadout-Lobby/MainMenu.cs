@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -42,7 +43,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private AudioClip _meatcaseMusic;
     private AudioManager _audioManager;
 
-
+    [Header("ExitGame")]
+    [SerializeField] private Button _exitButton;
+    [SerializeField] private GameObject _exitMenu;
 
     private void Awake()
     {
@@ -107,8 +110,11 @@ public class MainMenu : MonoBehaviour
 
     public void ExitGame()
     {
-        Debug.Log("Quitting game...");
-        Application.Quit();
+        
+        Instantiate(_exitMenu, mainMenu.transform);
+        //Debug.Log("Quitting game...");
+        //Application.Quit();
+
     }
 
     IEnumerator Delay(int sceneToLoad)
