@@ -518,7 +518,7 @@ MonoBehaviour:
   _buttonSound: {fileID: 8300000, guid: 3efad56707598644b894a7c52f10f0ec, type: 3}
   _titleMusic: {fileID: 8300000, guid: 2e26449123104fe48b53f39aff135d94, type: 3}
   fadeTransition: {fileID: 7784799356220791877}
-  nextScene: 2
+  nextScene: 3
 --- !u!114 &938100862
 MonoBehaviour:
   m_ObjectHideFlags: 0

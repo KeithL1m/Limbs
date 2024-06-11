@@ -159,7 +159,7 @@ public class PauseManager : MonoBehaviour
     public void UnloadExitPopupMenu()
     {
         _exitPopupMenu.SetActive(false);
-        _eventSystem.SetSelectedGameObject(_exitPopupFirstButton);
+        _eventSystem.SetSelectedGameObject(_pauseFirstButton);
         //make sure an animation plays when this is clicked
     }
 
