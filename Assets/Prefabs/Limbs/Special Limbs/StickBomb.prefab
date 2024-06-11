@@ -391,8 +391,10 @@ MonoBehaviour:
   screenShakePercent: 1
   screenShakeTime: 0.5
   _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
+  _hitSound: {fileID: 0}
   _timer: 6
   _collider: {fileID: 1332441338902969101}
+  _smokeBombClip: {fileID: 8300000, guid: cbda84264619c574f816c8fa73a27b41, type: 3}
 --- !u!50 &7031974623823099388
 Rigidbody2D:
   serializedVersion: 4
