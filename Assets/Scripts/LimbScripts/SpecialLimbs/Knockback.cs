@@ -13,14 +13,11 @@ public class Knockback : Limb
         {
             return;
         }
-        if (_returnVelocity.magnitude > 4.0f || LimbRB.velocity.magnitude > 4.0f)
-        {
-            _audioManager.PlaySound(_pickleSound, transform.position, SoundType.SFX, 0.5f);
-        }
         if (collision.gameObject.tag != "Player")
         {
             return;
         }
+        _audioManager.PlaySound(_pickleSound, transform.position, SoundType.SFX, 0.5f);
         collision.rigidbody.AddForce(-_returnVelocity.normalized * _knockbackAmt);
     }
 }
