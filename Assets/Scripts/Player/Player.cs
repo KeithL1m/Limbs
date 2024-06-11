@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
 
     [Header("Sounds")]
     [SerializeField] private List<AudioClip> _throwSounds;
+    [SerializeField] private AudioClip _landSound;
     private AudioManager _audioManager;
 
     //facing left = -1, right = 1
@@ -259,6 +260,7 @@ public class Player : MonoBehaviour
         if (!_wasOnGround && _groundCheck.isGrounded && _previousVelocity2.y < -5.0f)
         {
             OnLanded?.Invoke();
+            _audioManager.PlaySound(_landSound, transform.position, SoundType.SFX, 0.7f);
             _impactParticles.Play();
         }
 
@@ -390,4 +392,10 @@ public class Player : MonoBehaviour
         _playerHead.material = _defaultMaterial;
         _drunkRisingBubbleParticles.SetActive(false);
     }
+
+    public float GetRBGravity()
+    {
+        return _rb.gravityScale;
+    }
+
 }

@@ -115,6 +115,7 @@ MonoBehaviour:
   IsSpecial: 0
   screenShakePercent: 1
   screenShakeTime: 0.5
+  _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
   _gravityScale: 4
 --- !u!114 &1022321934630574056
 MonoBehaviour:

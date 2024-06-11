@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Gas : MonoBehaviour
 {
+    [SerializeField] private AudioClip _tickSound;
     [SerializeField] private float _maxLifetime = 10;
     [SerializeField] private float _gasRadiusRadius = 0.5f;
     private float _tickRate = 1;
@@ -42,14 +43,13 @@ public class Gas : MonoBehaviour
         foreach(var player in _playersInCloud)
         {
             // Get the player script 
-            player.GetComponent<PlayerHealth>().AddDamage(5);
+            player.GetComponent<PlayerHealth>().AddDamage(5, true, _tickSound);
         }
     }
 
     // when players are in the gas
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.CompareTag("Player"))
         {
             _playersInCloud.Add(collision.gameObject);

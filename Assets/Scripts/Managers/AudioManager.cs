@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.Timeline;
 using System.Threading.Tasks;
 using Microsoft.Cci;
+using UnityEngine.UIElements;
 
 public enum SoundType
 {
@@ -26,6 +27,7 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private List<AudioSource> _sources = new();
     private AudioSource _currentMusic;
+    private AudioSource _tempMusic;
     private AudioClip[] _gameMusic;
     [SerializeField] private int _numSources;
 
@@ -36,6 +38,7 @@ public class AudioManager : MonoBehaviour
     private bool _inGame;
 
     private float _songTime;
+    private float _currentSongTime;
 
     private void Awake()
     {
@@ -93,7 +96,7 @@ public class AudioManager : MonoBehaviour
         AudioSource source = new();
         for (int i = 0; i < _sources.Count; i++)
         {
-            if (!_sources[i].isPlaying)
+            if (!_sources[i].isPlaying && _sources[i] != _currentMusic)
             {
                 source = _sources[i];
             }
@@ -114,6 +117,8 @@ public class AudioManager : MonoBehaviour
 
         source.volume = Mathf.Log10(volume) * 20f;
 
+        source.time = 0;
+
         source.Play();
     }
 
@@ -124,7 +129,7 @@ public class AudioManager : MonoBehaviour
         AudioSource source = new();
         for (int i = 0; i < _sources.Count; i++)
         {
-            if (!_sources[i].isPlaying)
+            if (!_sources[i].isPlaying && _sources[i] != _currentMusic)
             {
                 source = _sources[i];
                 break;
@@ -159,6 +164,8 @@ public class AudioManager : MonoBehaviour
         source.clip = audio;
 
         source.volume = volume;
+
+        source.time = 0;
 
         source.Play();
     }
@@ -225,5 +232,53 @@ public class AudioManager : MonoBehaviour
     {
         _currentMusic?.Stop();
         _inGame = false;
+    }
+
+    public void PauseMusic()
+    {
+        _currentSongTime = _currentMusic.time;
+        _currentMusic.Stop();
+    }
+
+    public void PlayMusicTemp(AudioClip music, float volume = 1f)
+    {
+        AudioSource source = new();
+        for (int i = 0; i < _sources.Count; i++)
+        {
+            if (!_sources[i].isPlaying)
+            {
+                source = _sources[i];
+                break;
+            }
+            else if (i + 1 == _sources.Count)
+            {
+                AudioSource newSource = Instantiate(_basicAudioSource, _gm.transform).GetComponent<AudioSource>();
+                _sources.Add(newSource);
+                source = newSource;
+                break;
+            }
+        }
+
+        _tempMusic = source;
+
+        _tempMusic.outputAudioMixerGroup = _musicGroup;
+
+        _tempMusic.clip = music;
+
+        _tempMusic.volume = volume;
+
+        _tempMusic.PlayDelayed(1f);
+    }
+
+    public void StopTempMusic()
+    {
+        Debug.Log("Stopping music");
+        _tempMusic.Stop();
+    }
+
+    public void UnpauseMusic()
+    {
+        _currentMusic.Play();
+        _currentMusic.time = _currentSongTime;
     }
 }

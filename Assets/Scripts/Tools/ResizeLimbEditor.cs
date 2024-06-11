@@ -5,7 +5,7 @@ using UnityEngine;
 [CustomEditor(typeof(ResizeLimb))]
 public class ObjectBuilderEditor : Editor
 {
-    public override void OnInspectorGUI()
+    public override void OnInspectorGUI() 
     {
         DrawDefaultInspector();
 

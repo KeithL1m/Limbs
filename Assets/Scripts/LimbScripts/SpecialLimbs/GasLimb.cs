@@ -7,6 +7,7 @@ public class GasLimb : Limb
 
     float _delayTimer = 0.001f;
     [SerializeField] Collider2D _collider;
+    [SerializeField] private AudioClip _smokeBombClip;
 
     protected override void Initialize()
     {
@@ -41,6 +42,7 @@ public class GasLimb : Limb
     void GasExplode()
     {
         Debug.Log("FART");
+        _audioManager.PlaySound(_smokeBombClip, transform.position, SoundType.SFX);
         if (ServiceLocator.Get<CameraManager>() != null)
             ServiceLocator.Get<CameraManager>().StartScreenShake(screenShakePower * screenShakePercent, screenShakeTime);
         _particleManager.PlayGas(transform.position);

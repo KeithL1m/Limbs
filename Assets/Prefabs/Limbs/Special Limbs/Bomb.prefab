@@ -202,6 +202,7 @@ MonoBehaviour:
   IsSpecial: 1
   screenShakePercent: 1
   screenShakeTime: 0.5
+  _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
   _collider: {fileID: 3924467205363855887}
   _animator: {fileID: 6370475014402404606}
   _timer: 3

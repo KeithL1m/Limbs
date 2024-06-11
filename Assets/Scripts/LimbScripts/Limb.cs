@@ -59,6 +59,11 @@ public class Limb : MonoBehaviour
     [SerializeField] protected float screenShakePercent = 1;
     [SerializeField] protected float screenShakeTime = 0.5f;
 
+    //Audio
+    protected AudioManager _audioManager;
+    [SerializeField] private AudioClip _pickupSound;
+    [SerializeField] private AudioClip _hitSound;
+
     protected virtual void Awake()
     {
         GameLoader loader = ServiceLocator.Get<GameLoader>();
@@ -68,6 +73,7 @@ public class Limb : MonoBehaviour
     protected virtual void Initialize()
     {
         ServiceLocator.Get<LimbManager>().AddLimb(this);
+        _audioManager = ServiceLocator.Get<AudioManager>();
         State = LimbState.PickUp;
         LimbRB = GetComponent<Rigidbody2D>();
         LimbRB.SetRotation(0);
@@ -179,6 +185,7 @@ public class Limb : MonoBehaviour
     {
         FlipY(1);
         FlipX(1);
+        _returnVelocity = Vector3.zero;
         Physics2D.IgnoreCollision(_attachedPlayer.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
         State = LimbState.PickUp;
         _attachedPlayer = null;
@@ -236,7 +243,7 @@ public class Limb : MonoBehaviour
         
         if (collision.gameObject.CompareTag("BreakWall"))
         {
-            collision.gameObject.GetComponent<LimbInstantiateWall>().Damage();
+            collision.gameObject.GetComponentInParent<LimbInstantiateWall>().Damage();
             ContactPoint2D contactPoint = collision.GetContact(0);
             ServiceLocator.Get<ParticleManager>().PlayBreakableWallParticle(contactPoint.point);
             ReturnLimb();
@@ -329,6 +336,7 @@ public class Limb : MonoBehaviour
             {
                 LimbRB.SetRotation(0);
             }
+            _audioManager.PlaySound(_pickupSound, transform.position, SoundType.SFX, 0.85f);
             PickUpExtra(_attachedPlayer);
         }
     }
@@ -357,6 +365,7 @@ public class Limb : MonoBehaviour
             {
                 LimbRB.SetRotation(0);
             }
+            _audioManager.PlaySound(_pickupSound, transform.position, SoundType.SFX, 0.85f);
         }
     }
 }

@@ -7,7 +7,7 @@ public class ShowOnlyDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        switch (property.propertyType)
+        switch (property.propertyType) 
         {
             case SerializedPropertyType.AnimationCurve:
                 break;
