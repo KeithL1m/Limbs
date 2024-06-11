@@ -16,7 +16,8 @@ public class ArsenalButton : MonoBehaviour, ISelectHandler
 
     [SerializeField] private GameObject _connectedLimb;
 
-    [SerializeField] private Button _button;
+    [SerializeField] private Limbs_Description _itemDescription;
+    [SerializeField] private LimbUIInfo _limbInfo;
 
     private LimbManager _limbManager;
     private bool _selected = true;
@@ -34,7 +35,7 @@ public class ArsenalButton : MonoBehaviour, ISelectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
-
+        _itemDescription.UpdateInfo(_limbInfo);
     }
 
     public void ArsenalClicked()

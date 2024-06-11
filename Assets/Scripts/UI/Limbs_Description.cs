@@ -2,24 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Limbs_Description : MonoBehaviour
 {
     [SerializeField] private TMP_Text _limbNameText;
     [SerializeField] private TMP_Text _limbDescriptionText;
-    [SerializeField] private Sprite _limbSprite;
+    [SerializeField] private Image _limbSprite;
 
-    [SerializeField] private LimbInfo _limbInfo;
-
-    // Start is called before the first frame update
-    void Start()
+    public void UpdateInfo(LimbUIInfo info)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _limbSprite.sprite = info.limbSprite;
+        _limbNameText.text = info.limbName;
+        _limbDescriptionText.text = info.limbDescription;
     }
 }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1a996fd80ac1d847a0680c0a7aa08b2, type: 3}
+  m_Name: Teleport
+  m_EditorClassIdentifier: 
+  limbName: 8 Ball
+  limbDescription: The 8 Ball is a wonder in meathead transportation. Stand in one
+    spot and throw it to another, and before you know if you'll be zipping between
+    locations like it's nobody's business.
+  limbSprite: {fileID: 21300000, guid: edd786ce1050aed499ecd8efd2567007, type: 3}
