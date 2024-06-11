@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RisingDeadzone : MonoBehaviour
@@ -8,9 +10,11 @@ public class RisingDeadzone : MonoBehaviour
     [SerializeField]
     private bool disableMovement;
     [SerializeField]
-    private float damageOutput = 0.10f;
+    private float damageOutput = 1f;
     [SerializeField]
     private float requiredTime = 20;
+    [SerializeField]
+    private float _tickRate = 0.5f;
 
     private Rigidbody2D rb;
 
@@ -18,9 +22,13 @@ public class RisingDeadzone : MonoBehaviour
     private bool targetTimeReached;
     private bool isMoving = false;
 
+    private List<PlayerHealth> _players = new List<PlayerHealth>();
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        StartCoroutine(DamageTick());
     }
 
 
@@ -38,11 +46,15 @@ public class RisingDeadzone : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collide)
+    private IEnumerator DamageTick()
     {
-        if (collide.CompareTag(("Player")))
+        while (true)
         {
-            collide.GetComponent<PlayerHealth>().AddDamage(damageOutput);
+            yield return new WaitForSeconds(_tickRate);
+            foreach (var player in _players)
+            {
+                player.AddDamage(damageOutput);
+            }
         }
     }
 
@@ -53,6 +65,18 @@ public class RisingDeadzone : MonoBehaviour
             isMoving = false;
             targetTimeReached = false;
             requiredTime += 20;
+        }
+        else if (collision.CompareTag("Player"))
+        {
+            _players.Add(collision.GetComponent<PlayerHealth>());
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            _players.Remove(collision.GetComponent<PlayerHealth>());
         }
     }
 
