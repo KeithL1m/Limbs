@@ -156,6 +156,8 @@ MonoBehaviour:
   disableMovement: 0
   damageOutput: 0.1
   requiredTime: 20
+  _tickRate: 0.5
+  _tickSound: {fileID: 8300000, guid: 646e3ddee92ead94b9acfefe011389ce, type: 3}
 --- !u!50 &8916832892844938101
 Rigidbody2D:
   serializedVersion: 4

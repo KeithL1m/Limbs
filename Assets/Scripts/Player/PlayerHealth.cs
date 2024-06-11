@@ -46,7 +46,7 @@ public class PlayerHealth : MonoBehaviour
         _health = _maxHealth;
     }
 
-    public void AddDamage(float damage)
+    public void AddDamage(float damage, bool specialSfx = false, AudioClip specialClip = null)
     {
         if (_gm.startScreen)
         {
@@ -55,7 +55,14 @@ public class PlayerHealth : MonoBehaviour
         else if (isDead)
             return;
 
-        _audioManager.PlayRandomSound(_hurtEffects.ToArray(), transform.position, SoundType.SFX);
+        if (!specialSfx)
+        {
+            _audioManager.PlayRandomSound(_hurtEffects.ToArray(), transform.position, SoundType.SFX);
+        }
+        else
+        {
+            _audioManager.PlaySound(specialClip, transform.position, SoundType.SFX, 0.4f);
+        }
 
         _health -= damage;
         damageParticles.PlayDamageParticle();

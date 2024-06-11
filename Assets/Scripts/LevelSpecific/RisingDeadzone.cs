@@ -15,6 +15,8 @@ public class RisingDeadzone : MonoBehaviour
     private float requiredTime = 20;
     [SerializeField]
     private float _tickRate = 0.5f;
+    [SerializeField]
+    private AudioClip _tickSound;
 
     private Rigidbody2D rb;
 
@@ -53,7 +55,7 @@ public class RisingDeadzone : MonoBehaviour
             yield return new WaitForSeconds(_tickRate);
             foreach (var player in _players)
             {
-                player.AddDamage(damageOutput);
+                player.AddDamage(damageOutput, true, _tickSound);
             }
         }
     }
