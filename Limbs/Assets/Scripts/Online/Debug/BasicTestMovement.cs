@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class BasicTestMovement : MonoBehaviour
+public class BasicTestMovement : NetworkBehaviour
 {
     [SerializeField] private Transform _transform;
     [SerializeField] private float _moveSpeed = 5.0f;
 
     void Update()
     {
+        if (!IsOwner)
+        {
+            return;
+        }
+
         Vector3 moveDir = Vector3.zero;
 
         if(Input.GetKey(KeyCode.A))
