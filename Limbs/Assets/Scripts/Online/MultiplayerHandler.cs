@@ -1,3 +1,7 @@
+using System.Threading.Tasks;
+using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
+using Unity.Networking.Transport.Relay;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Relay;
@@ -6,7 +10,7 @@ using UnityEngine;
 
 public class MultiplayerHandler : MonoBehaviour
 {
-    private string _joinCode = string.Empty;
+    [SerializeField] private string _joinCode = string.Empty;
 
     private async void Start()
     {
@@ -20,7 +24,7 @@ public class MultiplayerHandler : MonoBehaviour
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
 
-    private async void CreateServer()
+    public async Task<string> CreateServer()
     {
         //Creating the actual server
         try
@@ -30,18 +34,30 @@ public class MultiplayerHandler : MonoBehaviour
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayersInServer);
 
             _joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+
+            RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+
+            NetworkManager.Singleton.StartHost();
+            return _joinCode;
         }
         catch (RelayServiceException ex)
         {
             Debug.Log($"<color=red>{ex}</color>");
+            return ex.ToString();
         }
     }
 
-    private async void JoinServer(string joinCode)
+    public async void JoinServer(string joinCode)
     {
         try
         {
-            await RelayService.Instance.JoinAllocationAsync(joinCode);
+            JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
+
+            RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+
+            NetworkManager.Singleton.StartClient();
         }
         catch (RelayServiceException ex)
         {
