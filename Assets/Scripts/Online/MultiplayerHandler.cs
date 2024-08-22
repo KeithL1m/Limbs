@@ -11,6 +11,8 @@ using UnityEngine;
 public class MultiplayerHandler : MonoBehaviour
 {
     [SerializeField] private string _joinCode = string.Empty;
+    //Does not count the host
+    [SerializeField]const int maxPlayersInServer = 3;
 
     private async void Start()
     {
@@ -30,7 +32,7 @@ public class MultiplayerHandler : MonoBehaviour
         try
         {
             //Does not count the host
-            const int maxPlayersInServer = 3;
+            
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayersInServer);
 
             _joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
