@@ -20,18 +20,30 @@ public class VolumeSettings : MonoBehaviour
 
     public void SetMasterVolume(float volume)
     {
+        if (volume == 0.0f)
+        {
+            volume = 1.0f;
+        }
         float vol = volume * 0.01f;
         _audioManager.SetMasterVolume(vol);
     }
 
     public void SetMusicVolume(float volume)
     {
+        if (volume == 0.0f)
+        {
+            volume = 1.0f;
+        }
         float vol = volume * 0.01f;
         _audioManager.SetMusicVolume(vol);
     }
 
     public void SetSFXVolume(float volume)
     {
+        if (volume == 0.0f)
+        {
+            volume= 1.0f;
+        }
         float vol = volume * 0.01f;
         _audioManager.SetSFXVolume(vol);
     }

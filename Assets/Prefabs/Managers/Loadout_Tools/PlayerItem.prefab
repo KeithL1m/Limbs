@@ -91,7 +91,6 @@ GameObject:
   - component: {fileID: 2123343082477732258}
   - component: {fileID: 2123343082477732257}
   - component: {fileID: 1869446067142161045}
-  - component: {fileID: 937537102996689664}
   m_Layer: 5
   m_Name: Right Button (1)
   m_TagString: Untagged
@@ -213,19 +212,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &937537102996689664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2123343082477732263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b51c315009b35a4b8d2c89d57052b53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _browseSound: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
 --- !u!1 &2123343082728547096
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +224,6 @@ GameObject:
   - component: {fileID: 2123343082728547099}
   - component: {fileID: 2123343082728547098}
   - component: {fileID: 9017944817917584950}
-  - component: {fileID: 1273874691085635867}
   m_Layer: 5
   m_Name: Right Button
   m_TagString: Untagged
@@ -360,19 +345,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1273874691085635867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2123343082728547096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b51c315009b35a4b8d2c89d57052b53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _browseSound: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
 --- !u!1 &2123343082796553537
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,7 +648,6 @@ GameObject:
   - component: {fileID: 2123343083442610913}
   - component: {fileID: 2123343083442610912}
   - component: {fileID: 754208733343752832}
-  - component: {fileID: 3553018019917291000}
   m_Layer: 5
   m_Name: Left Button
   m_TagString: Untagged
@@ -798,19 +769,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3553018019917291000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2123343083442610918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b51c315009b35a4b8d2c89d57052b53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _browseSound: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
 --- !u!1 &2123343083841272590
 GameObject:
   m_ObjectHideFlags: 0
@@ -823,7 +781,6 @@ GameObject:
   - component: {fileID: 2123343083841272585}
   - component: {fileID: 2123343083841272584}
   - component: {fileID: 2837933147739233511}
-  - component: {fileID: 2064893572120227509}
   m_Layer: 5
   m_Name: Left Button (1)
   m_TagString: Untagged
@@ -945,19 +902,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2064893572120227509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2123343083841272590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b51c315009b35a4b8d2c89d57052b53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _browseSound: {fileID: 8300000, guid: d7772fc93bb1d014e8d6e469a4b3bfca, type: 3}
 --- !u!1 &3341446640998491032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,6 +1021,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 451b1bd3af07ab34f94b8744f54c875c, type: 3}
   - {fileID: 21300000, guid: ba1a478a0bc782644a7b219f34d5bfe8, type: 3}
   - {fileID: 21300000, guid: ba212bdfcbbc60149bb4878d4a8661d3, type: 3}
+  - {fileID: 21300000, guid: 93590f1b73adf65498cb318eb637e95f, type: 3}
+  - {fileID: 21300000, guid: ee9e635b3d816e44b8de1793d18edd32, type: 3}
   _playerBody:
   - {fileID: 21300000, guid: 50d37e28a9f833442b092f8fd5021b5e, type: 3}
   - {fileID: 21300000, guid: ec6d5e3f3ec56f14496665d17c18ce38, type: 3}
@@ -1137,6 +1083,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a199199d8100b4143911b692d318b50e, type: 3}
   - {fileID: 21300000, guid: fd13eb907070be2498193fe3a99efb78, type: 3}
   - {fileID: 21300000, guid: a4cb32594fc5dc148bc28022ec7b0238, type: 3}
+  - {fileID: 21300000, guid: 6710d8c5d4f2e014bafa480a92c906be, type: 3}
+  - {fileID: 21300000, guid: ad1fb4846a2e1904ebe103dda6c01f1b, type: 3}
   _currentHead: {fileID: 2123343082796553539}
   _currentBody: {fileID: 2123343082812550231}
   _readyButtonImage: {fileID: 1234717102975129290}

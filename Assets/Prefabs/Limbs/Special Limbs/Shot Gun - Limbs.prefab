@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7643786849370820877}
   - component: {fileID: 7031586765184258081}
   - component: {fileID: 6611122400568246507}
+  - component: {fileID: 3975772605864171954}
   m_Layer: 0
   m_Name: Shot Gun - Limbs
   m_TagString: Limb
@@ -114,8 +115,30 @@ MonoBehaviour:
   IsSpecial: 1
   screenShakePercent: 0.6
   screenShakeTime: 0.5
+  _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
+  _hitSound: {fileID: 0}
   _forceAmt: 50
   _animation: {fileID: 6758525524837623812}
+  _shootSound: {fileID: 8300000, guid: 65ebf5918c36c3647846a5b121db3fdf, type: 3}
+  _specialPickUpSound: {fileID: 8300000, guid: b052b6c208ab6ff4d8d9548e09521fdb, type: 3}
+--- !u!114 &3975772605864171954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479936713415687806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb1f903c1901234b911169eb4a5418a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbName: POW Glove
+  _limbDescription: 'The POW Glove is a spring-loaded fist that is sure to send you
+    AND your fellow meatheads flying. Shoot this limb in any direction for an immediate
+    burst of momentum, but remember that it''ll boost you in the opposite direction
+    too... Authors note: Aiming downward when using this limb will give the user
+    an explosive one-time-use ''rocket jump''.'
 --- !u!1 &1123106515960743069
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,7 +352,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 368a59e7d29add247bee1c1ee05a0763, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -388,8 +411,8 @@ Transform:
   m_GameObject: {fileID: 7254546142229159940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.5}
-  m_LocalScale: {x: 0.28821328, y: 0.28821328, z: 0.28821328}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8952520609378391584}
   m_RootOrder: 1
@@ -434,9 +457,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 30f562c54c5d9f04d8fc516683a7d923, type: 3}
-  m_Color: {r: 1, g: 1, b: 0.015686275, a: 0.627451}
+  m_Color: {r: 1, g: 1, b: 0.015686275, a: 0.8627451}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

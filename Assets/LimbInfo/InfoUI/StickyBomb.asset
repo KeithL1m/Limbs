@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1a996fd80ac1d847a0680c0a7aa08b2, type: 3}
+  m_Name: StickyBomb
+  m_EditorClassIdentifier: 
+  limbName: Honey Bomb
+  limbDescription: Unique to this adhesive artillery, the honey bomb is a prime option
+    when it comes to sticking deadly explosives to the heads of your unsuspecting
+    friends. But beware of honey bombs not stuck to players... If you run overtop
+    of one that isn't attached to anything, it'll become attached to you.
+  limbSprite: {fileID: 21300000, guid: 1477eee7f35ea3f42aeed4ee0f76412e, type: 3}

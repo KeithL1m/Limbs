@@ -262,7 +262,7 @@ public class GameManager : Manager
 
         ServiceLocator.Get<LimbManager>().ClearList();
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(3);
     }
 
     public int GetPlayerCount()

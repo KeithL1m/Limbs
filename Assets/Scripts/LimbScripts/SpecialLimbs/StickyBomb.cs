@@ -20,6 +20,7 @@ public class StickyBomb : Limb
     float _delayTimer = 0.001f;
 
     [SerializeField] Collider2D _collider;
+    [SerializeField] private AudioClip _smokeBombClip;
     Collider2D[] explosionRadius = null;
     private float _explosionForce = 300;
     private float _explosionRadius = 5;
@@ -121,6 +122,7 @@ public class StickyBomb : Limb
     private IEnumerator ExplodeAfterDelay(Action callback)
     {
         yield return new WaitForSeconds(countdown);
+        _audioManager.PlaySound(_smokeBombClip, transform.position, SoundType.SFX);
         Explode();
         callback?.Invoke();
     }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7643786849370820877}
   - component: {fileID: 7031586765184258081}
   - component: {fileID: 7031586765184258110}
+  - component: {fileID: 357135077063087861}
   m_Layer: 0
   m_Name: Limbs
   m_TagString: Limb
@@ -110,9 +111,27 @@ MonoBehaviour:
   <PickUpIndicator>k__BackingField: {fileID: 7254546142229159940}
   <PickupTimer>k__BackingField: 0
   TripleShot: 0
-  _specialLimbs: 0
+  _bombLimb: 0
+  IsSpecial: 0
   screenShakePercent: 0
   screenShakeTime: 0
+  _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
+--- !u!114 &357135077063087861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479936713415687806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb1f903c1901234b911169eb4a5418a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbName: Ol' Reliable
+  _limbDescription: This little arm was the pioneer of it all. Dealing moderate damage
+    and travelling moderate distances, 'Ol' Reliable' is a normal limb that useful
+    for almost any situation.
 --- !u!1 &1123106515960743069
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,7 +344,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 1c7e33b1d222fba49806382917b45cf3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -410,7 +429,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 30f562c54c5d9f04d8fc516683a7d923, type: 3}
   m_Color: {r: 0.9137255, g: 0.91764706, b: 0.8392157, a: 0.627451}
   m_FlipX: 0

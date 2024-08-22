@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 7378542149016335331}
   - component: {fileID: 8462231620465984710}
   - component: {fileID: 236142484553708336}
+  - component: {fileID: 5311913952131431920}
   m_Layer: 0
   m_Name: GhostLimb
   m_TagString: Untagged
@@ -201,6 +202,7 @@ MonoBehaviour:
   IsSpecial: 1
   screenShakePercent: 0.2
   screenShakeTime: 0.5
+  _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
   _collider: {fileID: 7378542149016335331}
 --- !u!70 &7378542149016335331
 CapsuleCollider2D:
@@ -255,6 +257,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5311913952131431920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5001288000470333368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb1f903c1901234b911169eb4a5418a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbName: Keith Jr.
+  _limbDescription: From the gates of the afterlife arrives Keith Jr. a lost soul
+    said to have become victim to the meathead swarm. This unique limb can go through
+    walls immediately after being thrown.
 --- !u!1 &5070205652253322220
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,8 +300,8 @@ Transform:
   m_GameObject: {fileID: 5070205652253322220}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.50000006}
-  m_LocalScale: {x: 0.22722721, y: 0.22722721, z: 0}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1393379337841017259}
   m_RootOrder: 1
@@ -328,9 +346,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 30f562c54c5d9f04d8fc516683a7d923, type: 3}
-  m_Color: {r: 1, g: 1, b: 0.015686275, a: 0.627451}
+  m_Color: {r: 1, g: 1, b: 0.015686275, a: 0.8627451}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -432,7 +450,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 572cdc0ceef84ee4789c5cd6852c304d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

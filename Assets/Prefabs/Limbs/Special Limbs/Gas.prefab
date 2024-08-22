@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dce07a794e825645a9011930faa6737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tickSound: {fileID: 8300000, guid: 646e3ddee92ead94b9acfefe011389ce, type: 3}
   _maxLifetime: 6
   _gasRadiusRadius: 0.26
 --- !u!212 &7958621034200798487

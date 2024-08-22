@@ -394,7 +394,7 @@ public class PlayerLimbs : MonoBehaviour
             }
             else if (enemy.gameObject.CompareTag("BreakWall"))
             {
-                enemy.gameObject.GetComponent<LimbInstantiateWall>().Damage();
+                enemy.gameObject.GetComponentInParent<LimbInstantiateWall>().Damage();
                 ServiceLocator.Get<ParticleManager>().PlayBreakableWallParticle(enemy.transform.position);
                 return;
             }

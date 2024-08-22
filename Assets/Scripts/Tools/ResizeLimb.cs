@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ResizeLimb : MonoBehaviour
 {
-    public Transform limb;
+    public Transform limb; 
     public Transform sprite;
     public Transform pickupIndicator;
 
