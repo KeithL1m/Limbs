@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,7 @@ public class GameManager : Manager
     private MapManager _mapManager = null;
     private PlayerManager _playerManager = null;
     private ObjectPoolManager _objManager;
+    private SceneFade _transition;
 
     public List<GameObject> spawnPoints = new List<GameObject>();
 
@@ -33,6 +35,7 @@ public class GameManager : Manager
     [SerializeField] private EmptyDestructibleObject _empyObj;
 
     public frameLimits limits;
+    private float _changeSceneDuration;
 
     private void Awake()
     {
@@ -58,7 +61,8 @@ public class GameManager : Manager
 
         _pauseManager = pauseManager;
         _uiManager = uiManager;
-        _mapManager.fade = _uiManager.GetFade();
+        _transition = _uiManager.GetFade();
+        _changeSceneDuration = _transition.GetFadeDuration();
 
         _playerCount = _configManager.GetPlayerNum();
         _playerConfigs = _configManager.GetPlayerConfigs();
@@ -88,7 +92,18 @@ public class GameManager : Manager
         ClearLimbs();
         EarlyEnd = false;
         startScreen = false;
-        _mapManager.ChangeScene();
+
+        StartCoroutine(SceneTransition());
+    }
+
+    IEnumerator SceneTransition()
+    {
+        _transition.StartTransition();
+
+        yield return new WaitForSeconds(_changeSceneDuration);
+
+        ResetRound();
+        _mapManager.LoadMap();
     }
 
     override public void OnStart()
@@ -143,13 +158,11 @@ public class GameManager : Manager
                 StartCoroutine(_uiManager.ShowGameOverScreen(winningConfig));
             }
         }
-
         else
         {
             _deadPlayers = 0;
         }
     }
-
 
     public void EndRound()
     {
@@ -167,7 +180,8 @@ public class GameManager : Manager
         {
             ServiceLocator.Get<CameraManager>().Unregister();
         }
-        _mapManager.ChangeScene();
+
+        StartCoroutine(SceneTransition());
     }
 
     public void VictoryScreenSelect(GameObject button)

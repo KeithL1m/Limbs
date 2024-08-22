@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class SceneFade : MonoBehaviour
 {
-    public bool FadeIn { get; set; } = false;
-    public bool FadeOut { get; set; } = false;
+    private bool _fadeIn = false;
+    private bool _fadeOut = false;
 
     [SerializeField] private Image _fadeImage;
     [SerializeField] private float _fadeDuration;
@@ -30,9 +30,14 @@ public class SceneFade : MonoBehaviour
         _fadeImage.color = startColor;
     }
 
+    public void StartTransition()
+    {
+        _fadeOut = true;
+    }
+
     private void Update()
     {
-        if (FadeOut)
+        if (_fadeOut)
         {
             _elapsedTime += Time.deltaTime;
 
@@ -46,15 +51,13 @@ public class SceneFade : MonoBehaviour
 
             if (lerpFactor >= 1f)
             {
-                FadeOut = false;
-                FadeIn = true;
+                _fadeOut = false;
+                _fadeIn = true;
                 _elapsedTime = 0f;
                 _currentAlpha = 1f;
-                _gm.ResetRound();
-                _mapManager.LoadMap();
             }
         }
-        else if (FadeIn)
+        else if (_fadeIn)
         {
             _elapsedTime += Time.deltaTime;
 
@@ -68,10 +71,15 @@ public class SceneFade : MonoBehaviour
 
             if (lerpFactor >= 1f)
             {
-                FadeIn = false;
+                _fadeIn = false;
                 _elapsedTime = 0f;
                 _currentAlpha = 0f;
             }
         }
+    }
+
+    public float GetFadeDuration()
+    {
+        return _fadeDuration;
     }
 }

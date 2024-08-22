@@ -30,12 +30,6 @@ public class MapManager : Manager
         _victoryScreen = SceneManager.sceneCountInBuildSettings - 1;
     }
 
-    public void ChangeScene()
-    {
-        fade.FadeOut = true;
-    }
-
-
     public void LoadMap()
     {
         
@@ -48,7 +42,6 @@ public class MapManager : Manager
         }
 #endif
         
-
         if (_gm.VictoryScreen)
         {
             SceneManager.LoadScene(_victoryScreen);
