@@ -30,9 +30,7 @@ public class MultiplayerHandler : MonoBehaviour
     {
         //Creating the actual server
         try
-        {
-            //Does not count the host
-            
+        {   
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayersInServer);
 
             _joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
