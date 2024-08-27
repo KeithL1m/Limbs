@@ -236,11 +236,6 @@ public class GameManager : Manager
         SceneManager.LoadScene(3);
     }
 
-    public int GetPlayerCount()
-    {
-        return _playerCount;
-    }
-
     public List<PlayerConfiguration> GetPlayerConfigs()
     {
         return _playerConfigs;

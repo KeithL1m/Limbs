@@ -62,13 +62,15 @@ public class PlayerSetupController : MonoBehaviour
 
     public void ReadyPlayer()
     {
-        _configManager.ReadyPlayer(_playerIndex);
         _configManager.SetPlayerHead(_playerIndex, _playerHead[_headIndex]);
         _configManager.SetPlayerBody(_playerIndex, _playerBody[_bodyIndex]);
         _readyButtonImage.sprite = _readySprite;
         _readyButton.enabled = false;
 
         _audioManager.PlaySound(_readySound, transform.position, SoundType.SFX);
+
+
+        _configManager.ReadyPlayer(_playerIndex);
     }
 
     public void ChangeCurrentHeadLeft()

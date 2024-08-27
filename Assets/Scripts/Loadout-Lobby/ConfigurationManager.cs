@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,12 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class ConfigurationManager : MonoBehaviour
 {
-    public ConfigurationManager Initialize()
-    {
-        Debug.Log("Loading Configuration Manager");
-        return this;
-    }
-
     private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
 
     [SerializeField] private List<Sprite> _playerNums;
@@ -19,6 +14,12 @@ public class ConfigurationManager : MonoBehaviour
     public bool InLoadout { get; set; } = false;
 
     private int _playerNum = 0;
+
+    public ConfigurationManager Initialize()
+    {
+        Debug.Log("Loading Configuration Manager");
+        return this;
+    }
 
     public void SetPlayerHead(int index, Sprite head)
     {
@@ -41,7 +42,17 @@ public class ConfigurationManager : MonoBehaviour
 
         if (_playerConfigs.All(p => p.IsReady == true) && _playerNum > 1)
         {
-          SceneManager.LoadScene(5);
+            StartCoroutine(LoadSceneAsync());
+        }
+    }
+
+    IEnumerator LoadSceneAsync()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(5);
+
+        while(!asyncLoad.isDone)
+        {
+            yield return null;
         }
     }
 
