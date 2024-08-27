@@ -22,8 +22,7 @@ public class PlayerManager : Manager
 
     public void SetSpawnPoints(List<GameObject> spawns)
     {
-        _spawnPoints.Clear();
-        _spawnPoints = spawns;
+        _spawnPoints = new List<GameObject>(spawns);
     }
 
     public void AddPlayerObject(GameObject player)
