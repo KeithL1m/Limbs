@@ -12,10 +12,10 @@ public class SplashScreen : MonoBehaviour
 
     IEnumerator Delay(int sceneToLoad)
     {
-        Debug.Log("Set gate active");
-        yield return new WaitForSeconds(6f);
+        Debug.Log("Begin Delay");
+        yield return new WaitForSeconds(6.2f);
 
-        Debug.Log("After Delay");
-        SceneManager.LoadScene(sceneToLoad);
+        Debug.Log("End Delay");
+        SceneManager.LoadSceneAsync(sceneToLoad);
     }
 }
