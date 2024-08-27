@@ -31,7 +31,7 @@ public class AudioManager : MonoBehaviour
     private AudioClip[] _gameMusic;
     [SerializeField] private int _numSources;
 
-    private GameManager _gm;
+    private Transform _audioSourceParent;
 
     private bool _inTitle;
     private bool _inMeatcase;
@@ -50,11 +50,11 @@ public class AudioManager : MonoBehaviour
     {
         _audioMixer.GetFloat("Music Volume", out MusicVolume);
         _audioMixer.GetFloat("SFX Volume", out SoundFXVolume);
-        _gm = ServiceLocator.Get<GameManager>();
+        _audioSourceParent = ServiceLocator.Get<GameManager>().transform;
 
         for (int i = 0; i < _numSources; i++)
         {
-            AudioSource newSource = Instantiate(_basicAudioSource, _gm.transform).GetComponent<AudioSource>();
+            AudioSource newSource = Instantiate(_basicAudioSource, _audioSourceParent).GetComponent<AudioSource>();
             _sources.Add(newSource);
         }
     }
@@ -102,7 +102,7 @@ public class AudioManager : MonoBehaviour
             }
             else if (i + 1 == _sources.Count)
             {
-                AudioSource newSource = Instantiate(_basicAudioSource, _gm.transform).GetComponent<AudioSource>();
+                AudioSource newSource = Instantiate(_basicAudioSource, _audioSourceParent).GetComponent<AudioSource>();
                 _sources.Add(newSource);
                 source = newSource;
                 break;
@@ -136,7 +136,7 @@ public class AudioManager : MonoBehaviour
             }
             else if (i + 1 == _sources.Count)
             {
-                AudioSource newSource = Instantiate(_basicAudioSource, _gm.transform).GetComponent<AudioSource>();
+                AudioSource newSource = Instantiate(_basicAudioSource, _audioSourceParent).GetComponent<AudioSource>();
                 _sources.Add(newSource);
                 source = newSource;
                 break;
@@ -252,7 +252,7 @@ public class AudioManager : MonoBehaviour
             }
             else if (i + 1 == _sources.Count)
             {
-                AudioSource newSource = Instantiate(_basicAudioSource, _gm.transform).GetComponent<AudioSource>();
+                AudioSource newSource = Instantiate(_basicAudioSource, _audioSourceParent).GetComponent<AudioSource>();
                 _sources.Add(newSource);
                 source = newSource;
                 break;
