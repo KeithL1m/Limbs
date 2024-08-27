@@ -9,6 +9,13 @@ public class OnlineSettings : MonoBehaviour
     [SerializeField] private MultiplayerHandler _handler;
     [SerializeField] private InputField _textMeshProUGUI;
 
+    private void Start()
+    {
+        if (_handler == null)
+        {
+        }
+    }
+
     public async void SetServer()
     {
         _textMeshProUGUI.text = await _handler.CreateServer();

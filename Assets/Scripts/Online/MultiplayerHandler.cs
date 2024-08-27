@@ -7,14 +7,24 @@ using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MultiplayerHandler : MonoBehaviour
 {
+    public string JoinCode { get { return _joinCode; } private set { } }
+    public bool IsHost { get { return _isHost; } private set { } }
+
     [SerializeField] private string _joinCode = string.Empty;
+    [SerializeField] private bool _isHost = false;
+    [SerializeField] public GameObject[] _dontDestroyOnLoadObject;
 
     private async void Start()
     {
-        //Creating the instance of server and checking that this player gets an ID
+        foreach (var item in _dontDestroyOnLoadObject)
+        {
+            DontDestroyOnLoad(item);
+        }
+
         await UnityServices.InitializeAsync();
 
         AuthenticationService.Instance.SignedIn += () =>
@@ -30,6 +40,7 @@ public class MultiplayerHandler : MonoBehaviour
         try
         {
             //Does not count the host
+            _isHost = true;
             const int maxPlayersInServer = 3;
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayersInServer);
 
@@ -50,6 +61,8 @@ public class MultiplayerHandler : MonoBehaviour
 
     public async void JoinServer(string joinCode)
     {
+        _isHost = false;
+
         try
         {
             JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
@@ -58,6 +71,8 @@ public class MultiplayerHandler : MonoBehaviour
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
             NetworkManager.Singleton.StartClient();
+
+            _joinCode = joinCode;
         }
         catch (RelayServiceException ex)
         {
