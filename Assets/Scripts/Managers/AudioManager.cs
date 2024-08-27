@@ -93,21 +93,7 @@ public class AudioManager : MonoBehaviour
     public void PlaySound(AudioClip audio, Vector3 position, float volume = 1f)
     {
         //move source to position if not already playing sound
-        AudioSource source = new();
-        for (int i = 0; i < _sources.Count; i++)
-        {
-            if (!_sources[i].isPlaying && _sources[i] != _currentMusic)
-            {
-                source = _sources[i];
-            }
-            else if (i + 1 == _sources.Count)
-            {
-                AudioSource newSource = Instantiate(_basicAudioSource, _audioSourceParent).GetComponent<AudioSource>();
-                _sources.Add(newSource);
-                source = newSource;
-                break;
-            }
-        }
+        AudioSource source = GetAvailableAudioSource();
 
         source.outputAudioMixerGroup = _masterGroup;
 
@@ -126,22 +112,7 @@ public class AudioManager : MonoBehaviour
     public void PlaySound(AudioClip audio, Vector3 position, SoundType type, float volume = 1f)
     {
         //move source to position if not already playing sound
-        AudioSource source = new();
-        for (int i = 0; i < _sources.Count; i++)
-        {
-            if (!_sources[i].isPlaying && _sources[i] != _currentMusic)
-            {
-                source = _sources[i];
-                break;
-            }
-            else if (i + 1 == _sources.Count)
-            {
-                AudioSource newSource = Instantiate(_basicAudioSource, _audioSourceParent).GetComponent<AudioSource>();
-                _sources.Add(newSource);
-                source = newSource;
-                break;
-            }
-        }
+        AudioSource source = GetAvailableAudioSource();
 
         switch(type)
         {
@@ -242,23 +213,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusicTemp(AudioClip music, float volume = 1f)
     {
-        AudioSource source = new();
-        for (int i = 0; i < _sources.Count; i++)
-        {
-            if (!_sources[i].isPlaying)
-            {
-                source = _sources[i];
-                break;
-            }
-            else if (i + 1 == _sources.Count)
-            {
-                AudioSource newSource = Instantiate(_basicAudioSource, _audioSourceParent).GetComponent<AudioSource>();
-                _sources.Add(newSource);
-                source = newSource;
-                break;
-            }
-        }
-
+        AudioSource source = GetAvailableAudioSource();
+      
         _tempMusic = source;
 
         _tempMusic.outputAudioMixerGroup = _musicGroup;
@@ -280,5 +236,27 @@ public class AudioManager : MonoBehaviour
     {
         _currentMusic.Play();
         _currentMusic.time = _currentSongTime;
+    }
+
+    private AudioSource GetAvailableAudioSource()
+    {
+        AudioSource source = new();
+        for (int i = 0; i < _sources.Count; i++)
+        {
+            if (!_sources[i].isPlaying)
+            {
+                source = _sources[i];
+                break;
+            }
+            else if (i + 1 == _sources.Count)
+            {
+                AudioSource newSource = Instantiate(_basicAudioSource, _audioSourceParent).GetComponent<AudioSource>();
+                _sources.Add(newSource);
+                source = newSource;
+                break;
+            }
+        }
+
+        return source;
     }
 }

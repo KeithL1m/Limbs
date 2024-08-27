@@ -236,9 +236,9 @@ public class CameraManager : MonoBehaviour
         _teleportThrown = false;
     }
 
-    public Camera GetCamera()
+    public Transform GetCameraTransform()
     {
-        return _camera;
+        return _camera.transform;
     }
 
     public void Unregister()
