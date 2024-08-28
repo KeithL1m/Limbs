@@ -10,8 +10,8 @@ public class PlayerHealth : MonoBehaviour
     GameManager _gm = null;
     AudioManager _audioManager;
 
-    [SerializeField]
-    public float _maxHealth;
+    [field:SerializeField]
+    public float MaxHealth { get; private set; }
     public float _health;
     [SerializeField]
     private Chain chain;
@@ -43,7 +43,7 @@ public class PlayerHealth : MonoBehaviour
     {
         _gm = ServiceLocator.Get<GameManager>();
         _audioManager = ServiceLocator.Get<AudioManager>();
-        _health = _maxHealth;
+        _health = MaxHealth;
     }
 
     public void AddDamage(float damage, bool specialSfx = false, AudioClip specialClip = null)
@@ -53,7 +53,9 @@ public class PlayerHealth : MonoBehaviour
             return;
         }
         else if (isDead)
+        {
             return;
+        }
 
         if (!specialSfx)
         {
@@ -87,6 +89,7 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
         _healthBar.SetMaterial(_grayMaterial);
         ServiceLocator.Get<ParticleManager>().PlayDeathParticle(transform.position-transform.up.normalized*0.5f);
+
         if (_health > 0)
         {
             _health = 0;
@@ -139,7 +142,7 @@ public class PlayerHealth : MonoBehaviour
         deathPositions = FindObjectsOfType<DeathPosition>();
         _healthBar.SetMaterial(_standardMaterial);
 
-        _health = _maxHealth;
+        _health = MaxHealth;
 
         // Update the health slider value when resetting health
         UpdateHealthSlider();
@@ -152,16 +155,15 @@ public class PlayerHealth : MonoBehaviour
         if (healthSlider != null)
         {
             // Assuming your health value ranges from 0 to _maxHealth
-            healthSlider.value = _health / _maxHealth;
+            healthSlider.value = _health / MaxHealth;
         }
 
-        if (_health <= _maxHealth / 5 && isDead == false)
+        if (_health <= MaxHealth / 5 && isDead == false)
         {
             _healthBar.SetMaterial(_lowHealthMaterial);
         }
     }
 
-    // Add this method to set the health slider
     public void SetHealthSlider(Slider slider)
     {
         healthSlider = slider;
