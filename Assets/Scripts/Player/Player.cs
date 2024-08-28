@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     public PlayerMovement PlayerMovement { get { return _playerMovement; } }
     private PlayerJump _playerJump;
     private PlayerLimbs _playerLimbs;
+    private AimHandler _aimHandler;
     [HideInInspector]
     public PlayerInputHandler _inputHandler;
     private PlayerConfiguration _config;
@@ -40,7 +41,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform _aimTransform;
 
 
-    [SerializeField] public Transform GroundCheckTransform;
+    public Transform GroundCheckTransform;
     [SerializeField] private Transform attackPointTransform;
     [SerializeField] private GroundCheck _groundCheck;
     [SerializeField] private ParticleSystem _impactParticles;
@@ -49,7 +50,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _drunkRisingBubbleParticles;
     //for melee
     [SerializeField] private Animator _animator;
-    private float _meleeCooldown = 0.8f;
+    private const float _meleeCooldown = 0.8f;
     float lastMelee;
 
     [Header("Sounds")]
@@ -57,13 +58,10 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip _landSound;
     private AudioManager _audioManager;
 
-    //facing left = -1, right = 1
-    public int direction;
     private bool _initialized = false;
     private bool _canThrow = true;
     private bool _canSwitch = true;
     private bool _wasOnGround = false;
-    private bool _aimConfused = false;
     public Vector2 LastAimed { get; private set; } = Vector2.zero;
     private Vector2 _previousVelocity1 = Vector2.zero;
     private Vector2 _previousVelocity2 = Vector2.zero;
@@ -97,6 +95,7 @@ public class Player : MonoBehaviour
         _id = pc.PlayerIndex;
         _inputHandler.InitializePlayer(_config);
         _playerLimbs.Initialize();
+        _aimHandler = new AimHandler(_inputHandler, _playerMovement);
 
         _playerHead.sprite = _config.Head;
         _playerBody.sprite = _config.Body;
@@ -111,45 +110,20 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (!_initialized)
+        {
             return;
+        }
         if (PauseManager.paused)
+        {
             return;
+        }
         if (_gameManager.VictoryScreen)
+        {
             return;
-
-        if (LastAimed != new Vector2(_inputHandler.Aim.x, _inputHandler.Aim.y) && _inputHandler.FlickAiming)
-        {
-            if (_inputHandler.Aim.magnitude > 0.6f)
-            {
-                if (_inputHandler.Aim.x != 0.0f && _inputHandler.Aim.y != 0.0f)
-                {
-                    LastAimed = new Vector2(_inputHandler.Aim.x, _inputHandler.Aim.y);
-                }
-            }
         }
 
-        if (_playerMovement.facingRight)
-        {
-            if (_aimConfused)
-            {
-                direction = -1;
-            }
-            else
-            {
-                direction = 1;
-            }
-        }
-        else
-        {
-            if (_aimConfused)
-            {
-                direction = 1;
-            }
-            else
-            {
-                direction = -1;
-            }
-        }
+        _aimHandler.SetLastAimed();
+        _aimHandler.SetDirection();
 
         if ((_inputHandler.LimbSwitch > 0.5f || _inputHandler.LimbSwitch < -0.5f) && _canSwitch)
         {
@@ -164,11 +138,9 @@ public class Player : MonoBehaviour
         /*throwing limbs*/
         if (_inputHandler.ThrowLimb > 0.5f && _playerLimbs.CanThrowLimb() && _canThrow)
         {
-            int numSound = UnityEngine.Random.Range(0, _throwSounds.Count);
-            Debug.Log(numSound);
-            _audioManager.PlaySound(_throwSounds[numSound], transform.position, SoundType.SFX);
+            _audioManager.PlayRandomSound(_throwSounds.ToArray(), transform.position, SoundType.SFX);
 
-            _playerLimbs.ThrowLimb(direction);
+            _playerLimbs.ThrowLimb(_aimHandler.Direction);
             _canThrow = false;
         }
         else if (_inputHandler.ThrowLimb < 0.5f)
@@ -192,70 +164,24 @@ public class Player : MonoBehaviour
         }
 
         //update melee point
-        if (direction == 1) // right
+        if (_aimHandler.Direction == 1) // right
         {
             attackPointTransform.localPosition = new Vector3(0.56f, 0.38f, -0.6805403f);
             checkAnimLeft = false;
 
         }
-        else if (direction == -1) // left
+        else if (_aimHandler.Direction == -1) // left
         {
             attackPointTransform.localPosition = new Vector3(-0.56f, 0.38f, -0.6805403f);
             checkAnimLeft = true;
         }
 
         //updating arrow
-
-        if (_inputHandler.Aim.x == 0.0f && _inputHandler.Aim.y == 0.0f && !_inputHandler.FlickAiming)
-        {
-            if (direction == 1)
-            {
-                _aimTransform.eulerAngles = new Vector3(0, 0, -180);
-            }
-            else
-            {
-                _aimTransform.eulerAngles = new Vector3(0, 0, 0);
-            }
-
-            if (_playerMovement.facingRight)
-            {
-                _playerHead.flipX = false;
-                _playerBody.flipX = false;
-            }
-            else
-            {
-                _playerHead.flipX = true;
-                _playerBody.flipX = true;
-            }
-        }
-        else if (!_inputHandler.FlickAiming)
-        {
-            _aimTransform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-_inputHandler.Aim.y, -_inputHandler.Aim.x) * Mathf.Rad2Deg);
-            if (_inputHandler.Aim.x > 0)
-            {
-                _playerHead.flipX = false;
-                _playerBody.flipX = false;
-            }
-            else
-            {
-                _playerHead.flipX = true;
-                _playerBody.flipX = true;
-            }
-        }
-        else
-        {
-            _aimTransform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-LastAimed.y, -LastAimed.x) * Mathf.Rad2Deg);
-            if (LastAimed.x > 0)
-            {
-                _playerHead.flipX = false;
-                _playerBody.flipX = false;
-            }
-            else
-            {
-                _playerHead.flipX = true;
-                _playerBody.flipX = true;
-            }
-        }
+        (Vector3, bool) aimResults = _aimHandler.GetAimResults();
+        _aimTransform.eulerAngles = aimResults.Item1;
+        _playerHead.flipX = aimResults.Item2;
+        _playerBody.flipX = aimResults.Item2;
+        
 
         if (!_wasOnGround && _groundCheck.isGrounded && _previousVelocity2.y < -5.0f)
         {
@@ -381,14 +307,14 @@ public class Player : MonoBehaviour
 
     public void MakeAimOpposite()
     {
-        _aimConfused = true;
+        _aimHandler.MakeAimOpposite();
         _playerHead.material = _sicknessMaterial;
         _drunkRisingBubbleParticles.SetActive(true);
     }
 
     public void MakeAimNormal()
     {
-        _aimConfused = false;
+        _aimHandler.MakeAimNormal();
         _playerHead.material = _defaultMaterial;
         _drunkRisingBubbleParticles.SetActive(false);
     }
