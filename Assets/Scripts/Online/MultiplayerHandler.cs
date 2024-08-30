@@ -17,6 +17,7 @@ public class MultiplayerHandler : MonoBehaviour
     [SerializeField] private string _joinCode = string.Empty;
     [SerializeField] private bool _isHost = false;
     [SerializeField] public GameObject[] _dontDestroyOnLoadObject;
+    [SerializeField] public PlayerView _playerView;
 
     private async void Start()
     {
@@ -39,9 +40,8 @@ public class MultiplayerHandler : MonoBehaviour
         //Creating the actual server
         try
         {
-            //Does not count the host
             _isHost = true;
-            const int maxPlayersInServer = 3;
+            const int maxPlayersInServer = 3;//Does not count the host
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayersInServer);
 
             _joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
@@ -49,7 +49,10 @@ public class MultiplayerHandler : MonoBehaviour
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
+            NetworkManager.Singleton.OnClientConnectedCallback += _playerView.OnClientConnected;
+
             NetworkManager.Singleton.StartHost();
+
             return _joinCode;
         }
         catch (RelayServiceException ex)

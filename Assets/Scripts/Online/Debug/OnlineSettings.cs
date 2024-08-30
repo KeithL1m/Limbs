@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,13 +9,6 @@ public class OnlineSettings : MonoBehaviour
 {
     [SerializeField] private MultiplayerHandler _handler;
     [SerializeField] private InputField _textMeshProUGUI;
-
-    private void Start()
-    {
-        if (_handler == null)
-        {
-        }
-    }
 
     public async void SetServer()
     {

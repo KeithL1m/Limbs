@@ -189,7 +189,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &302275664
 GameObject:
@@ -233,7 +233,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &316310548
 GameObject:
@@ -413,7 +413,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &552422312
 GameObject:
@@ -715,8 +715,13 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 724560635}
-    PlayerPrefab: {fileID: 4052175319322447809, guid: 47e8685a0ecac73439ff7d2037cd869e, type: 3}
-    NetworkPrefabs: []
+    PlayerPrefab: {fileID: 0}
+    NetworkPrefabs:
+    - Override: 0
+      Prefab: {fileID: 4052175319322447809, guid: 47e8685a0ecac73439ff7d2037cd869e, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
@@ -745,7 +750,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &867199169
 GameObject:
@@ -1254,6 +1259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1686298875}
   - component: {fileID: 1686298874}
+  - component: {fileID: 1686298876}
   m_Layer: 0
   m_Name: OnlineHandler
   m_TagString: Untagged
@@ -1274,9 +1280,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _joinCode: 
+  _isHost: 0
   _dontDestroyOnLoadObject:
   - {fileID: 724560634}
   - {fileID: 1686298873}
+  _playerView: {fileID: 1686298876}
 --- !u!4 &1686298875
 Transform:
   m_ObjectHideFlags: 0
@@ -1290,8 +1298,21 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1686298876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686298873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 912f03b129aacc043bdd5c48d52d728b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onlinePrefab: {fileID: 4052175319322447809, guid: 47e8685a0ecac73439ff7d2037cd869e, type: 3}
 --- !u!1 &1699335412
 GameObject:
   m_ObjectHideFlags: 0
@@ -1374,7 +1395,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1772879018
 GameObject:
