@@ -61,7 +61,7 @@ public class StartGame : MonoBehaviour
 
     IEnumerator Delay(int sceneToLoad)
     {
-        Debug.Log("Set transition active");
+        Debug.Log("Start Delay");
         // Wait for 3 seconds
         yield return new WaitForSeconds(1.45f);
 

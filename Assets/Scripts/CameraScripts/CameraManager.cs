@@ -236,6 +236,11 @@ public class CameraManager : MonoBehaviour
         _teleportThrown = false;
     }
 
+    public Transform GetCameraTransform()
+    {
+        return _camera.transform;
+    }
+
     public void Unregister()
     {
         ServiceLocator.Unregister<CameraManager>();

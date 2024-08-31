@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7643786849370820877}
   - component: {fileID: 7031586765184258081}
   - component: {fileID: 676486668557565661}
+  - component: {fileID: 367524549757061577}
   m_Layer: 0
   m_Name: TripleShot
   m_TagString: Limb
@@ -114,6 +115,7 @@ MonoBehaviour:
   IsSpecial: 1
   screenShakePercent: 0.4
   screenShakeTime: 0.5
+  _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
   _bullet: {fileID: 7321386805834542928, guid: 6cbf4cb540f6b7e418e41e0645578ee9, type: 3}
   _shotsLeft: 3
   _launcherTwo: {fileID: 21300000, guid: f736f036af4042c4988dd87745964a1c, type: 3}
@@ -122,6 +124,23 @@ MonoBehaviour:
   _bullet1: {fileID: 21300000, guid: b4659717ccd14c6458d128cb03f7db50, type: 3}
   _bullet2: {fileID: 21300000, guid: 444044136c7f80d4f8bc80c835f19f07, type: 3}
   _bullet3: {fileID: 21300000, guid: b50d5ee50e662d444be3b5b313e6427e, type: 3}
+--- !u!114 &367524549757061577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479936713415687806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb1f903c1901234b911169eb4a5418a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbName: Chicken Bugget
+  _limbDescription: Grandpa Diego's got something cookin. This ruthless bucket of
+    nuggets is the only limb with ammunition. The Chicken Bugget has 3 small nugget-shots
+    before it is reduced to just it's bucket. (Which can even be thrown for extra
+    damage.)
 --- !u!1 &1123106515960743069
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,8 +392,8 @@ Transform:
   m_GameObject: {fileID: 7254546142229159940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.5}
-  m_LocalScale: {x: 0.15732205, y: 0.15732205, z: 0.15732205}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8952520609378391584}
   m_RootOrder: 1
@@ -419,9 +438,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 30f562c54c5d9f04d8fc516683a7d923, type: 3}
-  m_Color: {r: 1, g: 1, b: 0.015686275, a: 0.627451}
+  m_Color: {r: 1, g: 1, b: 0.015686275, a: 0.8627451}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

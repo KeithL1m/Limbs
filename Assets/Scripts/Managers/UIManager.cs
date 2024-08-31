@@ -106,7 +106,7 @@ public class UIManager : MonoBehaviour
             health.SetHealthSlider(healthSlider);
             health.SetHealthBar(healthBar);
 
-            float initialHealth = health._maxHealth;
+            float initialHealth = health.MaxHealth;
             healthSlider.value = initialHealth;
 
             players[i].GetComponent<PlayerLimbs>().SetAmmoBar(ammoBars[i]);

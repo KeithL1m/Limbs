@@ -372,7 +372,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cb52b700efd3b90439ee867aeddb48fa, type: 3}
   - {fileID: 8300000, guid: 0c472539139006d4c81062a8a8a44edc, type: 3}
   - {fileID: 8300000, guid: 3298e862cbe71cd41b087d06be7a3fda, type: 3}
-  direction: 0
+  _landSound: {fileID: 8300000, guid: 9424d303912cc434d99172d621360ce5, type: 3}
   _crownGameObject: {fileID: 4174948592063326648}
 --- !u!114 &8385072269478469062
 MonoBehaviour:
@@ -404,6 +404,12 @@ MonoBehaviour:
   _maxHopTime: 0.3
   _startMovePoint: 0.5
   _smoothMoveSpeed: 0.15
+  _hopSound:
+  - {fileID: 8300000, guid: 7c6466da964be4c448fd3bb1a20df141, type: 3}
+  - {fileID: 8300000, guid: 4727b32db9e94954b8890f4dbb2c79eb, type: 3}
+  - {fileID: 8300000, guid: 3994e6b9c12cd06408207962ffccfa31, type: 3}
+  - {fileID: 8300000, guid: 0e0bd8753c35e044197d0cd18c93f2ff, type: 3}
+  - {fileID: 8300000, guid: ddb1c3f0494583443be4f7ec9e610912, type: 3}
   facingRight: 0
 --- !u!114 &8385072269478469063
 MonoBehaviour:
@@ -440,7 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40cdef4570e07564795fe2a71229a185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  <MaxHealth>k__BackingField: 100
   _health: 0
   chain: {fileID: 6432030308765007816}
   deathPositions: []
@@ -454,6 +460,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d341a7db2589fea479e1ffe5193828ab, type: 3}
   - {fileID: 8300000, guid: 37dd75f925629aa4db777d1acdbb0a35, type: 3}
   - {fileID: 8300000, guid: 6d4c453919be026449a918f58b2adac0, type: 3}
+  _deathSound: {fileID: 8300000, guid: 924d9047e207b49498c7f38176a5eb93, type: 3}
 --- !u!114 &6432030308765007816
 MonoBehaviour:
   m_ObjectHideFlags: 0

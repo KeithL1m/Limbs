@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 327099054212538446}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.50000006}
-  m_LocalScale: {x: 0.350982, y: 0.350982, z: 0}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7858356672939467842}
   m_RootOrder: 1
@@ -73,9 +73,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 30f562c54c5d9f04d8fc516683a7d923, type: 3}
-  m_Color: {r: 1, g: 1, b: 0.015686275, a: 0.627451}
+  m_Color: {r: 1, g: 1, b: 0.015686275, a: 0.8627451}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -317,7 +317,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 1477eee7f35ea3f42aeed4ee0f76412e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -342,6 +342,7 @@ GameObject:
   - component: {fileID: 7031974623823099388}
   - component: {fileID: 1332441338902969101}
   - component: {fileID: 7682079628322840279}
+  - component: {fileID: 1776827232995283258}
   m_Layer: 0
   m_Name: StickBomb
   m_TagString: Limb
@@ -388,8 +389,13 @@ MonoBehaviour:
   TripleShot: 0
   _bombLimb: 0
   IsSpecial: 1
+  screenShakePercent: 1
+  screenShakeTime: 0.5
+  _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
+  _hitSound: {fileID: 0}
   _timer: 6
   _collider: {fileID: 1332441338902969101}
+  _smokeBombClip: {fileID: 8300000, guid: cbda84264619c574f816c8fa73a27b41, type: 3}
 --- !u!50 &7031974623823099388
 Rigidbody2D:
   serializedVersion: 4
@@ -443,3 +449,20 @@ CircleCollider2D:
   m_Offset: {x: 0.0014046637, y: -0.01820126}
   serializedVersion: 2
   m_Radius: 1.033015
+--- !u!114 &1776827232995283258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6727379245335464739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb1f903c1901234b911169eb4a5418a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbName: Honey Bomb
+  _limbDescription: Unique to this adhesive artillery, the honey bomb is a prime
+    option when it comes to sticking deadly explosives to the heads of your unsuspecting
+    friends. But beware of honey bombs not stuck to players... If you run overtop
+    of one that isn't attached to anything, it'll become attached to you.
