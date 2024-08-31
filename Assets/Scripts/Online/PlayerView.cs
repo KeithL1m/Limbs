@@ -11,12 +11,9 @@ public class PlayerView : MonoBehaviour
         {
             return;
         }
-        Debug.Log("test1");
 
         GameObject spawnedObject = Instantiate(_onlinePrefab);
-        Debug.Log("test2");
         NetworkObject networkObject = spawnedObject.GetComponent<NetworkObject>();
-        Debug.Log("test3");
         
         networkObject.SpawnWithOwnership(clientId);
     }

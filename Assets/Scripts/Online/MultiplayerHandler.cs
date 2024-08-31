@@ -14,14 +14,17 @@ public class MultiplayerHandler : MonoBehaviour
     public string JoinCode { get { return _joinCode; } private set { } }
     public bool IsHost { get { return _isHost; } private set { } }
 
+    [Space, Header("Server")]
     [SerializeField] private string _joinCode = string.Empty;
     [SerializeField] private bool _isHost = false;
-    [SerializeField] public GameObject[] _dontDestroyOnLoadObject;
-    [SerializeField] public PlayerView _playerView;
+    [SerializeField] public GameObject[] _dontDestroyOnLoadObjects;
+
+    [Space, Header("Player")]
+    [SerializeField] private GameObject _clientPrefab;
 
     private async void Start()
     {
-        foreach (var item in _dontDestroyOnLoadObject)
+        foreach (var item in _dontDestroyOnLoadObjects)
         {
             DontDestroyOnLoad(item);
         }
@@ -49,7 +52,7 @@ public class MultiplayerHandler : MonoBehaviour
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
-            NetworkManager.Singleton.OnClientConnectedCallback += _playerView.OnClientConnected;
+            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
 
             NetworkManager.Singleton.StartHost();
 
@@ -81,5 +84,13 @@ public class MultiplayerHandler : MonoBehaviour
         {
             Debug.Log($"<color=red>{ex}</color>");
         }
+    }
+
+    public void OnClientConnected(ulong clientId)
+    {
+        GameObject spawnedObject = Instantiate(_clientPrefab);
+        NetworkObject networkObject = spawnedObject.GetComponent<NetworkObject>();
+
+        networkObject.SpawnWithOwnership(clientId);
     }
 }

@@ -5,148 +5,151 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Game Loader.unity
     guid: 2e3912ee7612b714591827256185aabd
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/StartMenu.unity
     guid: ab8098102b9ecda45ad1e2aa8d0b2032
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 74f79c08660d78749bff27af8929fbed
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/z_Loadout.unity
     guid: eab9c93ff65f43341945a607ca3b194b
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Meatcase.unity
     guid: c931da184cfe0f742b3603a24d72b68f
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Testing/FrozenMeat1.unity
     guid: 646c086073f4b4d468b3fc1d6123c639
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/RedMeat1.unity
     guid: 589ac47aefad0734d9f02e7d7faa0595
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/FrozenMeat2.unity
     guid: e3beb7db6513f8244a21d92e22958b43
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Sausage2.unity
     guid: da36db522ac36624897f1506a99d131a
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Sausage3.unity
     guid: 5050f639d98928b4daaca9e64511708b
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Sausage4.unity
     guid: ee2a323574d2eba4787d959dc222c534
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Sausage1.unity
     guid: 5ded8a065338f69429946fbea35ae646
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Molten Lava.unity
     guid: d2acd89d83897ca4cb32fc72eab46c40
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Pit.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Avalanche.unity
     guid: 4d1a3be73476a354a9b75756dc9782d6
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Red Sea.unity
     guid: 954aba8589c020140a6cbeab91860f06
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/The Sawblade.unity
     guid: 1807d8fcbe9fe9049982560da7f089ca
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Testing/LimbTesting.unity
     guid: 99e5ed3875860ff4183871e9f4280436
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Fridge.unity
     guid: cef4aafcba2ebf3429a06b57bf300403
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Grocery.unity
     guid: a8b9f0a0c230db74dbfba20933759907
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Boxes - Left 1.unity
     guid: c8d4a203872c87f4d9cfb141da2921d1
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Boxes - LR.unity
     guid: 26c8e5c4931d16f4e8a5e5db3bab1340
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/BoxMove 1.unity
     guid: 84e3afe8b33b84849b15cf83b55a89a6
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/BoxMove 3.unity
     guid: 9c9666fa98ccfc541985e35751364d40
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Flat 1.unity
     guid: eac6c0318f74e3d42b05ab7b741d6633
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Flat 3.unity
     guid: fd5f1af370daa294ca2fd1b8fa20c4c5
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Flat Ground 2.unity
     guid: 86297c4f43e09a249a334ba36ba197d0
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Flat Ground.unity
     guid: be2d74e18222e2b44aad1ca2a8af6688
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Testing/Flat.unity
     guid: 743ef5776aeedc840892e22ff7fcc897
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Testing/_PrototypeRoom.unity
     guid: 88ea66465a6023645ad87a72316a77ef
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/FlatConveyor.unity
     guid: 0b4d5dfabdccd8d44a15c0d9cdd2f887
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Z 5.unity
     guid: 07c75e32b070b3a4db7aaf926f399408
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/Testing/Pickle Showdown.unity
     guid: 37865fa8ffae7f04ab12cbe34383ee6a
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/_ 3.unity
     guid: 547b3dc72667c2d4e89032dfd0c32a0d
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/_ 4.unity
     guid: 3b46f3fdc04e8d34988993625c09975a
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/_ 5.unity
     guid: e9f9fd4e360f97f458e8553df4a382ac
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/_ 6.unity
     guid: 74ba21cfe5b8d6446ac153ac244902e3
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/_ 7.unity
     guid: e8c2b936f256133468664ed7ad959121
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/_ 8.unity
     guid: cf4fd2bf4a6500c47b5ae57359f7dbbe
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/_ 9.unity
     guid: 2e7726a2fd9537148b4d17bc184a5380
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/_ 11.unity
     guid: 882dfa79b9134ad419aa107cdf859f7b
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/_ 13.unity
     guid: 650a9ae772158fd49a87395aa94f8260
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/_Playable Maps/_ 16.unity
     guid: 2b1acc692b8991b4c908e3ce1bfa6158
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/VictoryMap.unity
     guid: c6f88a4fbefe2f84294a71ba5213eba4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Online/OnlineTest.unity
     guid: 67bf90fd81ad05345b685af5e1a662a8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Online/OnlineTest2.unity
     guid: 69c6e752d4f41ce44b8eb2f21b07b894
+  - enabled: 1
+    path: Assets/Scenes/Online/z_LoadoutMultiplayer.unity
+    guid: edede38176818ea4da4bdcee87ac29be
   m_configObjects: {}
