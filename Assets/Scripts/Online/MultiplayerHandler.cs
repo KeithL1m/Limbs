@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
@@ -7,7 +8,6 @@ using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MultiplayerHandler : MonoBehaviour
 {
@@ -17,17 +17,25 @@ public class MultiplayerHandler : MonoBehaviour
     [Space, Header("Server")]
     [SerializeField] private string _joinCode = string.Empty;
     [SerializeField] private bool _isHost = false;
-    [SerializeField] public GameObject[] _dontDestroyOnLoadObjects;
 
-    [Space, Header("Player")]
-    [SerializeField] private GameObject _clientPrefab;
+    //temp
+    [SerializeField] private OnlineSettings t;
 
-    private async void Start()
+    private void Awake()
     {
-        foreach (var item in _dontDestroyOnLoadObjects)
+        GameLoader loader = ServiceLocator.Get<GameLoader>();
+        loader.CallOnComplete(Initialize);
+    }
+
+    private async void Initialize()
+    {
+        if (UnityServices.State == ServicesInitializationState.Initialized || UnityServices.State == ServicesInitializationState.Initializing)
         {
-            DontDestroyOnLoad(item);
+            return;
         }
+
+        DontDestroyOnLoad(gameObject);
+        ServiceLocator.Register<MultiplayerHandler>(gameObject.GetComponent<MultiplayerHandler>());
 
         await UnityServices.InitializeAsync();
 
@@ -36,6 +44,9 @@ public class MultiplayerHandler : MonoBehaviour
             Debug.Log(AuthenticationService.Instance.PlayerId);
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        string p;
+        p = await CreateServer();
+        t.SetStrg(p);
     }
 
     public async Task<string> CreateServer()
@@ -51,8 +62,6 @@ public class MultiplayerHandler : MonoBehaviour
 
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
-
-            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
 
             NetworkManager.Singleton.StartHost();
 
@@ -86,11 +95,10 @@ public class MultiplayerHandler : MonoBehaviour
         }
     }
 
-    public void OnClientConnected(ulong clientId)
+    public void OnClientConnected(GameObject gameObject)
     {
-        GameObject spawnedObject = Instantiate(_clientPrefab);
-        NetworkObject networkObject = spawnedObject.GetComponent<NetworkObject>();
+        NetworkObject networkObject = gameObject.GetComponent<NetworkObject>();
 
-        networkObject.SpawnWithOwnership(clientId);
+        networkObject.SpawnWithOwnership(NetworkManager.Singleton.LocalClientId);
     }
 }

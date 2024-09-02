@@ -50,7 +50,7 @@ public class ConfigurationManager : MonoBehaviour
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(5);
 
-        while(!asyncLoad.isDone)
+        while (!asyncLoad.isDone)
         {
             yield return null;
         }
@@ -60,9 +60,14 @@ public class ConfigurationManager : MonoBehaviour
     {
         if (!InLoadout)
             return;
-        if (!_playerConfigs.Any(p =>p.PlayerIndex == pi.playerIndex))
+        if (!_playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
         {
             Debug.Log("Player Has Joined");
+            var netwrok = ServiceLocator.Get<MultiplayerHandler>();
+            if (netwrok)
+            {
+                netwrok.OnClientConnected(pi.gameObject);
+            }
             pi.transform.SetParent(transform);
             _playerConfigs.Add(new PlayerConfiguration(pi));
             _playerConfigs[_playerNum].Num = _playerNums[_playerNum];
@@ -94,7 +99,7 @@ public class PlayerConfiguration
         PlayerIndex = pi.playerIndex;
         Input = pi;
     }
-    public PlayerInput Input {get; set;}
+    public PlayerInput Input { get; set; }
     public int PlayerIndex { get; set; }
     public bool IsReady { get; set; }
 
