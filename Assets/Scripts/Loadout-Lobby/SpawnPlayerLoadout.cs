@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -23,7 +24,12 @@ public class SpawnPlayerLoadout : MonoBehaviour
 
         if (rootMenu != null)
         {
-            var menu = Instantiate(_playerSetupMenuPrefab, rootMenu.transform);
+            var menu = Instantiate(_playerSetupMenuPrefab);
+            NetworkObject networkObject = menu.GetComponent<NetworkObject>();
+            
+            networkObject.SpawnWithOwnership(NetworkManager.Singleton.LocalClientId);
+            menu.transform.SetParent(rootMenu.transform, false);
+
             _input.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
             menu.GetComponent<PlayerSetupController>().SetPlayerIndex(_input.playerIndex);
         }

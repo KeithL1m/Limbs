@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -2330629437284295947}
   - component: {fileID: 7777048602717406665}
   - component: {fileID: 7891435827142567032}
+  - component: {fileID: -5288129955165585211}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -154,7 +155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a75bbd1a2995e4693a9033b2f16179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _basePlayer: {fileID: 0}
   _playerList: []
 --- !u!114 &7777048602717406665
 MonoBehaviour:
@@ -193,3 +193,19 @@ MonoBehaviour:
   SoundFXVolume: 0
   _sources: []
   _numSources: 8
+--- !u!114 &-5288129955165585211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2200296758692526866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1

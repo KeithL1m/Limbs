@@ -76,6 +76,11 @@ public class MultiplayerHandler : MonoBehaviour
 
     public async void JoinServer(string joinCode)
     {
+        if (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsClient)
+        {
+            NetworkManager.Singleton.Shutdown();
+        }
+
         _isHost = false;
 
         try
