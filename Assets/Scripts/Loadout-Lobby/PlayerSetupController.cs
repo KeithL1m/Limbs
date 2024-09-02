@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerSetupController : MonoBehaviour
+public class PlayerSetupController : NetworkBehaviour
 {
     private GameLoader _loader = null;
 
@@ -40,6 +41,9 @@ public class PlayerSetupController : MonoBehaviour
     private int _headIndex;
     private int _bodyIndex;
 
+    private NetworkVariable<int> _headNetworkIndex;
+    private NetworkVariable<int> _bodyNetworkIndex;
+
     private void Awake()
     {
         _loader = ServiceLocator.Get<GameLoader>();
@@ -48,6 +52,16 @@ public class PlayerSetupController : MonoBehaviour
 
     private void Initialize()
     {
+        var multiplayerHandler = ServiceLocator.Get<MultiplayerHandler>();
+        if (multiplayerHandler)
+        {
+            _headNetworkIndex = new NetworkVariable<int>(0);
+            _headNetworkIndex.OnValueChanged += OnHeadIndexChanged;
+
+            _bodyNetworkIndex = new NetworkVariable<int>(0);
+            _bodyNetworkIndex.OnValueChanged += OnBodyIndexChanged;
+        }
+
         _configManager = ServiceLocator.Get<ConfigurationManager>();
         _audioManager = ServiceLocator.Get<AudioManager>();
     }
@@ -84,6 +98,12 @@ public class PlayerSetupController : MonoBehaviour
             _headIndex--;
         }
 
+        if (_headNetworkIndex != null)
+        {
+            _headNetworkIndex.Value = _headIndex;
+            return;
+        }
+
         _currentHead.sprite = _playerHead[_headIndex];
         _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
     }
@@ -97,6 +117,12 @@ public class PlayerSetupController : MonoBehaviour
         else
         {
             _headIndex++;
+        }
+
+        if (_headNetworkIndex != null)
+        {
+            _headNetworkIndex.Value = _headIndex;
+            return;
         }
 
         _currentHead.sprite = _playerHead[_headIndex];
@@ -114,6 +140,12 @@ public class PlayerSetupController : MonoBehaviour
             _bodyIndex--;
         }
 
+        if (_bodyNetworkIndex != null)
+        {
+            _bodyNetworkIndex.Value = _bodyIndex;
+            return;
+        }
+
         _currentBody.sprite = _playerBody[_bodyIndex];
         _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
     }
@@ -129,8 +161,25 @@ public class PlayerSetupController : MonoBehaviour
             _bodyIndex++;
         }
 
+        if (_bodyNetworkIndex != null)
+        {
+            _bodyNetworkIndex.Value = _bodyIndex;
+            return;
+        }
+
         _currentBody.sprite = _playerBody[_bodyIndex];
         _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
     }
 
+    private void OnHeadIndexChanged(int oldValue, int newValue)
+    {
+        _currentHead.sprite = _playerHead[newValue];
+        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+    }
+
+    private void OnBodyIndexChanged(int oldValue, int newValue)
+    {
+        _currentBody.sprite = _playerBody[newValue];
+        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+    }
 }
