@@ -63,16 +63,27 @@ public class ConfigurationManager : MonoBehaviour
         if (!_playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
         {
             Debug.Log("Player Has Joined");
+
             var netwrok = ServiceLocator.Get<MultiplayerHandler>();
             if (netwrok)
             {
-                netwrok.OnClientConnected(pi.gameObject);
+                netwrok.OnClientConnected(pi);
+                return;
             }
+
             pi.transform.SetParent(transform);
             _playerConfigs.Add(new PlayerConfiguration(pi));
             _playerConfigs[_playerNum].Num = _playerNums[_playerNum];
             _playerNum++;
         }
+    }
+
+    public void AddNewNetworkPlayer(PlayerInput pi)
+    {
+        pi.transform.SetParent(transform);
+        _playerConfigs.Add(new PlayerConfiguration(pi));
+        _playerConfigs[_playerNum].Num = _playerNums[_playerNum];
+        _playerNum++;
     }
 
     public void ResetConfigs()

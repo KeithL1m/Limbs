@@ -8,18 +8,21 @@ using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class MultiplayerHandler : MonoBehaviour
+public class MultiplayerHandler : NetworkBehaviour
 {
     public string JoinCode { get { return _joinCode; } private set { } }
-    public bool IsHost { get { return _isHost; } private set { } }
 
     [Space, Header("Server")]
     [SerializeField] private string _joinCode = string.Empty;
-    [SerializeField] private bool _isHost = false;
 
+    [SerializeField] private GameObject _playerConfig;
+
+    [SerializeField] private ConfigurationManager _configManager;
+    private PlayerInput _tempPlayerInputHolder;
     //temp
-    [SerializeField] private OnlineSettings t;
+    [SerializeField] private OnlineSettings _visualSettings;
 
     private void Awake()
     {
@@ -34,8 +37,16 @@ public class MultiplayerHandler : MonoBehaviour
             return;
         }
 
-        DontDestroyOnLoad(gameObject);
-        ServiceLocator.Register<MultiplayerHandler>(gameObject.GetComponent<MultiplayerHandler>());
+        {
+            DontDestroyOnLoad(gameObject);
+            ServiceLocator.Register<MultiplayerHandler>(gameObject.GetComponent<MultiplayerHandler>());
+
+            var gmObj = ServiceLocator.Get<GameManager>().gameObject;
+            PlayerInputManager pi = gmObj.GetComponent<PlayerInputManager>();
+            pi.playerPrefab = null;
+
+            _configManager = gmObj.GetComponent<ConfigurationManager>();
+        }
 
         await UnityServices.InitializeAsync();
 
@@ -44,9 +55,10 @@ public class MultiplayerHandler : MonoBehaviour
             Debug.Log(AuthenticationService.Instance.PlayerId);
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
-        string p;
-        p = await CreateServer();
-        t.SetStrg(p);
+
+        await CreateServer();
+        //TODO: shouldn't be called here
+        _visualSettings.SetStrg(_joinCode);
     }
 
     public async Task<string> CreateServer()
@@ -54,7 +66,6 @@ public class MultiplayerHandler : MonoBehaviour
         //Creating the actual server
         try
         {
-            _isHost = true;
             const int maxPlayersInServer = 3;//Does not count the host
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayersInServer);
 
@@ -81,8 +92,6 @@ public class MultiplayerHandler : MonoBehaviour
             NetworkManager.Singleton.Shutdown();
         }
 
-        _isHost = false;
-
         try
         {
             JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
@@ -100,10 +109,36 @@ public class MultiplayerHandler : MonoBehaviour
         }
     }
 
-    public void OnClientConnected(GameObject gameObject)
+    public void OnClientConnected(PlayerInput pi)
     {
-        NetworkObject networkObject = gameObject.GetComponent<NetworkObject>();
+        if (IsServer)
+        {
+            OnClientConnectedServerRpc(NetworkManager.Singleton.LocalClientId);
+        }
+        _tempPlayerInputHolder = pi;
+    }
 
-        networkObject.SpawnWithOwnership(NetworkManager.Singleton.LocalClientId);
+    [ServerRpc(RequireOwnership = false)]
+    public void OnClientConnectedServerRpc(ulong id)
+    {
+        GameObject newObj = Instantiate(_playerConfig);
+
+        NetworkObject networkObject = newObj.GetComponent<NetworkObject>();
+        networkObject.SpawnWithOwnership(id);
+        NotifyClientOfNewObjectClientRpc(networkObject.NetworkObjectId);
+    }
+
+    [ClientRpc]
+    private void NotifyClientOfNewObjectClientRpc(ulong networkObjectId)
+    {
+        // Find the new object using the network object ID
+        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out var networkObject))
+        {
+            var newObject = networkObject.gameObject.GetComponent<PlayerInput>();
+            newObject = _tempPlayerInputHolder;
+            _tempPlayerInputHolder = null;
+
+            _configManager.AddNewNetworkPlayer(newObject.GetComponent<PlayerInput>());
+        }
     }
 }
