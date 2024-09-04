@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -8,15 +9,12 @@ public class SpawnPlayerLoadout : NetworkBehaviour
     private GameLoader _loader = null;
 
     [SerializeField] private GameObject _playerSetupMenuPrefab;
-    [SerializeField] private PlayerInput _input;
 
-    private void Awake()
-    {
-        _loader = ServiceLocator.Get<GameLoader>();
-        _loader.CallOnComplete(Initialize);
-    }
+    private InputAction _moveAction;
+    private InputAction _submitAction;
+    private InputAction _cancelAction;
 
-    private void Initialize()
+    public void Initialize()
     {
         Debug.Log($"{nameof(Initialize)}");
 
@@ -32,9 +30,25 @@ public class SpawnPlayerLoadout : NetworkBehaviour
         {
             var menu = Instantiate(_playerSetupMenuPrefab, rootMenu.transform);
 
-            _input.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
-            menu.GetComponent<PlayerSetupController>().SetPlayerIndex(_input.playerIndex);
+            var uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
+            //uiInputModule.
+
+            //menu.GetComponent<PlayerSetupController>().SetPlayerIndex(_input.playerIndex);
         }
+    }
+
+    private void SetDeviceForUI(InputDevice device, GameObject menu)
+    {
+        //var uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
+        //uiInputModule.move.
+        //_moveAction = new InputAction(type: InputActionType.PassThrough, binding: "<Gamepad>/leftStick");
+        //_moveAction.AddBinding($"<Gamepad>{device.name}/leftStick");
+        //
+        //_submitAction = new InputAction(type: InputActionType.Button, binding: "<Gamepad>/buttonSouth");
+        //_submitAction.AddBinding($"<Gamepad>{device.name}/buttonSouth");
+        //
+        //_cancelAction = new InputAction(type: InputActionType.Button, binding: "<Gamepad>/buttonEast");
+        //_cancelAction.AddBinding($"<Gamepad>{device.name}/buttonEast");
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -48,7 +62,7 @@ public class SpawnPlayerLoadout : NetworkBehaviour
         networkObject.SpawnWithOwnership(id);
         menu.transform.SetParent(rootMenu.transform, false);
 
-        _input.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
-        menu.GetComponent<PlayerSetupController>().SetPlayerIndex(_input.playerIndex);
+        //_input.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
+        //menu.GetComponent<PlayerSetupController>().SetPlayerIndex(_input.playerIndex);
     }
 }

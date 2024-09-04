@@ -70,7 +70,7 @@ public class GameManager : Manager
 
         for (int i = 0; i < _playerCount; i++)
         {
-            var playerSpawner = _playerConfigs[i].Input.GetComponent<SpawnPlayer>();
+            var playerSpawner = _playerConfigs[i].PlayerConfigObject.GetComponent<SpawnPlayer>();
             var playerComp = playerSpawner.SpawnPlayerFirst(_playerConfigs[i]);
             _players.Add(playerComp);
 
@@ -212,7 +212,7 @@ public class GameManager : Manager
         ServiceLocator.Get<AudioManager>().StopMusic();
         for (int i = _playerCount - 1; i >= 0; i--)
         {
-            Destroy(_playerConfigs[i].Input.gameObject);
+            Destroy(_playerConfigs[i].PlayerConfigObject);
             Destroy(_players[i].gameObject);
         }
 

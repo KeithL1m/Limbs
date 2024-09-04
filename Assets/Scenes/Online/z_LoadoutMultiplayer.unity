@@ -733,7 +733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15e978c8b2e2743459b353a72662c941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _handler: {fileID: 0}
+  _handler: {fileID: 1407505690}
   _joinInputField: {fileID: 92473962}
 --- !u!4 &286020440
 Transform:

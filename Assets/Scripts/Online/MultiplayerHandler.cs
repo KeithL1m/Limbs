@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
@@ -20,7 +20,7 @@ public class MultiplayerHandler : NetworkBehaviour
     [SerializeField] private GameObject _playerConfig;
 
     [SerializeField] private ConfigurationManager _configManager;
-    private PlayerInput _tempPlayerInputHolder;
+    private InputDevice _tempDevice;
     //temp
     [SerializeField] private OnlineSettings _visualSettings;
 
@@ -42,9 +42,6 @@ public class MultiplayerHandler : NetworkBehaviour
             ServiceLocator.Register<MultiplayerHandler>(gameObject.GetComponent<MultiplayerHandler>());
 
             var gmObj = ServiceLocator.Get<GameManager>().gameObject;
-            PlayerInputManager pi = gmObj.GetComponent<PlayerInputManager>();
-            pi.playerPrefab = null;
-
             _configManager = gmObj.GetComponent<ConfigurationManager>();
         }
 
@@ -109,36 +106,43 @@ public class MultiplayerHandler : NetworkBehaviour
         }
     }
 
-    public void OnClientConnected(PlayerInput pi)
+    public void OnClientConnected(InputDevice device)
     {
-        if (IsServer)
+        _tempDevice = device;
+        ulong id = 0;
+        if (NetworkManager.Singleton.IsHost)
         {
-            OnClientConnectedServerRpc(NetworkManager.Singleton.LocalClientId);
+            id = OwnerClientId;
         }
-        _tempPlayerInputHolder = pi;
+        else if (NetworkManager.Singleton.IsClient)
+        {
+            id = NetworkManager.Singleton.LocalClientId;
+        }
+        OnClientConnectedServerRpc(id);
     }
 
     [ServerRpc(RequireOwnership = false)]
     public void OnClientConnectedServerRpc(ulong id)
     {
-        GameObject newObj = Instantiate(_playerConfig);
+        GameObject newObj = Instantiate(_playerConfig, _configManager.transform);
 
         NetworkObject networkObject = newObj.GetComponent<NetworkObject>();
         networkObject.SpawnWithOwnership(id);
-        NotifyClientOfNewObjectClientRpc(networkObject.NetworkObjectId);
+        NotifyClientOfNewObjectClientRpc(networkObject.NetworkObjectId, id);
     }
 
     [ClientRpc]
-    private void NotifyClientOfNewObjectClientRpc(ulong networkObjectId)
+    private void NotifyClientOfNewObjectClientRpc(ulong networkObjectId, ulong clientId)
     {
-        // Find the new object using the network object ID
-        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out var networkObject))
+        if (NetworkManager.Singleton.LocalClientId == clientId)
         {
-            var newObject = networkObject.gameObject.GetComponent<PlayerInput>();
-            newObject = _tempPlayerInputHolder;
-            _tempPlayerInputHolder = null;
+            if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out var networkObject))
+            {
+                var target = networkObject.gameObject;
 
-            _configManager.AddNewNetworkPlayer(newObject.GetComponent<PlayerInput>());
+                _configManager.JoinPlayer(target, _tempDevice);
+                _tempDevice = null;
+            }
         }
     }
 }
