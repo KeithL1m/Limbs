@@ -109,16 +109,7 @@ public class MultiplayerHandler : NetworkBehaviour
     public void OnClientConnected(InputDevice device)
     {
         _tempDevice = device;
-        ulong id = 0;
-        if (NetworkManager.Singleton.IsHost)
-        {
-            id = OwnerClientId;
-        }
-        else if (NetworkManager.Singleton.IsClient)
-        {
-            id = NetworkManager.Singleton.LocalClientId;
-        }
-        OnClientConnectedServerRpc(id);
+        OnClientConnectedServerRpc(NetworkManager.Singleton.LocalClientId);
     }
 
     [ServerRpc(RequireOwnership = false)]

@@ -1,7 +1,5 @@
 using Unity.Netcode;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
 public class SpawnPlayerLoadout : NetworkBehaviour
@@ -9,17 +7,15 @@ public class SpawnPlayerLoadout : NetworkBehaviour
     private GameLoader _loader = null;
 
     [SerializeField] private GameObject _playerSetupMenuPrefab;
+    private PlayerConfiguration _tempConfig;
 
-    private InputAction _moveAction;
-    private InputAction _submitAction;
-    private InputAction _cancelAction;
-
-    public void Initialize()
+    public void Initialize(PlayerConfiguration config)
     {
         Debug.Log($"{nameof(Initialize)}");
 
         if (ServiceLocator.Get<MultiplayerHandler>())
         {
+            _tempConfig = config;
             SpawnObjectInWebServerRpc(NetworkManager.Singleton.LocalClientId);
             return;
         }
@@ -30,25 +26,10 @@ public class SpawnPlayerLoadout : NetworkBehaviour
         {
             var menu = Instantiate(_playerSetupMenuPrefab, rootMenu.transform);
 
-            var uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
-            //uiInputModule.
-
-            //menu.GetComponent<PlayerSetupController>().SetPlayerIndex(_input.playerIndex);
+            InputSystemUIInputModule uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
+            uiInputModule.actionsAsset.devices = new[] { config.Device };
+            menu.GetComponent<PlayerSetupController>().SetPlayerIndex(config.PlayerIndex);
         }
-    }
-
-    private void SetDeviceForUI(InputDevice device, GameObject menu)
-    {
-        //var uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
-        //uiInputModule.move.
-        //_moveAction = new InputAction(type: InputActionType.PassThrough, binding: "<Gamepad>/leftStick");
-        //_moveAction.AddBinding($"<Gamepad>{device.name}/leftStick");
-        //
-        //_submitAction = new InputAction(type: InputActionType.Button, binding: "<Gamepad>/buttonSouth");
-        //_submitAction.AddBinding($"<Gamepad>{device.name}/buttonSouth");
-        //
-        //_cancelAction = new InputAction(type: InputActionType.Button, binding: "<Gamepad>/buttonEast");
-        //_cancelAction.AddBinding($"<Gamepad>{device.name}/buttonEast");
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -62,7 +43,22 @@ public class SpawnPlayerLoadout : NetworkBehaviour
         networkObject.SpawnWithOwnership(id);
         menu.transform.SetParent(rootMenu.transform, false);
 
-        //_input.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
-        //menu.GetComponent<PlayerSetupController>().SetPlayerIndex(_input.playerIndex);
+        SetControllerForCreatedEntityClientRpc(networkObject.NetworkObjectId, id);
+    }
+
+    [ClientRpc]
+    private void SetControllerForCreatedEntityClientRpc(ulong networkObjectId, ulong clientId)
+    {
+        if (NetworkManager.Singleton.LocalClientId == clientId)
+        {
+            if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out var networkObject))
+            {
+                var menu = networkObject.gameObject;
+
+                InputSystemUIInputModule uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
+                uiInputModule.actionsAsset.devices = new[] { _tempConfig.Device };
+                menu.GetComponent<PlayerSetupController>().SetPlayerIndex(_tempConfig.PlayerIndex);
+            }
+        }
     }
 }

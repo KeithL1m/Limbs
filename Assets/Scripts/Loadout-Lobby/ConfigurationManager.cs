@@ -92,7 +92,7 @@ public class ConfigurationManager : MonoBehaviour
         _playerNum++;
 
         var spawnMenu = player.GetComponent<SpawnPlayerLoadout>();
-        spawnMenu.Initialize();
+        spawnMenu.Initialize(_playerConfigs[_playerNum - 1]);
     }
 
     public void ResetConfigs()
