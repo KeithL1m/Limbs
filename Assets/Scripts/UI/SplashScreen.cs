@@ -7,7 +7,9 @@ public class SplashScreen : MonoBehaviour
 {
     private void Awake()
     {
-        StartCoroutine(Delay(2));
+        Scene currentScene = SceneManager.GetActiveScene();
+        int nextScene = currentScene.buildIndex + 1;
+        StartCoroutine(Delay(nextScene));
     }
 
     IEnumerator Delay(int sceneToLoad)
