@@ -26,8 +26,8 @@ public class SpawnPlayerLoadout : NetworkBehaviour
         {
             var menu = Instantiate(_playerSetupMenuPrefab, rootMenu.transform);
 
-            InputSystemUIInputModule uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
-            uiInputModule.actionsAsset.devices = new[] { config.Device };
+            MenuNavegation uiInputModule = menu.GetComponentInChildren<MenuNavegation>();
+            uiInputModule.Device = _tempConfig.Device;
             menu.GetComponent<PlayerSetupController>().SetPlayerIndex(config.PlayerIndex);
         }
     }
@@ -55,8 +55,8 @@ public class SpawnPlayerLoadout : NetworkBehaviour
             {
                 var menu = networkObject.gameObject;
 
-                InputSystemUIInputModule uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
-                uiInputModule.actionsAsset.devices = new[] { _tempConfig.Device };
+                MenuNavegation uiInputModule = menu.GetComponentInChildren<MenuNavegation>();
+                uiInputModule.Device = _tempConfig.Device;
                 menu.GetComponent<PlayerSetupController>().SetPlayerIndex(_tempConfig.PlayerIndex);
             }
         }

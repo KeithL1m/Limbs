@@ -115,10 +115,12 @@ public class MultiplayerHandler : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void OnClientConnectedServerRpc(ulong id)
     {
-        GameObject newObj = Instantiate(_playerConfig, _configManager.transform);
+        GameObject newObj = Instantiate(_playerConfig);
 
         NetworkObject networkObject = newObj.GetComponent<NetworkObject>();
         networkObject.SpawnWithOwnership(id);
+        networkObject.TrySetParent(_configManager.GetComponent<NetworkObject>());
+
         NotifyClientOfNewObjectClientRpc(networkObject.NetworkObjectId, id);
     }
 
