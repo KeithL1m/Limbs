@@ -114,7 +114,7 @@ public class PlayerSetupController : NetworkBehaviour
 
         if (_headNetworkIndex != null)
         {
-            ChangeHeadServerRpc();
+            _headNetworkIndex.Value = _headIndex;
             return;
         }
 
@@ -135,7 +135,7 @@ public class PlayerSetupController : NetworkBehaviour
 
         if (_headNetworkIndex != null)
         {
-            ChangeHeadServerRpc();
+            _headNetworkIndex.Value = _headIndex;
             return;
         }
 
@@ -156,7 +156,7 @@ public class PlayerSetupController : NetworkBehaviour
 
         if (_bodyNetworkIndex != null)
         {
-            ChangeBodyServerRpc();
+            _bodyNetworkIndex.Value = _bodyIndex;
             return;
         }
 
@@ -178,32 +178,12 @@ public class PlayerSetupController : NetworkBehaviour
         if (_bodyNetworkIndex != null)
         {
             Debug.Log("ChangeBody");
-            ChangeBodyServerRpc();
+            _bodyNetworkIndex.Value = _bodyIndex;
             return;
         }
 
         _currentBody.sprite = _playerBody[_bodyIndex];
         _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void ChangeHeadServerRpc()
-    {
-        _headNetworkIndex.Value = _headIndex;
-    }
-    
-    
-    //private void ChangeBsodyServerRpc()
-    //{
-    //    _bodyNetworkIndex.Value = _bodyIndex;
-    //}
-
-    [ServerRpc(RequireOwnership = false)]
-    private void ChangeBodyServerRpc()
-    {
-        Debug.Log("ChangingBody");
-        _bodyNetworkIndex.Value = _bodyIndex;
-        Debug.Log("ChangedBody");
     }
 
     private void OnHeadIndexChanged(int oldValue, int newValue)
