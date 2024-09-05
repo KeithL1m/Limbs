@@ -114,7 +114,7 @@ public class PlayerSetupController : NetworkBehaviour
 
         if (_headNetworkIndex != null)
         {
-            ChangeHeadServerRpc();
+            ChangeHeadServerRpc(_headIndex);
             return;
         }
 
@@ -135,7 +135,7 @@ public class PlayerSetupController : NetworkBehaviour
 
         if (_headNetworkIndex != null)
         {
-            ChangeHeadServerRpc();
+            ChangeHeadServerRpc(_headIndex);
             return;
         }
 
@@ -156,7 +156,7 @@ public class PlayerSetupController : NetworkBehaviour
 
         if (_bodyNetworkIndex != null)
         {
-            ChangeBodyServerRpc();
+            ChangeBodyServerRpc(_bodyIndex);
             return;
         }
 
@@ -178,7 +178,7 @@ public class PlayerSetupController : NetworkBehaviour
         if (_bodyNetworkIndex != null)
         {
             Debug.Log("ChangeBody");
-            ChangeBodyServerRpc();
+            ChangeBodyServerRpc(_bodyIndex);
             return;
         }
 
@@ -187,9 +187,9 @@ public class PlayerSetupController : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void ChangeHeadServerRpc()
+    private void ChangeHeadServerRpc(int value)
     {
-        _headNetworkIndex.Value = _headIndex;
+        _headNetworkIndex.Value = value;
     }
     
     //private void ChangeBsodyServerRpc()
@@ -198,10 +198,10 @@ public class PlayerSetupController : NetworkBehaviour
     //}
 
     [ServerRpc(RequireOwnership = false)]
-    private void ChangeBodyServerRpc()
+    private void ChangeBodyServerRpc(int value)
     {
         Debug.Log("ChangingBody");
-        _bodyNetworkIndex.Value = _bodyIndex;
+        _bodyNetworkIndex.Value = value;
         Debug.Log("ChangedBody");
     }
 
