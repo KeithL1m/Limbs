@@ -177,6 +177,7 @@ public class PlayerSetupController : NetworkBehaviour
 
         if (_bodyNetworkIndex != null)
         {
+            Debug.Log("ChangeBody");
             ChangeBodyServerRpc();
             return;
         }
@@ -190,11 +191,19 @@ public class PlayerSetupController : NetworkBehaviour
     {
         _headNetworkIndex.Value = _headIndex;
     }
+    
+    
+    //private void ChangeBsodyServerRpc()
+    //{
+    //    _bodyNetworkIndex.Value = _bodyIndex;
+    //}
 
     [ServerRpc(RequireOwnership = false)]
     private void ChangeBodyServerRpc()
     {
+        Debug.Log("ChangingBody");
         _bodyNetworkIndex.Value = _bodyIndex;
+        Debug.Log("ChangedBody");
     }
 
     private void OnHeadIndexChanged(int oldValue, int newValue)
