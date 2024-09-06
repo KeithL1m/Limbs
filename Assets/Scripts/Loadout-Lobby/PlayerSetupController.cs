@@ -191,18 +191,11 @@ public class PlayerSetupController : NetworkBehaviour
     {
         _headNetworkIndex.Value = value;
     }
-    
-    //private void ChangeBsodyServerRpc()
-    //{
-    //    _bodyNetworkIndex.Value = _bodyIndex;
-    //}
 
     [ServerRpc(RequireOwnership = false)]
     private void ChangeBodyServerRpc(int value)
     {
-        Debug.Log("ChangingBody");
         _bodyNetworkIndex.Value = value;
-        Debug.Log("ChangedBody");
     }
 
     private void OnHeadIndexChanged(int oldValue, int newValue)
