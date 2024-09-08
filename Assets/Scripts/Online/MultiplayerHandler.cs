@@ -22,6 +22,7 @@ public class MultiplayerHandler : NetworkBehaviour
     [Space, Header("Managers")]
     private GameManager _gameManager;
     private ConfigurationManager _configManager;
+    private int _playerCount = 0;
 
     [Space, Header("Holders")]
     private InputDevice _tempDevice;
@@ -33,7 +34,8 @@ public class MultiplayerHandler : NetworkBehaviour
         _configManager = GetComponent<ConfigurationManager>();
 
         GameLoader loader = ServiceLocator.Get<GameLoader>();
-        loader.CallOnComplete(() => {
+        loader.CallOnComplete(() =>
+        {
             ServiceLocator.Register<MultiplayerHandler>(gameObject.GetComponent<MultiplayerHandler>());
         });
     }
@@ -127,32 +129,37 @@ public class MultiplayerHandler : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void OnClientConnectedServerRpc(ulong id)
     {
+        if (_playerCount >= 4)
+        {
+            return;
+        }
+
         GameObject newObj = Instantiate(_playerConfigObj);
 
         NetworkObject networkObject = newObj.GetComponent<NetworkObject>();
         networkObject.SpawnWithOwnership(id);
         networkObject.TrySetParent(_configManager.GetComponent<NetworkObject>());
 
-        NotifyClientOfNewObjectClientRpc(networkObject.NetworkObjectId, id);
+        NotifyClientOfNewObjectClientRpc(networkObject.NetworkObjectId, id, _playerCount);
+        ++_playerCount;
     }
 
     [ClientRpc]
-    private void NotifyClientOfNewObjectClientRpc(ulong networkObjectId, ulong clientId)
+    private void NotifyClientOfNewObjectClientRpc(ulong networkObjectId, ulong clientId, int playerNum)
     {
         if (NetworkManager.Singleton.LocalClientId == clientId)
         {
             if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out var networkObject))
             {
                 var target = networkObject.gameObject;
-
-                _configManager.JoinPlayer(target, _tempDevice);
+                _configManager.JoinPlayer(target, _tempDevice, playerNum);
                 _tempDevice = null;
             }
         }
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        switch(scene.name)
+        switch (scene.name)
         {
             case "StartMenu":
             case "MainMenu":
@@ -169,7 +176,7 @@ public class MultiplayerHandler : NetworkBehaviour
                 }
             case "z_LoadoutMultiplayer":
                 {
-                    if(!_networkManager)
+                    if (!_networkManager)
                     {
                         _networkManager = Instantiate(_networkManagerPrefab);
                         DontDestroyOnLoad(_networkManager);

@@ -79,21 +79,22 @@ public class ConfigurationManager : MonoBehaviour
             Debug.Log("Player Has Joined");
 
             var player = Instantiate(prefab, transform);
-            JoinPlayer(player, device);
+            JoinPlayer(player, device, _playerNum);
+            ++_playerNum;
             return true;
         }
 
         return false;
     }
 
-    public void JoinPlayer(GameObject player, InputDevice device)
+    public void JoinPlayer(GameObject player, InputDevice device, int playerNum)
     {
+        _playerNum = playerNum;
         _playerConfigs.Add(new PlayerConfiguration(device, player, _playerNum));
-        _playerConfigs[_playerNum].Num = _playerNums[_playerNum];
-        _playerNum++;
+        _playerConfigs.Last().Num = _playerNums[_playerNum];
 
         var spawnMenu = player.GetComponent<SpawnPlayerLoadout>();
-        spawnMenu.Initialize(_playerConfigs[_playerNum - 1]);
+        spawnMenu.Initialize(_playerConfigs.Last());
     }
 
     public void ResetConfigs()
