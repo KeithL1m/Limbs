@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -2330629437284295947}
   - component: {fileID: 7777048602717406665}
   - component: {fileID: 7891435827142567032}
+  - component: {fileID: -5812962175452160083}
   - component: {fileID: 7033073488795715658}
   - component: {fileID: -772498438438875510}
   m_Layer: 0
@@ -70,6 +71,7 @@ MonoBehaviour:
   _winsNeeded: 3
   spawnPoints: []
   _players: []
+  IsOnline: 0
   _empyObj: {fileID: 661398525459741840, guid: bc6f31650622bab4097afe3b93a01146, type: 3}
   limits: 0
 --- !u!114 &8822850745060225480
@@ -153,6 +155,21 @@ MonoBehaviour:
   SoundFXVolume: 0
   _sources: []
   _numSources: 8
+--- !u!114 &-5812962175452160083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2200296758692526866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e57158ea9968442ac24ec9bbecef20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _joinCode: 
+  _playerConfigObj: {fileID: 1915219753739768710, guid: c6323961af398d8449e5c079bd941c0b, type: 3}
+  _networkManagerPrefab: {fileID: 5240221005077297235, guid: de17fe9f418e17145b1904b387362711, type: 3}
 --- !u!114 &7033073488795715658
 MonoBehaviour:
   m_ObjectHideFlags: 0

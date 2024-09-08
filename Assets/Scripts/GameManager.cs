@@ -28,6 +28,8 @@ public class GameManager : Manager
     private int _deadPlayers;
     private Player _winningPlayer;
 
+    public bool IsOnline = false;
+
     public bool startScreen { get; set; } = true;
     public bool VictoryScreen { get; private set; } = false;
     public bool EarlyEnd { get; set; } = false;

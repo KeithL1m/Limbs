@@ -1,48 +1,57 @@
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
-using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
-using UnityEngine;
-using UnityEngine.InputSystem;
+using Unity.Services.Authentication;
+using System.Threading.Tasks;
 
 public class MultiplayerHandler : NetworkBehaviour
 {
+    [Header("Server")]
+    [SerializeField] private string _joinCode = string.Empty;
     public string JoinCode { get { return _joinCode; } private set { } }
 
-    [Space, Header("Server")]
-    [SerializeField] private string _joinCode = string.Empty;
+    [SerializeField] private GameObject _playerConfigObj;
+    [SerializeField] private GameObject _networkManagerPrefab;
 
-    [SerializeField] private GameObject _playerConfig;
+    [Space, Header("Managers")]
+    private GameManager _gameManager;
+    private ConfigurationManager _configManager;
 
-    [SerializeField] private ConfigurationManager _configManager;
+    [Space, Header("Holders")]
     private InputDevice _tempDevice;
-    //temp
-    [SerializeField] private OnlineSettings _visualSettings;
+    private GameObject _networkManager;
 
     private void Awake()
     {
+        _gameManager = GetComponent<GameManager>();
+        _configManager = GetComponent<ConfigurationManager>();
+
         GameLoader loader = ServiceLocator.Get<GameLoader>();
-        loader.CallOnComplete(Initialize);
+        loader.CallOnComplete(() => {
+            ServiceLocator.Register<MultiplayerHandler>(gameObject.GetComponent<MultiplayerHandler>());
+        });
+    }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private async void Initialize()
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private async void StartMultiplayer()
     {
         if (UnityServices.State == ServicesInitializationState.Initialized || UnityServices.State == ServicesInitializationState.Initializing)
         {
             return;
-        }
-
-        {
-            DontDestroyOnLoad(gameObject);
-            ServiceLocator.Register<MultiplayerHandler>(gameObject.GetComponent<MultiplayerHandler>());
-
-            var gmObj = ServiceLocator.Get<GameManager>().gameObject;
-            _configManager = gmObj.GetComponent<ConfigurationManager>();
         }
 
         await UnityServices.InitializeAsync();
@@ -54,12 +63,15 @@ public class MultiplayerHandler : NetworkBehaviour
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
         await CreateServer();
-        //TODO: shouldn't be called here
-        _visualSettings.SetStrg(_joinCode);
     }
 
     public async Task<string> CreateServer()
     {
+        if (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsClient)
+        {
+            NetworkManager.Singleton.Shutdown();
+        }
+
         //Creating the actual server
         try
         {
@@ -115,7 +127,7 @@ public class MultiplayerHandler : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void OnClientConnectedServerRpc(ulong id)
     {
-        GameObject newObj = Instantiate(_playerConfig);
+        GameObject newObj = Instantiate(_playerConfigObj);
 
         NetworkObject networkObject = newObj.GetComponent<NetworkObject>();
         networkObject.SpawnWithOwnership(id);
@@ -136,6 +148,36 @@ public class MultiplayerHandler : NetworkBehaviour
                 _configManager.JoinPlayer(target, _tempDevice);
                 _tempDevice = null;
             }
+        }
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        switch(scene.name)
+        {
+            case "StartMenu":
+            case "MainMenu":
+            case "z_Loadout":
+                {
+                    if (NetworkManager && (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsClient))
+                    {
+                        NetworkManager.Singleton.Shutdown();
+                        Destroy(_networkManagerPrefab);
+                        _networkManager = null;
+                    }
+                    _gameManager.IsOnline = false;
+                    break;
+                }
+            case "z_LoadoutMultiplayer":
+                {
+                    if(!_networkManager)
+                    {
+                        _networkManager = Instantiate(_networkManagerPrefab);
+                        DontDestroyOnLoad(_networkManager);
+                    }
+                    StartMultiplayer();
+                    _gameManager.IsOnline = true;
+                    break;
+                }
         }
     }
 }
