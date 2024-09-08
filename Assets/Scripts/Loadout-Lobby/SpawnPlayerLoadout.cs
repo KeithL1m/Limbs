@@ -1,6 +1,5 @@
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
 
 public class SpawnPlayerLoadout : NetworkBehaviour
 {
@@ -13,7 +12,7 @@ public class SpawnPlayerLoadout : NetworkBehaviour
     {
         Debug.Log($"{nameof(Initialize)}");
 
-        if (ServiceLocator.Get<MultiplayerHandler>())
+        if (NetworkManager)
         {
             _tempConfig = config;
             SpawnObjectInWebServerRpc(NetworkManager.Singleton.LocalClientId);
@@ -27,7 +26,7 @@ public class SpawnPlayerLoadout : NetworkBehaviour
             var menu = Instantiate(_playerSetupMenuPrefab, rootMenu.transform);
 
             MenuNavegation uiInputModule = menu.GetComponentInChildren<MenuNavegation>();
-            uiInputModule.Device = _tempConfig.Device;
+            uiInputModule.Device = config.Device;
             menu.GetComponent<PlayerSetupController>().SetPlayerIndex(config.PlayerIndex);
         }
     }
