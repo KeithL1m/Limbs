@@ -69,13 +69,9 @@ public class PlayerSetupController : NetworkBehaviour
 
             _bodyNetworkIndex = new NetworkVariable<int>(0);
             _bodyNetworkIndex.OnValueChanged += OnBodyIndexChanged;
+            
+            ResetValuesForNewPlayer();
         }
-    }
-
-    private void Start()
-    {
-        ChangeHeadServerRpc(0);
-        ChangeBodyServerRpc(0);
     }
 
     private void OnDisable()
@@ -186,6 +182,13 @@ public class PlayerSetupController : NetworkBehaviour
     private void ChangeBodyServerRpc(int value)
     {
         _bodyNetworkIndex.Value = value;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ResetValuesForNewPlayer()
+    {
+        _headNetworkIndex.Value = _headNetworkIndex.Value;
+        _bodyNetworkIndex.Value = _bodyNetworkIndex.Value;
     }
 
     [ClientRpc()]
