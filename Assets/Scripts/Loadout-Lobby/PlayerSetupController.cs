@@ -69,7 +69,13 @@ public class PlayerSetupController : NetworkBehaviour
 
             _bodyNetworkIndex = new NetworkVariable<int>(0);
             _bodyNetworkIndex.OnValueChanged += OnBodyIndexChanged;
+        }
+    }
 
+    private void Start()
+    {
+        if (_isOnline)
+        {
             ResetValuesForNewPlayerServerRpc();
         }
     }
