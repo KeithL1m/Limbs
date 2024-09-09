@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _referenceButton: {fileID: 9017944817917584950}
+  _moveSelectionTime: 0.2
 --- !u!1 &2123343082477732263
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,12 +169,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9032881135680594532}
         m_TargetAssemblyTypeName: PlayerSetupController, Assembly-CSharp
-        m_MethodName: ChangeCurrentBodyRight
-        m_Mode: 1
+        m_MethodName: ChangeCurrentBody
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -301,12 +302,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9032881135680594532}
         m_TargetAssemblyTypeName: PlayerSetupController, Assembly-CSharp
-        m_MethodName: ChangeCurrentHeadRight
-        m_Mode: 1
+        m_MethodName: ChangeCurrentHead
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -725,12 +726,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9032881135680594532}
         m_TargetAssemblyTypeName: PlayerSetupController, Assembly-CSharp
-        m_MethodName: ChangeCurrentHeadLeft
-        m_Mode: 1
+        m_MethodName: ChangeCurrentHead
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: -1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -858,12 +859,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9032881135680594532}
         m_TargetAssemblyTypeName: PlayerSetupController, Assembly-CSharp
-        m_MethodName: ChangeCurrentBodyLeft
-        m_Mode: 1
+        m_MethodName: ChangeCurrentBody
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: -1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

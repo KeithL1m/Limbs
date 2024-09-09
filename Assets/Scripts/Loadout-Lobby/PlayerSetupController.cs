@@ -44,6 +44,8 @@ public class PlayerSetupController : NetworkBehaviour
     private NetworkVariable<int> _headNetworkIndex;
     private NetworkVariable<int> _bodyNetworkIndex;
 
+    private bool _isOnline = false;
+
     private void Awake()
     {
         _loader = ServiceLocator.Get<GameLoader>();
@@ -54,12 +56,13 @@ public class PlayerSetupController : NetworkBehaviour
     {
         _configManager = ServiceLocator.Get<ConfigurationManager>();
         _audioManager = ServiceLocator.Get<AudioManager>();
+
+        _isOnline = ServiceLocator.Get<GameManager>().IsOnline;
     }
 
     private void OnEnable()
     {
-        var multiplayerHandler = ServiceLocator.Get<MultiplayerHandler>();
-        if (multiplayerHandler)
+        if (ServiceLocator.Get<GameManager>().IsOnline)
         {
             _headNetworkIndex = new NetworkVariable<int>(0);
             _headNetworkIndex.OnValueChanged += OnHeadIndexChanged;
@@ -71,8 +74,7 @@ public class PlayerSetupController : NetworkBehaviour
 
     private void OnDisable()
     {
-        var multiplayerHandler = ServiceLocator.Get<MultiplayerHandler>();
-        if (multiplayerHandler)
+        if (ServiceLocator.Get<GameManager>().IsOnline)
         {
             _headNetworkIndex.OnValueChanged -= OnHeadIndexChanged;
 
@@ -83,7 +85,7 @@ public class PlayerSetupController : NetworkBehaviour
     public void SetPlayerIndex(int playerNum, int playerIndex)
     {
         _playerIndex = playerIndex;
-        string name = "Player " + playerNum.ToString();
+        string name = "Player " + (playerNum + 1).ToString();
         _titleText.SetText(name);
         _configManager.SetPlayerName(playerIndex, name);
     }
@@ -101,89 +103,48 @@ public class PlayerSetupController : NetworkBehaviour
         _configManager.ReadyPlayer(_playerIndex);
     }
 
-    public void ChangeCurrentHeadLeft()
+    public void ChangeCurrentHead(int amount)
     {
-        if (_headIndex == 0)
-        {
-            _headIndex = _playerHead.Count - 1;
-        }
-        else
-        {
-            _headIndex--;
-        }
-
-        if (_headNetworkIndex != null && IsOwner)
-        {
-            ChangeHeadServerRpc(_headIndex);
-            return;
-        }
-
-        _currentHead.sprite = _playerHead[_headIndex];
-        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
-    }
-
-    public void ChangeCurrentHeadRight()
-    {
-        if (_headIndex == _playerHead.Count - 1)
+        _headIndex += amount;
+        if (_headIndex >= _playerHead.Count)
         {
             _headIndex = 0;
         }
-        else
+        else if (_headIndex < 0)
         {
-            _headIndex++;
+            _headIndex = 0;
         }
+
+        _currentHead.sprite = _playerHead[_headIndex];
+        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
 
         if (_headNetworkIndex != null && IsOwner)
         {
             ChangeHeadServerRpc(_headIndex);
             return;
         }
-
-        _currentHead.sprite = _playerHead[_headIndex];
-        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
     }
 
-    public void ChangeCurrentBodyLeft()
+    public void ChangeCurrentBody(int amount)
     {
-        if (_bodyIndex == 0)
-        {
-            _bodyIndex = _playerBody.Count - 1;
-        }
-        else
-        {
-            _bodyIndex--;
-        }
-
-        if (_bodyNetworkIndex != null && IsOwner)
-        {
-            ChangeBodyServerRpc(_bodyIndex);
-            return;
-        }
-
-        _currentBody.sprite = _playerBody[_bodyIndex];
-        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
-    }
-
-    public void ChangeCurrentBodyRight()
-    {
-        if (_bodyIndex == _playerBody.Count - 1)
+        _bodyIndex += amount;
+        if (_bodyIndex >= _playerBody.Count)
         {
             _bodyIndex = 0;
         }
-        else
+        else if (_bodyIndex < 0)
         {
-            _bodyIndex++;
-        }
-
-        if (_bodyNetworkIndex != null && IsOwner)
-        {
-            Debug.Log("ChangeBody");
-            ChangeBodyServerRpc(_bodyIndex);
-            return;
+            _bodyIndex = 0;
         }
 
         _currentBody.sprite = _playerBody[_bodyIndex];
         _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+
+        if (_bodyNetworkIndex != null && IsOwner)
+        {
+            ChangeBodyServerRpc(_bodyIndex);
+            return;
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]
