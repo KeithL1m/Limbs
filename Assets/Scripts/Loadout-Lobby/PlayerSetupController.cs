@@ -158,6 +158,7 @@ public class PlayerSetupController : NetworkBehaviour
     {
         if (!IsOwner)
         {
+            newValue %= _playerHead.Count;
             _currentHead.sprite = _playerHead[newValue];
             _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
         }
@@ -167,6 +168,7 @@ public class PlayerSetupController : NetworkBehaviour
     {
         if (!IsOwner)
         {
+            newValue %= _playerBody.Count;
             _currentBody.sprite = _playerBody[newValue];
             _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
         }
@@ -187,10 +189,8 @@ public class PlayerSetupController : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void ResetValuesForNewPlayerServerRpc()
     {
-        ++_headNetworkIndex.Value;
-        ++_bodyNetworkIndex.Value;
-        --_headNetworkIndex.Value;
-        --_bodyNetworkIndex.Value;
+        _headNetworkIndex.Value += _playerHead.Count;
+        _bodyNetworkIndex.Value += _playerBody.Count;
     }
 
     [ClientRpc()]
