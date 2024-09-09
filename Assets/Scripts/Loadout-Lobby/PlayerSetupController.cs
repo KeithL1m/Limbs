@@ -187,8 +187,10 @@ public class PlayerSetupController : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void ResetValuesForNewPlayerServerRpc()
     {
-        _headNetworkIndex.Value = _headNetworkIndex.Value;
-        _bodyNetworkIndex.Value = _bodyNetworkIndex.Value;
+        ++_headNetworkIndex.Value;
+        ++_bodyNetworkIndex.Value;
+        --_headNetworkIndex.Value;
+        --_bodyNetworkIndex.Value;
     }
 
     [ClientRpc()]
