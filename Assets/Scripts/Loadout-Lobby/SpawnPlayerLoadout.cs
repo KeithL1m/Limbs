@@ -8,14 +8,14 @@ public class SpawnPlayerLoadout : NetworkBehaviour
     [SerializeField] private GameObject _playerSetupMenuPrefab;
     private PlayerConfiguration _tempConfig;
 
-    public void Initialize(PlayerConfiguration config)
+    public void Initialize(PlayerConfiguration config, int playerInArrayIndex)
     {
         Debug.Log($"{nameof(Initialize)}");
 
         if (NetworkManager)
         {
             _tempConfig = config;
-            SpawnObjectInWebServerRpc(NetworkManager.Singleton.LocalClientId);
+            SpawnObjectInWebServerRpc(NetworkManager.Singleton.LocalClientId, playerInArrayIndex);
             return;
         }
 
@@ -27,12 +27,12 @@ public class SpawnPlayerLoadout : NetworkBehaviour
 
             MenuNavegation uiInputModule = menu.GetComponentInChildren<MenuNavegation>();
             uiInputModule.Device = config.Device;
-            menu.GetComponent<PlayerSetupController>().SetPlayerIndex(config.PlayerIndex);
+            menu.GetComponent<PlayerSetupController>().SetPlayerIndex(config.PlayerIndex, playerInArrayIndex);
         }
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void SpawnObjectInWebServerRpc(ulong id)
+    private void SpawnObjectInWebServerRpc(ulong id, int playerInArrayIndex)
     {
         var rootMenu = GameObject.Find("Loadout");
 
@@ -42,11 +42,11 @@ public class SpawnPlayerLoadout : NetworkBehaviour
         networkObject.SpawnWithOwnership(id);
         menu.transform.SetParent(rootMenu.transform, false);
 
-        SetControllerForCreatedEntityClientRpc(networkObject.NetworkObjectId, id);
+        SetControllerForCreatedEntityClientRpc(networkObject.NetworkObjectId, id, playerInArrayIndex);
     }
 
     [ClientRpc]
-    private void SetControllerForCreatedEntityClientRpc(ulong networkObjectId, ulong clientId)
+    private void SetControllerForCreatedEntityClientRpc(ulong networkObjectId, ulong clientId, int playerInArrayIndex)
     {
         if (NetworkManager.Singleton.LocalClientId == clientId)
         {
@@ -56,7 +56,7 @@ public class SpawnPlayerLoadout : NetworkBehaviour
 
                 MenuNavegation uiInputModule = menu.GetComponentInChildren<MenuNavegation>();
                 uiInputModule.Device = _tempConfig.Device;
-                menu.GetComponent<PlayerSetupController>().SetPlayerIndex(_tempConfig.PlayerIndex);
+                menu.GetComponent<PlayerSetupController>().SetPlayerIndex(_tempConfig.PlayerIndex, playerInArrayIndex);
             }
         }
     }

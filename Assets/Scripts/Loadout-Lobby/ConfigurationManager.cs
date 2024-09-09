@@ -94,7 +94,7 @@ public class ConfigurationManager : MonoBehaviour
         _playerConfigs.Last().Num = _playerNums[_playerNum];
 
         var spawnMenu = player.GetComponent<SpawnPlayerLoadout>();
-        spawnMenu.Initialize(_playerConfigs.Last());
+        spawnMenu.Initialize(_playerConfigs.Last(), _playerConfigs.Count - 1);
     }
 
     public void ResetConfigs()
