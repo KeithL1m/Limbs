@@ -58,6 +58,11 @@ public class PlayerSetupController : NetworkBehaviour
         _audioManager = ServiceLocator.Get<AudioManager>();
 
         _isOnline = ServiceLocator.Get<GameManager>().IsOnline;
+        if(_isOnline)
+        {
+            ChangeCurrentHead(_headNetworkIndex.Value);
+            ChangeCurrentBody(_bodyNetworkIndex.Value);
+        }
     }
 
     private void OnEnable()
@@ -92,7 +97,7 @@ public class PlayerSetupController : NetworkBehaviour
 
     public void ReadyPlayer()
     {
-        if(_isOnline && IsOwner)
+        if (_isOnline && IsOwner)
         {
             ChangeReadyButtonSpriteClientRpc();
         }
@@ -117,7 +122,7 @@ public class PlayerSetupController : NetworkBehaviour
         }
         else if (_headIndex < 0)
         {
-            _headIndex = 0;
+            _headIndex = _playerHead.Count - 1;
         }
 
         _currentHead.sprite = _playerHead[_headIndex];
@@ -139,7 +144,7 @@ public class PlayerSetupController : NetworkBehaviour
         }
         else if (_bodyIndex < 0)
         {
-            _bodyIndex = 0;
+            _bodyIndex = _playerBody.Count - 1;
         }
 
         _currentBody.sprite = _playerBody[_bodyIndex];
@@ -154,14 +159,20 @@ public class PlayerSetupController : NetworkBehaviour
 
     private void OnHeadIndexChanged(int oldValue, int newValue)
     {
-        _currentHead.sprite = _playerHead[newValue];
-        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+        if (!IsOwner)
+        {
+            _currentHead.sprite = _playerHead[newValue];
+            _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+        }
     }
 
     private void OnBodyIndexChanged(int oldValue, int newValue)
     {
-        _currentBody.sprite = _playerBody[newValue];
-        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+        if (!IsOwner)
+        {
+            _currentBody.sprite = _playerBody[newValue];
+            _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]
