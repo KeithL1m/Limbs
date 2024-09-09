@@ -70,8 +70,8 @@ public class PlayerSetupController : NetworkBehaviour
             _bodyNetworkIndex = new NetworkVariable<int>(0);
             _bodyNetworkIndex.OnValueChanged += OnBodyIndexChanged;
 
-            _currentHead.sprite = _playerHead[_headNetworkIndex.Value];
-            _currentBody.sprite = _playerBody[_bodyNetworkIndex.Value];
+            ChangeHeadServerRpc(0);
+            ChangeBodyServerRpc(0);
         }
     }
 
