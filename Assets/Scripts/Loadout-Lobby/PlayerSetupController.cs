@@ -58,11 +58,6 @@ public class PlayerSetupController : NetworkBehaviour
         _audioManager = ServiceLocator.Get<AudioManager>();
 
         _isOnline = ServiceLocator.Get<GameManager>().IsOnline;
-        if(_isOnline)
-        {
-            ChangeCurrentHead(_headNetworkIndex.Value);
-            ChangeCurrentBody(_bodyNetworkIndex.Value);
-        }
     }
 
     private void OnEnable()
@@ -74,6 +69,8 @@ public class PlayerSetupController : NetworkBehaviour
 
             _bodyNetworkIndex = new NetworkVariable<int>(0);
             _bodyNetworkIndex.OnValueChanged += OnBodyIndexChanged;
+            ChangeCurrentHead(_headNetworkIndex.Value);
+            ChangeCurrentBody(_bodyNetworkIndex.Value);
         }
     }
 
