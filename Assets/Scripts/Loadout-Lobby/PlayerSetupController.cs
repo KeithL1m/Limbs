@@ -92,6 +92,11 @@ public class PlayerSetupController : NetworkBehaviour
 
     public void ReadyPlayer()
     {
+        if(_isOnline && IsOwner)
+        {
+            ChangeReadyButtonSpriteClientRpc();
+        }
+
         _configManager.SetPlayerHead(_playerIndex, _playerHead[_headIndex]);
         _configManager.SetPlayerBody(_playerIndex, _playerBody[_bodyIndex]);
         _readyButtonImage.sprite = _readySprite;
@@ -118,7 +123,7 @@ public class PlayerSetupController : NetworkBehaviour
         _currentHead.sprite = _playerHead[_headIndex];
         _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
 
-        if (_headNetworkIndex != null && IsOwner)
+        if (_isOnline && IsOwner)
         {
             ChangeHeadServerRpc(_headIndex);
             return;
@@ -140,11 +145,23 @@ public class PlayerSetupController : NetworkBehaviour
         _currentBody.sprite = _playerBody[_bodyIndex];
         _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
 
-        if (_bodyNetworkIndex != null && IsOwner)
+        if (_isOnline && IsOwner)
         {
             ChangeBodyServerRpc(_bodyIndex);
             return;
         }
+    }
+
+    private void OnHeadIndexChanged(int oldValue, int newValue)
+    {
+        _currentHead.sprite = _playerHead[newValue];
+        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+    }
+
+    private void OnBodyIndexChanged(int oldValue, int newValue)
+    {
+        _currentBody.sprite = _playerBody[newValue];
+        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -159,15 +176,12 @@ public class PlayerSetupController : NetworkBehaviour
         _bodyNetworkIndex.Value = value;
     }
 
-    private void OnHeadIndexChanged(int oldValue, int newValue)
+    [ClientRpc()]
+    private void ChangeReadyButtonSpriteClientRpc()
     {
-        _currentHead.sprite = _playerHead[newValue];
-        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
-    }
-
-    private void OnBodyIndexChanged(int oldValue, int newValue)
-    {
-        _currentBody.sprite = _playerBody[newValue];
-        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+        if (_readyButton.targetGraphic is Image image)
+        {
+            _readyButton.image.sprite = image.sprite;
+        }
     }
 }
