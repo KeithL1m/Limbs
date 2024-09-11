@@ -79,7 +79,7 @@ public class GameLoader : ASyncLoader
         gm.name = "GameManager";
         ServiceLocator.Register<GameManager>(gm.GetComponent<GameManager>());
         ServiceLocator.Register<MapManager>(gm.GetComponent<MapManager>());
-        ServiceLocator.Register<ConfigurationManager>(gm.GetComponent<ConfigurationManager>().Initialize());
+        ServiceLocator.Register<ConfigurationManagerBase>(gm.GetComponent<ConfigurationManagerBase>().Initialize());
         ServiceLocator.Register<PlayerManager>(gm.GetComponent<PlayerManager>().Initialize());
         ServiceLocator.Register<LimbManager>(gm.GetComponent<LimbManager>());
         ServiceLocator.Register<AudioManager>(gm.GetComponent<AudioManager>());

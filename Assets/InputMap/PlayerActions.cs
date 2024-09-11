@@ -353,6 +353,17 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""AnyInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b18ebe2f-d3df-4f13-b50d-29ceea6722d0"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AnyInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },

@@ -4,39 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using static OptionsScreen;
 
-public class GameManagerLocal : Manager
+public class GameManagerLocal : GameManager
 {
-    [SerializeField] private int _winsNeeded;
-
-    private GameLoader _loader = null;
-    private ConfigurationManager _configManager = null;
-    private MapManager _mapManager = null;
-    private PlayerManager _playerManager = null;
-    private ObjectPoolManager _objManager;
-    private SceneFade _transition;
-
-    public List<GameObject> spawnPoints = new List<GameObject>();
-
-    private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
-    public List<Player> _players = new List<Player>();
-
-    private PauseManager _pauseManager;
-    private UIManager _uiManager;
-    private bool isGameOver = false;
-    public bool IsGameOver { get { return isGameOver; } }
-    private int _playerCount;
-    private int _deadPlayers;
-    private Player _winningPlayer;
-
-    public bool startScreen { get; set; } = true;
-    public bool VictoryScreen { get; private set; } = false;
-    public bool EarlyEnd { get; set; } = false;
-
-    [SerializeField] private EmptyDestructibleObject _empyObj;
-
-    public frameLimits limits;
-    private float _changeSceneDuration;
-
     private void Awake()
     {
         _loader = ServiceLocator.Get<GameLoader>();
@@ -68,16 +37,16 @@ public class GameManagerLocal : Manager
         _playerConfigs = _configManager.GetPlayerConfigs();
         _configManager.InLoadout = false;
 
-        for (int i = 0; i < _playerCount; i++)
+        /*for (int i = 0; i < _playerCount; i++)
         {
-            var playerSpawner = _playerConfigs[i].Input.GetComponent<SpawnPlayer>();
+            var //playerSpawner = _playerConfigs[i].Input.GetComponent<SpawnPlayer>();
             var playerComp = playerSpawner.SpawnPlayerFirst(_playerConfigs[i]);
             _players.Add(playerComp);
 
             var playerObj = playerSpawner.Player;
             _playerManager.AddPlayerObject(playerObj);
             Debug.Log($"Adding Player {playerObj.name} to PlayerManager");
-        }
+        }*/
     }
 
     public void StartGame()
@@ -210,11 +179,11 @@ public class GameManagerLocal : Manager
         startScreen = true;
 
         ServiceLocator.Get<AudioManager>().StopMusic();
-        for (int i = _playerCount - 1; i >= 0; i--)
+        /*for (int i = _playerCount - 1; i >= 0; i--)
         {
             Destroy(_playerConfigs[i].Input.gameObject);
             Destroy(_players[i].gameObject);
-        }
+        }*/
 
         ServiceLocator.Unregister<EmptyDestructibleObject>();
 

@@ -5,38 +5,38 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class ConfigManagerLocal : MonoBehaviour
+public class ConfigManagerLocal : ConfigurationManagerBase
 {
     private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
 
     [SerializeField] private List<Sprite> _playerNums;
 
-    public bool InLoadout { get; set; } = false;
+    public override bool InLoadout { get; set; }
 
     private int _playerNum = 0;
 
-    public ConfigManagerLocal Initialize()
+    public override ConfigurationManagerBase Initialize()
     {
         Debug.Log("Loading Configuration Manager");
         return this;
     }
 
-    public void SetPlayerHead(int index, Sprite head)
+    public override void SetPlayerHead(int index, Sprite head)
     {
         _playerConfigs[index].Head = head;
     }
 
-    public void SetPlayerBody(int index, Sprite body)
+    public override void SetPlayerBody(int index, Sprite body)
     {
         _playerConfigs[index].Body = body;
     }
 
-    public void SetPlayerName(int index, string name)
+    public override void SetPlayerName(int index, string name)
     {
         _playerConfigs[index].Name = name;
     }
 
-    public void ReadyPlayer(int index)
+    public override void ReadyPlayer(int index)
     {
         _playerConfigs[index].IsReady = true;
 
@@ -49,6 +49,7 @@ public class ConfigManagerLocal : MonoBehaviour
     IEnumerator LoadSceneAsync()
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(5);
+        //NetworkManager.Singleton.SceneManager.LoadScene("YourSceneName", LoadSceneMode.Single);
 
         while (!asyncLoad.isDone)
         {
@@ -56,32 +57,48 @@ public class ConfigManagerLocal : MonoBehaviour
         }
     }
 
-    public void HandlePlayerJoin(PlayerInput pi)
+    public override bool HandlePlayerJoin(InputDevice device, GameObject prefab)
     {
         if (!InLoadout)
-            return;
-        if (!_playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
+        {
+            return false;
+        }
+
+        bool hasDevice = _playerConfigs.Any(p => p.Device == device);
+        if (!hasDevice)
         {
             Debug.Log("Player Has Joined");
-            pi.transform.SetParent(transform);
-            _playerConfigs.Add(new PlayerConfiguration(pi));
-            _playerConfigs[_playerNum].Num = _playerNums[_playerNum];
-            _playerNum++;
+
+            var player = Instantiate(prefab, transform);
+            JoinPlayer(player, device, _playerNum);
+            ++_playerNum;
+            return true;
         }
+
+        return false;
     }
 
-    public void ResetConfigs()
+    public override void JoinPlayer(GameObject player, InputDevice device, int playerNum)
+    {
+        _playerConfigs.Add(new PlayerConfiguration(device, player, _playerNum));
+        _playerConfigs.Last().Num = _playerNums[_playerNum];
+
+        var spawnMenu = player.GetComponent<SpawnPlayerLoadout>();
+        spawnMenu.Initialize(_playerConfigs.Last(), _playerConfigs.Count - 1);
+    }
+
+    public override void ResetConfigs()
     {
         _playerConfigs.Clear();
         _playerNum = 0;
     }
 
-    public List<PlayerConfiguration> GetPlayerConfigs()
+    public override List<PlayerConfiguration> GetPlayerConfigs()
     {
         return _playerConfigs;
     }
 
-    public int GetPlayerNum()
+    public override int GetPlayerNum()
     {
         return _playerNum;
     }

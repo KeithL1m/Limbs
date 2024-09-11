@@ -701,8 +701,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7717fd6b16900547bb4dda3f1ac13b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localGameLoader: {fileID: 7150891192111988303, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
-  _onlineGameLoader: {fileID: 0}
+  _localGameLoader: {fileID: 7150891192111988303, guid: 3f58a3cb72eeea6429468d70c5df1f2b, type: 3}
+  _onlineGameLoader: {fileID: 7150891192111988303, guid: 24f9f59c01350b643baad43ccb0bc1a1, type: 3}
   _firstButton: {fileID: 1749303426}
 --- !u!1 &1516713555
 GameObject:
