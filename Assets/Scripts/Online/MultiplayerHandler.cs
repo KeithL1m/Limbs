@@ -21,7 +21,7 @@ public class MultiplayerHandler : NetworkBehaviour
 
     [Space, Header("Managers")]
     private GameManager _gameManager;
-    private ConfigurationManager _configManager;
+    private ConfigurationManagerOnline _configManager;
     private int _playerCount = 0;
 
     [Space, Header("Holders")]
@@ -31,7 +31,7 @@ public class MultiplayerHandler : NetworkBehaviour
     private void Awake()
     {
         _gameManager = GetComponent<GameManager>();
-        _configManager = GetComponent<ConfigurationManager>();
+        _configManager = GetComponent<ConfigurationManagerOnline>();
 
         GameLoader loader = ServiceLocator.Get<GameLoader>();
         loader.CallOnComplete(() =>
@@ -147,13 +147,18 @@ public class MultiplayerHandler : NetworkBehaviour
     [ClientRpc]
     private void NotifyClientOfNewObjectClientRpc(ulong networkObjectId, ulong clientId, int playerNum)
     {
-        if (NetworkManager.Singleton.LocalClientId == clientId)
+        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out var networkObject))
         {
-            if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out var networkObject))
+            var target = networkObject.gameObject;
+            if (NetworkManager.Singleton.LocalClientId == clientId)
             {
-                var target = networkObject.gameObject;
-                _configManager.JoinPlayer(target, _tempDevice, playerNum);
+                _configManager.JoinPlayer(target, _tempDevice);
+                _configManager.SpawnMenu(target);
                 _tempDevice = null;
+            }
+            else
+            {
+                _configManager.JoinPlayer(target, null);
             }
         }
     }

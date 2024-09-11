@@ -22,6 +22,11 @@ public class ConfigurationManagerOnline : NetworkBehaviour
         return this;
     }
 
+    public void SetPlayerName(int index, string name)
+    {
+        _playerConfigs[index].Name = name;
+    }
+
     public void SetPlayerHead(int index, Sprite head)
     {
         _playerConfigs[index].Head = head;
@@ -32,69 +37,55 @@ public class ConfigurationManagerOnline : NetworkBehaviour
         _playerConfigs[index].Body = body;
     }
 
-    public void SetPlayerName(int index, string name)
-    {
-        _playerConfigs[index].Name = name;
-    }
-
     public void ReadyPlayer(int index)
     {
         _playerConfigs[index].IsReady = true;
 
         if (_playerConfigs.All(p => p.IsReady == true) && _playerNum > 1)
         {
-            StartCoroutine(LoadSceneAsync());
+            LoadSceneAsync();
         }
     }
 
-    IEnumerator LoadSceneAsync()
+    void LoadSceneAsync()
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(5);
-        //NetworkManager.Singleton.SceneManager.LoadScene("YourSceneName", LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene("Meatcase", LoadSceneMode.Single);
 
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
+        //TODO: Maybe check how LoadSceneMode.Additive works and make this function
+        //while (!asyncLoad.isDone)
+        //{
+        //    yield return null;
+        //}
     }
 
-    public bool HandlePlayerJoin(InputDevice device, GameObject prefab)
+    public void HandlePlayerJoin(InputDevice device)
     {
         if (!InLoadout)
         {
-            return false;
+            return;
         }
 
         bool hasDevice = _playerConfigs.Any(p => p.Device == device);
-        if (!hasDevice && ServiceLocator.Get<GameManager>().IsOnline)
+        if (!hasDevice)
         {
             Debug.Log("Player Has Joined");
 
             var network = ServiceLocator.Get<MultiplayerHandler>();
             network.OnClientConnected(device);
-            return true;
         }
-        else if (!hasDevice)
-        {
-            Debug.Log("Player Has Joined");
-
-            var player = Instantiate(prefab, transform);
-            JoinPlayer(player, device, _playerNum);
-            ++_playerNum;
-            return true;
-        }
-
-        return false;
     }
 
-    public void JoinPlayer(GameObject player, InputDevice device, int playerNum)
+    public void JoinPlayer(GameObject player, InputDevice device)
     {
-        _playerNum = playerNum;
         _playerConfigs.Add(new PlayerConfiguration(device, player, _playerNum));
         _playerConfigs.Last().Num = _playerNums[_playerNum];
+        ++_playerNum;
+    }
 
-        var spawnMenu = player.GetComponent<SpawnPlayerLoadout>();
-        spawnMenu.Initialize(_playerConfigs.Last()); //Check this one after this class is stable
+    public void SpawnMenu(GameObject player)
+    {
+        var spawnMenu = player.GetComponent<SpawnLoadoutOnline>();
+        spawnMenu.Initialize(_playerConfigs.Last());
     }
 
     public void ResetConfigs()
@@ -112,24 +103,4 @@ public class ConfigurationManagerOnline : NetworkBehaviour
     {
         return _playerNum;
     }
-}
-
-public class PlayerConfigurationOnline
-{
-    public PlayerConfigurationOnline(InputDevice device, GameObject gObj, int playerIndex)
-    {
-        PlayerConfigObject = gObj;
-        Device = device;
-        PlayerIndex = playerIndex;
-    }
-    public int PlayerIndex = -1;
-    public GameObject PlayerConfigObject;
-    public InputDevice Device { get; set; }
-    public bool IsReady { get; set; }
-
-    public int Score { get; set; }
-    public Sprite Head { get; set; }
-    public Sprite Body { get; set; }
-    public Sprite Num { get; set; }
-    public string Name { get; set; }
 }

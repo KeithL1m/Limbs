@@ -10,7 +10,7 @@ public class SetupControllerOnline : NetworkBehaviour
 
     private int _playerIndex;
 
-    private ConfigurationManager _configManager;
+    private ConfigurationManagerOnline _configManager;
     private AudioManager _audioManager;
 
     [SerializeField] private TextMeshProUGUI _titleText;
@@ -40,7 +40,8 @@ public class SetupControllerOnline : NetworkBehaviour
 
     private void Initialize()
     {
-        _configManager = ServiceLocator.Get<ConfigurationManager>();
+        //Register the config
+        _configManager = ServiceLocator.Get<ConfigurationManagerOnline>();
         _audioManager = ServiceLocator.Get<AudioManager>();
     }
 
@@ -57,28 +58,43 @@ public class SetupControllerOnline : NetworkBehaviour
         }
     }
 
+    private void Start()
+    {
+        ResetValuesForNewPlayerServerRpc();
+    }
+
     private void OnDisable()
     {
         var multiplayerHandler = ServiceLocator.Get<MultiplayerHandler>();
         if (multiplayerHandler)
         {
             _headNetworkIndex.OnValueChanged -= OnHeadIndexChanged;
-
             _bodyNetworkIndex.OnValueChanged -= OnBodyIndexChanged;
         }
     }
 
-    public void SetPlayerIndex(int playerNum, int playerIndex)
+    public void SetPlayerIndex(int pi)
     {
-        _playerIndex = playerIndex;
-        string name = "Player " + (playerNum + 1).ToString();
+        _playerIndex = pi;
+        string name = "Player " + (pi + 1).ToString();
         _titleText.SetText(name);
-        _configManager.SetPlayerName(playerIndex, name);
+        _configManager.SetPlayerName(_playerIndex, name);
     }
 
     public void ReadyPlayer()
     {
-        PlayerReadyServerRpc();
+        ReadyPlayerServerRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void ReadyPlayerServerRpc()
+    {
+        ReadyPlayerClientRpc();
+    }
+
+    [ClientRpc()]
+    public void ReadyPlayerClientRpc()
+    {
         _configManager.SetPlayerHead(_playerIndex, _playerHead[_headIndex]);
         _configManager.SetPlayerBody(_playerIndex, _playerBody[_bodyIndex]);
         _readyButtonImage.sprite = _readySprite;
@@ -140,28 +156,28 @@ public class SetupControllerOnline : NetworkBehaviour
         _bodyNetworkIndex.Value = value;
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    private void PlayerReadyServerRpc()
-    {
-        PlayerReadyClientRpc();
-    }
-
-    [ClientRpc()]
-    private void PlayerReadyClientRpc()
-    {
-        Image targetImage = _readyButton.targetGraphic as Image;
-        _readyButton.image.sprite = targetImage.sprite;
-    }
-
     private void OnHeadIndexChanged(int oldValue, int newValue)
     {
-        _currentHead.sprite = _playerHead[newValue];
-        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+        if (!IsOwner)
+        {
+            _currentHead.sprite = _playerHead[newValue];
+            _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+        }
     }
 
     private void OnBodyIndexChanged(int oldValue, int newValue)
     {
-        _currentBody.sprite = _playerBody[newValue];
-        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+        if (!IsOwner)
+        {
+            _currentBody.sprite = _playerBody[newValue];
+            _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ResetValuesForNewPlayerServerRpc()
+    {
+        _headNetworkIndex.Value += _playerHead.Count;
+        _bodyNetworkIndex.Value += _playerBody.Count;
     }
 }

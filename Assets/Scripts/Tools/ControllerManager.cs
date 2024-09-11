@@ -16,7 +16,6 @@ public class ControllerManager : MonoBehaviour
     [SerializeField] private ConfigurationManagerOnline _configurationManagerOnline;
 
     [SerializeField] private GameObject _gameObjectToInitWithNewInput;
-    [SerializeField] private GameObject _gameObjectToInitWithNewInputOnline;
 
     [SerializeField] private GameManager _gameManager;
 
@@ -46,7 +45,7 @@ public class ControllerManager : MonoBehaviour
 
         if (_gameManager.IsOnline)
         {
-            _configurationManagerOnline.HandlePlayerJoin(device, _gameObjectToInitWithNewInputOnline);
+            _configurationManagerOnline.HandlePlayerJoin(device);
         }
         else
         {

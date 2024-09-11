@@ -8,17 +8,17 @@ public class SpawnLoadoutOnline : NetworkBehaviour
     [SerializeField] private GameObject _playerSetupMenuPrefab;
     private PlayerConfiguration _tempConfig;
 
-    public void Initialize(PlayerConfiguration config, int playerInArrayIndex)
+    public void Initialize(PlayerConfiguration config)
     {
         Debug.Log($"{nameof(Initialize)}");
 
         _tempConfig = config;
-        SpawnObjectInWebServerRpc(NetworkManager.Singleton.LocalClientId, playerInArrayIndex);
+        SpawnObjectInWebServerRpc(NetworkManager.Singleton.LocalClientId);
         return;
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void SpawnObjectInWebServerRpc(ulong id, int playerInArrayIndex)
+    private void SpawnObjectInWebServerRpc(ulong id)
     {
         var rootMenu = GameObject.Find("Loadout");
 
@@ -28,21 +28,25 @@ public class SpawnLoadoutOnline : NetworkBehaviour
         networkObject.SpawnWithOwnership(id);
         menu.transform.SetParent(rootMenu.transform, false);
 
-        SetControllerForCreatedEntityClientRpc(networkObject.NetworkObjectId, id, playerInArrayIndex);
+        SetControllerForCreatedEntityClientRpc(networkObject.NetworkObjectId, id);
     }
 
     [ClientRpc]
-    private void SetControllerForCreatedEntityClientRpc(ulong networkObjectId, ulong clientId, int playerInArrayIndex)
+    private void SetControllerForCreatedEntityClientRpc(ulong networkObjectId, ulong clientId)
     {
-        if (NetworkManager.Singleton.LocalClientId == clientId)
+        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out var networkObject))
         {
-            if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out var networkObject))
-            {
-                var menu = networkObject.gameObject;
+            var menu = networkObject.gameObject;
 
+            if (NetworkManager.Singleton.LocalClientId == clientId)
+            {
                 MenuNavegation uiInputModule = menu.GetComponentInChildren<MenuNavegation>();
                 uiInputModule.Device = _tempConfig.Device;
-                menu.GetComponent<SetupControllerOnline>().SetPlayerIndex(_tempConfig.PlayerIndex, playerInArrayIndex);
+                menu.GetComponent<SetupControllerOnline>().SetPlayerIndex(_tempConfig.PlayerIndex);
+            }
+            else
+            {
+                menu.GetComponent<SetupControllerOnline>().SetPlayerIndex(_tempConfig.PlayerIndex);
             }
         }
     }
