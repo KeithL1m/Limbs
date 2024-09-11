@@ -1,28 +1,21 @@
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 
 public class SpawnPlayerLoadout : NetworkBehaviour
 {
     private GameLoader _loader = null;
 
     [SerializeField] private GameObject _playerSetupMenuPrefab;
-    [SerializeField] private PlayerInput _input;
+    private PlayerConfiguration _tempConfig;
 
-    private void Awake()
-    {
-        _loader = ServiceLocator.Get<GameLoader>();
-        _loader.CallOnComplete(Initialize);
-    }
-
-    private void Initialize()
+    public void Initialize(PlayerConfiguration config, int playerInArrayIndex)
     {
         Debug.Log($"{nameof(Initialize)}");
 
-        if (ServiceLocator.Get<MultiplayerHandler>())
+        if (NetworkManager)
         {
-            SpawnObjectInWebServerRpc(NetworkManager.Singleton.LocalClientId);
+            _tempConfig = config;
+            SpawnObjectInWebServerRpc(NetworkManager.Singleton.LocalClientId, playerInArrayIndex);
             return;
         }
 
@@ -32,13 +25,14 @@ public class SpawnPlayerLoadout : NetworkBehaviour
         {
             var menu = Instantiate(_playerSetupMenuPrefab, rootMenu.transform);
 
-            _input.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
-            menu.GetComponent<PlayerSetupController>().SetPlayerIndex(_input.playerIndex);
+            MenuNavegation uiInputModule = menu.GetComponentInChildren<MenuNavegation>();
+            uiInputModule.Device = config.Device;
+            menu.GetComponent<PlayerSetupController>().SetPlayerIndex(config.PlayerIndex, playerInArrayIndex);
         }
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void SpawnObjectInWebServerRpc(ulong id)
+    private void SpawnObjectInWebServerRpc(ulong id, int playerInArrayIndex)
     {
         var rootMenu = GameObject.Find("Loadout");
 
@@ -48,7 +42,22 @@ public class SpawnPlayerLoadout : NetworkBehaviour
         networkObject.SpawnWithOwnership(id);
         menu.transform.SetParent(rootMenu.transform, false);
 
-        _input.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
-        menu.GetComponent<PlayerSetupController>().SetPlayerIndex(_input.playerIndex);
+        SetControllerForCreatedEntityClientRpc(networkObject.NetworkObjectId, id, playerInArrayIndex);
+    }
+
+    [ClientRpc]
+    private void SetControllerForCreatedEntityClientRpc(ulong networkObjectId, ulong clientId, int playerInArrayIndex)
+    {
+        if (NetworkManager.Singleton.LocalClientId == clientId)
+        {
+            if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out var networkObject))
+            {
+                var menu = networkObject.gameObject;
+
+                MenuNavegation uiInputModule = menu.GetComponentInChildren<MenuNavegation>();
+                uiInputModule.Device = _tempConfig.Device;
+                menu.GetComponent<PlayerSetupController>().SetPlayerIndex(_tempConfig.PlayerIndex, playerInArrayIndex);
+            }
+        }
     }
 }

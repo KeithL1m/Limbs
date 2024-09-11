@@ -44,6 +44,8 @@ public class PlayerSetupController : NetworkBehaviour
     private NetworkVariable<int> _headNetworkIndex;
     private NetworkVariable<int> _bodyNetworkIndex;
 
+    private bool _isOnline = false;
+
     private void Awake()
     {
         _loader = ServiceLocator.Get<GameLoader>();
@@ -54,12 +56,13 @@ public class PlayerSetupController : NetworkBehaviour
     {
         _configManager = ServiceLocator.Get<ConfigurationManager>();
         _audioManager = ServiceLocator.Get<AudioManager>();
+
+        _isOnline = ServiceLocator.Get<GameManager>().IsOnline;
     }
 
     private void OnEnable()
     {
-        var multiplayerHandler = ServiceLocator.Get<MultiplayerHandler>();
-        if (multiplayerHandler)
+        if (ServiceLocator.Get<GameManager>().IsOnline)
         {
             _headNetworkIndex = new NetworkVariable<int>(0);
             _headNetworkIndex.OnValueChanged += OnHeadIndexChanged;
@@ -69,10 +72,17 @@ public class PlayerSetupController : NetworkBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (_isOnline)
+        {
+            ResetValuesForNewPlayerServerRpc();
+        }
+    }
+
     private void OnDisable()
     {
-        var multiplayerHandler = ServiceLocator.Get<MultiplayerHandler>();
-        if (multiplayerHandler)
+        if (ServiceLocator.Get<GameManager>().IsOnline)
         {
             _headNetworkIndex.OnValueChanged -= OnHeadIndexChanged;
 
@@ -80,16 +90,21 @@ public class PlayerSetupController : NetworkBehaviour
         }
     }
 
-    public void SetPlayerIndex(int pi)
+    public void SetPlayerIndex(int playerNum, int playerIndex)
     {
-        _playerIndex = pi;
-        string name = "Player " + (pi + 1).ToString();
+        _playerIndex = playerIndex;
+        string name = "Player " + (playerNum + 1).ToString();
         _titleText.SetText(name);
-        _configManager.SetPlayerName(_playerIndex, name);
+        _configManager.SetPlayerName(playerIndex, name);
     }
 
     public void ReadyPlayer()
     {
+        if (_isOnline && IsOwner)
+        {
+            ChangeReadyButtonSpriteClientRpc();
+        }
+
         _configManager.SetPlayerHead(_playerIndex, _playerHead[_headIndex]);
         _configManager.SetPlayerBody(_playerIndex, _playerBody[_bodyIndex]);
         _readyButtonImage.sprite = _readySprite;
@@ -101,111 +116,95 @@ public class PlayerSetupController : NetworkBehaviour
         _configManager.ReadyPlayer(_playerIndex);
     }
 
-    public void ChangeCurrentHeadLeft()
+    public void ChangeCurrentHead(int amount)
     {
-        if (_headIndex == 0)
-        {
-            _headIndex = _playerHead.Count - 1;
-        }
-        else
-        {
-            _headIndex--;
-        }
-
-        if (_headNetworkIndex != null)
-        {
-            ChangeHeadServerRpc();
-            return;
-        }
-
-        _currentHead.sprite = _playerHead[_headIndex];
-        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
-    }
-
-    public void ChangeCurrentHeadRight()
-    {
-        if (_headIndex == _playerHead.Count - 1)
+        _headIndex += amount;
+        if (_headIndex >= _playerHead.Count)
         {
             _headIndex = 0;
         }
-        else
+        else if (_headIndex < 0)
         {
-            _headIndex++;
-        }
-
-        if (_headNetworkIndex != null)
-        {
-            ChangeHeadServerRpc();
-            return;
+            _headIndex = _playerHead.Count - 1;
         }
 
         _currentHead.sprite = _playerHead[_headIndex];
         _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
-    }
 
-    public void ChangeCurrentBodyLeft()
-    {
-        if (_bodyIndex == 0)
+        if (_isOnline && IsOwner)
         {
-            _bodyIndex = _playerBody.Count - 1;
-        }
-        else
-        {
-            _bodyIndex--;
-        }
-
-        if (_bodyNetworkIndex != null)
-        {
-            ChangeBodyServerRpc();
+            ChangeHeadServerRpc(_headIndex);
             return;
         }
-
-        _currentBody.sprite = _playerBody[_bodyIndex];
-        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
     }
 
-    public void ChangeCurrentBodyRight()
+    public void ChangeCurrentBody(int amount)
     {
-        if (_bodyIndex == _playerBody.Count - 1)
+        _bodyIndex += amount;
+        if (_bodyIndex >= _playerBody.Count)
         {
             _bodyIndex = 0;
         }
-        else
+        else if (_bodyIndex < 0)
         {
-            _bodyIndex++;
-        }
-
-        if (_bodyNetworkIndex != null)
-        {
-            ChangeBodyServerRpc();
-            return;
+            _bodyIndex = _playerBody.Count - 1;
         }
 
         _currentBody.sprite = _playerBody[_bodyIndex];
         _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
-    }
 
-    [ServerRpc(RequireOwnership = false)]
-    private void ChangeHeadServerRpc()
-    {
-        _headNetworkIndex.Value = _headIndex;
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void ChangeBodyServerRpc()
-    {
-        _bodyNetworkIndex.Value = _bodyIndex;
+        if (_isOnline && IsOwner)
+        {
+            ChangeBodyServerRpc(_bodyIndex);
+            return;
+        }
     }
 
     private void OnHeadIndexChanged(int oldValue, int newValue)
     {
-        _currentHead.sprite = _playerHead[newValue];
-        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+        if (!IsOwner)
+        {
+            newValue %= _playerHead.Count;
+            _currentHead.sprite = _playerHead[newValue];
+            _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+        }
     }
 
     private void OnBodyIndexChanged(int oldValue, int newValue)
     {
-        _currentBody.sprite = _playerBody[newValue];
-        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+        if (!IsOwner)
+        {
+            newValue %= _playerBody.Count;
+            _currentBody.sprite = _playerBody[newValue];
+            _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ChangeHeadServerRpc(int value)
+    {
+        _headNetworkIndex.Value = value;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ChangeBodyServerRpc(int value)
+    {
+        _bodyNetworkIndex.Value = value;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ResetValuesForNewPlayerServerRpc()
+    {
+        _headNetworkIndex.Value += _playerHead.Count;
+        _bodyNetworkIndex.Value += _playerBody.Count;
+    }
+
+    [ClientRpc()]
+    private void ChangeReadyButtonSpriteClientRpc()
+    {
+        if (_readyButton.targetGraphic is Image image)
+        {
+            _readyButton.image.sprite = image.sprite;
+        }
     }
 }
