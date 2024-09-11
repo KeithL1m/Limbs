@@ -1,7 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class SpawnPlayerLoadout : NetworkBehaviour
+public class SpawnPlayerLoadout : MonoBehaviour
 {
     private GameLoader _loader = null;
 
@@ -11,14 +11,6 @@ public class SpawnPlayerLoadout : NetworkBehaviour
     public void Initialize(PlayerConfiguration config)
     {
         Debug.Log($"{nameof(Initialize)}");
-
-        if (NetworkManager)
-        {
-            _tempConfig = config;
-            SpawnObjectInWebServerRpc(NetworkManager.Singleton.LocalClientId);
-            return;
-        }
-
         var rootMenu = GameObject.Find("Loadout");
 
         if (rootMenu != null)
@@ -28,36 +20,6 @@ public class SpawnPlayerLoadout : NetworkBehaviour
             MenuNavegation uiInputModule = menu.GetComponentInChildren<MenuNavegation>();
             uiInputModule.Device = config.Device;
             menu.GetComponent<PlayerSetupController>().SetPlayerIndex(config.PlayerIndex);
-        }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void SpawnObjectInWebServerRpc(ulong id)
-    {
-        var rootMenu = GameObject.Find("Loadout");
-
-        var menu = Instantiate(_playerSetupMenuPrefab);
-        NetworkObject networkObject = menu.GetComponent<NetworkObject>();
-
-        networkObject.SpawnWithOwnership(id);
-        menu.transform.SetParent(rootMenu.transform, false);
-
-        SetControllerForCreatedEntityClientRpc(networkObject.NetworkObjectId, id);
-    }
-
-    [ClientRpc]
-    private void SetControllerForCreatedEntityClientRpc(ulong networkObjectId, ulong clientId)
-    {
-        if (NetworkManager.Singleton.LocalClientId == clientId)
-        {
-            if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out var networkObject))
-            {
-                var menu = networkObject.gameObject;
-
-                MenuNavegation uiInputModule = menu.GetComponentInChildren<MenuNavegation>();
-                uiInputModule.Device = _tempConfig.Device;
-                menu.GetComponent<PlayerSetupController>().SetPlayerIndex(_tempConfig.PlayerIndex);
-            }
         }
     }
 }

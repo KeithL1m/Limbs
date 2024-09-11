@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Utilities;
 
 public class ControllerManager : MonoBehaviour
 {
@@ -10,14 +8,14 @@ public class ControllerManager : MonoBehaviour
     private InputActionMap _actionMap;
     private InputAction _inputAction;
 
-    private List<InputDevice> _inputDevices = new();
-
     public delegate void InputEventHandler();
     private InputEventHandler _joinEvents;
 
     [Space, Header("Helpers")]
     [SerializeField] private ConfigurationManager _configurationManager;
     [SerializeField] private GameObject _gameObjectToInitWithNewInput;
+    [SerializeField] private GameObject _gameObjectToInitWithNewInputOnline;
+    [SerializeField] private GameManager _gameManager;
 
     private void Awake()
     {
@@ -43,15 +41,7 @@ public class ControllerManager : MonoBehaviour
     {
         InputDevice device = context.control.device;
 
-        if (_inputDevices.Contains(device))
-        {
-            return;
-        }
-
-        bool added = _configurationManager.HandlePlayerJoin(device, _gameObjectToInitWithNewInput);
-        if (added)
-        {
-            _inputDevices.Add(device);
-        }
+        var objectToSend = _gameManager.IsOnline ? _gameObjectToInitWithNewInputOnline : _gameObjectToInitWithNewInput;
+        _configurationManager.HandlePlayerJoin(device, objectToSend);
     }
 }

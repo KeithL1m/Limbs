@@ -56,6 +56,8 @@ MonoBehaviour:
   _inputActionAsset: {fileID: -944628639613478452, guid: eb044a8dc5109984b9c550913304dfc7, type: 3}
   _configurationManager: {fileID: 5952273605013709200}
   _gameObjectToInitWithNewInput: {fileID: 1915219753739768710, guid: c6323961af398d8449e5c079bd941c0b, type: 3}
+  _gameObjectToInitWithNewInputOnline: {fileID: 1915219753739768710, guid: 7b49520d21e237f499fe05ee3f3b1ece, type: 3}
+  _gameManager: {fileID: 5968974798383610403}
 --- !u!114 &5968974798383610403
 MonoBehaviour:
   m_ObjectHideFlags: 0
