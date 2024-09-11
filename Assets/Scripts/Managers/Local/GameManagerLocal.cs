@@ -16,7 +16,7 @@ public class GameManagerLocal : GameManager
 
     private void Initialize()
     {
-        _configManager = ServiceLocator.Get<ConfigurationManager>();
+        _configManager = ServiceLocator.Get<ConfigurationManagerBase>();
         _mapManager = ServiceLocator.Get<MapManager>();
         _playerManager = ServiceLocator.Get<PlayerManager>();
         _objManager = ServiceLocator.Get<ObjectPoolManager>();
