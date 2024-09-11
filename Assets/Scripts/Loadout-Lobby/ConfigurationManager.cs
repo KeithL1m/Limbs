@@ -66,15 +66,7 @@ public class ConfigurationManager : MonoBehaviour
         }
 
         bool hasDevice = _playerConfigs.Any(p => p.Device == device);
-        if (!hasDevice && ServiceLocator.Get<GameManager>().IsOnline)
-        {
-            Debug.Log("Player Has Joined");
-
-            var network = ServiceLocator.Get<MultiplayerHandler>();
-            network.OnClientConnected(device);
-            return true;
-        }
-        else if (!hasDevice)
+        if (!hasDevice)
         {
             Debug.Log("Player Has Joined");
 

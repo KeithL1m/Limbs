@@ -4,7 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerSetupController : NetworkBehaviour
+public class PlayerSetupController : MonoBehaviour
 {
     private GameLoader _loader = null;
 
@@ -41,11 +41,6 @@ public class PlayerSetupController : NetworkBehaviour
     private int _headIndex;
     private int _bodyIndex;
 
-    private NetworkVariable<int> _headNetworkIndex;
-    private NetworkVariable<int> _bodyNetworkIndex;
-
-    private bool _isOnline = false;
-
     private void Awake()
     {
         _loader = ServiceLocator.Get<GameLoader>();
@@ -56,38 +51,6 @@ public class PlayerSetupController : NetworkBehaviour
     {
         _configManager = ServiceLocator.Get<ConfigurationManager>();
         _audioManager = ServiceLocator.Get<AudioManager>();
-
-        _isOnline = ServiceLocator.Get<GameManager>().IsOnline;
-    }
-
-    private void OnEnable()
-    {
-        if (ServiceLocator.Get<GameManager>().IsOnline)
-        {
-            _headNetworkIndex = new NetworkVariable<int>(0);
-            _headNetworkIndex.OnValueChanged += OnHeadIndexChanged;
-
-            _bodyNetworkIndex = new NetworkVariable<int>(0);
-            _bodyNetworkIndex.OnValueChanged += OnBodyIndexChanged;
-        }
-    }
-
-    private void Start()
-    {
-        if (_isOnline)
-        {
-            ResetValuesForNewPlayerServerRpc();
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (ServiceLocator.Get<GameManager>().IsOnline)
-        {
-            _headNetworkIndex.OnValueChanged -= OnHeadIndexChanged;
-
-            _bodyNetworkIndex.OnValueChanged -= OnBodyIndexChanged;
-        }
     }
 
     public void SetPlayerIndex(int pi)
@@ -100,11 +63,6 @@ public class PlayerSetupController : NetworkBehaviour
 
     public void ReadyPlayer()
     {
-        if (_isOnline && IsOwner)
-        {
-            ChangeReadyButtonSpriteClientRpc();
-        }
-
         _configManager.SetPlayerHead(_playerIndex, _playerHead[_headIndex]);
         _configManager.SetPlayerBody(_playerIndex, _playerBody[_bodyIndex]);
         _readyButtonImage.sprite = _readySprite;
@@ -130,12 +88,6 @@ public class PlayerSetupController : NetworkBehaviour
 
         _currentHead.sprite = _playerHead[_headIndex];
         _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
-
-        if (_isOnline && IsOwner)
-        {
-            ChangeHeadServerRpc(_headIndex);
-            return;
-        }
     }
 
     public void ChangeCurrentBody(int amount)
@@ -152,59 +104,5 @@ public class PlayerSetupController : NetworkBehaviour
 
         _currentBody.sprite = _playerBody[_bodyIndex];
         _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
-
-        if (_isOnline && IsOwner)
-        {
-            ChangeBodyServerRpc(_bodyIndex);
-            return;
-        }
-    }
-
-    private void OnHeadIndexChanged(int oldValue, int newValue)
-    {
-        if (!IsOwner)
-        {
-            newValue %= _playerHead.Count;
-            _currentHead.sprite = _playerHead[newValue];
-            _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
-        }
-    }
-
-    private void OnBodyIndexChanged(int oldValue, int newValue)
-    {
-        if (!IsOwner)
-        {
-            newValue %= _playerBody.Count;
-            _currentBody.sprite = _playerBody[newValue];
-            _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
-        }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void ChangeHeadServerRpc(int value)
-    {
-        _headNetworkIndex.Value = value;
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void ChangeBodyServerRpc(int value)
-    {
-        _bodyNetworkIndex.Value = value;
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void ResetValuesForNewPlayerServerRpc()
-    {
-        _headNetworkIndex.Value += _playerHead.Count;
-        _bodyNetworkIndex.Value += _playerBody.Count;
-    }
-
-    [ClientRpc()]
-    private void ChangeReadyButtonSpriteClientRpc()
-    {
-        if (_readyButton.targetGraphic is Image image)
-        {
-            _readyButton.image.sprite = image.sprite;
-        }
     }
 }

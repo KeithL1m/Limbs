@@ -13,8 +13,11 @@ public class ControllerManager : MonoBehaviour
 
     [Space, Header("Helpers")]
     [SerializeField] private ConfigurationManager _configurationManager;
+    [SerializeField] private ConfigurationManagerOnline _configurationManagerOnline;
+
     [SerializeField] private GameObject _gameObjectToInitWithNewInput;
     [SerializeField] private GameObject _gameObjectToInitWithNewInputOnline;
+
     [SerializeField] private GameManager _gameManager;
 
     private void Awake()
@@ -41,7 +44,13 @@ public class ControllerManager : MonoBehaviour
     {
         InputDevice device = context.control.device;
 
-        var objectToSend = _gameManager.IsOnline ? _gameObjectToInitWithNewInputOnline : _gameObjectToInitWithNewInput;
-        _configurationManager.HandlePlayerJoin(device, objectToSend);
+        if (_gameManager.IsOnline)
+        {
+            _configurationManagerOnline.HandlePlayerJoin(device, _gameObjectToInitWithNewInputOnline);
+        }
+        else
+        {
+            _configurationManager.HandlePlayerJoin(device, _gameObjectToInitWithNewInput);
+        }
     }
 }
