@@ -68,12 +68,12 @@ public class SetupControllerOnline : NetworkBehaviour
         }
     }
 
-    public void SetPlayerIndex(int pi)
+    public void SetPlayerIndex(int playerNum, int playerIndex)
     {
-        _playerIndex = pi;
-        string name = "Player " + (pi + 1).ToString();
+        _playerIndex = playerIndex;
+        string name = "Player " + (playerNum + 1).ToString();
         _titleText.SetText(name);
-        _configManager.SetPlayerName(_playerIndex, name);
+        _configManager.SetPlayerName(playerIndex, name);
     }
 
     public void ReadyPlayer()

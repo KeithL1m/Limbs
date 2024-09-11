@@ -90,12 +90,12 @@ public class PlayerSetupController : NetworkBehaviour
         }
     }
 
-    public void SetPlayerIndex(int playerNum, int playerIndex)
+    public void SetPlayerIndex(int pi)
     {
-        _playerIndex = playerIndex;
-        string name = "Player " + (playerNum + 1).ToString();
+        _playerIndex = pi;
+        string name = "Player " + (pi + 1).ToString();
         _titleText.SetText(name);
-        _configManager.SetPlayerName(playerIndex, name);
+        _configManager.SetPlayerName(_playerIndex, name);
     }
 
     public void ReadyPlayer()

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class ConfigurationManager : MonoBehaviour
+public class ConfigurationManagerOnline : NetworkBehaviour
 {
     private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
 
@@ -16,7 +16,7 @@ public class ConfigurationManager : MonoBehaviour
 
     private int _playerNum = 0;
 
-    public ConfigurationManager Initialize()
+    public ConfigurationManagerOnline Initialize()
     {
         Debug.Log("Loading Configuration Manager");
         return this;
@@ -94,7 +94,7 @@ public class ConfigurationManager : MonoBehaviour
         _playerConfigs.Last().Num = _playerNums[_playerNum];
 
         var spawnMenu = player.GetComponent<SpawnPlayerLoadout>();
-        spawnMenu.Initialize(_playerConfigs.Last());
+        spawnMenu.Initialize(_playerConfigs.Last()); //Check this one after this class is stable
     }
 
     public void ResetConfigs()
@@ -114,9 +114,9 @@ public class ConfigurationManager : MonoBehaviour
     }
 }
 
-public class PlayerConfiguration
+public class PlayerConfigurationOnline
 {
-    public PlayerConfiguration(InputDevice device, GameObject gObj, int playerIndex)
+    public PlayerConfigurationOnline(InputDevice device, GameObject gObj, int playerIndex)
     {
         PlayerConfigObject = gObj;
         Device = device;
