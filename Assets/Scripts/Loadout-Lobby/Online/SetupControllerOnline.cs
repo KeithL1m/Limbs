@@ -40,7 +40,6 @@ public class SetupControllerOnline : NetworkBehaviour
 
     private void Initialize()
     {
-        //Register the config
         _configManager = ServiceLocator.Get<ConfigurationManagerOnline>();
         _audioManager = ServiceLocator.Get<AudioManager>();
     }
@@ -81,15 +80,11 @@ public class SetupControllerOnline : NetworkBehaviour
         _configManager.SetPlayerName(_playerIndex, name);
     }
 
-    public void ReadyPlayer()
-    {
-        ReadyPlayerServerRpc();
-    }
-
     [ServerRpc(RequireOwnership = false)]
     public void ReadyPlayerServerRpc()
     {
         ReadyPlayerClientRpc();
+        _configManager.ReadyPlayer(_playerIndex);
     }
 
     [ClientRpc()]
@@ -101,9 +96,6 @@ public class SetupControllerOnline : NetworkBehaviour
         _readyButton.enabled = false;
 
         _audioManager.PlaySound(_readySound, transform.position, SoundType.SFX);
-
-
-        _configManager.ReadyPlayer(_playerIndex);
     }
 
     public void ChangeCurrentHead(int amount)
@@ -158,6 +150,7 @@ public class SetupControllerOnline : NetworkBehaviour
 
     private void OnHeadIndexChanged(int oldValue, int newValue)
     {
+        newValue %= _playerHead.Count;
         if (!IsOwner)
         {
             _currentHead.sprite = _playerHead[newValue];
@@ -167,6 +160,7 @@ public class SetupControllerOnline : NetworkBehaviour
 
     private void OnBodyIndexChanged(int oldValue, int newValue)
     {
+        newValue %= _playerBody.Count;
         if (!IsOwner)
         {
             _currentBody.sprite = _playerBody[newValue];

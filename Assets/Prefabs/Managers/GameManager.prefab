@@ -58,7 +58,6 @@ MonoBehaviour:
   _configurationManager: {fileID: 5952273605013709200}
   _configurationManagerOnline: {fileID: 3260073714836435741}
   _gameObjectToInitWithNewInput: {fileID: 1915219753739768710, guid: c6323961af398d8449e5c079bd941c0b, type: 3}
-  _gameObjectToInitWithNewInputOnline: {fileID: 1915219753739768710, guid: 7b49520d21e237f499fe05ee3f3b1ece, type: 3}
   _gameManager: {fileID: 5968974798383610403}
 --- !u!114 &5968974798383610403
 MonoBehaviour:
@@ -121,7 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73197421ffcedf24b8a128e1150188b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerNums: []
+  _playerNums:
+  - {fileID: 21300000, guid: 21e28102ebbcb594cb794728affc09d2, type: 3}
+  - {fileID: 21300000, guid: f0aaf57510ad2f34aa0d37ab20227d89, type: 3}
+  - {fileID: 21300000, guid: 743a13325e985c54f8c597e9df3345ab, type: 3}
+  - {fileID: 21300000, guid: 5a6a0706dc259c143948ff5df9a1260b, type: 3}
 --- !u!114 &-2330629437284295947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _joinCode: 
-  _playerConfigObj: {fileID: 1915219753739768710, guid: c6323961af398d8449e5c079bd941c0b, type: 3}
+  _playerConfigObj: {fileID: 1915219753739768710, guid: 7b49520d21e237f499fe05ee3f3b1ece, type: 3}
   _networkManagerPrefab: {fileID: 5240221005077297235, guid: de17fe9f418e17145b1904b387362711, type: 3}
 --- !u!114 &7033073488795715658
 MonoBehaviour:

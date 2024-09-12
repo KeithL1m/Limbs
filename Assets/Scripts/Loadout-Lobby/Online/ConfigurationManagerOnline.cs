@@ -12,8 +12,6 @@ public class ConfigurationManagerOnline : NetworkBehaviour
 
     [SerializeField] private List<Sprite> _playerNums;
 
-    public bool InLoadout { get; set; } = false;
-
     private int _playerNum = 0;
 
     public ConfigurationManagerOnline Initialize()
@@ -60,7 +58,7 @@ public class ConfigurationManagerOnline : NetworkBehaviour
 
     public void HandlePlayerJoin(InputDevice device)
     {
-        if (!InLoadout)
+        if (SceneManager.GetActiveScene().name != "z_LoadoutMultiplayer" || !NetworkManager)
         {
             return;
         }
