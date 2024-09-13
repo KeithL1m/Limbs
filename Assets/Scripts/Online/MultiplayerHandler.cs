@@ -9,6 +9,8 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using Unity.Services.Authentication;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using static UnityEngine.GraphicsBuffer;
 
 public class MultiplayerHandler : NetworkBehaviour
 {
@@ -69,7 +71,12 @@ public class MultiplayerHandler : NetworkBehaviour
 
     public async Task<string> CreateServer()
     {
-        if (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsClient)
+        if (NetworkManager.Singleton.IsHost)
+        {
+            NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnected;
+            NetworkManager.Singleton.Shutdown();
+        }
+        else if (NetworkManager.Singleton.IsClient)
         {
             NetworkManager.Singleton.Shutdown();
         }
@@ -87,6 +94,8 @@ public class MultiplayerHandler : NetworkBehaviour
 
             NetworkManager.Singleton.StartHost();
 
+            NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
+
             return _joinCode;
         }
         catch (RelayServiceException ex)
@@ -98,7 +107,12 @@ public class MultiplayerHandler : NetworkBehaviour
 
     public async void JoinServer(string joinCode)
     {
-        if (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsClient)
+        if (NetworkManager.Singleton.IsHost)
+        {
+            NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnected;
+            NetworkManager.Singleton.Shutdown();
+        }
+        else if(NetworkManager.Singleton.IsClient)
         {
             NetworkManager.Singleton.Shutdown();
         }
@@ -172,6 +186,10 @@ public class MultiplayerHandler : NetworkBehaviour
                 {
                     if (NetworkManager && (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsClient))
                     {
+                        if(NetworkManager.Singleton.IsHost)
+                        {
+                            NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnected;
+                        }
                         NetworkManager.Singleton.Shutdown();
                         Destroy(_networkManagerPrefab);
                         _networkManager = null;
@@ -190,6 +208,37 @@ public class MultiplayerHandler : NetworkBehaviour
                     _gameManager.IsOnline = true;
                     break;
                 }
+        }
+    }
+    private void HandleClientConnected(ulong clientId)
+    {
+        NotifyAllClientsOfNewClientServerRpc(clientId);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void NotifyAllClientsOfNewClientServerRpc(ulong clientId)
+    {
+        ulong[] networkObjectIds = new ulong[_configManager.PlayerConfigs.Count];
+        for (int i = 0; i < _configManager.PlayerConfigs.Count; ++i)
+        {
+            NetworkObject networkObject = _configManager.PlayerConfigs[i].PlayerConfigObject.GetComponent<NetworkObject>();
+            networkObjectIds[i] = networkObject.NetworkObjectId;
+        }
+        NotifyAllClientsOfNewClientClientRpc(clientId, networkObjectIds);
+    }
+
+    [ClientRpc]
+    private void NotifyAllClientsOfNewClientClientRpc(ulong clientId, ulong[] gameObjects)
+    {
+        if (NetworkManager.Singleton.LocalClientId == clientId)
+        {
+            foreach (ulong objID in gameObjects)
+            {
+                if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objID, out NetworkObject networkObject))
+                {
+                    _configManager.JoinPlayer(networkObject.gameObject, null);
+                }
+            }
         }
     }
 }

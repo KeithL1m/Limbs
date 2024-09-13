@@ -13,12 +13,12 @@ public class SpawnLoadoutOnline : NetworkBehaviour
         Debug.Log($"{nameof(Initialize)}");
 
         _tempConfig = config;
-        SpawnObjectInWebServerRpc(NetworkManager.Singleton.LocalClientId);
+        SpawnObjectInWebServerRpc(NetworkManager.Singleton.LocalClientId, config.PlayerIndex);
         return;
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void SpawnObjectInWebServerRpc(ulong id)
+    private void SpawnObjectInWebServerRpc(ulong id, int playerIndex)
     {
         var rootMenu = GameObject.Find("Loadout");
 
@@ -28,11 +28,11 @@ public class SpawnLoadoutOnline : NetworkBehaviour
         networkObject.SpawnWithOwnership(id);
         menu.transform.SetParent(rootMenu.transform, false);
 
-        SetControllerForCreatedEntityClientRpc(networkObject.NetworkObjectId, id);
+        SetControllerForCreatedEntityClientRpc(networkObject.NetworkObjectId, id, playerIndex);
     }
 
     [ClientRpc]
-    private void SetControllerForCreatedEntityClientRpc(ulong networkObjectId, ulong clientId)
+    private void SetControllerForCreatedEntityClientRpc(ulong networkObjectId, ulong clientId, int playerIndex)
     {
         if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out var networkObject))
         {
@@ -42,11 +42,11 @@ public class SpawnLoadoutOnline : NetworkBehaviour
             {
                 MenuNavegation uiInputModule = menu.GetComponentInChildren<MenuNavegation>();
                 uiInputModule.Device = _tempConfig.Device;
-                menu.GetComponent<SetupControllerOnline>().SetPlayerIndex(_tempConfig.PlayerIndex);
+                menu.GetComponent<SetupControllerOnline>().SetPlayerIndex(playerIndex);
             }
             else
             {
-                menu.GetComponent<SetupControllerOnline>().SetPlayerIndex(_tempConfig.PlayerIndex);
+                menu.GetComponent<SetupControllerOnline>().SetPlayerIndex(playerIndex);
             }
         }
     }

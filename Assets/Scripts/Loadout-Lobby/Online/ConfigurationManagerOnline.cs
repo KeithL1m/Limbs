@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class ConfigurationManagerOnline : NetworkBehaviour
 {
+    public IReadOnlyList<PlayerConfiguration> PlayerConfigs => _playerConfigs.AsReadOnly();
     private List<PlayerConfiguration> _playerConfigs = new List<PlayerConfiguration>();
 
     [SerializeField] private List<Sprite> _playerNums;
