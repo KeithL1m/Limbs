@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _handler: {fileID: 1686298874}
-  _textMeshProUGUI: {fileID: 1646601183}
+  _joinInputField: {fileID: 0}
 --- !u!4 &319859704
 Transform:
   m_ObjectHideFlags: 0
@@ -1260,6 +1260,7 @@ GameObject:
   - component: {fileID: 1686298875}
   - component: {fileID: 1686298874}
   - component: {fileID: 1686298876}
+  - component: {fileID: 1686298877}
   m_Layer: 0
   m_Name: OnlineHandler
   m_TagString: Untagged
@@ -1280,11 +1281,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _joinCode: 
-  _isHost: 0
-  _dontDestroyOnLoadObject:
-  - {fileID: 724560634}
-  - {fileID: 1686298873}
-  _playerView: {fileID: 1686298876}
+  _playerConfigObj: {fileID: 0}
+  _networkManagerPrefab: {fileID: 0}
 --- !u!4 &1686298875
 Transform:
   m_ObjectHideFlags: 0
@@ -1313,6 +1311,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _onlinePrefab: {fileID: 4052175319322447809, guid: 47e8685a0ecac73439ff7d2037cd869e, type: 3}
+--- !u!114 &1686298877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686298873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3905663782
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &1699335412
 GameObject:
   m_ObjectHideFlags: 0
