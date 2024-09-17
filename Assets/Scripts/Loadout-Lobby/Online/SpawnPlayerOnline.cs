@@ -1,7 +1,5 @@
 using Unity.Netcode;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class SpawnPlayerOnline : NetworkBehaviour
 {
@@ -18,9 +16,17 @@ public class SpawnPlayerOnline : NetworkBehaviour
         return _player;
     }
 
-    public void SetCharacter(PlayerConfiguration pc, ulong objID)
+    [ServerRpc(RequireOwnership = false)]
+    public void SetCharacterServerRpc(ulong objID, int index)
+    {
+        SetCharacterClientRpc(objID, index);
+    }
+
+    [ClientRpc()]
+    public void SetCharacterClientRpc(ulong objID, int index)
     {
         NetworkObject networkObject = NetworkManager.SpawnManager.SpawnedObjects[objID];
+        PlayerConfiguration pc = ServiceLocator.Get<ConfigurationManager>().GetPlayerConfigs()[index];
 
         Player player = networkObject.gameObject.GetComponent<Player>();
         _player.name = $"Player {pc.PlayerIndex}";

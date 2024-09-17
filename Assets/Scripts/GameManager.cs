@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Unity.Netcode;
-
 using static OptionsScreen;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GameManager : Manager
 {
@@ -75,30 +73,7 @@ public class GameManager : Manager
 
         if (IsOnline)
         {
-            for (int i = 0; i < _playerCount; i++)
-            {
-                var playerSpawner = _playerConfigs[i].PlayerConfigObject.GetComponent<SpawnPlayerOnline>();
-                NetworkObject networkObject = _playerConfigs[i].PlayerConfigObject.GetComponent<NetworkObject>();
-                
-                ulong clientID = networkObject.OwnerClientId;
-                GameObject playerObj = playerSpawner.SpawnPlayerFirst(clientID);
-                ulong networkPlayer = playerObj.GetComponent<NetworkObject>().NetworkObjectId;
-
-                playerSpawner.SetCharacter(_playerConfigs[i], networkPlayer);
-
-                if (!playerSpawner.HasPrivilege())
-                {
-                    return;
-                }
-
-                Player playerComp = playerObj.GetComponent<Player>();
-
-                _players.Add(playerComp);
-
-                playerObj = playerSpawner.Player;
-                _playerManager.AddPlayerObject(playerObj);
-                Debug.Log($"Adding Player {playerObj.name} to PlayerManager");
-            }
+            SetUpOnline(uiManager, pauseManager);
             return;
         }
 
@@ -109,6 +84,37 @@ public class GameManager : Manager
             _players.Add(playerComp);
 
             var playerObj = playerSpawner.Player;
+            _playerManager.AddPlayerObject(playerObj);
+            Debug.Log($"Adding Player {playerObj.name} to PlayerManager");
+        }
+    }
+
+    public void SetUpOnline(UIManager uiManager, PauseManager pauseManager)
+    {
+        for (int i = 0; i < _playerCount; i++)
+        {
+            //Grabs script and checks if is the host
+            var playerSpawner = _playerConfigs[i].PlayerConfigObject.GetComponent<SpawnPlayerOnline>();
+            if (!playerSpawner.HasPrivilege())
+            {
+                return;
+            }
+
+            NetworkObject networkObject = _playerConfigs[i].PlayerConfigObject.GetComponent<NetworkObject>();
+
+            ulong clientID = networkObject.OwnerClientId;
+            GameObject playerObj = playerSpawner.SpawnPlayerFirst(clientID);
+            ulong networkPlayerID = playerObj.GetComponent<NetworkObject>().NetworkObjectId;
+
+            //Sends it to the server so it sends it to all clients and they setUp the characters
+            //in their own computer (sprites and stuff)
+            playerSpawner.SetCharacterServerRpc(networkPlayerID, i);
+
+            //Does the regular stuff a non online set up would do but only in the host
+            Player playerComp = playerObj.GetComponent<Player>();
+            _players.Add(playerComp);
+
+            playerObj = playerSpawner.Player;
             _playerManager.AddPlayerObject(playerObj);
             Debug.Log($"Adding Player {playerObj.name} to PlayerManager");
         }
