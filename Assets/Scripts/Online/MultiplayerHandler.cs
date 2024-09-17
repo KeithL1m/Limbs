@@ -30,6 +30,8 @@ public class MultiplayerHandler : NetworkBehaviour
     private InputDevice _tempDevice;
     private GameObject _networkManager;
 
+    private NetworkList<PlayerData> playerDataNetworkList;
+
     private void Awake()
     {
         _gameManager = GetComponent<GameManager>();
@@ -40,6 +42,8 @@ public class MultiplayerHandler : NetworkBehaviour
         {
             ServiceLocator.Register<MultiplayerHandler>(gameObject.GetComponent<MultiplayerHandler>());
         });
+
+        playerDataNetworkList = new NetworkList<PlayerData>();
     }
     private void OnEnable()
     {
