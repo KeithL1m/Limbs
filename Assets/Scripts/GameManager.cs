@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.Netcode;
+
 using static OptionsScreen;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GameManager : Manager
 {
@@ -69,6 +72,35 @@ public class GameManager : Manager
         _playerCount = _configManager.GetPlayerNum();
         _playerConfigs = _configManager.GetPlayerConfigs();
         _configManager.InLoadout = false;
+
+        if (IsOnline)
+        {
+            for (int i = 0; i < _playerCount; i++)
+            {
+                var playerSpawner = _playerConfigs[i].PlayerConfigObject.GetComponent<SpawnPlayerOnline>();
+                NetworkObject networkObject = _playerConfigs[i].PlayerConfigObject.GetComponent<NetworkObject>();
+                
+                ulong clientID = networkObject.OwnerClientId;
+                GameObject playerObj = playerSpawner.SpawnPlayerFirst(clientID);
+                ulong networkPlayer = playerObj.GetComponent<NetworkObject>().NetworkObjectId;
+
+                playerSpawner.SetCharacter(_playerConfigs[i], networkPlayer);
+
+                if (!playerSpawner.HasPrivilege())
+                {
+                    return;
+                }
+
+                Player playerComp = playerObj.GetComponent<Player>();
+
+                _players.Add(playerComp);
+
+                playerObj = playerSpawner.Player;
+                _playerManager.AddPlayerObject(playerObj);
+                Debug.Log($"Adding Player {playerObj.name} to PlayerManager");
+            }
+            return;
+        }
 
         for (int i = 0; i < _playerCount; i++)
         {

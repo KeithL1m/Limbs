@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8417559861326467952}
   - component: {fileID: 621667878664836772}
-  - component: {fileID: -6132915708946117506}
+  - component: {fileID: 975183962616590178}
   - component: {fileID: -336020437271990941}
   - component: {fileID: 5351178956357570566}
   m_Layer: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerSetupMenuPrefab: {fileID: 3341446640998491032, guid: a4db7afbaea6cd049ac0a34fb411c352, type: 3}
---- !u!114 &-6132915708946117506
+--- !u!114 &975183962616590178
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,10 +57,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1915219753739768710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed0d7cb0c12fada4598da8887893f229, type: 3}
+  m_Script: {fileID: 11500000, guid: 18555a5c1973e7f4ab548da7e46242cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 3732604927039312203, guid: 649683c44e1b6be4e8384613133503a2, type: 3}
+  _playerPrefab: {fileID: 3732604927039312203, guid: c08029c94387b5448a2050853d173c84, type: 3}
 --- !u!114 &-336020437271990941
 MonoBehaviour:
   m_ObjectHideFlags: 0
