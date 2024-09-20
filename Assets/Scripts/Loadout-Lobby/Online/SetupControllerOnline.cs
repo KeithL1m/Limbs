@@ -80,15 +80,23 @@ public class SetupControllerOnline : NetworkBehaviour
         _configManager.SetPlayerName(_playerIndex, name);
     }
 
+    public void ReadyPlayer()
+    {
+        if (IsOwner)
+        {
+            ReadyPlayerServerRpc();
+        }
+    }
+
     [ServerRpc(RequireOwnership = false)]
-    public void ReadyPlayerServerRpc()
+    private void ReadyPlayerServerRpc()
     {
         ReadyPlayerClientRpc();
         _configManager.ReadyPlayer(_playerIndex);
     }
 
     [ClientRpc()]
-    public void ReadyPlayerClientRpc()
+    private void ReadyPlayerClientRpc()
     {
         _configManager.SetPlayerHead(_playerIndex, _playerHead[_headIndex]);
         _configManager.SetPlayerBody(_playerIndex, _playerBody[_bodyIndex]);
@@ -100,6 +108,11 @@ public class SetupControllerOnline : NetworkBehaviour
 
     public void ChangeCurrentHead(int amount)
     {
+        if (!IsOwner)
+        {
+            return;
+        }
+
         _headIndex += amount;
 
         if (_headIndex < 0)
@@ -119,6 +132,11 @@ public class SetupControllerOnline : NetworkBehaviour
 
     public void ChangeCurrentBody(int amount)
     {
+        if (!IsOwner)
+        {
+            return;
+        }
+
         _bodyIndex += amount;
 
         if (_bodyIndex < 0)
@@ -153,6 +171,7 @@ public class SetupControllerOnline : NetworkBehaviour
         newValue %= _playerHead.Count;
         if (!IsOwner)
         {
+            _headIndex = newValue;
             _currentHead.sprite = _playerHead[newValue];
             _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
         }
@@ -163,6 +182,7 @@ public class SetupControllerOnline : NetworkBehaviour
         newValue %= _playerBody.Count;
         if (!IsOwner)
         {
+            _bodyIndex = newValue;
             _currentBody.sprite = _playerBody[newValue];
             _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
         }

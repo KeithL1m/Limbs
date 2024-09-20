@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
@@ -42,7 +41,7 @@ public class ConfigurationManagerOnline : NetworkBehaviour
 
         if (_playerConfigs.All(p => p.IsReady == true) && _playerNum > 1)
         {
-            LoadSceneAsync();
+            NetworkManager.Singleton.SceneManager.LoadScene("Meatcase", LoadSceneMode.Single);
         }
     }
 

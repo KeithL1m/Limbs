@@ -1301,7 +1301,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8366838513340524650}
         m_TargetAssemblyTypeName: SetupControllerOnline, Assembly-CSharp
-        m_MethodName: ReadyPlayerServerRpc
+        m_MethodName: ReadyPlayer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
