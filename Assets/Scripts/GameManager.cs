@@ -73,6 +73,11 @@ public class GameManager : Manager
 
         if (IsOnline)
         {
+            var configOnlineManager = ServiceLocator.Get<ConfigurationManagerOnline>();
+
+            _playerCount = configOnlineManager.GetPlayerNum();
+            _playerConfigs = configOnlineManager.GetPlayerConfigs();
+
             SetUpOnline(uiManager, pauseManager);
             return;
         }

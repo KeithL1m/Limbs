@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -25,8 +26,18 @@ public class SpawnPlayerOnline : NetworkBehaviour
     [ClientRpc()]
     public void SetCharacterClientRpc(ulong objID, int index)
     {
+        SetCharacter(objID, index);
+    }
+
+    public async void SetCharacter(ulong objID, int index)
+    {
+        while (!NetworkManager.SpawnManager.SpawnedObjects.ContainsKey(objID))
+        {
+            await Task.Delay(200);
+        }
         NetworkObject networkObject = NetworkManager.SpawnManager.SpawnedObjects[objID];
-        PlayerConfiguration pc = ServiceLocator.Get<ConfigurationManager>().GetPlayerConfigs()[index];
+        var configs = ServiceLocator.Get<ConfigurationManagerOnline>().GetPlayerConfigs();
+        PlayerConfiguration pc = configs[index];
 
         Player player = networkObject.gameObject.GetComponent<Player>();
         _player.name = $"Player {pc.PlayerIndex}";
