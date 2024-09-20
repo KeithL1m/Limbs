@@ -40,6 +40,7 @@ public class SpawnPlayerOnline : NetworkBehaviour
         PlayerConfiguration pc = configs[index];
 
         Player player = networkObject.gameObject.GetComponent<Player>();
+        _player = networkObject.gameObject;
         _player.name = $"Player {pc.PlayerIndex}";
         player.Initialize(pc);
 
