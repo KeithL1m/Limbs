@@ -1,16 +1,14 @@
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
+using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
-using Unity.Services.Authentication;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using static UnityEngine.GraphicsBuffer;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class MultiplayerHandler : NetworkBehaviour
 {
@@ -214,6 +212,7 @@ public class MultiplayerHandler : NetworkBehaviour
                 }
         }
     }
+
     private void HandleClientConnected(ulong clientId)
     {
         NotifyAllClientsOfNewClientServerRpc(clientId);

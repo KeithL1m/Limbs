@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class SpawnPlayerLoadout : MonoBehaviour
 {
-    private GameLoader _loader = null;
-
     [SerializeField] private GameObject _playerSetupMenuPrefab;
     private PlayerConfiguration _tempConfig;
 
