@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static OptionsScreen;
@@ -27,6 +28,8 @@ public class GameManager : Manager
     private int _playerCount;
     private int _deadPlayers;
     private Player _winningPlayer;
+
+    public bool IsOnline = false;
 
     public bool startScreen { get; set; } = true;
     public bool VictoryScreen { get; private set; } = false;
@@ -68,13 +71,55 @@ public class GameManager : Manager
         _playerConfigs = _configManager.GetPlayerConfigs();
         _configManager.InLoadout = false;
 
+        if (IsOnline)
+        {
+            var configOnlineManager = ServiceLocator.Get<ConfigurationManagerOnline>();
+
+            _playerCount = configOnlineManager.GetPlayerNum();
+            _playerConfigs = configOnlineManager.GetPlayerConfigs();
+
+            SetUpOnline(uiManager, pauseManager);
+            return;
+        }
+
         for (int i = 0; i < _playerCount; i++)
         {
-            var playerSpawner = _playerConfigs[i].Input.GetComponent<SpawnPlayer>();
+            var playerSpawner = _playerConfigs[i].PlayerConfigObject.GetComponent<SpawnPlayer>();
             var playerComp = playerSpawner.SpawnPlayerFirst(_playerConfigs[i]);
             _players.Add(playerComp);
 
             var playerObj = playerSpawner.Player;
+            _playerManager.AddPlayerObject(playerObj);
+            Debug.Log($"Adding Player {playerObj.name} to PlayerManager");
+        }
+    }
+
+    public void SetUpOnline(UIManager uiManager, PauseManager pauseManager)
+    {
+        for (int i = 0; i < _playerCount; i++)
+        {
+            //Grabs script and checks if is the host
+            var playerSpawner = _playerConfigs[i].PlayerConfigObject.GetComponent<SpawnPlayerOnline>();
+            if (!playerSpawner.HasPrivilege())
+            {
+                return;
+            }
+
+            NetworkObject networkObject = _playerConfigs[i].PlayerConfigObject.GetComponent<NetworkObject>();
+
+            ulong clientID = networkObject.OwnerClientId;
+            GameObject playerObj = playerSpawner.SpawnPlayerFirst(clientID);
+            ulong networkPlayerID = playerObj.GetComponent<NetworkObject>().NetworkObjectId;
+
+            //Sends it to the server so it sends it to all clients and they setUp the characters
+            //in their own computer (sprites and stuff)
+            playerSpawner.SetCharacterServerRpc(networkPlayerID, i);
+
+            //Does the regular stuff a non online set up would do but only in the host
+            Player playerComp = playerObj.GetComponent<Player>();
+            _players.Add(playerComp);
+
+            playerObj = playerSpawner.Player;
             _playerManager.AddPlayerObject(playerObj);
             Debug.Log($"Adding Player {playerObj.name} to PlayerManager");
         }
@@ -212,7 +257,7 @@ public class GameManager : Manager
         ServiceLocator.Get<AudioManager>().StopMusic();
         for (int i = _playerCount - 1; i >= 0; i--)
         {
-            Destroy(_playerConfigs[i].Input.gameObject);
+            Destroy(_playerConfigs[i].PlayerConfigObject);
             Destroy(_players[i].gameObject);
         }
 

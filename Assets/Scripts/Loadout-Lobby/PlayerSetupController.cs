@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -73,64 +74,35 @@ public class PlayerSetupController : MonoBehaviour
         _configManager.ReadyPlayer(_playerIndex);
     }
 
-    public void ChangeCurrentHeadLeft()
+    public void ChangeCurrentHead(int amount)
     {
-        if (_headIndex == 0)
-        {
-            _headIndex = _playerHead.Count - 1;
-        }
-        else
-        {
-            _headIndex--;
-        }
-
-        _currentHead.sprite = _playerHead[_headIndex];
-        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
-    }
-
-    public void ChangeCurrentHeadRight()
-    {
-        if (_headIndex == _playerHead.Count - 1)
+        _headIndex += amount;
+        if (_headIndex >= _playerHead.Count)
         {
             _headIndex = 0;
         }
-        else
+        else if (_headIndex < 0)
         {
-            _headIndex++;
+            _headIndex = _playerHead.Count - 1;
         }
 
         _currentHead.sprite = _playerHead[_headIndex];
         _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
     }
 
-    public void ChangeCurrentBodyLeft()
+    public void ChangeCurrentBody(int amount)
     {
-        if (_bodyIndex == 0)
-        {
-            _bodyIndex = _playerBody.Count - 1;
-        }
-        else
-        {
-            _bodyIndex--;
-        }
-
-        _currentBody.sprite = _playerBody[_bodyIndex];
-        _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
-    }
-
-    public void ChangeCurrentBodyRight()
-    {
-        if (_bodyIndex == _playerBody.Count - 1)
+        _bodyIndex += amount;
+        if (_bodyIndex >= _playerBody.Count)
         {
             _bodyIndex = 0;
         }
-        else
+        else if (_bodyIndex < 0)
         {
-            _bodyIndex++;
+            _bodyIndex = _playerBody.Count - 1;
         }
 
         _currentBody.sprite = _playerBody[_bodyIndex];
         _audioManager.PlaySound(_selectSound, transform.position, SoundType.SFX);
     }
-
 }

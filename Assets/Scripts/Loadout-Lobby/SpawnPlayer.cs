@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 public class SpawnPlayer : MonoBehaviour
 {
     [SerializeField] private GameObject _playerPrefab;
-    [SerializeField] private PlayerInput _input;
 
     public GameObject Player => _player;
     private GameObject _player;

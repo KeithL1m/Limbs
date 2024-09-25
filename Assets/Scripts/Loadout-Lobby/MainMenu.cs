@@ -71,6 +71,16 @@ public class MainMenu : MonoBehaviour
         StartCoroutine(Delay(4));
     }
 
+    public void StartMultiplayerGame()
+    {
+        //change music
+        ServiceLocator.Get<AudioManager>().MeatcaseMusic(_meatcaseMusic);
+        _configManager.InLoadout = true;
+
+        gateTransition.SetActive(true);
+        StartCoroutine(Delay("z_LoadoutMultiplayer"));
+    }
+
     public void LoadArsenalMenu()
     {
         _audioManager.PlaySound(_enterButtonSound, transform.position, SoundType.SFX);
@@ -122,5 +132,15 @@ public class MainMenu : MonoBehaviour
 
         Debug.Log("After Delay");
         SceneManager.LoadScene(sceneToLoad);
+    }
+
+    IEnumerator Delay(string name)
+    {
+        Debug.Log("Set gate active");
+        // Wait for 3 seconds
+        yield return new WaitForSeconds(1f);
+
+        Debug.Log("After Delay");
+        SceneManager.LoadScene(name);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -49,25 +50,43 @@ public class ConfigurationManager : MonoBehaviour
     IEnumerator LoadSceneAsync()
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(5);
+        //NetworkManager.Singleton.SceneManager.LoadScene("YourSceneName", LoadSceneMode.Single);
 
-        while(!asyncLoad.isDone)
+        while (!asyncLoad.isDone)
         {
             yield return null;
         }
     }
 
-    public void HandlePlayerJoin(PlayerInput pi)
+    public bool HandlePlayerJoin(InputDevice device, GameObject prefab)
     {
         if (!InLoadout)
-            return;
-        if (!_playerConfigs.Any(p =>p.PlayerIndex == pi.playerIndex))
+        {
+            return false;
+        }
+
+        bool hasDevice = _playerConfigs.Any(p => p.Device == device);
+        if (!hasDevice)
         {
             Debug.Log("Player Has Joined");
-            pi.transform.SetParent(transform);
-            _playerConfigs.Add(new PlayerConfiguration(pi));
-            _playerConfigs[_playerNum].Num = _playerNums[_playerNum];
-            _playerNum++;
+
+            var player = Instantiate(prefab, transform);
+            JoinPlayer(player, device, _playerNum);
+            ++_playerNum;
+            return true;
         }
+
+        return false;
+    }
+
+    public void JoinPlayer(GameObject player, InputDevice device, int playerNum)
+    {
+        _playerNum = playerNum;
+        _playerConfigs.Add(new PlayerConfiguration(device, player, _playerNum));
+        _playerConfigs.Last().Num = _playerNums[_playerNum];
+
+        var spawnMenu = player.GetComponent<SpawnPlayerLoadout>();
+        spawnMenu.Initialize(_playerConfigs.Last());
     }
 
     public void ResetConfigs()
@@ -89,13 +108,15 @@ public class ConfigurationManager : MonoBehaviour
 
 public class PlayerConfiguration
 {
-    public PlayerConfiguration(PlayerInput pi)
+    public PlayerConfiguration(InputDevice device, GameObject gObj, int playerIndex)
     {
-        PlayerIndex = pi.playerIndex;
-        Input = pi;
+        PlayerConfigObject = gObj;
+        Device = device;
+        PlayerIndex = playerIndex;
     }
-    public PlayerInput Input {get; set;}
-    public int PlayerIndex { get; set; }
+    public int PlayerIndex = -1;
+    public GameObject PlayerConfigObject;
+    public InputDevice Device { get; set; }
     public bool IsReady { get; set; }
 
     public int Score { get; set; }
