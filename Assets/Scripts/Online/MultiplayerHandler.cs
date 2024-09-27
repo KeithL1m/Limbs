@@ -12,6 +12,7 @@ using UnityEngine.SceneManagement;
 
 public class MultiplayerHandler : NetworkBehaviour
 {
+    public bool ServerOwner { get; private set; }
     [Header("Server")]
     [SerializeField] private string _joinCode = string.Empty;
     public string JoinCode { get { return _joinCode; } private set { } }
@@ -188,7 +189,7 @@ public class MultiplayerHandler : NetworkBehaviour
                 {
                     if (NetworkManager && (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsClient))
                     {
-                        if(NetworkManager.Singleton.IsHost)
+                        if (NetworkManager.Singleton.IsHost)
                         {
                             NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnected;
                         }
@@ -196,6 +197,7 @@ public class MultiplayerHandler : NetworkBehaviour
                         Destroy(_networkManagerPrefab);
                         _networkManager = null;
                     }
+                    ServerOwner = false;
                     _gameManager.IsOnline = false;
                     break;
                 }
@@ -208,6 +210,7 @@ public class MultiplayerHandler : NetworkBehaviour
                     }
                     StartMultiplayer();
                     _gameManager.IsOnline = true;
+                    ServerOwner = NetworkManager.Singleton.IsHost;
                     break;
                 }
         }

@@ -4,9 +4,12 @@ using UnityEngine.PlayerLoop;
 
 public class LimbSpawning : MonoBehaviour
 {
+    [Header("Managers")]
+    [SerializeField] private GameObject _limbSpawningOnlineGameObj;
     private GameLoader _loader;
     private GameManager _gm;
 
+    [Header("Limb Spawning")]
     [SerializeField] private Transform _leftLimit;
     [SerializeField] private Transform _rightLimit;
 
@@ -40,6 +43,15 @@ public class LimbSpawning : MonoBehaviour
 
     private void Awake()
     {
+        if(_gm.IsOnline)
+        {
+            if(_gm.IsHost())
+            {
+                Instantiate(_limbSpawningOnlineGameObj);
+            }
+            Destroy(gameObject);
+            return;
+        }
         _loader = ServiceLocator.Get<GameLoader>();
         _loader.CallOnComplete(Initialize);
     }
