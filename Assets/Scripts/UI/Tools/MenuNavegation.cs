@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -18,10 +19,13 @@ public class MenuNavegation : MonoBehaviour
     private PlayerActions _inputActions;
 
     private InputAction _joystickAction;
+    private InputAction _pressAction;
 
     [SerializeField] private float _moveSelectionTime = 0.2f;
     private float _coolDownTimer = 0.0f;
     private bool _inCoolDown = false;
+    private bool _canPress = false;
+    private bool _online = false;
 
     void Awake()
     {
@@ -32,7 +36,16 @@ public class MenuNavegation : MonoBehaviour
         _joystickAction.performed += JoystickInput;
         _joystickAction.Enable();
 
-        EventSystem.current.SetSelectedGameObject(_currentlySelectedButton);
+        _pressAction = _inputActions.MenuNav.Select;
+        _pressAction.performed += PressInput;
+        _pressAction.Enable();
+
+        _referenceButton.Select();
+
+        if (ServiceLocator.Get<GameManager>().IsOnline)
+        {
+            _online = true;
+        }
     }
 
     private void Update()
@@ -52,11 +65,14 @@ public class MenuNavegation : MonoBehaviour
     {
         _joystickAction.performed -= JoystickInput;
         _joystickAction.Disable();
+
+        _pressAction.performed -= PressInput;
+        _pressAction.Disable();
     }
 
     public void JoystickInput(InputAction.CallbackContext ctx)
     {
-        if ((Device == null && Device != ctx.control.device) || _inCoolDown)
+        if ((Device == null || Device != ctx.control.device) || _inCoolDown)
         {
             return;
         }
@@ -82,6 +98,10 @@ public class MenuNavegation : MonoBehaviour
         Debug.Log(value);
 
         var currentSelectable = _currentlySelectedButton.GetComponent<Button>();
+        if (!_online)
+        {
+            currentSelectable.image.sprite = currentSelectable.spriteState.disabledSprite;
+        }
 
         if (absX < absY && absY > 0.2)
         {
@@ -108,11 +128,37 @@ public class MenuNavegation : MonoBehaviour
         }
     }
 
+    public void PressInput(InputAction.CallbackContext ctx)
+    {
+        if (Device == null || Device != ctx.control.device)
+        {
+            return;
+        }
+
+        //First input will activate so return first time
+        if (!_canPress)
+        {
+            _canPress = true;
+            return;
+        }
+
+        Debug.Log("Button Pressed");
+
+        Button button = _currentlySelectedButton.GetComponent<Button>();
+        button.onClick.Invoke();
+    }
+
     private void SelectNewButton(Selectable next)
     {
         if (next != null)
         {
             next.Select();
+
+            if (!_online)
+            {
+                next.image.sprite = next.spriteState.selectedSprite;
+            }
+
             _currentlySelectedButton = next.gameObject;
         }
     }
