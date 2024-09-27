@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 53337998}
   - component: {fileID: 7572864251910605987}
   m_Layer: 0
-  m_Name: EventSystem
+  m_Name: Navigation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f892363e6614154f86cedff9e3dc8d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _referenceButton: {fileID: 9017944817917584950}
+  _referenceButton: {fileID: 2837933147739233511}
   _moveSelectionTime: 0.2
 --- !u!1 &2123343082477732263
 GameObject:

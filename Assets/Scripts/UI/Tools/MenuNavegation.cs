@@ -31,6 +31,8 @@ public class MenuNavegation : MonoBehaviour
         _joystickAction = _inputActions.MenuNav.Move;
         _joystickAction.performed += JoystickInput;
         _joystickAction.Enable();
+
+        EventSystem.current.SetSelectedGameObject(_currentlySelectedButton);
     }
 
     private void Update()
@@ -58,12 +60,14 @@ public class MenuNavegation : MonoBehaviour
         {
             return;
         }
-        _inCoolDown = true;
 
         Vector2 value = ctx.ReadValue<Vector2>();
+        float absX = Mathf.Abs(value.x);
+        float absY = Mathf.Abs(value.y);
 
-        if (value == Vector2.zero)
+        if (value == Vector2.zero || absX < 0.5f && absY < 0.5f)
         {
+            _inCoolDown = false;
             return;
         }
 
@@ -72,19 +76,22 @@ public class MenuNavegation : MonoBehaviour
             return;
         }
 
-        var currentSelectable = _currentlySelectedButton.GetComponent<Selectable>();
-        float absX = Mathf.Abs(value.x);
-        float absY = Mathf.Abs(value.y);
+        
+        _inCoolDown = true;
+        Debug.Log("Selected new button");
+        Debug.Log(value);
+
+        var currentSelectable = _currentlySelectedButton.GetComponent<Button>();
 
         if (absX < absY && absY > 0.2)
         {
             if (value.y > 0)
             {
-                SelectNewButton(currentSelectable.FindSelectableOnUp());
+                SelectNewButton(currentSelectable.navigation.selectOnUp);
             }
             else
             {
-                SelectNewButton(currentSelectable.FindSelectableOnDown());
+                SelectNewButton(currentSelectable.navigation.selectOnDown);
             }
 
         }
@@ -92,11 +99,11 @@ public class MenuNavegation : MonoBehaviour
         {
             if (value.x > 0)
             {
-                SelectNewButton(currentSelectable.FindSelectableOnRight());
+                SelectNewButton(currentSelectable.navigation.selectOnRight);
             }
             else if (value.x < 0)
             {
-                SelectNewButton(currentSelectable.FindSelectableOnLeft());
+                SelectNewButton(currentSelectable.navigation.selectOnLeft);
             }
         }
     }
