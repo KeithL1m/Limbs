@@ -20,7 +20,7 @@ public class LimbSpawningOnline : NetworkBehaviour
 
     [Header("Customizable")]
     [SerializeField] private List<GameObject> _limbOptions;
-    
+
     [SerializeField] private int _limbLimit;
     [SerializeField] private int _startLimbCount;
 
@@ -78,7 +78,7 @@ public class LimbSpawningOnline : NetworkBehaviour
 
     private void Update()
     {
-		if (!_initialized)
+        if (!_initialized)
         {
             return;
         }
@@ -87,7 +87,7 @@ public class LimbSpawningOnline : NetworkBehaviour
 
         if (_currentLimbs >= _limbLimit)
             return;
-        
+
         _limbTimer -= Time.deltaTime;
 
         if (_limbTimer <= 0.0f && _limbOptions.Count > 0)
@@ -106,7 +106,7 @@ public class LimbSpawningOnline : NetworkBehaviour
         double val2 = rnd.NextDouble() * _maxAngularVelocity;
         _spawnPosX = (float)val;
 
-        GameObject gObj= Instantiate(_limbOptions[index], new Vector3(_spawnPosX, _spawnPosY, 0), Quaternion.identity);
+        GameObject gObj = Instantiate(_limbOptions[index], new Vector3(_spawnPosX, _spawnPosY, 0), Quaternion.identity);
         NetworkObject networkObject = gObj.GetComponent<NetworkObject>();
         Rigidbody2D limb = gObj.GetComponent<Rigidbody2D>();
 
@@ -118,7 +118,7 @@ public class LimbSpawningOnline : NetworkBehaviour
     {
         _limbOptions = new List<GameObject>(_limbManager.GetLimbList());
 
-        for(int i = _limbOptions.Count - 1; i >= 0; i--)
+        for (int i = _limbOptions.Count - 1; i >= 0; i--)
         {
             Limb limb = _limbOptions[i].GetComponent<Limb>();
 
@@ -153,5 +153,26 @@ public class LimbSpawningOnline : NetworkBehaviour
         {
             _limbLimit /= 2;
         }
+    }
+    public void SetLimits(Transform leftLimit, Transform rightLimit)
+    {
+        _leftLimit = leftLimit;
+        _rightLimit = rightLimit;
+    }
+
+    public void SetLimbOptions(List<GameObject> limbOptions)
+    {
+        _limbOptions = limbOptions;
+    }
+
+    public void SetSpecs(int limbLimit, int startLimbCount, double minSpawnTimer, double maxSpawnTimer, float specialSpawnerMultipler, float maxAngularVelocity, bool specialSpawner)
+    {
+        _limbLimit = limbLimit;
+        _startLimbCount = startLimbCount;
+        _minSpawnTimer = minSpawnTimer;
+        _maxSpawnTimer = maxSpawnTimer;
+        _specialSpawnerMultipler = specialSpawnerMultipler;
+        _maxAngularVelocity = maxAngularVelocity;
+        _specialSpawner = specialSpawner;
     }
 }
