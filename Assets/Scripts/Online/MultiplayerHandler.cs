@@ -1,19 +1,18 @@
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
+using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
-using Unity.Services.Authentication;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using static UnityEngine.GraphicsBuffer;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class MultiplayerHandler : NetworkBehaviour
 {
+    public bool ServerOwner { get; private set; }
     [Header("Server")]
     [SerializeField] private string _joinCode = string.Empty;
     public string JoinCode { get { return _joinCode; } private set { } }
@@ -190,7 +189,7 @@ public class MultiplayerHandler : NetworkBehaviour
                 {
                     if (NetworkManager && (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsClient))
                     {
-                        if(NetworkManager.Singleton.IsHost)
+                        if (NetworkManager.Singleton.IsHost)
                         {
                             NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnected;
                         }
@@ -198,6 +197,7 @@ public class MultiplayerHandler : NetworkBehaviour
                         Destroy(_networkManagerPrefab);
                         _networkManager = null;
                     }
+                    ServerOwner = false;
                     _gameManager.IsOnline = false;
                     break;
                 }
@@ -210,10 +210,12 @@ public class MultiplayerHandler : NetworkBehaviour
                     }
                     StartMultiplayer();
                     _gameManager.IsOnline = true;
+                    ServerOwner = NetworkManager.Singleton.IsHost;
                     break;
                 }
         }
     }
+
     private void HandleClientConnected(ulong clientId)
     {
         NotifyAllClientsOfNewClientServerRpc(clientId);

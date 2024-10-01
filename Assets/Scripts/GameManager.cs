@@ -290,4 +290,10 @@ public class GameManager : Manager
     {
         return _winningPlayer;
     }
+
+    public bool IsHost()
+    {
+        var mh = GetComponent<MultiplayerHandler>();
+        return mh.ServerOwner;
+    }
 }

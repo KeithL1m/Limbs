@@ -1,15 +1,15 @@
 using System.Collections.Generic;
+using Unity.Netcode;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class LimbSpawning : MonoBehaviour
+public class LimbSpawningOnline : NetworkBehaviour
 {
-    [Header("Managers")]
-    [SerializeField] private GameObject _limbSpawningOnlineGameObj;
     private GameLoader _loader;
     private GameManager _gm;
 
-    [Header("Limb Spawning")]
     [SerializeField] private Transform _leftLimit;
     [SerializeField] private Transform _rightLimit;
 
@@ -20,7 +20,7 @@ public class LimbSpawning : MonoBehaviour
 
     [Header("Customizable")]
     [SerializeField] private List<GameObject> _limbOptions;
-    
+
     [SerializeField] private int _limbLimit;
     [SerializeField] private int _startLimbCount;
 
@@ -43,19 +43,6 @@ public class LimbSpawning : MonoBehaviour
 
     private void Awake()
     {
-        if(_gm.IsOnline)
-        {
-            if(_gm.IsHost())
-            {
-                var obj = Instantiate(_limbSpawningOnlineGameObj);
-                var spawner = obj.GetComponent<LimbSpawningOnline>();
-                spawner.SetLimits(_leftLimit, _rightLimit);
-                spawner.SetLimbOptions(_limbOptions);
-                spawner.SetSpecs(_limbLimit, _startLimbCount, _minSpawnTimer, _maxSpawnTimer, _specialSpawnerMultipler, _maxAngularVelocity, _specialSpawner);
-            }
-            Destroy(gameObject);
-            return;
-        }
         _loader = ServiceLocator.Get<GameLoader>();
         _loader.CallOnComplete(Initialize);
     }
@@ -81,7 +68,7 @@ public class LimbSpawning : MonoBehaviour
         {
             double val = rnd.NextDouble() * (_right - _left) + _left;
             _spawnPosX = (float)val;
-            SpawnLimbRandom();
+            SpawnLimbRandomServerRpc();
         }
 
         double time = rnd.NextDouble() * (_maxSpawnTimer - _minSpawnTimer) + _minSpawnTimer;
@@ -91,7 +78,7 @@ public class LimbSpawning : MonoBehaviour
 
     private void Update()
     {
-		if (!_initialized)
+        if (!_initialized)
         {
             return;
         }
@@ -100,24 +87,30 @@ public class LimbSpawning : MonoBehaviour
 
         if (_currentLimbs >= _limbLimit)
             return;
-        
+
         _limbTimer -= Time.deltaTime;
 
         if (_limbTimer <= 0.0f && _limbOptions.Count > 0)
         {
-            SpawnLimbRandom();
+            SpawnLimbRandomServerRpc();
             double time = rnd.NextDouble() * (_maxSpawnTimer - _minSpawnTimer) + _minSpawnTimer;
             _limbTimer = (float)time;
         }
     }
 
-    private void SpawnLimbRandom()
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnLimbRandomServerRpc()
     {
         int index = rnd.Next(_limbOptions.Count);
         double val = rnd.NextDouble() * (_right - _left) + _left;
         double val2 = rnd.NextDouble() * _maxAngularVelocity;
         _spawnPosX = (float)val;
-        Rigidbody2D limb = Instantiate(_limbOptions[index], new Vector3(_spawnPosX, _spawnPosY, 0), Quaternion.identity).GetComponent<Rigidbody2D>();
+
+        GameObject gObj = Instantiate(_limbOptions[index], new Vector3(_spawnPosX, _spawnPosY, 0), Quaternion.identity);
+        NetworkObject networkObject = gObj.GetComponent<NetworkObject>();
+        Rigidbody2D limb = gObj.GetComponent<Rigidbody2D>();
+
+        networkObject.Spawn();
         limb.angularVelocity = (float)val2;
     }
 
@@ -125,7 +118,7 @@ public class LimbSpawning : MonoBehaviour
     {
         _limbOptions = new List<GameObject>(_limbManager.GetLimbList());
 
-        for(int i = _limbOptions.Count - 1; i >= 0; i--)
+        for (int i = _limbOptions.Count - 1; i >= 0; i--)
         {
             Limb limb = _limbOptions[i].GetComponent<Limb>();
 
@@ -160,5 +153,26 @@ public class LimbSpawning : MonoBehaviour
         {
             _limbLimit /= 2;
         }
+    }
+    public void SetLimits(Transform leftLimit, Transform rightLimit)
+    {
+        _leftLimit = leftLimit;
+        _rightLimit = rightLimit;
+    }
+
+    public void SetLimbOptions(List<GameObject> limbOptions)
+    {
+        _limbOptions = limbOptions;
+    }
+
+    public void SetSpecs(int limbLimit, int startLimbCount, double minSpawnTimer, double maxSpawnTimer, float specialSpawnerMultipler, float maxAngularVelocity, bool specialSpawner)
+    {
+        _limbLimit = limbLimit;
+        _startLimbCount = startLimbCount;
+        _minSpawnTimer = minSpawnTimer;
+        _maxSpawnTimer = maxSpawnTimer;
+        _specialSpawnerMultipler = specialSpawnerMultipler;
+        _maxAngularVelocity = maxAngularVelocity;
+        _specialSpawner = specialSpawner;
     }
 }
