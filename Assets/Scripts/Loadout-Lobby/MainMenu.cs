@@ -13,8 +13,10 @@ public class MainMenu : MonoBehaviour
     private GameObject arsenalMenu;
     [SerializeField] 
     private GameObject settingsMenu;
-    [SerializeField] 
+    [SerializeField]
     private GameObject creditsMenu;
+    [SerializeField] 
+    private GameObject modeSelectMenu;
     [SerializeField]
     private GameObject gateTransition;
     [SerializeField]
@@ -29,6 +31,8 @@ public class MainMenu : MonoBehaviour
     private GameObject selectedButtonSettingsMenu;
     [SerializeField]
     private GameObject selectedButtonCreditsMenu;
+    [SerializeField]
+    private GameObject selectedButtonModeMenu;
 
     private GameLoader _loader;
     private ConfigurationManager _configManager;
@@ -101,6 +105,13 @@ public class MainMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(selectedButtonCreditsMenu);
     }
 
+    public void LoadModeSelectMenu()
+    {
+        _audioManager.PlaySound(_enterButtonSound, transform.position, SoundType.SFX);
+        ShowMenu(modeSelectMenu);
+        EventSystem.current.SetSelectedGameObject(selectedButtonModeMenu);
+    }
+
     public void BackButton()
     {
         _audioManager.PlaySound(_backButtonSound, transform.position, SoundType.SFX, 0.5f);
@@ -108,6 +119,7 @@ public class MainMenu : MonoBehaviour
         arsenalMenu.SetActive(false);
         settingsMenu.SetActive(false);
         creditsMenu.SetActive(false);
+        modeSelectMenu.SetActive(false);
         EventSystem.current.SetSelectedGameObject(selectedButtonMainMenu);
     }
 
