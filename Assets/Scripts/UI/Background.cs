@@ -21,7 +21,7 @@ public class Background : MonoBehaviour
     {
         Debug.Log($"{nameof(Initialize)}");
 
-        _camera = Camera.main.transform;
+        _camera = ServiceLocator.Get<CameraManager>().GetCameraTransform();
         _backgroundCount = _backgrounds.Count;
     }
 

@@ -61,13 +61,10 @@ public class PlayerJump : MonoBehaviour
 
     public void Jump()
     {
-        //if (GetComponent<PlayerHealth>().IsDead())
-        //    return;
-        NormalJump();
-    }
-
-    private void NormalJump()
-    {
+        if(GetComponent<PlayerHealth>().IsDead())
+        {
+            return;
+        }
         if (IsGrounded() && _player._movementState == Player.MovementState.Move)
         {
             _coyoteTime = _maxCoyoteTime;
@@ -124,7 +121,7 @@ public class PlayerJump : MonoBehaviour
         if (_canDoubleJump)
         {
             _audioManager.PlaySound(_doubleJumpSound, transform.position, SoundType.SFX);
-            _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed * 0.6f, ForceMode2D.Impulse);
+            _rb.AddForce(_rb.mass * _initJumpSpeed * 0.6f * Vector2.up, ForceMode2D.Impulse);
             _canDoubleJump = false;
             _isDoubleJumping = true;
             _dJumpParticles.Play();
@@ -134,7 +131,7 @@ public class PlayerJump : MonoBehaviour
             if (!_player.CanFly)
             {
                 _audioManager.PlaySound(_jumpSound, transform.position, SoundType.SFX);
-                _rb.AddForce(_rb.mass * Vector2.up * _initJumpSpeed, ForceMode2D.Impulse);
+                _rb.AddForce(_rb.mass * _initJumpSpeed * Vector2.up, ForceMode2D.Impulse);
                 _jumpParticles.Play();
             }
             else

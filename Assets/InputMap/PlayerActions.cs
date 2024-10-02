@@ -89,6 +89,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AnyInput"",
+                    ""type"": ""Button"",
+                    ""id"": ""ecf5eed5-5281-4c1c-9cf8-6ea73128a5ca"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -333,6 +342,17 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""Melee"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""56ae934b-c571-4279-a42a-34c9449cb62f"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AnyInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -545,6 +565,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_Gameplay_SwitchAimType = m_Gameplay.FindAction("SwitchAimType", throwIfNotFound: true);
         m_Gameplay_SwitchLimb = m_Gameplay.FindAction("Switch Limb", throwIfNotFound: true);
         m_Gameplay_Melee = m_Gameplay.FindAction("Melee", throwIfNotFound: true);
+        m_Gameplay_AnyInput = m_Gameplay.FindAction("AnyInput", throwIfNotFound: true);
         // Menu Nav
         m_MenuNav = asset.FindActionMap("Menu Nav", throwIfNotFound: true);
         m_MenuNav_Move = m_MenuNav.FindAction("Move", throwIfNotFound: true);
@@ -615,6 +636,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_SwitchAimType;
     private readonly InputAction m_Gameplay_SwitchLimb;
     private readonly InputAction m_Gameplay_Melee;
+    private readonly InputAction m_Gameplay_AnyInput;
     public struct GameplayActions
     {
         private @PlayerActions m_Wrapper;
@@ -626,6 +648,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         public InputAction @SwitchAimType => m_Wrapper.m_Gameplay_SwitchAimType;
         public InputAction @SwitchLimb => m_Wrapper.m_Gameplay_SwitchLimb;
         public InputAction @Melee => m_Wrapper.m_Gameplay_Melee;
+        public InputAction @AnyInput => m_Wrapper.m_Gameplay_AnyInput;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -656,6 +679,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Melee.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMelee;
                 @Melee.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMelee;
                 @Melee.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMelee;
+                @AnyInput.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAnyInput;
+                @AnyInput.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAnyInput;
+                @AnyInput.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAnyInput;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -681,6 +707,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Melee.started += instance.OnMelee;
                 @Melee.performed += instance.OnMelee;
                 @Melee.canceled += instance.OnMelee;
+                @AnyInput.started += instance.OnAnyInput;
+                @AnyInput.performed += instance.OnAnyInput;
+                @AnyInput.canceled += instance.OnAnyInput;
             }
         }
     }
@@ -753,6 +782,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         void OnSwitchAimType(InputAction.CallbackContext context);
         void OnSwitchLimb(InputAction.CallbackContext context);
         void OnMelee(InputAction.CallbackContext context);
+        void OnAnyInput(InputAction.CallbackContext context);
     }
     public interface IMenuNavActions
     {

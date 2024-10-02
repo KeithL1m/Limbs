@@ -1,21 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class OnlineSettings : MonoBehaviour
 {
     [SerializeField] private MultiplayerHandler _handler;
-    [SerializeField] private InputField _textMeshProUGUI;
+    [SerializeField] private TMP_InputField _joinInputField;
 
-    public async void SetServer()
+    private void Awake()
     {
-        _textMeshProUGUI.text = await _handler.CreateServer();
+        _handler = ServiceLocator.Get<MultiplayerHandler>();
     }
 
-    public void SetText()
+    public async void CreateServer()
     {
-        _handler.JoinServer(_textMeshProUGUI.text);
+        _joinInputField.text = await _handler.CreateServer();
+    }
+
+    public void JoinServer()
+    {
+        _handler.JoinServer(_joinInputField.text);
     }
 }

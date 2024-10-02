@@ -115,8 +115,12 @@ MonoBehaviour:
   IsSpecial: 1
   screenShakePercent: 0.6
   screenShakeTime: 0.5
+  _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
+  _hitSound: {fileID: 0}
   _forceAmt: 50
   _animation: {fileID: 6758525524837623812}
+  _shootSound: {fileID: 8300000, guid: 65ebf5918c36c3647846a5b121db3fdf, type: 3}
+  _specialPickUpSound: {fileID: 8300000, guid: b052b6c208ab6ff4d8d9548e09521fdb, type: 3}
 --- !u!114 &3975772605864171954
 MonoBehaviour:
   m_ObjectHideFlags: 0

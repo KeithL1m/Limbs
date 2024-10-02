@@ -123,6 +123,7 @@ MonoBehaviour:
   IsSpecial: 0
   screenShakePercent: 0
   screenShakeTime: 0
+  _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
   _gravityScale: 0
 --- !u!1 &803361303413361322 stripped
 GameObject:

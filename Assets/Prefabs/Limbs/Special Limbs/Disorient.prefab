@@ -184,7 +184,9 @@ MonoBehaviour:
   IsSpecial: 1
   screenShakePercent: 1
   screenShakeTime: 0.5
+  _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
   _disorientLength: 10
+  _collideSound: {fileID: 8300000, guid: 5778e7d42f204414f86e02e540d0170f, type: 3}
 --- !u!1 &2032589684185758580 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1123106515960743069, guid: d2b3d4b3983896c40957940843227c42, type: 3}

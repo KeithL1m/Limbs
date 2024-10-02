@@ -9,13 +9,17 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6246267836606106081}
-  - component: {fileID: 8418828552066830898}
+  - component: {fileID: -8957127136826876683}
   - component: {fileID: 5968974798383610403}
   - component: {fileID: 8822850745060225480}
   - component: {fileID: 5952273605013709200}
+  - component: {fileID: 3260073714836435741}
   - component: {fileID: -2330629437284295947}
   - component: {fileID: 7777048602717406665}
   - component: {fileID: 7891435827142567032}
+  - component: {fileID: -5812962175452160083}
+  - component: {fileID: 7033073488795715658}
+  - component: {fileID: -772498438438875510}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -38,7 +42,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8418828552066830898
+--- !u!114 &-8957127136826876683
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,53 +51,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2200296758692526866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
+  m_Script: {fileID: 11500000, guid: d8be48cadb8cba743a67e40682758c16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NotificationBehavior: 2
-  m_MaxPlayerCount: 4
-  m_AllowJoining: 1
-  m_JoinBehavior: 0
-  m_PlayerJoinedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5952273605013709200}
-        m_TargetAssemblyTypeName: ConfigurationManager, Assembly-CSharp
-        m_MethodName: HandlePlayerJoin
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_PlayerLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_JoinAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: 
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 1915219753739768710, guid: c6323961af398d8449e5c079bd941c0b, type: 3}
-  m_SplitScreen: 0
-  m_MaintainAspectRatioInSplitScreen: 0
-  m_FixedNumberOfSplitScreens: -1
-  m_SplitScreenRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+  _inputActionAsset: {fileID: -944628639613478452, guid: eb044a8dc5109984b9c550913304dfc7, type: 3}
+  _configurationManager: {fileID: 5952273605013709200}
+  _configurationManagerOnline: {fileID: 3260073714836435741}
+  _gameObjectToInitWithNewInput: {fileID: 1915219753739768710, guid: c6323961af398d8449e5c079bd941c0b, type: 3}
+  _gameManager: {fileID: 5968974798383610403}
 --- !u!114 &5968974798383610403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +74,7 @@ MonoBehaviour:
   _winsNeeded: 3
   spawnPoints: []
   _players: []
+  IsOnline: 0
   _empyObj: {fileID: 661398525459741840, guid: bc6f31650622bab4097afe3b93a01146, type: 3}
   limits: 0
 --- !u!114 &8822850745060225480
@@ -124,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fade: {fileID: 0}
-  _loadingMaps: 4
+  _loadingMaps: 5
 --- !u!114 &5952273605013709200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +101,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74b7ba6278cf58f40ad9d0d3287e671e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerNums:
+  - {fileID: 21300000, guid: 21e28102ebbcb594cb794728affc09d2, type: 3}
+  - {fileID: 21300000, guid: f0aaf57510ad2f34aa0d37ab20227d89, type: 3}
+  - {fileID: 21300000, guid: 743a13325e985c54f8c597e9df3345ab, type: 3}
+  - {fileID: 21300000, guid: 5a6a0706dc259c143948ff5df9a1260b, type: 3}
+--- !u!114 &3260073714836435741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2200296758692526866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73197421ffcedf24b8a128e1150188b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _playerNums:
@@ -154,7 +137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a75bbd1a2995e4693a9033b2f16179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _basePlayer: {fileID: 0}
   _playerList: []
 --- !u!114 &7777048602717406665
 MonoBehaviour:
@@ -193,3 +175,60 @@ MonoBehaviour:
   SoundFXVolume: 0
   _sources: []
   _numSources: 8
+--- !u!114 &-5812962175452160083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2200296758692526866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e57158ea9968442ac24ec9bbecef20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _joinCode: 
+  _playerConfigObj: {fileID: 1915219753739768710, guid: 7b49520d21e237f499fe05ee3f3b1ece, type: 3}
+  _networkManagerPrefab: {fileID: 5240221005077297235, guid: de17fe9f418e17145b1904b387362711, type: 3}
+--- !u!114 &7033073488795715658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2200296758692526866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &-772498438438875510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2200296758692526866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3b7b9462fef22a44b8ded926992c065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 0
+  SyncRotAngleX: 0
+  SyncRotAngleY: 0
+  SyncRotAngleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  InLocalSpace: 0
+  Interpolate: 1

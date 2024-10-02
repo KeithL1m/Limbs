@@ -55,7 +55,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3c5676425e7507a4a866fb461b443403, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -115,6 +115,9 @@ MonoBehaviour:
   IsSpecial: 0
   screenShakePercent: 0.2
   screenShakeTime: 0.5
+  _pickupSound: {fileID: 8300000, guid: ad614d389fc9e8142aede6b0573b0f48, type: 3}
+  _hitSound: {fileID: 0}
+  _pickleSound: {fileID: 8300000, guid: fb57337e16b404348973a010196e744e, type: 3}
 --- !u!114 &7729248334120115588
 MonoBehaviour:
   m_ObjectHideFlags: 0

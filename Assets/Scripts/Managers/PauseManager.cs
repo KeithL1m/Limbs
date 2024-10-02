@@ -6,6 +6,7 @@ public class PauseManager : MonoBehaviour
 {
     GameLoader _loader;
     PauseAction action;
+    private AudioManager _audioManager;
 
     public static bool paused = false;
 
@@ -34,12 +35,14 @@ public class PauseManager : MonoBehaviour
     [SerializeField]
     private GameObject _exitPopupFirstButton;
 
-
     [SerializeField]
     private Canvas _canvas;
 
     [SerializeField]
     private UIManager _uiManager;
+
+    [SerializeField] private AudioClip _pauseSound;
+    [SerializeField] private AudioClip _pauseMusic;
 
     private void Awake()
     {
@@ -50,6 +53,7 @@ public class PauseManager : MonoBehaviour
     void Initialize()
     {
         action = new PauseAction();
+        _audioManager = ServiceLocator.Get<AudioManager>();
 
         DontDestroyOnLoad(this);
         _pauseMenu.SetActive(false);
@@ -77,12 +81,16 @@ public class PauseManager : MonoBehaviour
         }
         else
         {
+            _audioManager.PlaySound(_pauseSound, Vector3.zero, SoundType.SFX);
             PauseGame();
         }
     }
 
     public void PauseGame()
     {
+        _audioManager.PlayMusicTemp(_pauseMusic, 0.5f);
+        _audioManager.PauseMusic();
+
         Debug.Log("Pausing game");
         Time.timeScale = 0.0f;
         paused = true;
@@ -93,6 +101,8 @@ public class PauseManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        _audioManager.StopTempMusic();
+        _audioManager.UnpauseMusic();
         Debug.Log("Unpausing game");
         Time.timeScale = 1.0f;
         paused = false;
@@ -149,7 +159,7 @@ public class PauseManager : MonoBehaviour
     public void UnloadExitPopupMenu()
     {
         _exitPopupMenu.SetActive(false);
-        _eventSystem.SetSelectedGameObject(_exitPopupFirstButton);
+        _eventSystem.SetSelectedGameObject(_pauseFirstButton);
         //make sure an animation plays when this is clicked
     }
 
@@ -180,6 +190,7 @@ public class PauseManager : MonoBehaviour
         paused = false;
         AudioManager am = ServiceLocator.Get<AudioManager>();
         am.StopMusic();
+        am.StopTempMusic();
         gm.EndGame();
     }
 

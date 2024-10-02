@@ -174,7 +174,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 21300000, guid: f5c1bf50dace7b54e91e7920fabc60fc, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -230,4 +230,5 @@ MonoBehaviour:
   _selectColor: {r: 0.6313726, g: 0.3529412, b: 0.36078432, a: 1}
   _unselectColor: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 1}
   _connectedLimb: {fileID: 479936713415687806, guid: d2b3d4b3983896c40957940843227c42, type: 3}
-  _button: {fileID: 0}
+  _itemDescription: {fileID: 0}
+  _limbInfo: {fileID: 0}

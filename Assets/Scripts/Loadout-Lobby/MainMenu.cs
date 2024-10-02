@@ -30,9 +30,6 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private GameObject selectedButtonCreditsMenu;
 
-    [SerializeField]
-    private string[] buttonDescriptions;
-
     private GameLoader _loader;
     private ConfigurationManager _configManager;
 
@@ -71,7 +68,17 @@ public class MainMenu : MonoBehaviour
         _configManager.InLoadout = true;
 
         gateTransition.SetActive(true);
-        StartCoroutine(Delay(3));
+        StartCoroutine(Delay(4));
+    }
+
+    public void StartMultiplayerGame()
+    {
+        //change music
+        ServiceLocator.Get<AudioManager>().MeatcaseMusic(_meatcaseMusic);
+        _configManager.InLoadout = true;
+
+        gateTransition.SetActive(true);
+        StartCoroutine(Delay("z_LoadoutMultiplayer"));
     }
 
     public void LoadArsenalMenu()
@@ -111,6 +118,12 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
+    public void FocusUI()
+    {
+        Debug.Log("Refocusing UI");
+        EventSystem.current.SetSelectedGameObject(selectedButtonMainMenu);
+    }
+
     IEnumerator Delay(int sceneToLoad)
     {
         Debug.Log("Set gate active");
@@ -119,5 +132,15 @@ public class MainMenu : MonoBehaviour
 
         Debug.Log("After Delay");
         SceneManager.LoadScene(sceneToLoad);
+    }
+
+    IEnumerator Delay(string name)
+    {
+        Debug.Log("Set gate active");
+        // Wait for 3 seconds
+        yield return new WaitForSeconds(1f);
+
+        Debug.Log("After Delay");
+        SceneManager.LoadScene(name);
     }
 }

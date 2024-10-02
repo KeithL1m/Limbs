@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static OptionsScreen;
@@ -12,6 +14,7 @@ public class GameManager : Manager
     private MapManager _mapManager = null;
     private PlayerManager _playerManager = null;
     private ObjectPoolManager _objManager;
+    private SceneFade _transition;
 
     public List<GameObject> spawnPoints = new List<GameObject>();
 
@@ -26,6 +29,8 @@ public class GameManager : Manager
     private int _deadPlayers;
     private Player _winningPlayer;
 
+    public bool IsOnline = false;
+
     public bool startScreen { get; set; } = true;
     public bool VictoryScreen { get; private set; } = false;
     public bool EarlyEnd { get; set; } = false;
@@ -33,6 +38,7 @@ public class GameManager : Manager
     [SerializeField] private EmptyDestructibleObject _empyObj;
 
     public frameLimits limits;
+    private float _changeSceneDuration;
 
     private void Awake()
     {
@@ -58,19 +64,62 @@ public class GameManager : Manager
 
         _pauseManager = pauseManager;
         _uiManager = uiManager;
-        _mapManager.fade = _uiManager.GetFade();
+        _transition = _uiManager.GetFade();
+        _changeSceneDuration = _transition.GetFadeDuration();
 
         _playerCount = _configManager.GetPlayerNum();
         _playerConfigs = _configManager.GetPlayerConfigs();
         _configManager.InLoadout = false;
 
+        if (IsOnline)
+        {
+            var configOnlineManager = ServiceLocator.Get<ConfigurationManagerOnline>();
+
+            _playerCount = configOnlineManager.GetPlayerNum();
+            _playerConfigs = configOnlineManager.GetPlayerConfigs();
+
+            SetUpOnline(uiManager, pauseManager);
+            return;
+        }
+
         for (int i = 0; i < _playerCount; i++)
         {
-            var playerSpawner = _playerConfigs[i].Input.GetComponent<SpawnPlayer>();
+            var playerSpawner = _playerConfigs[i].PlayerConfigObject.GetComponent<SpawnPlayer>();
             var playerComp = playerSpawner.SpawnPlayerFirst(_playerConfigs[i]);
             _players.Add(playerComp);
 
             var playerObj = playerSpawner.Player;
+            _playerManager.AddPlayerObject(playerObj);
+            Debug.Log($"Adding Player {playerObj.name} to PlayerManager");
+        }
+    }
+
+    public void SetUpOnline(UIManager uiManager, PauseManager pauseManager)
+    {
+        for (int i = 0; i < _playerCount; i++)
+        {
+            //Grabs script and checks if is the host
+            var playerSpawner = _playerConfigs[i].PlayerConfigObject.GetComponent<SpawnPlayerOnline>();
+            if (!playerSpawner.HasPrivilege())
+            {
+                return;
+            }
+
+            NetworkObject networkObject = _playerConfigs[i].PlayerConfigObject.GetComponent<NetworkObject>();
+
+            ulong clientID = networkObject.OwnerClientId;
+            GameObject playerObj = playerSpawner.SpawnPlayerFirst(clientID);
+            ulong networkPlayerID = playerObj.GetComponent<NetworkObject>().NetworkObjectId;
+
+            //Sends it to the server so it sends it to all clients and they setUp the characters
+            //in their own computer (sprites and stuff)
+            playerSpawner.SetCharacterServerRpc(networkPlayerID, i);
+
+            //Does the regular stuff a non online set up would do but only in the host
+            Player playerComp = playerObj.GetComponent<Player>();
+            _players.Add(playerComp);
+
+            playerObj = playerSpawner.Player;
             _playerManager.AddPlayerObject(playerObj);
             Debug.Log($"Adding Player {playerObj.name} to PlayerManager");
         }
@@ -85,10 +134,21 @@ public class GameManager : Manager
         _uiManager.SetUpLeaderBoard();
         _uiManager.UpdateLeaderBoard();
 
-        ClearLimbs();
+        _playerManager.ClearLimbs();
         EarlyEnd = false;
         startScreen = false;
-        _mapManager.ChangeScene();
+
+        StartCoroutine(SceneTransition());
+    }
+
+    IEnumerator SceneTransition()
+    {
+        _transition.StartTransition();
+
+        yield return new WaitForSeconds(_changeSceneDuration);
+
+        ResetRound();
+        _mapManager.LoadMap();
     }
 
     override public void OnStart()
@@ -109,12 +169,8 @@ public class GameManager : Manager
             spawnPoints.Add(gameObjects[i]);
         }
 
-        for (int i = 0; i < _playerCount; i++)
-        {
-            Debug.Log($"<color=lime>Player {i} is being spawned</color>");
-            _players[i].GetComponent<PlayerHealth>().ResetHealth();
-            SpawnPlayer(i);
-        }
+        _playerManager.SetSpawnPoints(spawnPoints);
+        _playerManager.OnStartRound();
     }
 
     public void CheckGameOver()
@@ -143,31 +199,28 @@ public class GameManager : Manager
                 StartCoroutine(_uiManager.ShowGameOverScreen(winningConfig));
             }
         }
-
         else
         {
             _deadPlayers = 0;
         }
     }
 
-
     public void EndRound()
     {
         _deadPlayers = 0;
         spawnPoints.Clear();
 
-        for (int j = 0; j < _players.Count; j++)
+        if (_playerManager.PlayerHasWon(_winsNeeded))
         {
-            if (_players[j].GetScore() == _winsNeeded)
-            {
-                EnterVictoryScreen();
-            }
+            EnterVictoryScreen();
         }
+
         if (ServiceLocator.Get<CameraManager>() != null)
         {
             ServiceLocator.Get<CameraManager>().Unregister();
         }
-        _mapManager.ChangeScene();
+
+        StartCoroutine(SceneTransition());
     }
 
     public void VictoryScreenSelect(GameObject button)
@@ -175,55 +228,18 @@ public class GameManager : Manager
         _pauseManager.VictoryScreen(button);
     }
 
-    private void SpawnPlayer(int playerNum)
-    {
-
-        _players[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-        _players[playerNum].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-        _players[playerNum].GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
-        _players[playerNum].GetComponent<PlayerHealth>().isDead = false;
-        _players[playerNum].transform.position = spawnPoints[playerNum].transform.position;
-        if (!VictoryScreen)
-            return;
-        if (playerNum == 0)
-        {
-            _players[playerNum].SetDisplayCrown(true);
-        }
-        else
-        {
-            _players[playerNum].SetDisplayCrown(false);
-        }
-    }
-
-    public void ClearLimbs()
-    {
-        for (int i = 0; i < _playerCount; i++)
-        {
-            _players[i].GetComponent<PlayerLimbs>().ClearLimbs();
-        }
-    }
-
-    private void ResetGroundCheck()
-    {
-        for (int i = 0; i < _playerCount; i++)
-        {
-            _players[i].GroundCheckTransform.localPosition = new Vector3(0, -0.715f, 0);
-        }
-    }
-
     private void EnterVictoryScreen()
     {
         VictoryScreen = true;
 
-        _players.Sort((emp2, emp1) => emp1.GetScore().CompareTo(emp2.GetScore()));
-
+        _playerManager.SortPlayers();
     }
 
     public void ResetRound()
     {
         ServiceLocator.Get<LimbManager>().ClearList();
-        ClearLimbs();
-        ResetGroundCheck();
+        _playerManager.ClearLimbs();
+        _playerManager.ResetGroundCheck();
         _uiManager.UpdateLeaderBoard();
         _uiManager.UpdatePlayerWins();
         isGameOver = false;
@@ -239,9 +255,9 @@ public class GameManager : Manager
         startScreen = true;
 
         ServiceLocator.Get<AudioManager>().StopMusic();
-        for (int i = 0; i < _playerCount; i++)
+        for (int i = _playerCount - 1; i >= 0; i--)
         {
-            Destroy(_playerConfigs[i].Input.gameObject);
+            Destroy(_playerConfigs[i].PlayerConfigObject);
             Destroy(_players[i].gameObject);
         }
 
@@ -250,7 +266,7 @@ public class GameManager : Manager
         _playerConfigs.Clear();
         _players.Clear();
 
-        _playerManager.ClearList();
+        _playerManager.ClearLists();
 
         _configManager.ResetConfigs();
 
@@ -262,12 +278,7 @@ public class GameManager : Manager
 
         ServiceLocator.Get<LimbManager>().ClearList();
 
-        SceneManager.LoadScene(1);
-    }
-
-    public int GetPlayerCount()
-    {
-        return _playerCount;
+        SceneManager.LoadScene(3);
     }
 
     public List<PlayerConfiguration> GetPlayerConfigs()
@@ -278,5 +289,11 @@ public class GameManager : Manager
     public Player GetWinningPlayer()
     {
         return _winningPlayer;
+    }
+
+    public bool IsHost()
+    {
+        var mh = GetComponent<MultiplayerHandler>();
+        return mh.ServerOwner;
     }
 }
