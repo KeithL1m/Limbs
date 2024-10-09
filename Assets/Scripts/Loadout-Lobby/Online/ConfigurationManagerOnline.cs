@@ -47,8 +47,6 @@ public class ConfigurationManagerOnline : NetworkBehaviour
 
     void LoadSceneAsync()
     {
-        NetworkManager.Singleton.SceneManager.LoadScene("Meatcase", LoadSceneMode.Single);
-
         //TODO: Maybe check how LoadSceneMode.Additive works and make this function
         //while (!asyncLoad.isDone)
         //{

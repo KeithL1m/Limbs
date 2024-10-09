@@ -13,6 +13,8 @@ using UnityEngine.SceneManagement;
 public class MultiplayerHandler : NetworkBehaviour
 {
     public bool ServerOwner { get; private set; }
+    public bool IsInServerInitialized {  get; private set; }
+
     [Header("Server")]
     [SerializeField] private string _joinCode = string.Empty;
     public string JoinCode { get { return _joinCode; } private set { } }
@@ -99,6 +101,7 @@ public class MultiplayerHandler : NetworkBehaviour
 
             NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
 
+            IsInServerInitialized = true;
             return _joinCode;
         }
         catch (RelayServiceException ex)
@@ -129,6 +132,7 @@ public class MultiplayerHandler : NetworkBehaviour
 
             NetworkManager.Singleton.StartClient();
 
+            IsInServerInitialized = true;
             _joinCode = joinCode;
         }
         catch (RelayServiceException ex)
@@ -139,6 +143,10 @@ public class MultiplayerHandler : NetworkBehaviour
 
     public void OnClientConnected(InputDevice device)
     {
+        if(!IsInServerInitialized)
+        {
+            return;
+        }
         _tempDevice = device;
         OnClientConnectedServerRpc(NetworkManager.Singleton.LocalClientId);
     }
@@ -181,6 +189,8 @@ public class MultiplayerHandler : NetworkBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        IsInServerInitialized = false;
+
         switch (scene.name)
         {
             case "StartMenu":
