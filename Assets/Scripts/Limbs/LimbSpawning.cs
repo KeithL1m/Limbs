@@ -43,6 +43,7 @@ public class LimbSpawning : MonoBehaviour
 
     private void Awake()
     {
+        _gm = ServiceLocator.Get<GameManager>();
         if(_gm.IsOnline)
         {
             if(_gm.IsHost())
