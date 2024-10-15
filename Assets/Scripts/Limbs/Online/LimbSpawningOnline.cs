@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 
 public class LimbSpawningOnline : NetworkBehaviour
 {
@@ -160,6 +161,24 @@ public class LimbSpawningOnline : NetworkBehaviour
     public void SetLimbOptions(List<GameObject> limbOptions)
     {
         _limbOptions = limbOptions;
+        foreach (var limb in _limbOptions)
+        {
+            limb.AddComponent<NetworkObject>();
+            var clientTransfrom = limb.AddComponent<ClientNetworkTransform>();
+            clientTransfrom.SyncPositionX = true;
+            clientTransfrom.SyncPositionY = true;
+            clientTransfrom.SyncPositionZ = false;
+
+            clientTransfrom.SyncRotAngleX = false;
+            clientTransfrom.SyncRotAngleY = false;
+            clientTransfrom.SyncRotAngleZ = true;
+
+            clientTransfrom.SyncScaleX = false;
+            clientTransfrom.SyncScaleY = false;
+            clientTransfrom.SyncScaleZ = false;
+
+            NetworkManager.Singleton.AddNetworkPrefab(limb);
+        }
     }
 
     public void SetSpecs(int limbLimit, int startLimbCount, double minSpawnTimer, double maxSpawnTimer, float specialSpawnerMultipler, float maxAngularVelocity, bool specialSpawner)
