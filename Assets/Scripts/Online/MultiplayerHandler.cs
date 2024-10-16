@@ -71,7 +71,7 @@ public class MultiplayerHandler : NetworkBehaviour
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
-        await CreateServer();
+        //await CreateServer();
     }
 
     public async Task<string> CreateServer()
