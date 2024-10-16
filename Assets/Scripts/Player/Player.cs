@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public PlayerInputHandler _inputHandler;
     private PlayerConfiguration _config;
+    private PlayerOnlineHelper _onlineHelper;
 
     [SerializeField] private SpriteRenderer _playerHead;
     [SerializeField] private SpriteRenderer _playerBody;
@@ -72,6 +73,8 @@ public class Player : MonoBehaviour
     public int Id { get => _id; }
     private int _id;
 
+    private bool _isOnline = false;
+
     private bool isWinRound;
     [SerializeField] private GameObject _crownGameObject;
 
@@ -103,6 +106,12 @@ public class Player : MonoBehaviour
 
         _gameManager = ServiceLocator.Get<GameManager>();
         _audioManager = ServiceLocator.Get<AudioManager>();
+
+        if (_gameManager.IsOnline)
+        {
+            _onlineHelper = GetComponent<PlayerOnlineHelper>();
+            _isOnline = true;
+        }
 
         _initialized = true;
     }
@@ -179,8 +188,16 @@ public class Player : MonoBehaviour
         //updating arrow
         (Vector3, bool) aimResults = _aimHandler.GetAimResults();
         _aimTransform.eulerAngles = aimResults.Item1;
-        _playerHead.flipX = aimResults.Item2;
-        _playerBody.flipX = aimResults.Item2;
+
+        bool flip = aimResults.Item2;
+        //Send this data to other players
+        _playerHead.flipX = flip;
+        _playerBody.flipX = flip;
+
+        if (_isOnline)
+        {
+            _onlineHelper.HelpFlipBody(flip);
+        }
         
 
         if (!_wasOnGround && _groundCheck.isGrounded && _previousVelocity2.y < -5.0f)
