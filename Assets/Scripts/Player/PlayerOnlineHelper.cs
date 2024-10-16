@@ -15,12 +15,15 @@ public class PlayerOnlineHelper : NetworkBehaviour
         _flip.OnValueChanged += OnFlipBody;
     }
 
+    [ServerRpc(RequireOwnership = false)]
     public void HelpFlipBody(bool value)
     {
-        if (IsOwner)
+        if (!IsOwner)
         {
-            _flip.Value = value;
+            return;
         }
+
+        HelpFlipBodyServerRPC(value);
     }
 
     private void FlipBody()
@@ -36,5 +39,11 @@ public class PlayerOnlineHelper : NetworkBehaviour
         {
             FlipBody();
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void HelpFlipBodyServerRPC(bool value)
+    {
+        _flip.Value = value;
     }
 }
