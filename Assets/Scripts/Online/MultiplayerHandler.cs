@@ -102,6 +102,7 @@ public class MultiplayerHandler : NetworkBehaviour
             NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
 
             IsInServerInitialized = true;
+            ServerOwner = true;
             return _joinCode;
         }
         catch (RelayServiceException ex)
@@ -134,6 +135,7 @@ public class MultiplayerHandler : NetworkBehaviour
 
             IsInServerInitialized = true;
             _joinCode = joinCode;
+            ServerOwner = false;
         }
         catch (RelayServiceException ex)
         {
@@ -220,7 +222,6 @@ public class MultiplayerHandler : NetworkBehaviour
                     }
                     StartMultiplayer();
                     _gameManager.IsOnline = true;
-                    ServerOwner = NetworkManager.Singleton.IsHost;
                     break;
                 }
         }
