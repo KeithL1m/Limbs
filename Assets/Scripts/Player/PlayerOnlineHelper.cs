@@ -40,7 +40,7 @@ public class PlayerOnlineHelper : NetworkBehaviour
         }
     }
 
-    [ServerRpc(RequireOwnership = false)]
+    [ServerRpc(RequireOwnership = true)]
     public void HelpFlipBodyServerRpc(bool value)
     {
         _flip.Value = value;
