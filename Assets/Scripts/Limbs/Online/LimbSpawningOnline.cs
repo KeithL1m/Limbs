@@ -8,8 +8,8 @@ public class LimbSpawningOnline : NetworkBehaviour
     private GameLoader _loader;
     private GameManager _gm;
 
-    [SerializeField] private Transform _leftLimit;
-    [SerializeField] private Transform _rightLimit;
+    private Transform _leftLimit;
+    private Transform _rightLimit;
 
     private float _left;
     private float _right;
@@ -19,14 +19,14 @@ public class LimbSpawningOnline : NetworkBehaviour
     [Header("Customizable")]
     [SerializeField] private List<GameObject> _limbOptions;
 
-    [SerializeField] private int _limbLimit;
-    [SerializeField] private int _startLimbCount;
+    private int _limbLimit;
+    private int _startLimbCount;
 
-    [SerializeField] private double _minSpawnTimer;
-    [SerializeField] private double _maxSpawnTimer;
-    [SerializeField] private float _specialSpawnerMultipler = 5;
+    private double _minSpawnTimer;
+    private double _maxSpawnTimer;
+    private float _specialSpawnerMultipler = 5;
 
-    [SerializeField] private float _maxAngularVelocity;
+    private float _maxAngularVelocity;
 
     private int _currentLimbs;
     private float _limbTimer;
@@ -34,7 +34,7 @@ public class LimbSpawningOnline : NetworkBehaviour
     private float _spawnPosX;
     private float _spawnPosY;
 
-    [SerializeField] private bool _specialSpawner;
+    private bool _specialSpawner;
 
     private static System.Random rnd = new System.Random();
     private bool _initialized = false;
@@ -49,6 +49,7 @@ public class LimbSpawningOnline : NetworkBehaviour
     {
         _limbManager = ServiceLocator.Get<LimbManager>();
 
+        SetLimbOptions();
         _limbManager.Initialize();
         ChangeLimbOptions();
         UpdateTimer();
@@ -93,6 +94,14 @@ public class LimbSpawningOnline : NetworkBehaviour
             SpawnLimbRandomServerRpc();
             double time = rnd.NextDouble() * (_maxSpawnTimer - _minSpawnTimer) + _minSpawnTimer;
             _limbTimer = (float)time;
+        }
+    }
+
+    private void OnDisable()
+    {
+        foreach (var limb in _limbOptions)
+        {
+            NetworkManager.Singleton.RemoveNetworkPrefab(limb);
         }
     }
 
@@ -158,27 +167,11 @@ public class LimbSpawningOnline : NetworkBehaviour
         _rightLimit = rightLimit;
     }
 
-    public void SetLimbOptions(List<GameObject> limbOptions)
+    public void SetLimbOptions()
     {
-        _limbOptions = limbOptions;
         foreach (var limb in _limbOptions)
         {
-            limb.AddComponent<NetworkObject>();
-            var clientTransfrom = limb.AddComponent<ClientNetworkTransform>();
-            clientTransfrom.SyncPositionX = true;
-            clientTransfrom.SyncPositionY = true;
-            clientTransfrom.SyncPositionZ = false;
-
-            clientTransfrom.SyncRotAngleX = false;
-            clientTransfrom.SyncRotAngleY = false;
-            clientTransfrom.SyncRotAngleZ = true;
-
-            clientTransfrom.SyncScaleX = false;
-            clientTransfrom.SyncScaleY = false;
-            clientTransfrom.SyncScaleZ = false;
-
-            var instance = NetworkManager.Singleton;
-            instance.AddNetworkPrefab(limb);
+            NetworkManager.Singleton.AddNetworkPrefab(limb);
         }
     }
 
