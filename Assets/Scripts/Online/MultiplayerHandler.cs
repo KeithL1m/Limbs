@@ -224,6 +224,16 @@ public class MultiplayerHandler : NetworkBehaviour
                     _gameManager.IsOnline = true;
                     break;
                 }
+                //Testing online level
+            case "OnlineLevelTest":
+                {
+                    if (!_networkManager)
+                    {
+                        _networkManager = Instantiate(_networkManagerPrefab);
+                        DontDestroyOnLoad(_networkManager);
+                    }
+                    break;
+                }
         }
     }
 
