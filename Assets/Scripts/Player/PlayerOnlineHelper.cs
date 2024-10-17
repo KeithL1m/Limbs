@@ -8,7 +8,7 @@ public class PlayerOnlineHelper : NetworkBehaviour
     [SerializeField] private SpriteRenderer _bodySprite;
     [SerializeField] private SpriteRenderer _headSprite;
 
-    private NetworkVariable<bool> _flip = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    private NetworkVariable<bool> _flip = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     private void Start()
     {
@@ -22,7 +22,7 @@ public class PlayerOnlineHelper : NetworkBehaviour
             return;
         }
 
-        HelpFlipBodyServerRpc(value);
+        _flip.Value = value;
     }
 
     private void FlipBody()
