@@ -48,14 +48,16 @@ public class LimbSpawning : MonoBehaviour
         {
             if(_gm.IsHost())
             {
-                var obj = Instantiate(_limbSpawningOnlineGameObj);
-                var spawner = obj.GetComponent<LimbSpawningOnline>();
+                var spawner = _limbSpawningOnlineGameObj.GetComponent<LimbSpawningOnline>();
                 spawner.SetLimits(_leftLimit, _rightLimit);
-                spawner.SetLimbOptions(_limbOptions);
                 spawner.SetSpecs(_limbLimit, _startLimbCount, _minSpawnTimer, _maxSpawnTimer, _specialSpawnerMultipler, _maxAngularVelocity, _specialSpawner);
             }
             Destroy(gameObject);
             return;
+        }
+        else
+        {
+            Destroy(_limbSpawningOnlineGameObj);
         }
         _loader = ServiceLocator.Get<GameLoader>();
         _loader.CallOnComplete(Initialize);
