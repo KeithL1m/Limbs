@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class PlayerOnlineHelper : NetworkBehaviour
 {
-    [SerializeField] private SpriteRenderer _bodySprite;
-    [SerializeField] private SpriteRenderer _headSprite;
+    [SerializeField] private Player _player;
 
     private NetworkVariable<bool> _flip = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
@@ -28,11 +27,7 @@ public class PlayerOnlineHelper : NetworkBehaviour
 
     private void OnFlipBody(bool oldValue, bool newValue)
     {
-        if (!IsOwner)
-        {
-            _bodySprite.flipX = newValue;
-            _headSprite.flipX = newValue;
-        }
+        _player.FlipSprite(newValue);
     }
 
     [ServerRpc(RequireOwnership = true)]

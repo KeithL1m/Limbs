@@ -191,12 +191,15 @@ public class Player : MonoBehaviour
 
         bool flip = aimResults.Item2;
         //Send this data to other players
-        _playerHead.flipX = flip;
-        _playerBody.flipX = flip;
 
         if (_isOnline)
         {
             _onlineHelper.HelpFlipBody(flip);
+        }
+        else
+        {
+            _playerHead.flipX = flip;
+            _playerBody.flipX = flip;
         }
         
 
@@ -341,4 +344,9 @@ public class Player : MonoBehaviour
         return _rb.gravityScale;
     }
 
+    public void FlipSprite(bool value)
+    {
+        _playerBody.flipX = value;
+        _playerHead.flipY = value;
+    }
 }
