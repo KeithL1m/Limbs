@@ -177,7 +177,8 @@ public class LimbSpawningOnline : NetworkBehaviour
             clientTransfrom.SyncScaleY = false;
             clientTransfrom.SyncScaleZ = false;
 
-            NetworkManager.Singleton.AddNetworkPrefab(limb);
+            var instance = NetworkManager.Singleton;
+            instance.AddNetworkPrefab(limb);
         }
     }
 
