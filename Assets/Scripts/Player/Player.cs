@@ -347,6 +347,6 @@ public class Player : MonoBehaviour
     public void FlipSprite(bool value)
     {
         _playerBody.flipX = value;
-        _playerHead.flipY = value;
+        _playerHead.flipX = value;
     }
 }
