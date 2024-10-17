@@ -25,18 +25,13 @@ public class PlayerOnlineHelper : NetworkBehaviour
         _flip.Value = value;
     }
 
-    private void FlipBody()
-    {
-        _bodySprite.flipX = _flip.Value;
-        _headSprite.flipX = _flip.Value;
-    }
-
 
     private void OnFlipBody(bool oldValue, bool newValue)
     {
         if (!IsOwner)
         {
-            FlipBody();
+            _bodySprite.flipX = newValue;
+            _headSprite.flipX = newValue;
         }
     }
 
